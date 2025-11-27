@@ -33,8 +33,8 @@ const HomePageQr = () => {
                     </div>
                     <div className={styles.bottomBlock}>
                         <div className={styles.btns}>
-                            <Button onClick={() => navigate("/steps")}>Start test</Button>
-                            <ButtonReverse>How it works</ButtonReverse>
+                            <Button>Start test</Button>
+                            <ButtonReverse onClick={() => navigate("/steps")}>How it works</ButtonReverse>
                         </div>
                         <div className={styles.bottomText}>
                             <p>

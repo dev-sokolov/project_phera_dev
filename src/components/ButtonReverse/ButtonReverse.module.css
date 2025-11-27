@@ -12,7 +12,7 @@
     background-color: transparent;
     color: var(--main-color);
     border: 1px solid var(--main-color);
-    transition: background-color 0.2s;
+    /* transition: background-color 0.2s; */
     /* font-family: "Open Sans", sans-serif; */
     font-family: "Inter", sans-serif;
     /* font-family: 'Cooper Hewitt', sans-serif; */
@@ -20,7 +20,10 @@
 
 .btn:hover {
     /* background-color: hsl(193deg 100% 12% / 90%); */
-    border: none;
+    /* border: none;
     color: #FFFFFF;
-    background-color: var(--main-color);
+    background-color: var(--main-color); */
+    background-color: transparent;
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
 }
