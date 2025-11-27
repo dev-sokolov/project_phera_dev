@@ -1,5 +1,9 @@
 .wrapper {
-    min-height: 100vh;
+    /* min-height: 100vh;
+    overflow-y: auto; */
+        min-height: 100vh; /* минимум экран */
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
 }
 
@@ -18,9 +22,10 @@
 
 .content {
     background-color: var(--main-background-color);
-    min-height: 100vh;
+    /* min-height: 100vh; */
     display: flex;
     flex-direction: column;
+      flex: 1;
 }
 
 .img {
@@ -57,7 +62,7 @@
 }
 
 .bottomBlock {
-    margin-top: auto;
+    /* margin-top: auto; */
     display: flex;
     flex-direction: column;
     gap: 10px;
