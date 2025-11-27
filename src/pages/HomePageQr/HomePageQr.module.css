@@ -1,0 +1,73 @@
+.wrapLogologo {
+    margin: 21px;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    width: 61px;
+    height: 23px;
+}
+
+.content {
+    background-color: var(--main-background-color);
+    border-top: 1px solid var(--main-background-color-border);
+    height: 100vh;
+}
+
+.img {
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 29px;
+}
+
+
+.img img {
+    width: 100%;
+    height: auto;
+    max-height: 285px;
+    object-fit: contain;
+}
+
+.textBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.welcome {
+    font-size: 12px;
+    color: var(--main-color);
+    /* font-family: "Open Sans", sans-serif; */
+    text-transform: uppercase;
+}
+
+.heading {
+    font-size: 22px;
+    font-weight: 711;
+    color: var(--main-color);
+    /* line-height: 100%; */
+}
+
+.btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bottomText {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.bottomText p {
+    font-size: 13px;
+    line-height: 18px;
+    color: #717680;
+    text-align: center;
+    width: 276px;
+}

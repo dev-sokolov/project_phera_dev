@@ -1,0 +1,111 @@
+/* --- Open Sans (Google Fonts) --- */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+/* --- Inter (Google Fonts) --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* --- Cooper Hewitt (local from: public/fonts) --- */
+
+/* Thin (100) */
+/* @font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-ThinItalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+} */
+
+/* Light (300) */
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Book (400 normal) */
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-BookItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Medium (500) */
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Semibold (600) */
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-SemiboldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Bold (700) */
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Heavy (900) */
+/* @font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-Heavy.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cooper Hewitt';
+  src: url('/fonts/CooperHewitt-HeavyItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+} */
