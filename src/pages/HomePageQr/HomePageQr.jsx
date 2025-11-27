@@ -33,17 +33,19 @@ const HomePageQr = () => {
                                 We’ll guide you step by step and scan
                                 your result automatically.</p>
                         </div>
-                        <div className={styles.btns}>
-                            <Button onClick={() => navigate("/steps")}>Start test</Button>
-                            <ButtonReverse>How it works</ButtonReverse>
-                        </div>
-                        <div className={styles.bottomText}>
-                            <p>
-                                We respect your privacy — your results stay secure and visible only to you.
-                            </p>
-                        </div>
-                        <div className={styles.wrapLine}>
-                            <div className={styles.line}></div>
+                        <div className={styles.bottomBlock}>
+                            <div className={styles.btns}>
+                                <Button onClick={() => navigate("/steps")}>Start test</Button>
+                                <ButtonReverse>How it works</ButtonReverse>
+                            </div>
+                            <div className={styles.bottomText}>
+                                <p>
+                                    We respect your privacy — your results stay secure and visible only to you.
+                                </p>
+                            </div>
+                            <div className={styles.wrapLine}>
+                                <div className={styles.line}></div>
+                            </div>
                         </div>
                     </Container>
                 </div>
