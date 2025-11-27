@@ -33,3 +33,7 @@
     color: inherit !important;
     border: inherit !important;
 }
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
