@@ -36,7 +36,6 @@ const HomePageQr = () => {
                             <div className={styles.btns}>
                                 <Button onClick={(e) => {
                                     navigate("/steps");
-                                    // e.currentTarget.blur();
                                 }}>Start test</Button>
                                 <ButtonReverse>How it works</ButtonReverse>
                             </div>

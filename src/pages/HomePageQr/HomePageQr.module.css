@@ -41,7 +41,6 @@
 .welcome {
     font-size: 12px;
     color: var(--main-color);
-    /* font-family: "Open Sans", sans-serif; */
     text-transform: uppercase;
 }
 
