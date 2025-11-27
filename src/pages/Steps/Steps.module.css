@@ -13,7 +13,7 @@
 
 .content {
     background-color: var(--main-background-color);
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
 }
@@ -56,7 +56,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* margin-bottom: 21px; */
 }
 
 .wrapLine {

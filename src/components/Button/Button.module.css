@@ -1,5 +1,4 @@
 .btn {
-    /* padding: 8px 16px; */
     padding-top: 11.5px;
     padding-bottom: 11.5px;
     width: 100%;
@@ -17,43 +16,9 @@
     /* font-family: 'Cooper Hewitt', sans-serif; */
 }
 
-/* .btn:hover {
-    background-color: transparent;
-    border: 1px solid var(--main-color);
-    color: var(--main-color);
-} */
-
 .btn:hover {
     background-color: var(--main-color);
     color: #fff;
     border: none;
 }
 
-/* .btn:active {
-    pointer-events: none;
-} */
-
-/* .btn:active {
-    background-color: inherit !important;
-    color: inherit !important;
-    border: inherit !important;
-}
-
-button {
-    -webkit-tap-highlight-color: transparent;
-}
-
-.no-active,
-.no-active:active {
-    background-color: var(--main-color) !important;
-    color: #fff !important;
-    border: none !important;
-}
-
-@media (hover: none) {
-    .btn:hover {
-        background-color: var(--main-color) !important;
-        color: #fff !important;
-        border: none !important;
-    }
-} */
