@@ -22,18 +22,16 @@ const HomePageQr = () => {
                         </div>
                     </div>
                     <Container>
-                        <div className={styles.topBlock}>
-                            <div className={styles.img}>
-                                <img src={homeQr} alt="home page img" />
-                            </div>
-                            <div className={styles.textBlock}>
-                                <p className={styles.welcome}>Welcome to pHera</p>
-                                <h2 className={styles.heading}>Simple, guided, and private —
-                                    right from your phone.</h2>
-                                <p className={styles.text}>Have your pHera test box and strip ready.
-                                    We’ll guide you step by step and scan
-                                    your result automatically.</p>
-                            </div>
+                        <div className={styles.img}>
+                            <img src={homeQr} alt="home page img" />
+                        </div>
+                        <div className={styles.textBlock}>
+                            <p className={styles.welcome}>Welcome to pHera</p>
+                            <h2 className={styles.heading}>Simple, guided, and private —
+                                right from your phone.</h2>
+                            <p className={styles.text}>Have your pHera test box and strip ready.
+                                We’ll guide you step by step and scan
+                                your result automatically.</p>
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.btns}>
