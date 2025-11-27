@@ -1,7 +1,9 @@
-.wrapLogologo {
-    margin: 21px;
+.wrapLogo {
+    padding: 21px;
     display: flex;
     justify-content: center;
+      border-bottom: 1px solid var(--main-background-color-border);
+      background-color: #FFFFFF;
 }
 
 .logo {
@@ -11,16 +13,16 @@
 
 .content {
     background-color: var(--main-background-color);
-    border-top: 1px solid var(--main-background-color-border);
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .img {
     width: 100%;
-    margin-top: 12px;
-    margin-bottom: 29px;
+    padding-top: 12px;
+    padding-bottom: 29px;
 }
-
 
 .img img {
     width: 100%;
@@ -34,7 +36,6 @@
     flex-direction: column;
     gap: 10px;
     text-align: center;
-    margin-bottom: 55px;
 }
 
 .welcome {
@@ -48,20 +49,20 @@
     font-size: 22px;
     font-weight: 711;
     color: var(--main-color);
-    /* line-height: 100%; */
 }
 
 .btns {
     display: flex;
     flex-direction: column;
     gap: 10px;
+      margin-top: auto;
 }
 
 .bottomText {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    padding-top: 10px;
 }
 
 .bottomText p {
@@ -70,4 +71,18 @@
     color: #717680;
     text-align: center;
     width: 276px;
+}
+
+.wrapLine {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 8px;
+    padding-top: 33px;
+}
+
+.line {
+    width: 134px;
+    height: 5px;
+    background-color: #000000;
+    border-radius: 100px;
 }

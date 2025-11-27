@@ -18,5 +18,8 @@
 }
 
 .btn:hover {
-    background-color: hsl(193deg 100% 12% / 90%);
+    /* background-color: hsl(193deg 100% 12% / 90%); */
+    background-color: transparent;
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
 }

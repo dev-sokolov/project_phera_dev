@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container"
@@ -8,16 +10,17 @@ import Logo from "../../assets/Logo";
 import styles from "./HomePageQr.module.css";
 
 const HomePageQr = () => {
+    const navigate = useNavigate();
+
     return (
         <>
             <div className={styles.wrapper}>
-
-                <div className={styles.wrapLogologo}>
-                    <div className={styles.logo}>
-                        <Logo />
-                    </div>
-                </div>
                 <div className={styles.content}>
+                    <div className={styles.wrapLogo}>
+                        <div className={styles.logo}>
+                            <Logo />
+                        </div>
+                    </div>
                     <Container>
                         <div className={styles.img}>
                             <img src={homeQr} alt="home page img" />
@@ -31,7 +34,7 @@ const HomePageQr = () => {
                                 your result automatically.</p>
                         </div>
                         <div className={styles.btns}>
-                            <Button>Start test</Button>
+                            <Button onClick={() => navigate("/steps")}>Start test</Button>
                             <ButtonReverse>How it works</ButtonReverse>
                         </div>
                         <div className={styles.bottomText}>
@@ -39,10 +42,11 @@ const HomePageQr = () => {
                                 We respect your privacy — your results stay secure and visible only to you.
                             </p>
                         </div>
+                        <div className={styles.wrapLine}>
+                            <div className={styles.line}></div>
+                        </div>
                     </Container>
                 </div>
-
-
             </div>
         </>
     )

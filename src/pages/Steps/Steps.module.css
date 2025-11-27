@@ -1,0 +1,54 @@
+.wrapLogo {
+    margin: 21px;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    width: 61px;
+    height: 23px;
+}
+
+.content {
+    background-color: var(--main-background-color);
+    border-top: 1px solid var(--main-background-color-border);
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.containerInner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.textBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 26px;
+    margin-top: 60px;
+}
+
+.heading {
+    font-size: 24px;
+    font-weight: 711;
+    color: var(--main-color);
+}
+
+.btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+    margin-bottom: 21px;
+}
+
+.skip {
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+    color: var(--main-color);
+}
