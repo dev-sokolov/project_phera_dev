@@ -30,9 +30,11 @@ const Steps5 = () => {
                         </div>
                         <div className={styles.img}><img src={step5} alt="step 5" /></div>
                         <div className={styles.textBlock}>
-                            <div className={styles.step}>Step 1</div>
-                            <h2 className={styles.heading}>Open your test strip</h2>
-                            <p className={styles.text}>Open your pHera box, take one strip, and remove the foil right before testing. Hold it by the white handle only, to keep the test area clean and dry.</p>
+                            <div className={styles.step}>Step 5</div>
+                            <h2 className={styles.heading}>See your result</h2>
+                            <p className={styles.text}>Your pH result will appear within seconds, along with a clear explanation of what it means for you. Remember, this is an indicator of balance, not a diagnosis — we’ll guide you through the next steps.</p>
+
+                            <p className={styles.textItalic}>Next, we’ll take you to a quick scan of your test strip.</p>
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.btns}>

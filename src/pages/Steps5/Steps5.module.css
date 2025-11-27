@@ -78,6 +78,16 @@
     margin-bottom: 2px;
 }
 
+.text {
+    line-height: 1.3;
+}
+
+.textItalic {
+    font-style: italic;
+    margin-top: 22px;
+    line-height: 1.3;
+}
+
 .bottomBlock {
     margin-top: auto;
     display: flex;

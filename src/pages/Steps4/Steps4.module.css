@@ -78,6 +78,10 @@
     margin-bottom: 2px;
 }
 
+.text {
+    line-height: 1.3;
+}
+
 .bottomBlock {
     margin-top: auto;
     display: flex;
