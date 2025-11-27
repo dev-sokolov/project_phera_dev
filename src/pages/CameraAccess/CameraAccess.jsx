@@ -1,11 +1,48 @@
+import { useNavigate } from "react-router-dom";
+
+import Button from "../../components/Button/Button";
+import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
+import Container from "../../components/Container/Container";
+import Logo from "../../assets/Logo";
+import CameraAccessImg from "../../assets/CameraAccessImg";
+
 import styles from "./CameraAccess.module.css";
 
 const CameraAccess = () => {
+    const navigate = useNavigate();
+
     return (
         <>
-        CameraAccess
+            <div className={styles.content}>
+                <div className={styles.wrapLogo}>
+                    <div className={styles.logo}>
+                        <Logo />
+                    </div>
+                </div>
+                <Container>
+                    <div className={styles.containerInner}>
+                        <div className={styles.img}><CameraAccessImg /></div>
+                        <div className={styles.textBlock}>
+                            <div className={styles.step}>Step 5</div>
+                            <h2 className={styles.heading}>See your result</h2>
+                            <p className={styles.text}>Your pH result will appear within seconds, along with a clear explanation of what it means for you. Remember, this is an indicator of balance, not a diagnosis — we’ll guide you through the next steps.</p>
+
+                            <p className={styles.textItalic}>Next, we’ll take you to a quick scan of your test strip.</p>
+                        </div>
+                        <div className={styles.bottomBlock}>
+                            <div className={styles.btns}>
+                                <Button onClick={() => navigate("/steps/5")}>Next</Button>
+                                <ButtonReverse onClick={() => navigate("/steps/4")}>Go back</ButtonReverse>
+                            </div>
+                            <div className={styles.wrapLine}>
+                                <div className={styles.line}></div>
+                            </div>
+                        </div>
+                    </div>
+                </Container>
+            </div>
         </>
     )
 };
 
-export default CameraAccess
+export default CameraAccess;
