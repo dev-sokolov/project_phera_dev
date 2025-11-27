@@ -14,7 +14,7 @@
     transition: background-color 0.2s;
     /* font-family: "Open Sans", sans-serif; */
     font-family: "Inter", sans-serif;
-   /* font-family: 'Cooper Hewitt', sans-serif; */
+    /* font-family: 'Cooper Hewitt', sans-serif; */
 }
 
 .btn:hover {
@@ -43,4 +43,12 @@ button {
     background-color: var(--main-color) !important;
     color: #fff !important;
     border: none !important;
+}
+
+@media (hover: none) {
+    .btn:hover {
+        background-color: var(--main-color) !important;
+        color: #fff !important;
+        border: none !important;
+    }
 }
