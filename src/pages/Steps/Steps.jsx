@@ -8,6 +8,8 @@ import Logo from "../../assets/Logo";
 import styles from "./Steps.module.css";
 
 const Steps = () => {
+    const navigate = useNavigate();
+
     return (
         <>
             <div className={styles.content}>
@@ -25,8 +27,8 @@ const Steps = () => {
                         <Link to="/camera-access" className={styles.skip}>Skip steps</Link>
                         <div className={styles.bottomBlock}>
                             <div className={styles.btns}>
-                                <Button onClick={() => navigate("/steps")}>Start test</Button>
-                                <ButtonReverse>How it works</ButtonReverse>
+                                <Button onClick={() => navigate("/steps/1")}>Next</Button>
+                                <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
                             </div>
                             <div className={styles.wrapLine}>
                                 <div className={styles.line}></div>
