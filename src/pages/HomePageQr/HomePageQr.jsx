@@ -2,8 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
-import Container from "../../components/Container/Container"
-
+import Container from "../../components/Container/Container";
 import homeQr from "../../assets/images/homeQr.webp";
 import Logo from "../../assets/Logo";
 
@@ -14,7 +13,7 @@ const HomePageQr = () => {
 
     return (
         <>
-            <div className={styles.wrapper}>
+            {/* <div className={styles.wrapper}> */}
                 <div className={styles.content}>
                     <div className={styles.wrapLogo}>
                         <div className={styles.logo}>
@@ -37,7 +36,7 @@ const HomePageQr = () => {
                             <div className={styles.btns}>
                                 <Button onClick={(e) => {
                                     navigate("/steps");
-                                    e.currentTarget.blur();
+                                    // e.currentTarget.blur();
                                 }}>Start test</Button>
                                 <ButtonReverse>How it works</ButtonReverse>
                             </div>
@@ -52,7 +51,7 @@ const HomePageQr = () => {
                         </div>
                     </Container>
                 </div>
-            </div>
+            {/* </div> */}
         </>
     )
 };
