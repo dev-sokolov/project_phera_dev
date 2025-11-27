@@ -53,11 +53,9 @@
 
 .bottomBlock {
     margin-top: auto;
-    /* прижимает весь блок к низу */
     display: flex;
     flex-direction: column;
-    /* gap: 10px; */
-    /* промежутки между кнопками, текстом и линией */
+    gap: 10px;
 }
 
 .btns {
@@ -71,7 +69,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 10px;
 }
 
 .bottomText p {
@@ -86,7 +83,7 @@
     display: flex;
     justify-content: center;
     padding-bottom: 8px;
-    padding-top: 33px;
+    padding-top: 23px;
 }
 
 .line {
