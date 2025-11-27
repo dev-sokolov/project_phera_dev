@@ -37,3 +37,10 @@
 button {
     -webkit-tap-highlight-color: transparent;
 }
+
+.no-active,
+.no-active:active {
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+    border: none !important;
+}
