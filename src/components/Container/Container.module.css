@@ -10,8 +10,8 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    /* justify-content: flex-start; */
-    justify-content: space-between;
-    /* верхний контент сверху, нижний — снизу */
-    gap: 0;
+    /* justify-content: space-between;
+    gap: 0; */
+    min-height: 0; /* важно для корректной работы flex */
+
 }
