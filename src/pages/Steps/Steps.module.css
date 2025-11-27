@@ -56,14 +56,14 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 21px;
+    /* margin-bottom: 21px; */
 }
 
 .wrapLine {
     display: flex;
     justify-content: center;
     padding-bottom: 8px;
-    padding-top: 23px;
+    padding-top: 11px;
 }
 
 .line {
