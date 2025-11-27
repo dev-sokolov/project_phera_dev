@@ -23,3 +23,7 @@
     border: 1px solid var(--main-color);
     color: var(--main-color);
 }
+
+.btn:active {
+    pointer-events: none;
+}
