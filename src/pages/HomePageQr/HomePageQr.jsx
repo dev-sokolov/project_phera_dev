@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import homeQr from "../../assets/images/homeQr.webp";
+import homeQr from "../../assets/images/homeQr.jpg";
 import Logo from "../../assets/Logo";
 
 import styles from "./HomePageQr.module.css";

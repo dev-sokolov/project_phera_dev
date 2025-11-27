@@ -4,11 +4,11 @@ import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import Logo from "../../assets/Logo";
-import step1 from "../../assets/images/step1.jpg";
+import step3 from "../../assets/images/step3.jpg";
 
-import styles from "./Steps1.module.css";
+import styles from "./Steps3.module.css";
 
-const Steps1 = () => {
+const Steps3 = () => {
     const navigate = useNavigate();
 
     return (
@@ -23,21 +23,21 @@ const Steps1 = () => {
                     <div className={styles.containerInner}>
                         <div className={styles.crumbs}>
                             <Link to="/steps/1" className={styles.itemColored}></Link>
-                            <Link to="/steps/2" className={styles.item}></Link>
-                            <Link to="/steps/3" className={styles.item}></Link>
+                            <Link to="/steps/2" className={styles.itemColored}></Link>
+                            <Link to="/steps/3" className={styles.itemColored}></Link>
                             <Link to="/steps/4" className={styles.item}></Link>
                             <Link to="/steps/5" className={styles.item}></Link>
                         </div>
-                        <div className={styles.img}><img src={step1} alt="step 1" /></div>
+                        <div className={styles.img}><img src={step3} alt="step 3" /></div>
                         <div className={styles.textBlock}>
-                            <div className={styles.step}>Step 1</div>
-                            <h2 className={styles.heading}>Open your test strip</h2>
-                            <p className={styles.text}>Open your pHera box, take one strip, and remove the foil right before testing. Hold it by the white handle only, to keep the test area clean and dry.</p>
+                            <div className={styles.step}>Step 3</div>
+                            <h2 className={styles.heading}>Let the strip settle</h2>
+                            <p className={styles.text}>Leave it for about a minute so the color can develop fully. When you’re ready, pHera will guide you to scan your strip.</p>
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.btns}>
-                                <Button onClick={() => navigate("/steps/2")}>Next</Button>
-                                <ButtonReverse onClick={() => navigate("/steps")}>Go back</ButtonReverse>
+                                <Button onClick={() => navigate("/steps/4")}>Next</Button>
+                                <ButtonReverse onClick={() => navigate("/steps/2")}>Go back</ButtonReverse>
                             </div>
                             <div className={styles.wrapLine}>
                                 <div className={styles.line}></div>
@@ -50,4 +50,4 @@ const Steps1 = () => {
     )
 };
 
-export default Steps1;
+export default Steps3;
