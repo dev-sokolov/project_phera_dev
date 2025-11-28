@@ -121,62 +121,6 @@
 }
 
 /* ------------------ Рамка фокуса ------------------ */
-.viewfinder {
-    position: absolute;
-    top: 46%;
-    left: 50%;
-    width: 80vw;
-    height: 60vh;
-    transform: translate(-50%, -50%);
-    border-radius: 20px;
-    background: transparent;
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.2);
-    z-index: 3;
-    transition: box-shadow 0.35s ease, transform 0.35s ease;
-    transform-origin: center;
-}
-
-/* SVG-оверлей занимает всю область viewfinder (абсолютно позиционируется внутри cameraContainer) */
-.overlaySvg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    /* выше видео, но ниже контролов, если контролы имеют >3 */
-    pointer-events: none;
-}
-
-/* тёмная заливка для всей области (фон) — более тёмная */
-.overlayRect {
-    fill: rgba(0, 0, 0, 0.6);
-    /* основной тёмный фон */
-}
-
-/* "окно" — внутри него затемнение светлее, чем у фоновой прямоугольной заливки */
-/* также белая обводка 5px */
-.overlayHole {
-    fill: rgba(0, 0, 0, 0.18);
-    /* светлое затемнение внутри окна (меньшая непрозрачность) */
-    stroke: #ffffff;
-    stroke-width: 5;
-    stroke-linejoin: round;
-    vector-effect: non-scaling-stroke;
-    /* чтобы ширина линии оставалась 5px при масштабировании */
-}
-
-/* состояние when detected (опционально — подсветка, трансформация и т.д.) */
-.focused .overlayHole {
-    /* например, подсветка белой рамки сильнее */
-    stroke: #ffffff;
-    /* можно добавить небольшой эффект (необязательно) */
-    transform-origin: center;
-    transition: transform 0.25s ease, fill 0.2s ease;
-    /* transform: scale(1.02); */
-}
-
-
 .overlay {
     /* position: absolute;
     inset: 0;
@@ -196,10 +140,6 @@
     pointer-events: none;
     z-index: 5;
     margin-bottom: 31px;
-}
-
-.overlayShape {
-    /* z-index: 10; */
 }
 
 .thermoMask {
