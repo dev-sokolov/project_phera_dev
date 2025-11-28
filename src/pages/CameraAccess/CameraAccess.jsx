@@ -21,17 +21,23 @@ const CameraAccess = () => {
                 </div>
                 <Container>
                     <div className={styles.containerInner}>
-                        <div className={styles.img}><CameraAccessImg /></div>
+                        <div className={styles.wrapImg}>
+                            <div className={styles.innerImg}>
+                                <div className={styles.img}>
+                                    <CameraAccessImg />
+                                </div>
+                            </div>
+                        </div>
                         <div className={styles.textBlock}>
-                            <div className={styles.step}>Step 5</div>
-                            <h2 className={styles.heading}>See your result</h2>
-                            <p className={styles.text}>Your pH result will appear within seconds, along with a clear explanation of what it means for you. Remember, this is an indicator of balance, not a diagnosis — we’ll guide you through the next steps.</p>
-
-                            <p className={styles.textItalic}>Next, we’ll take you to a quick scan of your test strip.</p>
+                            <h2 className={styles.heading}>Allow camera <br /> to scan your strip</h2>
+                            <p className={styles.text}>We’ll use your camera for a moment to read the color on your test strip. The scan is done automatically and stays private.</p>
                         </div>
                         <div className={styles.bottomBlock}>
+                            <div className={styles.wrapBottomText}>
+                                <p className={styles.bottomText}>Your privacy is protected at every step. Frames are processed in memory and automatically discarded after scanning.</p>
+                            </div>
                             <div className={styles.btns}>
-                                <Button onClick={() => navigate("/steps/5")}>Next</Button>
+                                <Button onClick={() => navigate("/steps/5")}>Allow camera</Button>
                                 <ButtonReverse onClick={() => navigate("/steps/4")}>Go back</ButtonReverse>
                             </div>
                             <div className={styles.wrapLine}>
