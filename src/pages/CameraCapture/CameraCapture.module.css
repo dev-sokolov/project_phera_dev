@@ -104,11 +104,11 @@
     flex-direction: column;
     align-items: center;
     /* gap: 31px; */
-    gap: 15px;
+    gap: 17px;
     pointer-events: none;
     z-index: 5;
     /* margin-top: 31px; */
-    margin-top: 15px;
+    margin-top: 17px;
 }
 
 .btn {
