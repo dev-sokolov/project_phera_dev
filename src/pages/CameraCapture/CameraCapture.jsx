@@ -64,6 +64,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
                     <div className={styles.cameraBlock}>
                         <div className={styles.cameraContainer}>
                             <div className={styles.overlay}>
+                                <button className={styles.btn}>Move closer</button>
                                 <img src={whiteFrame} alt="whiteFrame" />
                             </div>
                             <Webcam
@@ -82,9 +83,9 @@ const CameraCapture = ({ onCapture, onExit }) => {
                             <div className={styles.wrapExitBtn}>
                                 <button className={styles.exitBtn} onClick={handleExit} aria-label="Exit">X</button>
                             </div>
-                            <div className={styles.wrapMoveCloser}>
+                            {/* <div className={styles.wrapMoveCloser}>
                                 <button className={styles.btn}>Move closer</button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className={styles.bottomBlock}>
