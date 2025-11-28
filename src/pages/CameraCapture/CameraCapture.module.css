@@ -37,37 +37,6 @@
     overflow: hidden;
 }
 
-.bottomBlock {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    /* gap: 20px; */
-}
-
-.text {
-    font-size: 20px;
-    color: var(--main-color);
-    line-height: 1.2;
-    max-width: 299px;
-    text-align: center;
-}
-
-.wrapLine {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 8px;
-    padding-top: 21px;
-}
-
-.line {
-    width: 134px;
-    height: 5px;
-    background-color: #000000;
-    border-radius: 100px;
-}
-
-/* --------------------------------------------------------------------- */
-
 .cameraContainer {
     position: relative;
     width: 100%;
@@ -150,5 +119,34 @@
     /* background-color: #FFFFFF; */
     background: #ffffffcd;;
     border: none;
+    border-radius: 100px;
+}
+
+.bottomBlock {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    /* gap: 20px; */
+}
+
+.text {
+    font-size: 20px;
+    color: var(--main-color);
+    line-height: 1.2;
+    max-width: 299px;
+    text-align: center;
+}
+
+.wrapLine {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 8px;
+    padding-top: 11px;
+}
+
+.line {
+    width: 134px;
+    height: 5px;
+    background-color: #000000;
     border-radius: 100px;
 }
