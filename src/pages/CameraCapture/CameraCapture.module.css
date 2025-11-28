@@ -1,3 +1,5 @@
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
 /* .content {
     background-color: var(--main-background-color);
     height: 100dvh;
@@ -50,30 +52,21 @@
     height: 100%;
 } */
 
-/* .containerInner {
+.containerInner {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     flex-grow: 1;
-} */
+}
 
-/* .containerInner {
+.containerInner {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     flex-grow: 1;      
     overflow: hidden;   
-} */
-
-.containerInner {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    flex-grow: 1;
-    overflow: hidden;
-    flex-shrink: 0;
 }
 
 
@@ -96,43 +89,15 @@
     display: flex;
 } */
 
-/* .cameraBlock {
+.cameraBlock {
     width: 100%;
     flex-grow: 1;
     display: flex;
     overflow: hidden; 
-} */
-
-.cameraBlock {
-    width: 100%;
-    flex-grow: 1;
-    flex-shrink: 1;   
-    overflow: hidden;
-    display: flex;
 }
 
-/* .bottomBlock {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-} */
-
-/* .bottomBlock {
-    margin-top: auto;         
-    padding-bottom: env(safe-area-inset-bottom, 20px);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background-color: var(--main-background-color);
-} */
-
 .bottomBlock {
-    flex-shrink: 0; 
-    padding-bottom: env(safe-area-inset-bottom, 16px);
-    background-color: var(--main-background-color);
-
-    margin-top: 0;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
