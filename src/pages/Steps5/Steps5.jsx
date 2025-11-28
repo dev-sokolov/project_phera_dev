@@ -38,7 +38,7 @@ const Steps5 = () => {
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.btns}>
-                                <Button onClick={() => navigate("/steps/5")}>Next</Button>
+                                <Button onClick={() => navigate("/camera-access")}>Next</Button>
                                 <ButtonReverse onClick={() => navigate("/steps/4")}>Go back</ButtonReverse>
                             </div>
                             <div className={styles.wrapLine}>
