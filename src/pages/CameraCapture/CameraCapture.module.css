@@ -1,0 +1,223 @@
+.content {
+    background-color: var(--main-background-color);
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapLogo {
+    padding: 21px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--main-background-color-border);
+    background-color: #FFFFFF;
+}
+
+.logo {
+    width: 61px;
+    height: 23px;
+}
+
+.containerInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.cameraBlock {
+    background-color: rgb(234, 174, 174);
+    width: 100%;
+    height: 100%;
+}
+
+.bottomBlock {
+    /* margin-top: auto; */
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.text {
+    font-size: 20px;
+    color: var(--main-color);
+    line-height: 1.2;
+    max-width: 299px;
+    text-align: center;
+}
+
+.wrapLine {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 8px;
+    padding-top: 21px;
+}
+
+.line {
+    width: 134px;
+    height: 5px;
+    background-color: #000000;
+    border-radius: 100px;
+}
+
+/* --------------------------------------------------------------------- */
+
+
+.cameraContainer {
+    position: relative;
+    width: 100vw;
+    height: 100%;
+    overflow: hidden;
+    background-color: black;
+}
+
+.overlayBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.webcamVideo {
+    position: absolute;
+    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease-in-out;
+    z-index: 1;
+}
+
+.webcamVideo.show {
+    /* opacity: 1; */
+}
+
+/* ------------------ Верхние кнопки ------------------ */
+.topControls {
+    position: absolute;
+    top: 25px;
+    left: 20px;
+    z-index: 10;
+    display: flex;
+    gap: 10px;
+}
+
+.exitBtn {
+    background: rgba(0, 0, 0, 0.45);
+    color: #ffffff;
+    border: none;
+    font-size: 22px;
+    font-weight: 600;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    backdrop-filter: blur(6px);
+}
+
+/* ------------------ Рамка фокуса ------------------ */
+.viewfinder {
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    width: 80vw;
+    height: 60vh;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    background: transparent;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
+    transform-origin: center;
+}
+
+/* SVG-оверлей занимает всю область viewfinder (абсолютно позиционируется внутри cameraContainer) */
+.overlaySvg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    /* выше видео, но ниже контролов, если контролы имеют >3 */
+    pointer-events: none;
+}
+
+/* тёмная заливка для всей области (фон) — более тёмная */
+.overlayRect {
+    fill: rgba(0, 0, 0, 0.6);
+    /* основной тёмный фон */
+}
+
+/* "окно" — внутри него затемнение светлее, чем у фоновой прямоугольной заливки */
+/* также белая обводка 5px */
+.overlayHole {
+    fill: rgba(0, 0, 0, 0.18);
+    /* светлое затемнение внутри окна (меньшая непрозрачность) */
+    stroke: #ffffff;
+    stroke-width: 5;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    /* чтобы ширина линии оставалась 5px при масштабировании */
+}
+
+/* состояние when detected (опционально — подсветка, трансформация и т.д.) */
+.focused .overlayHole {
+    /* например, подсветка белой рамки сильнее */
+    stroke: #ffffff;
+    /* можно добавить небольшой эффект (необязательно) */
+    transform-origin: center;
+    transition: transform 0.25s ease, fill 0.2s ease;
+    /* transform: scale(1.02); */
+}
+
+
+.overlay {
+    /* position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5; */
+
+    position: absolute;
+    inset: 0;
+    /* занимает весь родительский блок */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* центр по горизонтали */
+    align-items: center;
+    gap: 31px;
+    /* центр по вертикали */
+    pointer-events: none;
+    z-index: 5;
+}
+
+.overlayShape {
+    /* z-index: 10; */
+}
+
+.thermoMask {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+button {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--main-color);
+    padding: 5px 11px;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 100px;
+    margin-top: 24px;
+}

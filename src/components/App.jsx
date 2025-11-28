@@ -9,6 +9,7 @@ import Steps3 from "../pages/Steps3/Steps3";
 import Steps4 from "../pages/Steps4/Steps4";
 import Steps5 from "../pages/Steps5/Steps5";
 import CameraAccess from "../pages/CameraAccess/CameraAccess";
+import CameraCapture from "../pages/CameraCapture/CameraCapture";
 
 import "../shared/styles/style.css";
 
@@ -24,6 +25,7 @@ function App() {
       <Route path="/steps/4" element={<Steps4 />} />
       <Route path="/steps/5" element={<Steps5 />} />
       <Route path="/camera-access" element={<CameraAccess />} />
+      <Route path="/camera-capture" element={<CameraCapture />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
