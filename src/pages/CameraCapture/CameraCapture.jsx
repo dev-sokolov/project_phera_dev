@@ -64,7 +64,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
                     <div className={styles.cameraBlock}>
                         <div className={styles.cameraContainer}>
                             <div className={styles.overlay}>
-                                <button>Move closer</button>
+                                <button className={styles.btn}>Move closer</button>
                                 <img src={whiteFrame} alt="whiteFrame" />
                             </div>
                             <Webcam
