@@ -45,7 +45,7 @@ const CameraAccess = () => {
                                 <p className={styles.bottomText}>Your privacy is protected at every step. Frames are processed in memory and automatically discarded after scanning.</p>
                                 <div className={styles.btns}>
                                     <Button onClick={() => navigate("/camera-capture")}>Allow camera</Button>
-                                    <ButtonReverse onClick={() => navigate(-1)}>Go back</ButtonReverse>
+                                    <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
                                 </div>
                                 <div className={styles.wrapLine}>
                                     <div className={styles.line}></div>
