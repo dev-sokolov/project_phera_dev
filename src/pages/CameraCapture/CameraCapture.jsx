@@ -5,18 +5,17 @@ import Webcam from "react-webcam";
 import { useCameraReady } from "../../hooks/useCameraReady";
 import { useMarkerDetection } from "../../hooks/useMarkerDetection";
 import { useCapture } from "../../hooks/useCapture";
+import { useNavigate } from "react-router-dom";
 
-// import CameraFrame from "../../assets/CameraFrame";
-// import Frame from "../../assets/Frame.svg";
 import whiteFrame from "../../assets/whiteFrame.svg"
 import greenFrame from "../../assets/greenFrame.svg"
-// import GreenFrame from "../../assets/GreenFrame";
 import Logo from "../../assets/Logo";
 
 import styles from "./CameraCapture.module.css";
 
 const CameraCapture = ({ onCapture, onExit }) => {
     const webcamRef = useRef(null);
+    const navigate = useNavigate();
 
     const isReady = useCameraReady(webcamRef);
     const { hasFourMarkers, startDetection } = useMarkerDetection(webcamRef);
@@ -45,6 +44,8 @@ const CameraCapture = ({ onCapture, onExit }) => {
         const video = webcamRef.current?.video;
         video?.srcObject?.getTracks().forEach(track => track.stop());
         onExit();
+        navigate("/camera-access");
+        console.log("exit clicked");
     };
 
     // const buttonText = isProcessing ? "Capturing..." : "Simulate auto-capture";
@@ -59,7 +60,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
                         <Logo />
                     </div>
                 </div>
-                {/* <Container> */}
                 <div className={styles.containerInner}>
                     <div className={styles.cameraBlock}>
                         <div className={styles.cameraContainer}>
@@ -80,15 +80,9 @@ const CameraCapture = ({ onCapture, onExit }) => {
                                 }}
                                 playsInline
                             />
-
                             <div className={styles.topControls}>
                                 <button className={styles.exitBtn} onClick={handleExit} aria-label="Exit">X</button>
                             </div>
-
-                            {/* <div className={`${styles.viewfinder} ${hasFourMarkers ? styles.detected : ""}`}>
-                                <div className={styles["bottom-left"]}></div>
-                                <div className={styles["bottom-right"]}></div>
-                            </div> */}
                         </div>
                     </div>
                     <div className={styles.bottomBlock}>
@@ -98,7 +92,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
                         </div>
                     </div>
                 </div>
-                {/* </Container> */}
             </div>
         </>
     )

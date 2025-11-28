@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import HomePageQr from "../pages/HomePageQr/HomePageQr";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
@@ -14,7 +15,7 @@ import CameraCapture from "../pages/CameraCapture/CameraCapture";
 import "../shared/styles/style.css";
 
 function App() {
-
+  const navigate = useNavigate();
   return (
     <Routes>
       <Route path="/" element={<HomePageQr />} />
@@ -25,7 +26,12 @@ function App() {
       <Route path="/steps/4" element={<Steps4 />} />
       <Route path="/steps/5" element={<Steps5 />} />
       <Route path="/camera-access" element={<CameraAccess />} />
-      <Route path="/camera-capture" element={<CameraCapture />} />
+      <Route path="/camera-capture" element={<CameraCapture
+        onExit={() => navigate("/camera-access")}
+        onCapture={(result) => navigate("/result", { state: result })}
+      />
+      }
+      />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
