@@ -26,7 +26,6 @@
 }
 
 .cameraBlock {
-    background-color: rgb(234, 174, 174);
     width: 100%;
     height: 100%;
 }
@@ -34,6 +33,7 @@
 .bottomBlock {
     /* margin-top: auto; */
     margin-top: 20px;
+    /* margin-top: 31px; */
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -91,10 +91,6 @@
     object-fit: cover;
     transition: opacity 1s ease-in-out;
     z-index: 1;
-}
-
-.webcamVideo.show {
-    /* opacity: 1; */
 }
 
 /* ------------------ Верхние кнопки ------------------ */
@@ -199,6 +195,7 @@
     /* центр по вертикали */
     pointer-events: none;
     z-index: 5;
+    margin-bottom: 31px;
 }
 
 .overlayShape {
