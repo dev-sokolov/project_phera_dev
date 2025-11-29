@@ -1,14 +1,14 @@
 import { useNavigate, Link } from "react-router-dom";
 
-import Button from "../../components/Button/Button";
-import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
-import Container from "../../components/Container/Container";
-import Logo from "../../assets/Logo";
-import step5 from "../../assets/images/step5.jpg";
+import Button from "../../../components/Button/Button";
+import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
+import Container from "../../../components/Container/Container";
+import Logo from "../../../assets/Logo";
+import step4 from "../../../assets/images/step4.jpg";
 
-import styles from "./Steps5.module.css";
+import styles from "./Steps4.module.css";
 
-const Steps5 = () => {
+const Steps4 = () => {
     const navigate = useNavigate();
 
     return (
@@ -26,20 +26,19 @@ const Steps5 = () => {
                             <Link to="/steps/2" className={styles.itemColored}></Link>
                             <Link to="/steps/3" className={styles.itemColored}></Link>
                             <Link to="/steps/4" className={styles.itemColored}></Link>
-                            <Link to="/steps/5" className={styles.itemColored}></Link>
+                            <Link to="/steps/5" className={styles.item}></Link>
                         </div>
-                        <div className={styles.img}><img src={step5} alt="step 5" /></div>
+                        <div className={styles.img}><img src={step4} alt="step 4" /></div>
                         <div className={styles.textBlock}>
-                            <div className={styles.step}>Step 5</div>
-                            <h2 className={styles.heading}>See your result</h2>
-                            <p className={styles.text}>Your pH result will appear within seconds, along with a clear explanation of what it means for you. Remember, this is an indicator of balance, not a diagnosis — we’ll guide you through the next steps.</p>
-
-                            <p className={styles.textItalic}>Next, we’ll take you to a quick scan of your test strip.</p>
+                            <div className={styles.step}>Step 4</div>
+                            <h2 className={styles.heading}>Scan your strip</h2>
+                            <p className={styles.text}>Place the strip inside the on-screen frame and hold your phone steady.
+                                Once the test area is in focus, the scan will happen automatically — no need to press anything.</p>
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.btns}>
-                                <Button onClick={() => navigate("/camera-access")}>Next</Button>
-                                <ButtonReverse onClick={() => navigate("/steps/4")}>Go back</ButtonReverse>
+                                <Button onClick={() => navigate("/steps/5")}>Next</Button>
+                                <ButtonReverse onClick={() => navigate("/steps/3")}>Go back</ButtonReverse>
                             </div>
                             <div className={styles.wrapLine}>
                                 <div className={styles.line}></div>
@@ -52,4 +51,4 @@ const Steps5 = () => {
     )
 };
 
-export default Steps5;
+export default Steps4;

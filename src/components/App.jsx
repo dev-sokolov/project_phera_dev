@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import HomePageQr from "../pages/HomePageQr/HomePageQr";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import Steps from "../pages/Steps/Steps";
-import Steps1 from "../pages/Steps1/Steps1";
-import Steps2 from "../pages/Steps2/Steps2";
-import Steps3 from "../pages/Steps3/Steps3";
-import Steps4 from "../pages/Steps4/Steps4";
-import Steps5 from "../pages/Steps5/Steps5";
+import Steps1 from "../pages/Steps/Steps1/Steps1";
+import Steps2 from "../pages/Steps/Steps2/Steps2";
+import Steps3 from "../pages/Steps/Steps3/Steps3";
+import Steps4 from "../pages/Steps/Steps4/Steps4";
+import Steps5 from "../pages/Steps/Steps5/Steps5";
 import CameraAccess from "../pages/CameraAccess/CameraAccess";
 import CameraCapture from "../pages/CameraCapture/CameraCapture";
 
