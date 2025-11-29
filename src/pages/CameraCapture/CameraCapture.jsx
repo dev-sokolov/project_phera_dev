@@ -295,8 +295,12 @@ const CameraCapture = ({ onCapture, onExit }) => {
   useMarkerDetection(
     videoRef,
     frameRef,
-    (detected) => setInside(detected)
+    setInside
+    // (detected) => setInside(detected), 
+    // whiteFrame 
   );
+
+//   useMarkerDetection(videoRef, frameRef, setInside, "/templates/stripTemplate.svg");
 
   return (
     <>

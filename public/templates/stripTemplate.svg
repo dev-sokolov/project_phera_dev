@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="420" viewBox="0 0 120 420">
+  <!-- Black background, white filled strip template -->
+  <rect width="100%" height="100%" fill="black"/>
+  <!-- Narrow vertical top + rounded bottom bulb; centered -->
+  <path d="M43 10 H77 V260 
+           C77 288 95 305 106 324
+           C116 342 116 372 93 394
+           C70 416 50 416 27 394
+           C4 372 4 342 14 324
+           C25 305 43 288 43 260
+           Z"
+        fill="white" stroke="none"/>
+</svg>
