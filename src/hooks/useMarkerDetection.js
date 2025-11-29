@@ -453,49 +453,311 @@
 // -------------------------------------------------------------------------------------
 
 
+// import { useEffect, useRef } from "react";
+
+// export function useMarkerDetection(videoRef, frameRef, onDetect, templateSvgPath = "/templates/stripTemplate.svg") {
+//     console.log("processOnce called");
+//     const templateContourRef = useRef(null);
+//     const stableRef = useRef(0);
+//     const rafRef = useRef(null);
+//     const tmpCanvasRef = useRef(null);
+
+//     // параметры (можешь подгонять)
+//     const MIN_AREA = 1500; // минимальная площадь контура в пикселях (в пространстве видео)
+//     // const MATCH_THRESHOLD = 0.9; // порог для matchShapes (меньше = строже). 0.9 — мягко.
+//     const MATCH_THRESHOLD = 0.9; // порог для matchShapes (меньше = строже). 0.9 — мягко.
+//     const N_CONSISTENT_FRAMES = 3; // сколько подряд кадров требуется
+//     const PROCESS_EVERY_MS = 120; // промежуток между обработками (ms)
+
+//     // Загрузка SVG-шаблона в контур
+//     useEffect(() => {
+//         if (!window.cv) return;
+//         if (!templateSvgPath) return;
+
+//         let cancelled = false;
+
+//         const load = async () => {
+//             try {
+//                  console.log("Fetching SVG from:", templateSvgPath);
+//                 const resp = await fetch(templateSvgPath);
+//                     console.log("SVG fetched, status:", resp.status);
+//                 const svgText = await resp.text();
+
+//                 // создаём Image для cv.imread
+//                 const blob = new Blob([svgText], { type: "image/svg+xml" });
+//                 const url = URL.createObjectURL(blob);
+//                 const img = new Image();
+//                 img.onload = () => {
+//                     try {
+//                         console.log("SVG image loaded, dimensions:", img.width, img.height);
+//                         const mat = cv.imread(img);
+//                         cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
+//                         cv.threshold(mat, mat, 10, 255, cv.THRESH_BINARY);
+//                         const contours = new cv.MatVector();
+//                         const hierarchy = new cv.Mat();
+//                         cv.findContours(mat, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+//                         console.log("Contours found:", contours.size());
+
+//                         if (contours.size() > 0) {
+//                             const main = contours.get(0);
+//                             templateContourRef.current = main;
+//                         }
+
+//                         mat.delete();
+//                         hierarchy.delete();
+//                         // leave contour in templateContourRef (do NOT delete 'main' here, we keep it)
+//                     } catch (err) {
+//                         console.warn("svg->contour error", err);
+//                     } finally {
+//                         URL.revokeObjectURL(url);
+//                     }
+//                 };
+//                 img.onerror = (e) => {
+//                     URL.revokeObjectURL(url);
+//                     console.warn("Failed to load template image", e);
+//                 };
+//                 img.src = url;
+//             } catch (err) {
+//                 console.warn("Failed to fetch template svg", err);
+//             }
+//         };
+
+//         load();
+
+//         return () => {
+//             cancelled = true;
+//         };
+//     }, [templateSvgPath]);
+
+//     // Функция обработки одного кадра
+//     const processOnce = () => {
+//         try {
+//             const video = videoRef.current;
+//             const template = templateContourRef.current;
+
+//             if (!template) {
+//                 console.log("Template contour not loaded yet");
+//                 return;
+//             }
+//             const frameElem = frameRef?.current;
+//             if (!video || !template || !frameElem || !window.cv) return;
+
+//             // Надёжная проверка готовности видео
+//             if (!(video.readyState >= 2) || !video.videoWidth || !video.videoHeight) {
+//                 console.log("Video not ready yet", video.readyState, video.videoWidth, video.videoHeight);
+//                 return;
+//             }
+
+//             // Создаём/переиспользуем временный canvas
+//             let canvas = tmpCanvasRef.current;
+//             if (!canvas) {
+//                 canvas = document.createElement("canvas");
+//                 tmpCanvasRef.current = canvas;
+//             }
+//             canvas.width = video.videoWidth;
+//             canvas.height = video.videoHeight;
+//             const ctx = canvas.getContext("2d");
+//             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+//             // Получаем Mat из canvas
+//             const src = cv.imread(canvas);
+
+//             console.log("src size:", src.rows, src.cols);
+
+//             // Препроцессинг: gray -> median blur -> adaptive threshold -> morph close
+//             const gray = new cv.Mat();
+//             cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+
+//             // лёгкая нормализация контраста (опционально)
+//             // cv.equalizeHist(gray, gray);
+
+//             cv.medianBlur(gray, gray, 5);
+
+//             const thresh = new cv.Mat();
+//             cv.adaptiveThreshold(
+//                 gray,
+//                 thresh,
+//                 255,
+//                 cv.ADAPTIVE_THRESH_GAUSSIAN_C,
+//                 cv.THRESH_BINARY_INV,
+//                 31,
+//                 5
+//             );
+
+//             let debugCanvas = document.getElementById("debugCanvas");
+//             if (!debugCanvas) {
+//                 debugCanvas = document.createElement("canvas");
+//                 debugCanvas.id = "debugCanvas";
+//                 document.body.appendChild(debugCanvas);
+//             }
+//             cv.imshow(debugCanvas, thresh);
+
+//             const kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5, 5));
+//             cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
+
+//             // findContours
+//             const contours = new cv.MatVector();
+//             const hierarchy = new cv.Mat();
+//             cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+//             console.log("Contours found:", contours.size());
+
+//             let found = false;
+
+//             // вычисляем frameRect в координатах видео (нужно, чтобы проверить, что boundingRect внутрь рамки)
+//             const fr = frameElem.getBoundingClientRect();
+//             const vr = video.getBoundingClientRect();
+//             const scaleX = video.videoWidth / vr.width;
+//             const scaleY = video.videoHeight / vr.height;
+//             const frameRect = {
+//                 x: (fr.left - vr.left) * scaleX,
+//                 y: (fr.top - vr.top) * scaleY,
+//                 w: fr.width * scaleX,
+//                 h: fr.height * scaleY
+//             };
+
+//             console.log("frameRect", frameRect);
+//             console.log("video size:", video.videoWidth, video.videoHeight);
+
+//             for (let i = 0; i < contours.size(); i++) {
+//                 const c = contours.get(i);
+//                 const area = cv.contourArea(c);
+//                 if (area < MIN_AREA) {
+//                     c.delete();
+//                     continue;
+//                 }
+
+//                 const r = cv.boundingRect(c);
+//                 const ratio = r.height / r.width;
+//                 // грубая фильтрация по форме (вертикальный объект с высокой высотой)
+//                 if (ratio < 2.0 || ratio > 8.0) {
+//                     c.delete();
+//                     continue;
+//                 }
+
+//                 // Сопоставление формы
+//                 let score = 999;
+//                 try {
+//                     score = cv.matchShapes(c, template, cv.CONTOURS_MATCH_I1, 0);
+//                 } catch (err) {
+//                     // ignore
+//                 }
+
+//                 // Проверяем попадание внутрь области фрейма
+//                 const inside =
+//                     r.x > frameRect.x &&
+//                     r.y > frameRect.y &&
+//                     r.x + r.width < frameRect.x + frameRect.w &&
+//                     r.y + r.height < frameRect.y + frameRect.h;
+
+//                 console.log("contour boundingRect:", r, "area:", area, "ratio:", ratio, "score:", score, "inside?", inside);
+
+//                 // Жесткая проверка — если внутри и score небольшой (чем меньше — лучше)
+//                 // Мы используем более мягкий порог: score < MATCH_THRESHOLD (например 0.9 - 1.5 в зависимости от условий)
+//                 if (inside && score < MATCH_THRESHOLD) {
+//                     found = true;
+//                     c.delete();
+//                     break;
+//                 }
+//                 console.log("found this frame?", found);
+
+//                 c.delete();
+//             }
+
+//             // освобождение
+//             src.delete();
+//             gray.delete();
+//             thresh.delete();
+//             contours.delete();
+//             hierarchy.delete();
+//             kernel.delete();
+
+//             // stability logic
+//             if (found) {
+//                 stableRef.current = Math.min(N_CONSISTENT_FRAMES, stableRef.current + 1);
+//             } else {
+//                 stableRef.current = 0;
+//             }
+
+//             const detected = stableRef.current >= N_CONSISTENT_FRAMES;
+//             onDetect(Boolean(stableRef.current >= N_CONSISTENT_FRAMES));
+//             console.log("onDetect called with", stableRef.current >= N_CONSISTENT_FRAMES);
+//             onDetect(Boolean(detected));
+//         } catch (err) {
+//             // безопасно логируем, но не ломаем loop
+//             console.warn("processOnce error", err);
+//         }
+//         console.log("stableRef.current:", stableRef.current, "detected:", stableRef.current >= N_CONSISTENT_FRAMES);
+//     };
+
+//     // Loop: запускаем таймер + RAF гибрид, чтобы не перегружать CPU
+//     useEffect(() => {
+//         let mounted = true;
+//         let last = 0;
+
+//         const loop = (t) => {
+//             if (!mounted) return;
+//             if (!last || (t - last) >= PROCESS_EVERY_MS) {
+//                 processOnce();
+//                 last = t;
+//             }
+//             rafRef.current = requestAnimationFrame(loop);
+//         };
+
+//         rafRef.current = requestAnimationFrame(loop);
+
+//         return () => {
+//             mounted = false;
+//             if (rafRef.current) cancelAnimationFrame(rafRef.current);
+//             // удаляем template contour, если есть
+//             if (templateContourRef.current) {
+//                 try { templateContourRef.current.delete(); } catch (e) { }
+//                 templateContourRef.current = null;
+//             }
+//         };
+//         // eslint-disable-next-line react-hooks/exhaustive-deps
+//     }, [videoRef, frameRef]);
+
+//     return {};
+// }
+
+// export default useMarkerDetection;
+
 import { useEffect, useRef } from "react";
 
 /**
  * useMarkerDetection
  *
- * videoRef     - ref на HTMLVideoElement (в компоненте: assign webcamRef.current.video)
- * frameRef     - ref на DOM-элемент, внутри которого рендерится рамка (контрольная область)
- * onDetect     - callback(boolean) — true когда strip стабильно внутри фрейма
- * templateSvgPath - url (например "/templates/stripTemplate.svg")
- *
- * Поведение:
- * - Загружает SVG-шаблон контурa
- * - Запускает loop, читает кадры через canvas (надёжнее, чем cap.read)
- * - Делает adaptiveThreshold + morphology для выделения силуэта
- * - Использует cv.matchShapes с более мягким порогом
- * - Требует N_CONSISTENT_FRAMES подряд перед установкой detected=true
+ * videoRef     - ref на HTMLVideoElement
+ * frameRef     - ref на DOM-элемент рамки
+ * onDetect     - callback(boolean)
+ * templateSvgPath - путь к SVG-шаблону
  */
-
-export function useMarkerDetection(videoRef, frameRef, onDetect, templateSvgPath = "/templates/stripTemplate.svg") {
+export function useMarkerDetection(
+    videoRef,
+    frameRef,
+    onDetect,
+    templateSvgPath = "/templates/stripTemplate.svg"
+) {
     const templateContourRef = useRef(null);
     const stableRef = useRef(0);
     const rafRef = useRef(null);
     const tmpCanvasRef = useRef(null);
 
-    // параметры (можешь подгонять)
-    const MIN_AREA = 1500; // минимальная площадь контура в пикселях (в пространстве видео)
-    const MATCH_THRESHOLD = 0.9; // порог для matchShapes (меньше = строже). 0.9 — мягко.
-    const N_CONSISTENT_FRAMES = 3; // сколько подряд кадров требуется
-    const PROCESS_EVERY_MS = 120; // промежуток между обработками (ms)
+    const MIN_AREA = 1500;
+    const MATCH_THRESHOLD = 0.9;
+    const N_CONSISTENT_FRAMES = 3;
+    const PROCESS_EVERY_MS = 120;
 
-    // Загрузка SVG-шаблона в контур
+    // Загружаем шаблон
     useEffect(() => {
-        if (!window.cv) return;
-        if (!templateSvgPath) return;
+        if (!window.cv || !templateSvgPath) return;
 
-        let cancelled = false;
-
-        const load = async () => {
+        const loadTemplate = async () => {
             try {
                 const resp = await fetch(templateSvgPath);
+                if (!resp.ok) throw new Error(`Failed to fetch SVG: ${resp.status}`);
                 const svgText = await resp.text();
 
-                // создаём Image для cv.imread
                 const blob = new Blob([svgText], { type: "image/svg+xml" });
                 const url = URL.createObjectURL(blob);
                 const img = new Image();
@@ -509,15 +771,16 @@ export function useMarkerDetection(videoRef, frameRef, onDetect, templateSvgPath
                         cv.findContours(mat, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
 
                         if (contours.size() > 0) {
-                            const main = contours.get(0);
-                            templateContourRef.current = main;
+                            templateContourRef.current = contours.get(0);
+                        } else {
+                            console.warn("No contours found in template!");
                         }
 
                         mat.delete();
                         hierarchy.delete();
-                        // leave contour in templateContourRef (do NOT delete 'main' here, we keep it)
+                        contours.delete();
                     } catch (err) {
-                        console.warn("svg->contour error", err);
+                        console.warn("Error processing template SVG:", err);
                     } finally {
                         URL.revokeObjectURL(url);
                     }
@@ -528,31 +791,23 @@ export function useMarkerDetection(videoRef, frameRef, onDetect, templateSvgPath
                 };
                 img.src = url;
             } catch (err) {
-                console.warn("Failed to fetch template svg", err);
+                console.warn("Failed to fetch template SVG", err);
             }
         };
 
-        load();
-
-        return () => {
-            cancelled = true;
-        };
+        loadTemplate();
     }, [templateSvgPath]);
 
-    // Функция обработки одного кадра
+    // Функция обработки кадра
     const processOnce = () => {
         try {
             const video = videoRef.current;
             const template = templateContourRef.current;
-            const frameElem = frameRef?.current;
+            const frameElem = frameRef.current;
+
             if (!video || !template || !frameElem || !window.cv) return;
+            if (!(video.readyState >= 2) || !video.videoWidth || !video.videoHeight) return;
 
-            // Надёжная проверка готовности видео
-            if (!(video.readyState >= 2) || !video.videoWidth || !video.videoHeight) {
-                return;
-            }
-
-            // Создаём/переиспользуем временный canvas
             let canvas = tmpCanvasRef.current;
             if (!canvas) {
                 canvas = document.createElement("canvas");
@@ -563,16 +818,10 @@ export function useMarkerDetection(videoRef, frameRef, onDetect, templateSvgPath
             const ctx = canvas.getContext("2d");
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            // Получаем Mat из canvas
             const src = cv.imread(canvas);
 
-            // Препроцессинг: gray -> median blur -> adaptive threshold -> morph close
             const gray = new cv.Mat();
             cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-            // лёгкая нормализация контраста (опционально)
-            // cv.equalizeHist(gray, gray);
-
             cv.medianBlur(gray, gray, 5);
 
             const thresh = new cv.Mat();
@@ -589,14 +838,12 @@ export function useMarkerDetection(videoRef, frameRef, onDetect, templateSvgPath
             const kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5, 5));
             cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
 
-            // findContours
             const contours = new cv.MatVector();
             const hierarchy = new cv.Mat();
             cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
 
             let found = false;
 
-            // вычисляем frameRect в координатах видео (нужно, чтобы проверить, что boundingRect внутрь рамки)
             const fr = frameElem.getBoundingClientRect();
             const vr = video.getBoundingClientRect();
             const scaleX = video.videoWidth / vr.width;
@@ -611,46 +858,29 @@ export function useMarkerDetection(videoRef, frameRef, onDetect, templateSvgPath
             for (let i = 0; i < contours.size(); i++) {
                 const c = contours.get(i);
                 const area = cv.contourArea(c);
-                if (area < MIN_AREA) {
-                    c.delete();
-                    continue;
-                }
+                if (area < MIN_AREA) { c.delete(); continue; }
 
                 const r = cv.boundingRect(c);
                 const ratio = r.height / r.width;
-                // грубая фильтрация по форме (вертикальный объект с высокой высотой)
-                if (ratio < 2.0 || ratio > 8.0) {
-                    c.delete();
-                    continue;
-                }
+                if (ratio < 2.0 || ratio > 8.0) { c.delete(); continue; }
 
-                // Сопоставление формы
                 let score = 999;
-                try {
-                    score = cv.matchShapes(c, template, cv.CONTOURS_MATCH_I1, 0);
-                } catch (err) {
-                    // ignore
-                }
-
-                // Проверяем попадание внутрь области фрейма
+                try { score = cv.matchShapes(c, template, cv.CONTOURS_MATCH_I1, 0); } catch {}
+                
                 const inside =
                     r.x > frameRect.x &&
                     r.y > frameRect.y &&
                     r.x + r.width < frameRect.x + frameRect.w &&
                     r.y + r.height < frameRect.y + frameRect.h;
 
-                // Жесткая проверка — если внутри и score небольшой (чем меньше — лучше)
-                // Мы используем более мягкий порог: score < MATCH_THRESHOLD (например 0.9 - 1.5 в зависимости от условий)
                 if (inside && score < MATCH_THRESHOLD) {
                     found = true;
                     c.delete();
                     break;
                 }
-
                 c.delete();
             }
 
-            // освобождение
             src.delete();
             gray.delete();
             thresh.delete();
@@ -658,7 +888,6 @@ export function useMarkerDetection(videoRef, frameRef, onDetect, templateSvgPath
             hierarchy.delete();
             kernel.delete();
 
-            // stability logic
             if (found) {
                 stableRef.current = Math.min(N_CONSISTENT_FRAMES, stableRef.current + 1);
             } else {
@@ -666,39 +895,49 @@ export function useMarkerDetection(videoRef, frameRef, onDetect, templateSvgPath
             }
 
             const detected = stableRef.current >= N_CONSISTENT_FRAMES;
-            onDetect(Boolean(detected));
+            onDetect(detected);
+
         } catch (err) {
-            // безопасно логируем, но не ломаем loop
             console.warn("processOnce error", err);
         }
     };
 
-    // Loop: запускаем таймер + RAF гибрид, чтобы не перегружать CPU
+    // Loop: ждём шаблон и запускаем обработку
     useEffect(() => {
         let mounted = true;
-        let last = 0;
+        let rafId;
 
-        const loop = (t) => {
-            if (!mounted) return;
-            if (!last || (t - last) >= PROCESS_EVERY_MS) {
-                processOnce();
-                last = t;
-            }
-            rafRef.current = requestAnimationFrame(loop);
+        const startLoop = () => {
+            let last = 0;
+            const loop = (t) => {
+                if (!mounted) return;
+                if (!last || (t - last) >= PROCESS_EVERY_MS) {
+                    processOnce();
+                    last = t;
+                }
+                rafId = requestAnimationFrame(loop);
+            };
+            rafId = requestAnimationFrame(loop);
         };
 
-        rafRef.current = requestAnimationFrame(loop);
+        const waitTemplate = () => {
+            if (templateContourRef.current) {
+                startLoop();
+            } else {
+                setTimeout(waitTemplate, 100);
+            }
+        };
+
+        waitTemplate();
 
         return () => {
             mounted = false;
-            if (rafRef.current) cancelAnimationFrame(rafRef.current);
-            // удаляем template contour, если есть
+            if (rafId) cancelAnimationFrame(rafId);
             if (templateContourRef.current) {
-                try { templateContourRef.current.delete(); } catch (e) { }
+                try { templateContourRef.current.delete(); } catch {}
                 templateContourRef.current = null;
             }
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [videoRef, frameRef]);
 
     return {};

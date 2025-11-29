@@ -243,7 +243,150 @@
 // export default CameraCapture;
 
 
-import { useRef, useEffect, useMemo, useState } from "react";
+// import { useRef, useEffect, useMemo, useState } from "react";
+// import Webcam from "react-webcam";
+// import { useCameraReady } from "../../hooks/useCameraReady";
+// import { useMarkerDetection } from "../../hooks/useMarkerDetection";
+// import { useNavigate } from "react-router-dom";
+
+// import whiteFrame from "../../assets/whiteFrame.svg";
+// import greenFrame from "../../assets/greenFrame.svg";
+// import Logo from "../../assets/Logo";
+
+// import styles from "./CameraCapture.module.css";
+
+// const CameraCapture = ({ onCapture, onExit }) => {
+//     const webcamRef = useRef(null);
+//     const navigate = useNavigate();
+
+//     const videoRef = useRef(null);
+//     const frameRef = useRef(null);
+
+//     const [isInside, setInside] = useState(false);
+
+//     const isReady = useCameraReady(webcamRef);
+
+//     // useEffect(() => {
+//     //     if (!isReady) return;
+//     //     useMarkerDetection(videoRef, frameRef, setInside, "/templates/stripTemplate.svg");
+//     // }, [isReady]);
+
+//     const videoConstraints = useMemo(() => ({
+//         facingMode: "environment",
+//         width: { ideal: 1920 },
+//         height: { ideal: 1080 },
+//     }), []);
+
+//     // Stop camera on unmount
+//     useEffect(() => {
+//         return () => {
+//             const video = webcamRef.current?.video;
+//             video?.srcObject?.getTracks().forEach(track => track.stop());
+//         };
+//     }, []);
+
+//     useEffect(() => {
+//         console.log("isInside:", isInside);
+//     }, [isInside]);
+
+//     const handleExit = () => {
+//         const video = webcamRef.current?.video;
+//         video?.srcObject?.getTracks().forEach(track => track.stop());
+//         onExit();
+//         navigate("/camera-access");
+//     };
+
+//     if (!window.cv || !cv.Mat) {
+//         return <div>Loading OpenCV...</div>;
+//     }
+
+//     useMarkerDetection(videoRef, frameRef, setInside, "/templates/stripTemplate.svg");
+
+//     return (
+//         <>
+//             <div className={styles.content}>
+//                 <div className={styles.wrapLogo}>
+//                     <div className={styles.logo}>
+//                         <Logo />
+//                     </div>
+//                 </div>
+
+//                 <div className={styles.containerInner}>
+//                     <div className={styles.cameraBlock}>
+//                         <div className={styles.cameraContainer}>
+
+//                             {/* OVERLAY (button + frame) */}
+//                             <div className={styles.overlay}>
+//                                 <button className={styles.btn}>Move closer</button>
+//                                 {/* <div ref={frameRef} className={styles.frameBox}>
+//                                     <img src={isInside ? greenFrame : whiteFrame} className={styles.frameImage} />
+//                                 </div> */}
+//                                 <div
+//                                     ref={frameRef}
+//                                     className={styles.frameBox}
+//                                 // style={{
+//                                 //     border: `3px solid ${isInside ? "green" : "white"}`,
+//                                 //     display: "inline-block",
+//                                 //     padding: "5px",
+//                                 // }}
+//                                 >
+//                                     <img src={isInside ? greenFrame : whiteFrame} alt="test strip" />
+//                                 </div>
+//                             </div>
+
+//                             {/* CAMERA */}
+//                             <Webcam
+//                                 ref={webcamRef}
+//                                 audio={false}
+//                                 screenshotFormat="image/png"
+//                                 videoConstraints={videoConstraints}
+//                                 className={`${styles.webcamVideo} ${isReady ? styles.show : ""
+//                                     }`}
+//                                 onUserMedia={() => {
+//                                     videoRef.current = webcamRef.current.video;
+//                                 }}
+//                                 onUserMediaError={(err) => {
+//                                     console.error("Camera error:", err);
+//                                     alert("Unable to start camera. Check permissions.");
+//                                     onExit();
+//                                 }}
+//                                 playsInline
+//                             />
+
+//                             {/* EXIT BUTTON */}
+//                             <div className={styles.wrapExitBtn}>
+//                                 <button
+//                                     className={styles.exitBtn}
+//                                     onClick={handleExit}
+//                                     aria-label="Exit"
+//                                 >
+//                                     X
+//                                 </button>
+//                             </div>
+//                         </div>
+//                     </div>
+
+//                     <div className={styles.bottomBlock}>
+//                         <p className={styles.text}>
+//                             Place your test strip inside the frame and hold still — we’ll scan
+//                             it automatically.
+//                         </p>
+
+//                         <div className={styles.wrapLine}>
+//                             <div className={styles.line}></div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </>
+//     );
+// };
+
+// export default CameraCapture;
+
+// ---------------------------------------------------------------
+
+import { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import { useCameraReady } from "../../hooks/useCameraReady";
 import { useMarkerDetection } from "../../hooks/useMarkerDetection";
@@ -257,117 +400,110 @@ import styles from "./CameraCapture.module.css";
 
 const CameraCapture = ({ onCapture, onExit }) => {
     const webcamRef = useRef(null);
-    const navigate = useNavigate();
-
     const videoRef = useRef(null);
     const frameRef = useRef(null);
+    const navigate = useNavigate();
 
     const [isInside, setInside] = useState(false);
 
     const isReady = useCameraReady(webcamRef);
 
-    const videoConstraints = useMemo(() => ({
+    const videoConstraints = {
         facingMode: "environment",
         width: { ideal: 1920 },
         height: { ideal: 1080 },
-    }), []);
+    };
 
-    // Stop camera on unmount
+    // Останавливаем камеру при размонтировании
     useEffect(() => {
         return () => {
             const video = webcamRef.current?.video;
-            video?.srcObject?.getTracks().forEach(track => track.stop());
+            video?.srcObject?.getTracks().forEach((track) => track.stop());
         };
     }, []);
 
+    useEffect(() => {
+        console.log("isInside state changed:", isInside);
+    }, [isInside]);
+
     const handleExit = () => {
         const video = webcamRef.current?.video;
-        video?.srcObject?.getTracks().forEach(track => track.stop());
+        video?.srcObject?.getTracks().forEach((track) => track.stop());
         onExit();
         navigate("/camera-access");
     };
 
-    if (!window.cv || !cv.Mat) {
-        return <div>Loading OpenCV...</div>;
-    }
-
-    // VERY IMPORTANT: pass ref to the <img>, not overlay div
-    //   useMarkerDetection(
-    //     videoRef,
-    //     frameRef,
-    //     setInside
-    //     // (detected) => setInside(detected), 
-    //     // whiteFrame 
-    //   );
-
     useMarkerDetection(videoRef, frameRef, setInside, "/templates/stripTemplate.svg");
 
+    // Внутренний компонент рамки
+    const Frame = ({ inside }) => (
+        <img
+            src={inside ? greenFrame : whiteFrame}
+            className={styles.frameImage}
+            alt="frame"
+        />
+    );
+
     return (
-        <>
-            <div className={styles.content}>
-                <div className={styles.wrapLogo}>
-                    <div className={styles.logo}>
-                        <Logo />
+        <div className={styles.content}>
+            <div className={styles.wrapLogo}>
+                <div className={styles.logo}>
+                    <Logo />
+                </div>
+            </div>
+
+            <div className={styles.containerInner}>
+                <div className={styles.cameraBlock}>
+                    <div className={styles.cameraContainer}>
+                        {/* OVERLAY: рамка + кнопка */}
+                        <div className={styles.overlay}>
+                            <button className={styles.btn}>Move closer</button>
+                            <div ref={frameRef} className={styles.frameBox}>
+                                <Frame inside={isInside} />
+                            </div>
+                        </div>
+
+                        {/* CAMERA */}
+                        <Webcam
+                            ref={webcamRef}
+                            audio={false}
+                            screenshotFormat="image/png"
+                            videoConstraints={videoConstraints}
+                            className={`${styles.webcamVideo} ${isReady ? styles.show : ""}`}
+                            onUserMedia={() => {
+                                videoRef.current = webcamRef.current.video;
+                            }}
+                            onUserMediaError={(err) => {
+                                console.error("Camera error:", err);
+                                alert("Unable to start camera. Check permissions.");
+                                onExit();
+                            }}
+                            playsInline
+                        />
+
+                        {/* EXIT BUTTON */}
+                        <div className={styles.wrapExitBtn}>
+                            <button
+                                className={styles.exitBtn}
+                                onClick={handleExit}
+                                aria-label="Exit"
+                            >
+                                X
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div className={styles.containerInner}>
-                    <div className={styles.cameraBlock}>
-                        <div className={styles.cameraContainer}>
-
-                            {/* OVERLAY (button + frame) */}
-                            <div className={styles.overlay}>
-                                <button className={styles.btn}>Move closer</button>
-                                <div ref={frameRef} className={styles.frameBox}>
-                                    <img src={isInside ? greenFrame : whiteFrame} className={styles.frameImage} />
-                                </div>
-                            </div>
-
-                            {/* CAMERA */}
-                            <Webcam
-                                ref={webcamRef}
-                                audio={false}
-                                screenshotFormat="image/png"
-                                videoConstraints={videoConstraints}
-                                className={`${styles.webcamVideo} ${isReady ? styles.show : ""
-                                    }`}
-                                onUserMedia={() => {
-                                    videoRef.current = webcamRef.current.video;
-                                }}
-                                onUserMediaError={(err) => {
-                                    console.error("Camera error:", err);
-                                    alert("Unable to start camera. Check permissions.");
-                                    onExit();
-                                }}
-                                playsInline
-                            />
-
-                            {/* EXIT BUTTON */}
-                            <div className={styles.wrapExitBtn}>
-                                <button
-                                    className={styles.exitBtn}
-                                    onClick={handleExit}
-                                    aria-label="Exit"
-                                >
-                                    X
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.bottomBlock}>
-                        <p className={styles.text}>
-                            Place your test strip inside the frame and hold still — we’ll scan
-                            it automatically.
-                        </p>
-
-                        <div className={styles.wrapLine}>
-                            <div className={styles.line}></div>
-                        </div>
+                <div className={styles.bottomBlock}>
+                    <p className={styles.text}>
+                        Place your test strip inside the frame and hold still — we’ll scan it automatically.
+                    </p>
+                    <div className={styles.wrapLine}>
+                        <div className={styles.line}></div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
