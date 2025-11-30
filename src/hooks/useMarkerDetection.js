@@ -664,7 +664,8 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
         for (let i = 0; i < contours.size(); i++) {
             const c = contours.get(i);
             const area = cv.contourArea(c);
-            if (area < MIN_AREA) { c.delete(); continue; }
+            // if (area < MIN_AREA) { c.delete(); continue; }
+            if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
 
             const r = cv.boundingRect(c);
             const ratio = r.height / r.width;
