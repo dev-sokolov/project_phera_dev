@@ -680,11 +680,19 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
             // if (heightRatio < 0.25 || heightRatio > 0.8) { c.delete(); continue; }
 
             // Проверяем попадание внутрь рамки
+            // const inside =
+            //     r.x > frameRect.x &&
+            //     r.y > frameRect.y &&
+            //     r.x + r.width < frameRect.x + frameRect.w &&
+            //     r.y + r.height < frameRect.y + frameRect.h;
+
+            const PADDING = 0.1; // 10% от ширины/высоты рамки
+
             const inside =
-                r.x > frameRect.x &&
-                r.y > frameRect.y &&
-                r.x + r.width < frameRect.x + frameRect.w &&
-                r.y + r.height < frameRect.y + frameRect.h;
+                r.x > frameRect.x - frameRect.w * PADDING &&
+                r.y > frameRect.y - frameRect.h * PADDING &&
+                r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
+                r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
 
             if (inside) {
                 found = true;
