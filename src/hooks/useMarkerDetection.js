@@ -606,7 +606,7 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
 
     const MIN_AREA = 400;      // минимальная площадь контура
     const MIN_RATIO = 1.8;     // вытянутая по вертикали
-    // const MAX_AREA = 6000; // подберите экспериментально под близкую камеру
+    const MAX_AREA = 6000; // подберите экспериментально под близкую камеру
     const MAX_RATIO = 15;      // запас
     const N_CONSISTENT = 3;    // сколько кадров подряд для стабильности
     const PROCESS_MS = 120;    // обработка раз в ms
@@ -673,11 +673,11 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
             const area = cv.contourArea(c);
             const r = cv.boundingRect(c);
             const ratio = r.height / r.width;
-            const heightRatio = r.height / video.videoHeight;
+            // const heightRatio = r.height / video.videoHeight;
 
             if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
             if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
-            if (heightRatio < 0.25 || heightRatio > 0.8) { c.delete(); continue; }
+            // if (heightRatio < 0.25 || heightRatio > 0.8) { c.delete(); continue; }
 
             // Проверяем попадание внутрь рамки
             const inside =
