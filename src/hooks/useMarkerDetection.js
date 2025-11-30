@@ -1,1183 +1,208 @@
-// import { useEffect, useRef } from "react";
-
-// export function useMarkerDetection(
-//     videoRef,
-//     frameRef,
-//     onDetect,
-//     templateSvgPath = "/templates/stripTemplate.png"
-// ) {
-//     const templateContourRef = useRef(null);
-//     const stableRef = useRef(0);
-//     const rafRef = useRef(null);
-//     const tmpCanvasRef = useRef(null);
-
-//     const MIN_AREA = 1500;
-//     const MATCH_THRESHOLD = 0.9;
-//     const N_CONSISTENT_FRAMES = 3;
-//     const PROCESS_EVERY_MS = 120;
-
-//     useEffect(() => {
-//         if (!window.cv || !templateSvgPath) return;
-
-//         const loadTemplate = async () => {
-//             try {
-//                 const resp = await fetch(templateSvgPath);
-//                 if (!resp.ok) throw new Error(`Failed to fetch template: ${resp.status}`);
-
-//                 // ЧИТАЕМ КАК BLOB, а НЕ как текст
-//                 const blob = await resp.blob();
-//                 const url = URL.createObjectURL(blob);
-
-//                 const img = new Image();
-//                 img.onload = () => {
-//                     const mat = cv.imread(img);
-
-//                     cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
-//                     cv.threshold(mat, mat, 127, 255, cv.THRESH_BINARY);
-
-//                     const contours = new cv.MatVector();
-//                     const hierarchy = new cv.Mat();
-//                     cv.findContours(mat, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//                     console.log("TEMPLATE CONTOURS:", contours.size());
-
-//                     if (contours.size() > 0) {
-//                         templateContourRef.current = contours.get(0);
-//                     } else {
-//                         console.warn("No contours found in template!");
-//                     }
-
-//                     mat.delete();
-//                     hierarchy.delete();
-//                     contours.delete();
-//                     URL.revokeObjectURL(url);
-//                 };
-
-//                 img.src = url;
-//             } catch (err) {
-//                 console.warn("Failed to load template", err);
-//             }
-//         };
-
-//         loadTemplate();
-//     }, [templateSvgPath]);
-
-//     // Функция обработки кадра
-//     const processOnce = () => {
-//         try {
-//             const video = videoRef.current;
-//             const template = templateContourRef.current;
-//             const frameElem = frameRef.current;
-
-//             if (!video || !template || !frameElem || !window.cv) return;
-//             if (!(video.readyState >= 2) || !video.videoWidth || !video.videoHeight) return;
-
-//             let canvas = tmpCanvasRef.current;
-//             if (!canvas) {
-//                 canvas = document.createElement("canvas");
-//                 tmpCanvasRef.current = canvas;
-//             }
-//             canvas.width = video.videoWidth;
-//             canvas.height = video.videoHeight;
-//             const ctx = canvas.getContext("2d");
-//             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-//             const src = cv.imread(canvas);
-
-//             const gray = new cv.Mat();
-//             cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-//             cv.medianBlur(gray, gray, 5);
-
-//             const thresh = new cv.Mat();
-//             cv.adaptiveThreshold(
-//                 gray,
-//                 thresh,
-//                 255,
-//                 cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-//                 cv.THRESH_BINARY_INV,
-//                 31,
-//                 5
-//             );
-
-//             const kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5, 5));
-//             cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
-
-//             const contours = new cv.MatVector();
-//             const hierarchy = new cv.Mat();
-//             cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//             let found = false;
-
-//             const fr = frameElem.getBoundingClientRect();
-//             const vr = video.getBoundingClientRect();
-//             const scaleX = video.videoWidth / vr.width;
-//             const scaleY = video.videoHeight / vr.height;
-//             const frameRect = {
-//                 x: (fr.left - vr.left) * scaleX,
-//                 y: (fr.top - vr.top) * scaleY,
-//                 w: fr.width * scaleX,
-//                 h: fr.height * scaleY
-//             };
-
-//             for (let i = 0; i < contours.size(); i++) {
-//                 const c = contours.get(i);
-//                 const area = cv.contourArea(c);
-//                 if (area < MIN_AREA) { c.delete(); continue; }
-
-//                 const r = cv.boundingRect(c);
-//                 const ratio = r.height / r.width;
-//                 if (ratio < 2.0 || ratio > 8.0) { c.delete(); continue; }
-
-//                 let score = 999;
-//                 try { score = cv.matchShapes(c, template, cv.CONTOURS_MATCH_I1, 0); } catch { }
-
-//                 const inside =
-//                     r.x > frameRect.x &&
-//                     r.y > frameRect.y &&
-//                     r.x + r.width < frameRect.x + frameRect.w &&
-//                     r.y + r.height < frameRect.y + frameRect.h;
-
-//                 if (inside && score < MATCH_THRESHOLD) {
-//                     found = true;
-//                     c.delete();
-//                     break;
-//                 }
-//                 c.delete();
-//             }
-
-//             src.delete();
-//             gray.delete();
-//             thresh.delete();
-//             contours.delete();
-//             hierarchy.delete();
-//             kernel.delete();
-
-//             if (found) {
-//                 stableRef.current = Math.min(N_CONSISTENT_FRAMES, stableRef.current + 1);
-//             } else {
-//                 stableRef.current = 0;
-//             }
-
-//             const detected = stableRef.current >= N_CONSISTENT_FRAMES;
-//             onDetect(detected);
-
-//         } catch (err) {
-//             console.warn("processOnce error", err);
-//         }
-//     };
-
-//     // Loop: ждём шаблон и запускаем обработку
-//     useEffect(() => {
-//         let mounted = true;
-//         let rafId;
-
-//         const startLoop = () => {
-//             let last = 0;
-//             const loop = (t) => {
-//                 if (!mounted) return;
-//                 if (!last || (t - last) >= PROCESS_EVERY_MS) {
-//                     processOnce();
-//                     last = t;
-//                 }
-//                 rafId = requestAnimationFrame(loop);
-//             };
-//             rafId = requestAnimationFrame(loop);
-//         };
-
-//         const waitTemplate = () => {
-//             if (templateContourRef.current) {
-//                 startLoop();
-//             } else {
-//                 setTimeout(waitTemplate, 100);
-//             }
-//         };
-
-//         waitTemplate();
-
-//         return () => {
-//             mounted = false;
-//             if (rafId) cancelAnimationFrame(rafId);
-//             if (templateContourRef.current) {
-//                 try { templateContourRef.current.delete(); } catch { }
-//                 templateContourRef.current = null;
-//             }
-//         };
-//     }, [videoRef, frameRef]);
-
-//     return {};
-// }
-
-// export default useMarkerDetection;
-
-
-// ---------------------------------------------------------------------------------------
-
-
-// import { useEffect, useRef } from "react";
-
-// export function useMarkerDetection(videoRef, frameRef, onDetect, templateSvgPath = "/templates/stripTemplate.svg") {
-//     const templateContourRef = useRef(null);
-//     const stableRef = useRef(0);
-//     const rafRef = useRef(null);
-//     const tmpCanvasRef = useRef(null);
-
-//     // параметры (можешь подгонять)
-//     const MIN_AREA = 1500; // минимальная площадь контура в пикселях (в пространстве видео)
-//     const MATCH_THRESHOLD = 0.9; // порог для matchShapes (меньше = строже). 0.9 — мягко.
-//     const N_CONSISTENT_FRAMES = 3; // сколько подряд кадров требуется
-//     const PROCESS_EVERY_MS = 120; // промежуток между обработками (ms)
-
-//     // Загрузка SVG-шаблона в контур
-//     useEffect(() => {
-//         if (!window.cv) return;
-//         if (!templateSvgPath) return;
-
-//         let cancelled = false;
-
-//         const load = async () => {
-//             try {
-//                 const resp = await fetch(templateSvgPath);
-//                 const svgText = await resp.text();
-
-//                 // создаём Image для cv.imread
-//                 const blob = new Blob([svgText], { type: "image/svg+xml" });
-//                 const url = URL.createObjectURL(blob);
-//                 const img = new Image();
-//                 img.onload = () => {
-//                     try {
-//                         const mat = cv.imread(img);
-//                         cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
-//                         cv.threshold(mat, mat, 10, 255, cv.THRESH_BINARY);
-//                         const contours = new cv.MatVector();
-//                         const hierarchy = new cv.Mat();
-//                         cv.findContours(mat, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//                         if (contours.size() > 0) {
-//                             const main = contours.get(0);
-//                             templateContourRef.current = main;
-//                         }
-
-//                         mat.delete();
-//                         hierarchy.delete();
-//                         // leave contour in templateContourRef (do NOT delete 'main' here, we keep it)
-//                     } catch (err) {
-//                         console.warn("svg->contour error", err);
-//                     } finally {
-//                         URL.revokeObjectURL(url);
-//                     }
-//                 };
-//                 img.onerror = (e) => {
-//                     URL.revokeObjectURL(url);
-//                     console.warn("Failed to load template image", e);
-//                 };
-//                 img.src = url;
-//             } catch (err) {
-//                 console.warn("Failed to fetch template svg", err);
-//             }
-//         };
-
-//         load();
-
-//         return () => {
-//             cancelled = true;
-//         };
-//     }, [templateSvgPath]);
-
-//     // Функция обработки одного кадра
-//     const processOnce = () => {
-//         try {
-//             const video = videoRef.current;
-//             const template = templateContourRef.current;
-//             const frameElem = frameRef?.current;
-//             if (!video || !template || !frameElem || !window.cv) return;
-
-//             // Надёжная проверка готовности видео
-//             if (!(video.readyState >= 2) || !video.videoWidth || !video.videoHeight) {
-//                 return;
-//             }
-
-//             // Создаём/переиспользуем временный canvas
-//             let canvas = tmpCanvasRef.current;
-//             if (!canvas) {
-//                 canvas = document.createElement("canvas");
-//                 tmpCanvasRef.current = canvas;
-//             }
-//             canvas.width = video.videoWidth;
-//             canvas.height = video.videoHeight;
-//             const ctx = canvas.getContext("2d");
-//             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-//             // Получаем Mat из canvas
-//             const src = cv.imread(canvas);
-
-//             // Препроцессинг: gray -> median blur -> adaptive threshold -> morph close
-//             const gray = new cv.Mat();
-//             cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-//             // лёгкая нормализация контраста (опционально)
-//             // cv.equalizeHist(gray, gray);
-
-//             cv.medianBlur(gray, gray, 5);
-
-//             const thresh = new cv.Mat();
-//             cv.adaptiveThreshold(
-//                 gray,
-//                 thresh,
-//                 255,
-//                 cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-//                 cv.THRESH_BINARY_INV,
-//                 31,
-//                 5
-//             );
-
-//             const kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5, 5));
-//             cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
-
-//             // findContours
-//             const contours = new cv.MatVector();
-//             const hierarchy = new cv.Mat();
-//             cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//             let found = false;
-
-//             // вычисляем frameRect в координатах видео (нужно, чтобы проверить, что boundingRect внутрь рамки)
-//             const fr = frameElem.getBoundingClientRect();
-//             const vr = video.getBoundingClientRect();
-//             const scaleX = video.videoWidth / vr.width;
-//             const scaleY = video.videoHeight / vr.height;
-//             const frameRect = {
-//                 x: (fr.left - vr.left) * scaleX,
-//                 y: (fr.top - vr.top) * scaleY,
-//                 w: fr.width * scaleX,
-//                 h: fr.height * scaleY
-//             };
-
-//             for (let i = 0; i < contours.size(); i++) {
-//                 const c = contours.get(i);
-//                 const area = cv.contourArea(c);
-//                 if (area < MIN_AREA) {
-//                     c.delete();
-//                     continue;
-//                 }
-
-//                 const r = cv.boundingRect(c);
-//                 const ratio = r.height / r.width;
-//                 // грубая фильтрация по форме (вертикальный объект с высокой высотой)
-//                 if (ratio < 2.0 || ratio > 8.0) {
-//                     c.delete();
-//                     continue;
-//                 }
-
-//                 // Сопоставление формы
-//                 let score = 999;
-//                 try {
-//                     score = cv.matchShapes(c, template, cv.CONTOURS_MATCH_I1, 0);
-//                 } catch (err) {
-//                     // ignore
-//                 }
-
-//                 // Проверяем попадание внутрь области фрейма
-//                 const inside =
-//                     r.x > frameRect.x &&
-//                     r.y > frameRect.y &&
-//                     r.x + r.width < frameRect.x + frameRect.w &&
-//                     r.y + r.height < frameRect.y + frameRect.h;
-
-//                 console.log("CHECK:", { area, ratio, inside, score });
-
-//                 // Жесткая проверка — если внутри и score небольшой (чем меньше — лучше)
-//                 // Мы используем более мягкий порог: score < MATCH_THRESHOLD (например 0.9 - 1.5 в зависимости от условий)
-//                 if (inside && score < MATCH_THRESHOLD) {
-//                     found = true;
-//                     c.delete();
-//                     break;
-//                 }
-
-//                 c.delete();
-//             }
-
-//             // освобождение
-//             src.delete();
-//             gray.delete();
-//             thresh.delete();
-//             contours.delete();
-//             hierarchy.delete();
-//             kernel.delete();
-
-//             // stability logic
-//             if (found) {
-//                 stableRef.current = Math.min(N_CONSISTENT_FRAMES, stableRef.current + 1);
-//             } else {
-//                 stableRef.current = 0;
-//             }
-
-//             const detected = stableRef.current >= N_CONSISTENT_FRAMES;
-//             onDetect(Boolean(detected));
-//         } catch (err) {
-//             // безопасно логируем, но не ломаем loop
-//             console.warn("processOnce error", err);
-//         }
-//     };
-
-//     // Loop: запускаем таймер + RAF гибрид, чтобы не перегружать CPU
-//     useEffect(() => {
-//         let mounted = true;
-//         let last = 0;
-
-//         const loop = (t) => {
-//             if (!mounted) return;
-//             if (!last || (t - last) >= PROCESS_EVERY_MS) {
-//                 processOnce();
-//                 last = t;
-//             }
-//             rafRef.current = requestAnimationFrame(loop);
-//         };
-
-//         rafRef.current = requestAnimationFrame(loop);
-
-//         return () => {
-//             mounted = false;
-//             if (rafRef.current) cancelAnimationFrame(rafRef.current);
-//             // удаляем template contour, если есть
-//             if (templateContourRef.current) {
-//                 try { templateContourRef.current.delete(); } catch (e) { }
-//                 templateContourRef.current = null;
-//             }
-//         };
-//         // eslint-disable-next-line react-hooks/exhaustive-deps
-//     }, [videoRef, frameRef]);
-
-//     return {};
-// }
-
-// export default useMarkerDetection;
-
-
-// -----------------------------------------------------------------------
-// import { useEffect, useRef } from "react";
-
-// export function useMarkerDetection(videoRef, frameRef, onDetect) {
-//     const rafRef = useRef(null);
-//     const tmpCanvasRef = useRef(null);
-
-//     const MIN_AREA = 800;      // минимальная площадь
-//     const MIN_RATIO = 2.5;     // прямоугольник вытянутый (высота больше ширины)
-//     const MAX_RATIO = 12;      // запас
-//     // const N_CONSISTENT = 3;    // минимум 3 стабильных кадра
-//     const N_CONSISTENT = 8;
-//     const PROCESS_MS = 120;
-
-//     const stable = useRef(0);
-
-//     const processOnce = () => {
-//         const video = videoRef.current;
-//         const frameElem = frameRef.current;
-
-//         if (!video || !frameElem || !window.cv) return;
-
-//         if (video.readyState < 2) return;
-
-//         // canvas
-//         let canvas = tmpCanvasRef.current;
-//         if (!canvas) {
-//             canvas = document.createElement("canvas");
-//             tmpCanvasRef.current = canvas;
-//         }
-//         canvas.width = video.videoWidth;
-//         canvas.height = video.videoHeight;
-
-//         // const ctx = canvas.getContext("2d");
-//         const ctx = canvas.getContext("2d", { willReadFrequently: true });
-//         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-//         const src = cv.imread(canvas);
-//         const gray = new cv.Mat();
-//         cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-//         const blur = new cv.Mat();
-//         cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
-
-//         const thresh = new cv.Mat();
-
-//         const edges = new cv.Mat();
-//         cv.Canny(blur, edges, 40, 120);
-
-//         const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(5, 5));
-//         cv.dilate(edges, edges, kernel);
-
-//         const contours = new cv.MatVector();
-//         const hierarchy = new cv.Mat();
-//         cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//         let found = false;
-
-//         // frame rect transform
-//         const fr = frameElem.getBoundingClientRect();
-//         const vr = video.getBoundingClientRect();
-//         const scaleX = video.videoWidth / vr.width;
-//         const scaleY = video.videoHeight / vr.height;
-
-//         const frameRect = {
-//             x: (fr.left - vr.left) * scaleX,
-//             y: (fr.top - vr.top) * scaleY,
-//             w: fr.width * scaleX,
-//             h: fr.height * scaleY
-//         };
-
-//         for (let i = 0; i < contours.size(); i++) {
-//             const c = contours.get(i);
-//             const area = cv.contourArea(c);
-//             if (area < MIN_AREA) continue;
-
-//             const r = cv.boundingRect(c);
-
-//             const ratio = r.height / r.width;
-//             if (ratio < MIN_RATIO || ratio > MAX_RATIO) continue;
-
-//             const inside =
-//                 r.x > frameRect.x &&
-//                 r.y > frameRect.y &&
-//                 (r.x + r.width) < (frameRect.x + frameRect.w) &&
-//                 (r.y + r.height) < (frameRect.y + frameRect.h);
-
-//             if (inside) {
-//                 found = true;
-//                 break;
-//             }
-//         }
-
-//         // cleanup
-//         src.delete();
-//         gray.delete();
-//         blur.delete();
-//         thresh.delete();
-//         contours.delete();
-//         hierarchy.delete();
-
-//         // stability
-//         if (found) stable.current++;
-//         else stable.current = 0;
-
-//         const detected = stable.current >= N_CONSISTENT;
-//         onDetect(detected);
-//     };
-
-//     useEffect(() => {
-//         let last = 0;
-//         let mounted = true;
-
-//         const loop = (t) => {
-//             if (!mounted) return;
-
-//             if (!last || t - last >= PROCESS_MS) {
-//                 processOnce();
-//                 last = t;
-//             }
-//             rafRef.current = requestAnimationFrame(loop);
-//         };
-
-//         rafRef.current = requestAnimationFrame(loop);
-
-//         return () => {
-//             mounted = false;
-//             if (rafRef.current) cancelAnimationFrame(rafRef.current);
-//         };
-//     }, []);
-
-//     return {};
-// }
-
-
-// --------------------------------------------------------------------------------
-
-
-// import { useEffect, useRef } from "react";
-
-// export function useMarkerDetection(videoRef, frameRef, onDetect) {
-//     const rafRef = useRef(null);
-//     const tmpCanvasRef = useRef(null);
-//     const stableRef = useRef(0);
-
-//     //   const MIN_AREA = 800;      // минимальная площадь контура
-//     //   const MIN_RATIO = 2.5;     // вытянутая по вертикали
-//     //   const MAX_RATIO = 12;      // запас
-//     //   const N_CONSISTENT = 3;    // сколько кадров подряд для стабильности
-//     //   const PROCESS_MS = 120;    // обработка раз в ms
-
-//     const MIN_AREA = 400;      // минимальная площадь контура
-//     const MIN_RATIO = 1.8;     // вытянутая по вертикали
-//     const MAX_AREA = 4000; // подберите экспериментально под близкую камеру
-//     const MAX_RATIO = 15;      // запас
-//     const N_CONSISTENT = 3;    // сколько кадров подряд для стабильности
-//     const PROCESS_MS = 120;    // обработка раз в ms
-
-//     // const processOnce = () => {
-//     // const video = videoRef.current;
-//     // const frameElem = frameRef.current;
-//     // if (!video || !frameElem || !window.cv) return;
-//     // if (video.readyState < 2) return;
-
-//     // // Создаём/используем canvas
-//     // let canvas = tmpCanvasRef.current;
-//     // if (!canvas) {
-//     //     canvas = document.createElement("canvas");
-//     //     tmpCanvasRef.current = canvas;
-//     // }
-//     // canvas.width = video.videoWidth;
-//     // canvas.height = video.videoHeight;
-//     // const ctx = canvas.getContext("2d", { willReadFrequently: true });
-//     // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-//     // const src = cv.imread(canvas);
-//     // const gray = new cv.Mat();
-//     // cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-//     // const blur = new cv.Mat();
-//     // cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
-
-//     // const edges = new cv.Mat();
-//     // // cv.Canny(blur, edges, 40, 120);
-//     // cv.Canny(blur, edges, 20, 100);
-
-//     // const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(5, 5));
-//     // cv.dilate(edges, edges, kernel);
-
-//     // const contours = new cv.MatVector();
-//     // const hierarchy = new cv.Mat();
-//     // cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//     // let found = false;
-
-//     // // Координаты рамки в системе видео
-//     // const fr = frameElem.getBoundingClientRect();
-//     // const vr = video.getBoundingClientRect();
-//     // const scaleX = video.videoWidth / vr.width;
-//     // const scaleY = video.videoHeight / vr.height;
-
-//     // const frameRect = {
-//     //     x: (fr.left - vr.left) * scaleX,
-//     //     y: (fr.top - vr.top) * scaleY,
-//     //     w: fr.width * scaleX,
-//     //     h: fr.height * scaleY,
-//     // };
-
-//     // for (let i = 0; i < contours.size(); i++) {
-//     //     const c = contours.get(i);
-//     //     // const area = cv.contourArea(c);
-//     //     // if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
-
-//     //     // const r = cv.boundingRect(c);
-//     //     // const ratio = r.height / r.width;
-//     //     // if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
-
-//     //     const area = cv.contourArea(c);
-//     //     const r = cv.boundingRect(c);
-//     //     const ratio = r.height / r.width;
-//     //     // const heightRatio = r.height / video.videoHeight;
-
-//     //     if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
-//     //     if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
-//     //     // if (heightRatio < 0.25 || heightRatio > 0.8) { c.delete(); continue; }
-
-//     //     // Проверяем попадание внутрь рамки
-//     //     // const inside =
-//     //     //     r.x > frameRect.x &&
-//     //     //     r.y > frameRect.y &&
-//     //     //     r.x + r.width < frameRect.x + frameRect.w &&
-//     //     //     r.y + r.height < frameRect.y + frameRect.h;
-
-//     //     const PADDING = 0.1; // 10% от ширины/высоты рамки
-
-//     //     const inside =
-//     //         r.x > frameRect.x - frameRect.w * PADDING &&
-//     //         r.y > frameRect.y - frameRect.h * PADDING &&
-//     //         r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
-//     //         r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
-
-//     //     if (inside) {
-//     //         found = true;
-//     //         c.delete();
-//     //         break;
-//     //     }
-
-//     //     c.delete();
-//     // }
-
-//     // // Очистка
-//     // src.delete();
-//     // gray.delete();
-//     // blur.delete();
-//     // edges.delete();
-//     // contours.delete();
-//     // hierarchy.delete();
-//     // kernel.delete();
-
-//     // // Логика стабильности
-//     // if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
-//     // else stableRef.current = 0;
-
-//     // const detected = stableRef.current >= N_CONSISTENT;
-//     // onDetect(detected);
-
-//     //     const src = cv.imread(canvas);
-//     //     const gray = new cv.Mat();
-//     //     cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-//     //     // Используем пороговую бинаризацию по яркости (выделяем белую полоску)
-//     //     const thresh = new cv.Mat();
-//     //     cv.threshold(gray, thresh, 200, 255, cv.THRESH_BINARY);
-//     //     // 200 — порог яркости, подбирается под твои условия
-
-//     //     const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
-//     //     cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel); // закрываем мелкие дыры
-
-//     //     const contours = new cv.MatVector();
-//     //     const hierarchy = new cv.Mat();
-//     //     cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//     //     let found = false;
-
-//     //     // Координаты рамки как раньше
-//     //     const fr = frameElem.getBoundingClientRect();
-//     //     const vr = video.getBoundingClientRect();
-//     //     const scaleX = video.videoWidth / vr.width;
-//     //     const scaleY = video.videoHeight / vr.height;
-
-//     //     const frameRect = {
-//     //         x: (fr.left - vr.left) * scaleX,
-//     //         y: (fr.top - vr.top) * scaleY,
-//     //         w: fr.width * scaleX,
-//     //         h: fr.height * scaleY,
-//     //     };
-
-//     //     for (let i = 0; i < contours.size(); i++) {
-//     //         const c = contours.get(i);
-//     //         const area = cv.contourArea(c);
-//     //         const r = cv.boundingRect(c);
-//     //         const ratio = r.height / r.width;
-
-//     //         if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
-//     //         if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
-
-//     //         const PADDING = 0.1; // 10% запас
-//     //         const inside =
-//     //             r.x > frameRect.x - frameRect.w * PADDING &&
-//     //             r.y > frameRect.y - frameRect.h * PADDING &&
-//     //             r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
-//     //             r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
-
-//     //         if (inside) {
-//     //             found = true;
-//     //             c.delete();
-//     //             break;
-//     //         }
-//     //         c.delete();
-//     //     }
-
-//     //     // Очистка
-//     //     src.delete();
-//     //     gray.delete();
-//     //     thresh.delete();
-//     //     contours.delete();
-//     //     hierarchy.delete();
-//     //     kernel.delete();
-
-//     //     // // Логика стабильности
-//     //     if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
-//     //     else stableRef.current = 0;
-
-//     //     const detected = stableRef.current >= N_CONSISTENT;
-//     //     onDetect(detected);
-//     // };
-
-//     const processOnce = () => {
-//         const video = videoRef.current;
-//         const frameElem = frameRef.current;
-//         if (!video || !frameElem || !window.cv) return;
-//         if (video.readyState < 2) return;
-
-//         // создаём canvas и копируем кадр видео
-//         let canvas = tmpCanvasRef.current;
-//         if (!canvas) {
-//             canvas = document.createElement("canvas");
-//             tmpCanvasRef.current = canvas;
-//         }
-//         canvas.width = video.videoWidth;
-//         canvas.height = video.videoHeight;
-//         const ctx = canvas.getContext("2d", { willReadFrequently: true });
-//         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-//         // OpenCV
-//         const src = cv.imread(canvas);
-//         const gray = new cv.Mat();
-//         cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-//         // Бинаризация для белой полоски
-//         const thresh = new cv.Mat();
-//         // cv.threshold(gray, thresh, 200, 255, cv.THRESH_BINARY);
-//         cv.threshold(gray, thresh, 220, 255, cv.THRESH_BINARY);
-
-//         const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
-//         cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
-
-//         const contours = new cv.MatVector();
-//         const hierarchy = new cv.Mat();
-//         cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//         let found = false;
-
-//         // координаты рамки
-//         const fr = frameElem.getBoundingClientRect();
-//         const vr = video.getBoundingClientRect();
-//         const scaleX = video.videoWidth / vr.width;
-//         const scaleY = video.videoHeight / vr.height;
-
-//         const frameRect = {
-//             x: (fr.left - vr.left) * scaleX,
-//             y: (fr.top - vr.top) * scaleY,
-//             w: fr.width * scaleX,
-//             h: fr.height * scaleY,
-//         };
-
-//         for (let i = 0; i < contours.size(); i++) {
-//             const c = contours.get(i);
-//             const area = cv.contourArea(c);
-//             const r = cv.boundingRect(c);
-//             const ratio = r.height / r.width;
-
-//             if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
-//             if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
-
-//             const PADDING = 0.1;
-//             const inside =
-//                 r.x > frameRect.x - frameRect.w * PADDING &&
-//                 r.y > frameRect.y - frameRect.h * PADDING &&
-//                 r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
-//                 r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
-
-//             if (inside) {
-//                 found = true;
-//                 c.delete();
-//                 break;
-//             }
-//             c.delete();
-//         }
-
-//         // Очистка
-//         src.delete();
-//         gray.delete();
-//         thresh.delete();
-//         contours.delete();
-//         hierarchy.delete();
-//         kernel.delete();
-
-//         if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
-//         else stableRef.current = 0;
-
-//         const detected = stableRef.current >= N_CONSISTENT;
-//         onDetect(detected);
-//     };
-
-//     useEffect(() => {
-//         let last = 0;
-//         let mounted = true;
-
-//         const loop = (t) => {
-//             if (!mounted) return;
-//             if (!last || t - last >= PROCESS_MS) {
-//                 processOnce();
-//                 last = t;
-//             }
-//             rafRef.current = requestAnimationFrame(loop);
-//         };
-
-//         rafRef.current = requestAnimationFrame(loop);
-
-//         return () => {
-//             mounted = false;
-//             if (rafRef.current) cancelAnimationFrame(rafRef.current);
-//         };
-//     }, []);
-
-//     return {};
-// }
-
-// export default useMarkerDetection;
-
-
-
-
-
-
-// import { useEffect, useRef } from "react";
-
-// export function useMarkerDetection(videoRef, frameRef, onDetect) {
-//     const rafRef = useRef(null);
-//     const tmpCanvasRef = useRef(null);
-//     const stableRef = useRef(0);
-
-//     const MIN_AREA = 400;      // минимальная площадь контура
-//     const MIN_RATIO = 1.5;     // вытянутая по вертикали
-//     const MAX_AREA = 10000; // подберите экспериментально под близкую камеру
-//     const MAX_RATIO = 20;      // запас
-//     const N_CONSISTENT = 2;    // сколько кадров подряд для стабильности
-//     const PROCESS_MS = 120;    // обработка раз в ms
-
-//     const processOnce = () => {
-//         const video = videoRef.current;
-//         const frameElem = frameRef.current;
-//         if (!video || !frameElem || !window.cv) return;
-//         if (video.readyState < 2) return;
-
-//         // создаём canvas и копируем кадр видео
-//         let canvas = tmpCanvasRef.current;
-//         if (!canvas) {
-//             canvas = document.createElement("canvas");
-//             tmpCanvasRef.current = canvas;
-//         }
-//         canvas.width = video.videoWidth;
-//         canvas.height = video.videoHeight;
-//         const ctx = canvas.getContext("2d", { willReadFrequently: true });
-//         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-//         // OpenCV
-//         const src = cv.imread(canvas);
-//         const gray = new cv.Mat();
-//         cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-//         // Бинаризация для белой полоски
-//         const thresh = new cv.Mat();
-//         // cv.threshold(gray, thresh, 200, 255, cv.THRESH_BINARY);
-//         // cv.threshold(gray, thresh, 220, 255, cv.THRESH_BINARY);
-//         cv.adaptiveThreshold(gray, thresh, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY, 15, 10);
-
-//         const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
-//         cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
-
-//         const contours = new cv.MatVector();
-//         const hierarchy = new cv.Mat();
-//         cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//         let found = false;
-
-//         // координаты рамки
-//         const fr = frameElem.getBoundingClientRect();
-//         const vr = video.getBoundingClientRect();
-//         const scaleX = video.videoWidth / vr.width;
-//         const scaleY = video.videoHeight / vr.height;
-
-//         const frameRect = {
-//             x: (fr.left - vr.left) * scaleX,
-//             y: (fr.top - vr.top) * scaleY,
-//             w: fr.width * scaleX,
-//             h: fr.height * scaleY,
-//         };
-
-//         for (let i = 0; i < contours.size(); i++) {
-//             const c = contours.get(i);
-//             const area = cv.contourArea(c);
-//             const r = cv.boundingRect(c);
-//             const ratio = r.height / r.width;
-
-//             if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
-//             if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
-
-//             const PADDING = 0.2;
-//             const inside =
-//                 r.x > frameRect.x - frameRect.w * PADDING &&
-//                 r.y > frameRect.y - frameRect.h * PADDING &&
-//                 r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
-//                 r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
-
-//             if (inside) {
-//                 found = true;
-//                 c.delete();
-//                 break;
-//             }
-//             c.delete();
-//         }
-
-//         // Очистка
-//         src.delete();
-//         gray.delete();
-//         thresh.delete();
-//         contours.delete();
-//         hierarchy.delete();
-//         kernel.delete();
-
-//         if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
-//         else stableRef.current = 0;
-
-//         const detected = stableRef.current >= N_CONSISTENT;
-//         onDetect(detected);
-//     };
-
-//     useEffect(() => {
-//         let last = 0;
-//         let mounted = true;
-
-//         const loop = (t) => {
-//             if (!mounted) return;
-//             if (!last || t - last >= PROCESS_MS) {
-//                 processOnce();
-//                 last = t;
-//             }
-//             rafRef.current = requestAnimationFrame(loop);
-//         };
-
-//         rafRef.current = requestAnimationFrame(loop);
-
-//         return () => {
-//             mounted = false;
-//             if (rafRef.current) cancelAnimationFrame(rafRef.current);
-//         };
-//     }, []);
-
-//     return {};
-// }
-
-// export default useMarkerDetection;
-
-
-// -------------------------------------------------------------рабочая версия
-
-import { useEffect, useRef, useState } from "react";
-
-export function useMarkerDetection(videoRef, frameRef, onDetect) {
+import { useEffect, useRef } from "react";
+
+export function useMarkerDetection(
+    videoRef,
+    frameRef,
+    onDetect,
+    templateSvgPath = "/templates/stripTemplate.png"
+) {
+    const templateContourRef = useRef(null);
+    const stableRef = useRef(0);
     const rafRef = useRef(null);
     const tmpCanvasRef = useRef(null);
-    const stableRef = useRef(0);
 
-    const [smoothDetected, setSmoothDetected] = useState(false);
-    const smoothingRef = useRef(0);
-
-    const MIN_AREA = 300;      // минимальная площадь контура
-    const MAX_AREA = 4500;     // максимальная площадь
-    const MIN_RATIO = 1.5;     // минимальное соотношение высоты/ширины
-    const MAX_RATIO = 16;      // максимальное соотношение
-    const N_CONSISTENT = 4;    // сколько кадров подряд для стабильности
-    const PROCESS_MS = 120;    // обработка раз в ms
-
-    const processOnce = () => {
-        const video = videoRef.current;
-        const frameElem = frameRef.current;
-        if (!video || !frameElem || !window.cv) return;
-        if (video.readyState < 2) return;
-
-        // создаём canvas и копируем кадр видео
-        let canvas = tmpCanvasRef.current;
-        if (!canvas) {
-            canvas = document.createElement("canvas");
-            tmpCanvasRef.current = canvas;
-        }
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const ctx = canvas.getContext("2d", { willReadFrequently: true });
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-        // OpenCV
-        const src = cv.imread(canvas);
-        const gray = new cv.Mat();
-        cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-        // Размываем для уменьшения шума
-        const blur = new cv.Mat();
-        cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
-
-        // Детектируем контуры
-        const edges = new cv.Mat();
-        cv.Canny(blur, edges, 40, 120);
-
-        const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
-        cv.dilate(edges, edges, kernel);
-
-        const contours = new cv.MatVector();
-        const hierarchy = new cv.Mat();
-        cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-        let found = false;
-
-        // координаты рамки
-        const fr = frameElem.getBoundingClientRect();
-        const vr = video.getBoundingClientRect();
-        const scaleX = video.videoWidth / vr.width;
-        const scaleY = video.videoHeight / vr.height;
-
-        const frameRect = {
-            x: (fr.left - vr.left) * scaleX,
-            y: (fr.top - vr.top) * scaleY,
-            w: fr.width * scaleX,
-            h: fr.height * scaleY,
-        };
-
-        for (let i = 0; i < contours.size(); i++) {
-            const c = contours.get(i);
-            const area = cv.contourArea(c);
-            const r = cv.boundingRect(c);
-            const ratio = r.height / r.width;
-
-            if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
-            if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
-
-            const PADDING = 0.2; // 10% запас
-            const inside =
-                r.x > frameRect.x - frameRect.w * PADDING &&
-                r.y > frameRect.y - frameRect.h * PADDING &&
-                r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
-                r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
-
-            if (inside) {
-                found = true;
-                c.delete();
-                break;
-            }
-            c.delete();
-        }
-
-        // Очистка
-        src.delete();
-        gray.delete();
-        blur.delete();
-        edges.delete();
-        contours.delete();
-        hierarchy.delete();
-        kernel.delete();
-
-        // Логика стабильности
-        if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
-        else stableRef.current = 0;
-
-        const detected = stableRef.current >= N_CONSISTENT;
-        onDetect(detected);
-
-        const SMOOTHING_COUNT = 5; // сглаживаем по 5 кадрам
-
-        if (detected) smoothingRef.current = Math.min(SMOOTHING_COUNT, smoothingRef.current + 1);
-        else smoothingRef.current = Math.max(0, smoothingRef.current - 1);
-
-        setSmoothDetected(smoothingRef.current > SMOOTHING_COUNT / 2);
-    };
+    const MIN_AREA = 1500;
+    const MATCH_THRESHOLD = 0.9;
+    const N_CONSISTENT_FRAMES = 3;
+    const PROCESS_EVERY_MS = 120;
 
     useEffect(() => {
-        let last = 0;
-        let mounted = true;
+        if (!window.cv || !templateSvgPath) return;
 
-        const loop = (t) => {
-            if (!mounted) return;
-            if (!last || t - last >= PROCESS_MS) {
-                processOnce();
-                last = t;
+        const loadTemplate = async () => {
+            try {
+                const resp = await fetch(templateSvgPath);
+                if (!resp.ok) throw new Error(`Failed to fetch template: ${resp.status}`);
+
+                // ЧИТАЕМ КАК BLOB, а НЕ как текст
+                const blob = await resp.blob();
+                const url = URL.createObjectURL(blob);
+
+                const img = new Image();
+                img.onload = () => {
+                    const mat = cv.imread(img);
+
+                    cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
+                    cv.threshold(mat, mat, 127, 255, cv.THRESH_BINARY);
+
+                    const contours = new cv.MatVector();
+                    const hierarchy = new cv.Mat();
+                    cv.findContours(mat, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+
+                    console.log("TEMPLATE CONTOURS:", contours.size());
+
+                    if (contours.size() > 0) {
+                        templateContourRef.current = contours.get(0);
+                    } else {
+                        console.warn("No contours found in template!");
+                    }
+
+                    mat.delete();
+                    hierarchy.delete();
+                    contours.delete();
+                    URL.revokeObjectURL(url);
+                };
+
+                img.src = url;
+            } catch (err) {
+                console.warn("Failed to load template", err);
             }
-            rafRef.current = requestAnimationFrame(loop);
         };
 
-        rafRef.current = requestAnimationFrame(loop);
+        loadTemplate();
+    }, [templateSvgPath]);
+
+    // Функция обработки кадра
+    const processOnce = () => {
+        try {
+            const video = videoRef.current;
+            const template = templateContourRef.current;
+            const frameElem = frameRef.current;
+
+            if (!video || !template || !frameElem || !window.cv) return;
+            if (!(video.readyState >= 2) || !video.videoWidth || !video.videoHeight) return;
+
+            let canvas = tmpCanvasRef.current;
+            if (!canvas) {
+                canvas = document.createElement("canvas");
+                tmpCanvasRef.current = canvas;
+            }
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const src = cv.imread(canvas);
+
+            const gray = new cv.Mat();
+            cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+            cv.medianBlur(gray, gray, 5);
+
+            const thresh = new cv.Mat();
+            cv.adaptiveThreshold(
+                gray,
+                thresh,
+                255,
+                cv.ADAPTIVE_THRESH_GAUSSIAN_C,
+                cv.THRESH_BINARY_INV,
+                31,
+                5
+            );
+
+            const kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5, 5));
+            cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
+
+            const contours = new cv.MatVector();
+            const hierarchy = new cv.Mat();
+            cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+
+            let found = false;
+
+            const fr = frameElem.getBoundingClientRect();
+            const vr = video.getBoundingClientRect();
+            const scaleX = video.videoWidth / vr.width;
+            const scaleY = video.videoHeight / vr.height;
+            const frameRect = {
+                x: (fr.left - vr.left) * scaleX,
+                y: (fr.top - vr.top) * scaleY,
+                w: fr.width * scaleX,
+                h: fr.height * scaleY
+            };
+
+            for (let i = 0; i < contours.size(); i++) {
+                const c = contours.get(i);
+                const area = cv.contourArea(c);
+                if (area < MIN_AREA) { c.delete(); continue; }
+
+                const r = cv.boundingRect(c);
+                const ratio = r.height / r.width;
+                if (ratio < 2.0 || ratio > 8.0) { c.delete(); continue; }
+
+                let score = 999;
+                try { score = cv.matchShapes(c, template, cv.CONTOURS_MATCH_I1, 0); } catch { }
+
+                const inside =
+                    r.x > frameRect.x &&
+                    r.y > frameRect.y &&
+                    r.x + r.width < frameRect.x + frameRect.w &&
+                    r.y + r.height < frameRect.y + frameRect.h;
+
+                if (inside && score < MATCH_THRESHOLD) {
+                    found = true;
+                    c.delete();
+                    break;
+                }
+                c.delete();
+            }
+
+            src.delete();
+            gray.delete();
+            thresh.delete();
+            contours.delete();
+            hierarchy.delete();
+            kernel.delete();
+
+            if (found) {
+                stableRef.current = Math.min(N_CONSISTENT_FRAMES, stableRef.current + 1);
+            } else {
+                stableRef.current = 0;
+            }
+
+            const detected = stableRef.current >= N_CONSISTENT_FRAMES;
+            onDetect(detected);
+
+        } catch (err) {
+            console.warn("processOnce error", err);
+        }
+    };
+
+    // Loop: ждём шаблон и запускаем обработку
+    useEffect(() => {
+        let mounted = true;
+        let rafId;
+
+        const startLoop = () => {
+            let last = 0;
+            const loop = (t) => {
+                if (!mounted) return;
+                if (!last || (t - last) >= PROCESS_EVERY_MS) {
+                    processOnce();
+                    last = t;
+                }
+                rafId = requestAnimationFrame(loop);
+            };
+            rafId = requestAnimationFrame(loop);
+        };
+
+        const waitTemplate = () => {
+            if (templateContourRef.current) {
+                startLoop();
+            } else {
+                setTimeout(waitTemplate, 100);
+            }
+        };
+
+        waitTemplate();
 
         return () => {
             mounted = false;
-            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+            if (rafId) cancelAnimationFrame(rafId);
+            if (templateContourRef.current) {
+                try { templateContourRef.current.delete(); } catch { }
+                templateContourRef.current = null;
+            }
         };
-    }, []);
+    }, [videoRef, frameRef]);
 
     return {};
 }
@@ -1185,483 +210,150 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
 export default useMarkerDetection;
 
 
+// ---------------------------------------------------------------------------------------
 
 
-// import { useEffect, useRef, useState } from "react";
-
-// export function useMarkerDetection(videoRef, frameRef, onDetect) {
-//   const rafRef = useRef(null);
-//   const tmpCanvasRef = useRef(null);
-//   const stableRef = useRef(0);
-//   const smoothingRef = useRef(0);
-
-//   const [smoothDetected, setSmoothDetected] = useState(false);
-
-//   // Параметры фильтрации контуров
-//   const MIN_AREA = 300;
-//   const MAX_AREA = 4500;
-//   const MIN_RATIO = 1.5;
-//   const MAX_RATIO = 16;
-//   const N_CONSISTENT = 4;  // количество кадров подряд для детекции
-//   const PROCESS_MS = 120;  // частота обработки
-//   const SMOOTHING_COUNT = 7; // сглаживание по кадрам
-
-//   const processOnce = () => {
-//     const video = videoRef.current;
-//     const frameElem = frameRef.current;
-//     if (!video || !frameElem || !window.cv) return;
-//     if (video.readyState < 2) return;
-
-//     // Canvas для обработки
-//     let canvas = tmpCanvasRef.current;
-//     if (!canvas) {
-//       canvas = document.createElement("canvas");
-//       tmpCanvasRef.current = canvas;
-//     }
-//     canvas.width = video.videoWidth;
-//     canvas.height = video.videoHeight;
-//     const ctx = canvas.getContext("2d", { willReadFrequently: true });
-//     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-//     // OpenCV
-//     const src = cv.imread(canvas);
-//     const gray = new cv.Mat();
-//     cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-//     // Размываем, чтобы уменьшить шум
-//     const blur = new cv.Mat();
-//     cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
-
-//     // Бинаризация для светлой/белой полоски
-//     const thresh = new cv.Mat();
-//     cv.threshold(blur, thresh, 200, 255, cv.THRESH_BINARY);
-
-//     // Морфология для закрытия мелких дыр
-//     const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
-//     cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
-
-//     // Контуры
-//     const contours = new cv.MatVector();
-//     const hierarchy = new cv.Mat();
-//     cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//     let found = false;
-
-//     // Координаты рамки
-//     const fr = frameElem.getBoundingClientRect();
-//     const vr = video.getBoundingClientRect();
-//     const scaleX = video.videoWidth / vr.width;
-//     const scaleY = video.videoHeight / vr.height;
-//     const frameRect = {
-//       x: (fr.left - vr.left) * scaleX,
-//       y: (fr.top - vr.top) * scaleY,
-//       w: fr.width * scaleX,
-//       h: fr.height * scaleY,
-//     };
-
-//     for (let i = 0; i < contours.size(); i++) {
-//       const c = contours.get(i);
-//       const area = cv.contourArea(c);
-//       const r = cv.boundingRect(c);
-//       const ratio = r.height / r.width;
-
-//       if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
-//       if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
-
-//       // Проверяем попадание в рамку с небольшим запасом
-//       const PADDING = 0.2;
-//       const inside =
-//         r.x > frameRect.x - frameRect.w * PADDING &&
-//         r.y > frameRect.y - frameRect.h * PADDING &&
-//         r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
-//         r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
-
-//       if (!inside) { c.delete(); continue; }
-
-//       // Проверяем, что контур достаточно светлый (тест-полоска белая)
-//       const roi = gray.roi(r);
-//       const meanScalar = cv.mean(roi);
-//       roi.delete();
-//       if (meanScalar[0] < 180) { // порог яркости, можно подкорректировать
-//         c.delete();
-//         continue;
-//       }
-
-//       found = true;
-//       c.delete();
-//       break;
-//     }
-
-//     // Очистка
-//     src.delete();
-//     gray.delete();
-//     blur.delete();
-//     thresh.delete();
-//     contours.delete();
-//     hierarchy.delete();
-//     kernel.delete();
-
-//     // Стабильность по кадрам
-//     if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
-//     else stableRef.current = 0;
-
-//     const detected = stableRef.current >= N_CONSISTENT;
-//     onDetect(detected);
-
-//     // Дополнительно сглаживаем для визуальной плавности
-//     if (detected) smoothingRef.current = Math.min(SMOOTHING_COUNT, smoothingRef.current + 1);
-//     else smoothingRef.current = Math.max(0, smoothingRef.current - 1);
-
-//     setSmoothDetected(smoothingRef.current > SMOOTHING_COUNT / 2);
-//   };
-
-//   useEffect(() => {
-//     let last = 0;
-//     let mounted = true;
-
-//     const loop = (t) => {
-//       if (!mounted) return;
-//       if (!last || t - last >= PROCESS_MS) {
-//         processOnce();
-//         last = t;
-//       }
-//       rafRef.current = requestAnimationFrame(loop);
-//     };
-
-//     rafRef.current = requestAnimationFrame(loop);
-
-//     return () => {
-//       mounted = false;
-//       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-//     };
-//   }, []);
-
-//   return { smoothDetected };
-// }
-
-// export default useMarkerDetection;
-
-
+// -------------------------------------------------------------рабочая версия
 
 // import { useEffect, useRef, useState } from "react";
 
 // export function useMarkerDetection(videoRef, frameRef, onDetect) {
-//   const rafRef = useRef(null);
-//   const tmpCanvasRef = useRef(null);
-//   const stableRef = useRef(0);
-//   const smoothingRef = useRef(0);
+//     const rafRef = useRef(null);
+//     const tmpCanvasRef = useRef(null);
+//     const stableRef = useRef(0);
 
-//   const [smoothDetected, setSmoothDetected] = useState(false);
-//   const interpolatedRectRef = useRef(null); // текущая сглаженная рамка
+//     const [smoothDetected, setSmoothDetected] = useState(false);
+//     const smoothingRef = useRef(0);
 
-//   // Параметры фильтрации контуров
-//   const MIN_AREA = 300;
-//   const MAX_AREA = 4500;
-//   const MIN_RATIO = 1.5;
-//   const MAX_RATIO = 16;
-//   const N_CONSISTENT = 4;  
-//   const PROCESS_MS = 120;
-//   const SMOOTHING_COUNT = 7; 
-//   const INTERPOLATION_SPEED = 0.2; // скорость интерполяции [0..1]
+//     const MIN_AREA = 300;      // минимальная площадь контура
+//     const MAX_AREA = 4500;     // максимальная площадь
+//     const MIN_RATIO = 1.5;     // минимальное соотношение высоты/ширины
+//     const MAX_RATIO = 16;      // максимальное соотношение
+//     const N_CONSISTENT = 4;    // сколько кадров подряд для стабильности
+//     const PROCESS_MS = 120;    // обработка раз в ms
 
-//   const processOnce = () => {
-//     const video = videoRef.current;
-//     const frameElem = frameRef.current;
-//     if (!video || !frameElem || !window.cv) return;
-//     if (video.readyState < 2) return;
+//     const processOnce = () => {
+//         const video = videoRef.current;
+//         const frameElem = frameRef.current;
+//         if (!video || !frameElem || !window.cv) return;
+//         if (video.readyState < 2) return;
 
-//     let canvas = tmpCanvasRef.current;
-//     if (!canvas) {
-//       canvas = document.createElement("canvas");
-//       tmpCanvasRef.current = canvas;
-//     }
-//     canvas.width = video.videoWidth;
-//     canvas.height = video.videoHeight;
-//     const ctx = canvas.getContext("2d", { willReadFrequently: true });
-//     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+//         // создаём canvas и копируем кадр видео
+//         let canvas = tmpCanvasRef.current;
+//         if (!canvas) {
+//             canvas = document.createElement("canvas");
+//             tmpCanvasRef.current = canvas;
+//         }
+//         canvas.width = video.videoWidth;
+//         canvas.height = video.videoHeight;
+//         const ctx = canvas.getContext("2d", { willReadFrequently: true });
+//         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-//     // OpenCV
-//     const src = cv.imread(canvas);
-//     const gray = new cv.Mat();
-//     cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+//         // OpenCV
+//         const src = cv.imread(canvas);
+//         const gray = new cv.Mat();
+//         cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
-//     const blur = new cv.Mat();
-//     cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
+//         // Размываем для уменьшения шума
+//         const blur = new cv.Mat();
+//         cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
 
-//     const thresh = new cv.Mat();
-//     cv.threshold(blur, thresh, 200, 255, cv.THRESH_BINARY);
+//         // Детектируем контуры
+//         const edges = new cv.Mat();
+//         cv.Canny(blur, edges, 40, 120);
 
-//     const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
-//     cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
+//         const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
+//         cv.dilate(edges, edges, kernel);
 
-//     const contours = new cv.MatVector();
-//     const hierarchy = new cv.Mat();
-//     cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+//         const contours = new cv.MatVector();
+//         const hierarchy = new cv.Mat();
+//         cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
 
-//     let found = false;
-//     let detectedRect = null;
+//         let found = false;
 
-//     // Координаты рамки
-//     const fr = frameElem.getBoundingClientRect();
-//     const vr = video.getBoundingClientRect();
-//     const scaleX = video.videoWidth / vr.width;
-//     const scaleY = video.videoHeight / vr.height;
-//     const frameRect = {
-//       x: (fr.left - vr.left) * scaleX,
-//       y: (fr.top - vr.top) * scaleY,
-//       w: fr.width * scaleX,
-//       h: fr.height * scaleY,
+//         // координаты рамки
+//         const fr = frameElem.getBoundingClientRect();
+//         const vr = video.getBoundingClientRect();
+//         const scaleX = video.videoWidth / vr.width;
+//         const scaleY = video.videoHeight / vr.height;
+
+//         const frameRect = {
+//             x: (fr.left - vr.left) * scaleX,
+//             y: (fr.top - vr.top) * scaleY,
+//             w: fr.width * scaleX,
+//             h: fr.height * scaleY,
+//         };
+
+//         for (let i = 0; i < contours.size(); i++) {
+//             const c = contours.get(i);
+//             const area = cv.contourArea(c);
+//             const r = cv.boundingRect(c);
+//             const ratio = r.height / r.width;
+
+//             if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
+//             if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
+
+//             const PADDING = 0.2; // 10% запас
+//             const inside =
+//                 r.x > frameRect.x - frameRect.w * PADDING &&
+//                 r.y > frameRect.y - frameRect.h * PADDING &&
+//                 r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
+//                 r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
+
+//             if (inside) {
+//                 found = true;
+//                 c.delete();
+//                 break;
+//             }
+//             c.delete();
+//         }
+
+//         // Очистка
+//         src.delete();
+//         gray.delete();
+//         blur.delete();
+//         edges.delete();
+//         contours.delete();
+//         hierarchy.delete();
+//         kernel.delete();
+
+//         // Логика стабильности
+//         if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
+//         else stableRef.current = 0;
+
+//         const detected = stableRef.current >= N_CONSISTENT;
+//         onDetect(detected);
+
+//         const SMOOTHING_COUNT = 5; // сглаживаем по 5 кадрам
+
+//         if (detected) smoothingRef.current = Math.min(SMOOTHING_COUNT, smoothingRef.current + 1);
+//         else smoothingRef.current = Math.max(0, smoothingRef.current - 1);
+
+//         setSmoothDetected(smoothingRef.current > SMOOTHING_COUNT / 2);
 //     };
 
-//     for (let i = 0; i < contours.size(); i++) {
-//       const c = contours.get(i);
-//       const area = cv.contourArea(c);
-//       const r = cv.boundingRect(c);
-//       const ratio = r.height / r.width;
+//     useEffect(() => {
+//         let last = 0;
+//         let mounted = true;
 
-//       if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
-//       if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
+//         const loop = (t) => {
+//             if (!mounted) return;
+//             if (!last || t - last >= PROCESS_MS) {
+//                 processOnce();
+//                 last = t;
+//             }
+//             rafRef.current = requestAnimationFrame(loop);
+//         };
 
-//       const PADDING = 0.2;
-//       const inside =
-//         r.x > frameRect.x - frameRect.w * PADDING &&
-//         r.y > frameRect.y - frameRect.h * PADDING &&
-//         r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
-//         r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
+//         rafRef.current = requestAnimationFrame(loop);
 
-//       if (!inside) { c.delete(); continue; }
+//         return () => {
+//             mounted = false;
+//             if (rafRef.current) cancelAnimationFrame(rafRef.current);
+//         };
+//     }, []);
 
-//       const roi = gray.roi(r);
-//       const meanScalar = cv.mean(roi);
-//       roi.delete();
-//       if (meanScalar[0] < 180) { c.delete(); continue; }
-
-//       detectedRect = r;
-//       found = true;
-//       c.delete();
-//       break;
-//     }
-
-//     // Очистка
-//     src.delete();
-//     gray.delete();
-//     blur.delete();
-//     thresh.delete();
-//     contours.delete();
-//     hierarchy.delete();
-//     kernel.delete();
-
-//     // Стабильность по кадрам
-//     if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
-//     else stableRef.current = 0;
-
-//     const detected = stableRef.current >= N_CONSISTENT;
-//     onDetect(detected);
-
-//     // Сглаживание по кадрам
-//     if (detected) smoothingRef.current = Math.min(SMOOTHING_COUNT, smoothingRef.current + 1);
-//     else smoothingRef.current = Math.max(0, smoothingRef.current - 1);
-
-//     setSmoothDetected(smoothingRef.current > SMOOTHING_COUNT / 2);
-
-//     // Интерполяция позиции рамки
-//     if (detectedRect) {
-//       if (!interpolatedRectRef.current) {
-//         interpolatedRectRef.current = { ...detectedRect };
-//       } else {
-//         const rect = interpolatedRectRef.current;
-//         rect.x += (detectedRect.x - rect.x) * INTERPOLATION_SPEED;
-//         rect.y += (detectedRect.y - rect.y) * INTERPOLATION_SPEED;
-//         rect.width += (detectedRect.width - rect.width) * INTERPOLATION_SPEED;
-//         rect.height += (detectedRect.height - rect.height) * INTERPOLATION_SPEED;
-//         interpolatedRectRef.current = rect;
-//       }
-//     }
-//   };
-
-//   useEffect(() => {
-//     let last = 0;
-//     let mounted = true;
-
-//     const loop = (t) => {
-//       if (!mounted) return;
-//       if (!last || t - last >= PROCESS_MS) {
-//         processOnce();
-//         last = t;
-//       }
-//       rafRef.current = requestAnimationFrame(loop);
-//     };
-
-//     rafRef.current = requestAnimationFrame(loop);
-
-//     return () => {
-//       mounted = false;
-//       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-//     };
-//   }, []);
-
-//   return { smoothDetected, interpolatedRect: interpolatedRectRef.current };
-// }
-
-// export default useMarkerDetection;
-
-
-
-// import { useEffect, useRef, useState } from "react";
-
-// export function useMarkerDetection(videoRef, frameRef, onDetect) {
-//   const rafRef = useRef(null);
-//   const tmpCanvasRef = useRef(null);
-//   const confidenceRef = useRef(0);
-//   const interpolatedRectRef = useRef(null);
-
-//   const [smoothDetected, setSmoothDetected] = useState(false);
-
-//   const MIN_AREA = 200;
-//   const MAX_AREA = 4500;
-//   const MIN_RATIO = 1.5;
-//   const MAX_RATIO = 16;
-//   const PROCESS_MS = 120;
-//   const CONFIDENCE_MAX = 10;      // максимальное доверие
-//   const CONFIDENCE_THRESHOLD = 6; // порог для фиксации
-//   const INTERPOLATION_SPEED = 0.2;
-
-//   const processOnce = () => {
-//     const video = videoRef.current;
-//     const frameElem = frameRef.current;
-//     if (!video || !frameElem || !window.cv) return;
-//     if (video.readyState < 2) return;
-
-//     let canvas = tmpCanvasRef.current;
-//     if (!canvas) {
-//       canvas = document.createElement("canvas");
-//       tmpCanvasRef.current = canvas;
-//     }
-//     canvas.width = video.videoWidth;
-//     canvas.height = video.videoHeight;
-//     const ctx = canvas.getContext("2d", { willReadFrequently: true });
-//     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-//     const src = cv.imread(canvas);
-//     const gray = new cv.Mat();
-//     cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-//     const blur = new cv.Mat();
-//     cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
-
-//     const edges = new cv.Mat();
-//     cv.Canny(blur, edges, 40, 120);
-
-//     const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
-//     cv.dilate(edges, edges, kernel);
-
-//     const contours = new cv.MatVector();
-//     const hierarchy = new cv.Mat();
-//     cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-//     let bestRect = null;
-//     let bestConfidence = 0;
-
-//     const fr = frameElem.getBoundingClientRect();
-//     const vr = video.getBoundingClientRect();
-//     const scaleX = video.videoWidth / vr.width;
-//     const scaleY = video.videoHeight / vr.height;
-//     const frameRect = {
-//       x: (fr.left - vr.left) * scaleX,
-//       y: (fr.top - vr.top) * scaleY,
-//       w: fr.width * scaleX,
-//       h: fr.height * scaleY,
-//     };
-
-//     for (let i = 0; i < contours.size(); i++) {
-//       const c = contours.get(i);
-//       const area = cv.contourArea(c);
-//       const r = cv.boundingRect(c);
-//       const ratio = r.height / r.width;
-
-//       if (area < MIN_AREA || area > MAX_AREA || ratio < MIN_RATIO || ratio > MAX_RATIO) { 
-//         c.delete(); 
-//         continue; 
-//       }
-
-//       const PADDING = 0.2;
-//       const inside =
-//         r.x > frameRect.x - frameRect.w * PADDING &&
-//         r.y > frameRect.y - frameRect.h * PADDING &&
-//         r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
-//         r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
-
-//       if (!inside) { c.delete(); continue; }
-
-//       // Проверка яркости для белой полоски
-//       const roi = gray.roi(r);
-//       const meanScalar = cv.mean(roi);
-//       roi.delete();
-
-//       const brightnessConfidence = meanScalar[0] / 255; // 0..1
-//       if (brightnessConfidence < 0.7) { c.delete(); continue; }
-
-//       if (brightnessConfidence > bestConfidence) {
-//         bestConfidence = brightnessConfidence;
-//         bestRect = r;
-//       }
-
-//       c.delete();
-//     }
-
-//     src.delete();
-//     gray.delete();
-//     blur.delete();
-//     edges.delete();
-//     contours.delete();
-//     hierarchy.delete();
-//     kernel.delete();
-
-//     // накопление доверия
-//     if (bestRect) confidenceRef.current = Math.min(CONFIDENCE_MAX, confidenceRef.current + 1);
-//     else confidenceRef.current = Math.max(0, confidenceRef.current - 1);
-
-//     const detected = confidenceRef.current >= CONFIDENCE_THRESHOLD;
-//     onDetect(detected);
-
-//     setSmoothDetected(detected);
-
-//     // плавная интерполяция рамки
-//     if (bestRect) {
-//       if (!interpolatedRectRef.current) interpolatedRectRef.current = { ...bestRect };
-//       else {
-//         const rect = interpolatedRectRef.current;
-//         rect.x += (bestRect.x - rect.x) * INTERPOLATION_SPEED;
-//         rect.y += (bestRect.y - rect.y) * INTERPOLATION_SPEED;
-//         rect.width += (bestRect.width - rect.width) * INTERPOLATION_SPEED;
-//         rect.height += (bestRect.height - rect.height) * INTERPOLATION_SPEED;
-//         interpolatedRectRef.current = rect;
-//       }
-//     }
-//   };
-
-//   useEffect(() => {
-//     let last = 0;
-//     let mounted = true;
-
-//     const loop = (t) => {
-//       if (!mounted) return;
-//       if (!last || t - last >= PROCESS_MS) {
-//         processOnce();
-//         last = t;
-//       }
-//       rafRef.current = requestAnimationFrame(loop);
-//     };
-
-//     rafRef.current = requestAnimationFrame(loop);
-
-//     return () => {
-//       mounted = false;
-//       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-//     };
-//   }, []);
-
-//   return { smoothDetected, interpolatedRect: interpolatedRectRef.current };
+//     return {};
 // }
 
 // export default useMarkerDetection;
