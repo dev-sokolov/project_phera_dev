@@ -1115,6 +1115,18 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
             const area = cv.contourArea(c);
             const r = cv.boundingRect(c);
             const ratio = r.height / r.width;
+            // Проверяем ориентацию полоски
+            const rotatedRect = cv.minAreaRect(c);
+
+            // угол может быть в диапазоне [-90, 0)
+            let angle = rotatedRect.angle;
+            if (angle < -45) angle += 90; // нормализуем диапазон
+
+            // допускаем отклонение +/- 15 градусов
+            if (Math.abs(angle) > 15) {
+                c.delete();
+                continue;
+            }
 
             if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
             if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
@@ -1359,9 +1371,9 @@ export default useMarkerDetection;
 //   const MAX_AREA = 4500;
 //   const MIN_RATIO = 1.5;
 //   const MAX_RATIO = 16;
-//   const N_CONSISTENT = 4;  
+//   const N_CONSISTENT = 4;
 //   const PROCESS_MS = 120;
-//   const SMOOTHING_COUNT = 7; 
+//   const SMOOTHING_COUNT = 7;
 //   const INTERPOLATION_SPEED = 0.2; // скорость интерполяции [0..1]
 
 //   const processOnce = () => {
@@ -1579,9 +1591,9 @@ export default useMarkerDetection;
 //       const r = cv.boundingRect(c);
 //       const ratio = r.height / r.width;
 
-//       if (area < MIN_AREA || area > MAX_AREA || ratio < MIN_RATIO || ratio > MAX_RATIO) { 
-//         c.delete(); 
-//         continue; 
+//       if (area < MIN_AREA || area > MAX_AREA || ratio < MIN_RATIO || ratio > MAX_RATIO) {
+//         c.delete();
+//         continue;
 //       }
 
 //       const PADDING = 0.2;
