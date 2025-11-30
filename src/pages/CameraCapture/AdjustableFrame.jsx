@@ -126,16 +126,6 @@ const AdjustableFrame = () => {
     <div
       ref={frameRef}
       className={styles.adjustableFrame}
-      style={{
-        // position: "absolute",
-        // top: pos.y,
-        // left: pos.x,
-        // width: pos.w,
-        // height: pos.h,
-        // border: "2px solid green",
-        // cursor: "move",
-        // zIndex: 1000,
-      }}
       onMouseDown={onMouseDown}
     />
   );

@@ -46,8 +46,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
         navigate("/camera-access");
     };
 
-    // useMarkerDetection(videoRef, frameRef, setInside, "/templates/stripTemplate.svg");
-    // useMarkerDetection(videoRef, frameRef, setInside, "/templates/stripTemplate.png");
     useMarkerDetection(videoRef, frameRef, setInside);
 
 
