@@ -11,6 +11,8 @@ import Steps4 from "../pages/Steps/Steps4/Steps4";
 import Steps5 from "../pages/Steps/Steps5/Steps5";
 import CameraAccess from "../pages/CameraAccess/CameraAccess";
 import CameraCapture from "../pages/CameraCapture/CameraCapture";
+import CameraProcessingPage from "../pages/CameraProcessingPage/CameraProcessingPage";
+import ResultWithoutDetailsPage from "../pages/ResultWithoutDetailsPage/ResultWithoutDetailsPage";
 
 import "../shared/styles/style.css";
 
@@ -32,6 +34,8 @@ function App() {
       />
       }
       />
+      <Route path="/camera-processing" element={<CameraProcessingPage />} />
+      <Route path="/result-without-details" element={<ResultWithoutDetailsPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )

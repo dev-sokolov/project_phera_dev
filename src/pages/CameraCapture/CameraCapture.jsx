@@ -18,6 +18,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
     const navigate = useNavigate();
 
     const [isInside, setInside] = useState(false);
+    const [insideTimer, setInsideTimer] = useState(null);
 
     const isReady = useCameraReady(webcamRef);
 
@@ -26,6 +27,26 @@ const CameraCapture = ({ onCapture, onExit }) => {
         width: { ideal: 1920 },
         height: { ideal: 1080 },
     };
+
+    useEffect(() => {
+        if (isInside) {
+            // Если таймер уже существует — ничего не делаем
+            if (insideTimer) return;
+
+            // Запускаем таймер на 2 секунды
+            const timer = setTimeout(() => {
+                navigate("/camera-processing");  // ← переход
+            }, 2000);
+
+            setInsideTimer(timer);
+        } else {
+            // Если объект вышел из рамки — удаляем таймер
+            if (insideTimer) {
+                clearTimeout(insideTimer);
+                setInsideTimer(null);
+            }
+        }
+    }, [isInside]);
 
     // Останавливаем камеру при размонтировании
     useEffect(() => {
@@ -69,9 +90,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
             <div className={styles.containerInner}>
                 <div className={styles.cameraBlock}>
                     <div className={styles.cameraContainer}>
-                        {/* OVERLAY: рамка + кнопка */}
                         <div className={styles.overlay}>
-                            {/* <button className={styles.btn}>Move closer</button> */}
                             <button
                                 className={`${styles.btn} ${isInside ? styles.btnSuccess : ""}`}
                             >
@@ -83,7 +102,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
                             </div>
                         </div>
 
-                        {/* CAMERA */}
                         <Webcam
                             ref={webcamRef}
                             audio={false}

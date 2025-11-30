@@ -34,7 +34,8 @@
 
 .itemColored,
 .item {
-    width: 65px;
+    flex: 1;
+    max-width: 65px;
     height: 9px;
     border-radius: 100px;
 }
