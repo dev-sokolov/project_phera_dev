@@ -635,7 +635,8 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
         cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
 
         const edges = new cv.Mat();
-        cv.Canny(blur, edges, 40, 120);
+        // cv.Canny(blur, edges, 40, 120);
+        cv.Canny(blur, edges, 20, 100);
 
         const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(5, 5));
         cv.dilate(edges, edges, kernel);
