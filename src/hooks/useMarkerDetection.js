@@ -1038,18 +1038,21 @@
 
 // export default useMarkerDetection;
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function useMarkerDetection(videoRef, frameRef, onDetect) {
     const rafRef = useRef(null);
     const tmpCanvasRef = useRef(null);
     const stableRef = useRef(0);
 
-    const MIN_AREA = 400;      // минимальная площадь контура
-    const MAX_AREA = 4000;     // максимальная площадь
-    const MIN_RATIO = 1.8;     // минимальное соотношение высоты/ширины
-    const MAX_RATIO = 15;      // максимальное соотношение
-    const N_CONSISTENT = 3;    // сколько кадров подряд для стабильности
+    const [smoothDetected, setSmoothDetected] = useState(false);
+    const smoothingRef = useRef(0);
+
+    const MIN_AREA = 300;      // минимальная площадь контура
+    const MAX_AREA = 4500;     // максимальная площадь
+    const MIN_RATIO = 1.5;     // минимальное соотношение высоты/ширины
+    const MAX_RATIO = 16;      // максимальное соотношение
+    const N_CONSISTENT = 4;    // сколько кадров подряд для стабильности
     const PROCESS_MS = 120;    // обработка раз в ms
 
     const processOnce = () => {
@@ -1113,7 +1116,7 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
             if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
             if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
 
-            const PADDING = 0.1; // 10% запас
+            const PADDING = 0.2; // 10% запас
             const inside =
                 r.x > frameRect.x - frameRect.w * PADDING &&
                 r.y > frameRect.y - frameRect.h * PADDING &&
@@ -1143,6 +1146,13 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
 
         const detected = stableRef.current >= N_CONSISTENT;
         onDetect(detected);
+
+        const SMOOTHING_COUNT = 5; // сглаживаем по 5 кадрам
+
+        if (detected) smoothingRef.current = Math.min(SMOOTHING_COUNT, smoothingRef.current + 1);
+        else smoothingRef.current = Math.max(0, smoothingRef.current - 1);
+
+        setSmoothDetected(smoothingRef.current > SMOOTHING_COUNT / 2);
     };
 
     useEffect(() => {
