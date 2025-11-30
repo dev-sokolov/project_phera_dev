@@ -76,7 +76,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
                             <button className={styles.btn}>Move closer</button>
                             <div ref={frameRef} className={styles.frameBox}>
                                 <Frame inside={isInside} />
-                                {/* <AdjustableFrame /> */}
+                                <AdjustableFrame />
                             </div>
                         </div>
 

@@ -498,7 +498,7 @@
 //         cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
 
 //         const thresh = new cv.Mat();
-    
+
 //         const edges = new cv.Mat();
 //         cv.Canny(blur, edges, 40, 120);
 
@@ -594,130 +594,135 @@
 import { useEffect, useRef } from "react";
 
 export function useMarkerDetection(videoRef, frameRef, onDetect) {
-  const rafRef = useRef(null);
-  const tmpCanvasRef = useRef(null);
-  const stableRef = useRef(0);
+    const rafRef = useRef(null);
+    const tmpCanvasRef = useRef(null);
+    const stableRef = useRef(0);
 
-//   const MIN_AREA = 800;      // минимальная площадь контура
-  const MIN_AREA = 500;      // минимальная площадь контура
-  const MIN_RATIO = 2.5;     // вытянутая по вертикали
-  const MAX_RATIO = 12;      // запас
-  const N_CONSISTENT = 3;    // сколько кадров подряд для стабильности
-  const PROCESS_MS = 120;    // обработка раз в ms
+    //   const MIN_AREA = 800;      // минимальная площадь контура
+    //   const MIN_RATIO = 2.5;     // вытянутая по вертикали
+    //   const MAX_RATIO = 12;      // запас
+    //   const N_CONSISTENT = 3;    // сколько кадров подряд для стабильности
+    //   const PROCESS_MS = 120;    // обработка раз в ms
 
-  const processOnce = () => {
-    const video = videoRef.current;
-    const frameElem = frameRef.current;
-    if (!video || !frameElem || !window.cv) return;
-    if (video.readyState < 2) return;
+    const MIN_AREA = 400;      // минимальная площадь контура
+    const MIN_RATIO = 1.8;     // вытянутая по вертикали
+    const MAX_RATIO = 15;      // запас
+    const N_CONSISTENT = 3;    // сколько кадров подряд для стабильности
+    const PROCESS_MS = 120;    // обработка раз в ms
 
-    // Создаём/используем canvas
-    let canvas = tmpCanvasRef.current;
-    if (!canvas) {
-      canvas = document.createElement("canvas");
-      tmpCanvasRef.current = canvas;
-    }
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const processOnce = () => {
+        const video = videoRef.current;
+        const frameElem = frameRef.current;
+        if (!video || !frameElem || !window.cv) return;
+        if (video.readyState < 2) return;
 
-    const src = cv.imread(canvas);
-    const gray = new cv.Mat();
-    cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+        // Создаём/используем canvas
+        let canvas = tmpCanvasRef.current;
+        if (!canvas) {
+            canvas = document.createElement("canvas");
+            tmpCanvasRef.current = canvas;
+        }
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    const blur = new cv.Mat();
-    cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
+        const src = cv.imread(canvas);
+        const gray = new cv.Mat();
+        cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
-    const edges = new cv.Mat();
-    cv.Canny(blur, edges, 40, 120);
+        const blur = new cv.Mat();
+        cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
 
-    const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(5, 5));
-    cv.dilate(edges, edges, kernel);
+        const edges = new cv.Mat();
+        cv.Canny(blur, edges, 40, 120);
 
-    const contours = new cv.MatVector();
-    const hierarchy = new cv.Mat();
-    cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+        const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(5, 5));
+        cv.dilate(edges, edges, kernel);
 
-    let found = false;
+        const contours = new cv.MatVector();
+        const hierarchy = new cv.Mat();
+        cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
 
-    // Координаты рамки в системе видео
-    const fr = frameElem.getBoundingClientRect();
-    const vr = video.getBoundingClientRect();
-    const scaleX = video.videoWidth / vr.width;
-    const scaleY = video.videoHeight / vr.height;
+        let found = false;
 
-    const frameRect = {
-      x: (fr.left - vr.left) * scaleX,
-      y: (fr.top - vr.top) * scaleY,
-      w: fr.width * scaleX,
-      h: fr.height * scaleY,
+        // Координаты рамки в системе видео
+        const fr = frameElem.getBoundingClientRect();
+        const vr = video.getBoundingClientRect();
+        const scaleX = video.videoWidth / vr.width;
+        const scaleY = video.videoHeight / vr.height;
+
+        const frameRect = {
+            x: (fr.left - vr.left) * scaleX,
+            y: (fr.top - vr.top) * scaleY,
+            w: fr.width * scaleX,
+            h: fr.height * scaleY,
+        };
+
+        for (let i = 0; i < contours.size(); i++) {
+            const c = contours.get(i);
+            const area = cv.contourArea(c);
+            if (area < MIN_AREA) { c.delete(); continue; }
+
+            const r = cv.boundingRect(c);
+            const ratio = r.height / r.width;
+            if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
+
+            // Проверяем попадание внутрь рамки
+            const inside =
+                r.x > frameRect.x &&
+                r.y > frameRect.y &&
+                r.x + r.width < frameRect.x + frameRect.w &&
+                r.y + r.height < frameRect.y + frameRect.h;
+
+            if (inside) {
+                found = true;
+                c.delete();
+                break;
+            }
+
+            c.delete();
+        }
+
+        // Очистка
+        src.delete();
+        gray.delete();
+        blur.delete();
+        edges.delete();
+        contours.delete();
+        hierarchy.delete();
+        kernel.delete();
+
+        // Логика стабильности
+        if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
+        else stableRef.current = 0;
+
+        const detected = stableRef.current >= N_CONSISTENT;
+        onDetect(detected);
     };
 
-    for (let i = 0; i < contours.size(); i++) {
-      const c = contours.get(i);
-      const area = cv.contourArea(c);
-      if (area < MIN_AREA) { c.delete(); continue; }
+    useEffect(() => {
+        let last = 0;
+        let mounted = true;
 
-      const r = cv.boundingRect(c);
-      const ratio = r.height / r.width;
-      if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
+        const loop = (t) => {
+            if (!mounted) return;
+            if (!last || t - last >= PROCESS_MS) {
+                processOnce();
+                last = t;
+            }
+            rafRef.current = requestAnimationFrame(loop);
+        };
 
-      // Проверяем попадание внутрь рамки
-      const inside =
-        r.x > frameRect.x &&
-        r.y > frameRect.y &&
-        r.x + r.width < frameRect.x + frameRect.w &&
-        r.y + r.height < frameRect.y + frameRect.h;
+        rafRef.current = requestAnimationFrame(loop);
 
-      if (inside) {
-        found = true;
-        c.delete();
-        break;
-      }
+        return () => {
+            mounted = false;
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        };
+    }, []);
 
-      c.delete();
-    }
-
-    // Очистка
-    src.delete();
-    gray.delete();
-    blur.delete();
-    edges.delete();
-    contours.delete();
-    hierarchy.delete();
-    kernel.delete();
-
-    // Логика стабильности
-    if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
-    else stableRef.current = 0;
-
-    const detected = stableRef.current >= N_CONSISTENT;
-    onDetect(detected);
-  };
-
-  useEffect(() => {
-    let last = 0;
-    let mounted = true;
-
-    const loop = (t) => {
-      if (!mounted) return;
-      if (!last || t - last >= PROCESS_MS) {
-        processOnce();
-        last = t;
-      }
-      rafRef.current = requestAnimationFrame(loop);
-    };
-
-    rafRef.current = requestAnimationFrame(loop);
-
-    return () => {
-      mounted = false;
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
-  return {};
+    return {};
 }
 
 export default useMarkerDetection;
