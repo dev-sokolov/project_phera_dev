@@ -48,6 +48,14 @@
     text-align: center;
 }
 
+.date {
+    color: var(--main-color);
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 8px;
+}
+
 .scale {
     display: flex;
     margin-top: 14px;
@@ -91,6 +99,7 @@
 .meaning {
     display: flex;
     justify-content: space-between;
+    font-size: 12px;
 }
 
 .textBlock {
@@ -113,7 +122,6 @@
 .recommendations {
     padding: 20px 16px;
     background-color: #FFFFFF;
-    /* background-color: red; */
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -150,18 +158,14 @@
 .advice {
     padding: 20px 16px;
     background-color: #FFFFFF;
-    /* background-color: red; */
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-
-/* .bottomBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-} */
+.btnTop {
+    margin-top: 8px;
+}
 
 .btn {
     margin-top: 35px;

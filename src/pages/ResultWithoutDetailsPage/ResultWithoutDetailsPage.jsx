@@ -33,7 +33,7 @@ const ResultWithoutDetailsPage = () => {
                         <div className={styles.visualBlock}>
                             <div className={styles.actions}></div>
                             <div className={styles.num}>7.35</div>
-                            <div className={styles.date}></div>
+                            <div className={styles.date}>12.06.25 | 8:23 PM</div>
                             <div className={styles.scale}>
                                 <div className={styles.scalePart1}></div>
                                 <div className={styles.scalePart2}></div>
@@ -70,17 +70,17 @@ const ResultWithoutDetailsPage = () => {
                             <div className={styles.advice}>
                                 <h3 className={styles.heading}>Make this result more personal</h3>
                                 <p className={styles.innerText}>Want to understand why your pH looks like this? Add your age group, hormone status, background, and current symptoms to get more tailored insights.</p>
-                                <Button>Add my details</Button>
+                                <div className={styles.btnTop}>
+                                    <Button>Add my details</Button>
+                                </div>                                
                             </div>
                         </div>
-                        {/* <div className={styles.bottomBlock}> */}
                         <div className={styles.btn}>
                             <Button>Save to my history</Button>
                         </div>
                         <div className={styles.wrapLine}>
                             <div className={styles.line}></div>
                         </div>
-                        {/* </div> */}
                     </div>
                 </Container>
             </div>
