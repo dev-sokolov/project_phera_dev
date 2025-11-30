@@ -114,15 +114,15 @@
     font-weight: 600;
     color: var(--main-color);
     padding: 5px 11px;
-    /* background-color: #FFFFFF; */
     background: #ffffffcd;
     border: none;
     border-radius: 100px;
+    transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 .btnSuccess {
-    background: #00B274 !important;
-    color: #ffffffcd !important;
+    color: #00B274 !important;
+    background: #ffffffcd !important;
 }
 
 .bottomBlock {
@@ -155,8 +155,8 @@
 }
 
 .frameImage {
-  width: 188px;
-  height: 460px;
-  pointer-events: none;
-  user-select: none;
+    width: 188px;
+    height: 460px;
+    pointer-events: none;
+    user-select: none;
 }
