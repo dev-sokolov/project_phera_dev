@@ -1131,6 +1131,21 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
             if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
             if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
 
+            const peri = cv.arcLength(c, true);
+            const approx = new cv.Mat();
+            cv.approxPolyDP(c, approx, 0.02 * peri, true);
+
+            const vertices = approx.size().height;
+
+            // Полоска: 8–20 вершин
+            if (vertices < 8 || vertices > 20) {
+                approx.delete();
+                c.delete();
+                continue;
+            }
+
+            approx.delete();
+
             const PADDING = 0.2; // 10% запас
             const inside =
                 r.x > frameRect.x - frameRect.w * PADDING &&
