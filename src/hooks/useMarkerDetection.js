@@ -814,7 +814,8 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
 
         // Бинаризация для белой полоски
         const thresh = new cv.Mat();
-        cv.threshold(gray, thresh, 200, 255, cv.THRESH_BINARY);
+        // cv.threshold(gray, thresh, 200, 255, cv.THRESH_BINARY);
+        cv.threshold(gray, thresh, 220, 255, cv.THRESH_BINARY);
 
         const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
         cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
