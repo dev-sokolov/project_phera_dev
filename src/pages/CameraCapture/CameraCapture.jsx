@@ -35,10 +35,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
         };
     }, []);
 
-    useEffect(() => {
-        console.log("isInside state changed:", isInside);
-    }, [isInside]);
-
     const handleExit = () => {
         const video = webcamRef.current?.video;
         video?.srcObject?.getTracks().forEach((track) => track.stop());
@@ -58,6 +54,8 @@ const CameraCapture = ({ onCapture, onExit }) => {
         />
     );
 
+    const buttonContent = isInside ? "Successfully captured" : "Move closer";
+
     // const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
     return (
@@ -73,7 +71,12 @@ const CameraCapture = ({ onCapture, onExit }) => {
                     <div className={styles.cameraContainer}>
                         {/* OVERLAY: рамка + кнопка */}
                         <div className={styles.overlay}>
-                            <button className={styles.btn}>Move closer</button>
+                            {/* <button className={styles.btn}>Move closer</button> */}
+                            <button
+                                className={`${styles.btn} ${isInside ? styles.btnSuccess : ""}`}
+                            >
+                                {buttonContent}
+                            </button>
                             <div ref={frameRef} className={styles.frameBox}>
                                 <Frame inside={isInside} />
                                 {/* <AdjustableFrame /> */}

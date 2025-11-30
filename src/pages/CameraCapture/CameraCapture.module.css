@@ -120,6 +120,11 @@
     border-radius: 100px;
 }
 
+.btnSuccess {
+    background: #00B274 !important;
+    color: #ffffffcd !important;
+}
+
 .bottomBlock {
     margin-top: 10px;
     display: flex;
