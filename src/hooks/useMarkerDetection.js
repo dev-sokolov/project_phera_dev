@@ -781,6 +781,13 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
         contours.delete();
         hierarchy.delete();
         kernel.delete();
+
+        // // Логика стабильности
+        if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
+        else stableRef.current = 0;
+
+        const detected = stableRef.current >= N_CONSISTENT;
+        onDetect(detected);
     };
 
     useEffect(() => {
