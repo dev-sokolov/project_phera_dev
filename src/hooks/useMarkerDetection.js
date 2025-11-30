@@ -1041,148 +1041,148 @@
 
 // -------------------------------------------------------------рабочая версия
 
-// import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-// export function useMarkerDetection(videoRef, frameRef, onDetect) {
-//     const rafRef = useRef(null);
-//     const tmpCanvasRef = useRef(null);
-//     const stableRef = useRef(0);
+export function useMarkerDetection(videoRef, frameRef, onDetect) {
+    const rafRef = useRef(null);
+    const tmpCanvasRef = useRef(null);
+    const stableRef = useRef(0);
 
-//     const [smoothDetected, setSmoothDetected] = useState(false);
-//     const smoothingRef = useRef(0);
+    const [smoothDetected, setSmoothDetected] = useState(false);
+    const smoothingRef = useRef(0);
 
-//     const MIN_AREA = 300;      // минимальная площадь контура
-//     const MAX_AREA = 4500;     // максимальная площадь
-//     const MIN_RATIO = 1.5;     // минимальное соотношение высоты/ширины
-//     const MAX_RATIO = 16;      // максимальное соотношение
-//     const N_CONSISTENT = 4;    // сколько кадров подряд для стабильности
-//     const PROCESS_MS = 120;    // обработка раз в ms
+    const MIN_AREA = 300;      // минимальная площадь контура
+    const MAX_AREA = 4500;     // максимальная площадь
+    const MIN_RATIO = 1.5;     // минимальное соотношение высоты/ширины
+    const MAX_RATIO = 16;      // максимальное соотношение
+    const N_CONSISTENT = 4;    // сколько кадров подряд для стабильности
+    const PROCESS_MS = 120;    // обработка раз в ms
 
-//     const processOnce = () => {
-//         const video = videoRef.current;
-//         const frameElem = frameRef.current;
-//         if (!video || !frameElem || !window.cv) return;
-//         if (video.readyState < 2) return;
+    const processOnce = () => {
+        const video = videoRef.current;
+        const frameElem = frameRef.current;
+        if (!video || !frameElem || !window.cv) return;
+        if (video.readyState < 2) return;
 
-//         // создаём canvas и копируем кадр видео
-//         let canvas = tmpCanvasRef.current;
-//         if (!canvas) {
-//             canvas = document.createElement("canvas");
-//             tmpCanvasRef.current = canvas;
-//         }
-//         canvas.width = video.videoWidth;
-//         canvas.height = video.videoHeight;
-//         const ctx = canvas.getContext("2d", { willReadFrequently: true });
-//         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // создаём canvas и копируем кадр видео
+        let canvas = tmpCanvasRef.current;
+        if (!canvas) {
+            canvas = document.createElement("canvas");
+            tmpCanvasRef.current = canvas;
+        }
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-//         // OpenCV
-//         const src = cv.imread(canvas);
-//         const gray = new cv.Mat();
-//         cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+        // OpenCV
+        const src = cv.imread(canvas);
+        const gray = new cv.Mat();
+        cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
-//         // Размываем для уменьшения шума
-//         const blur = new cv.Mat();
-//         cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
+        // Размываем для уменьшения шума
+        const blur = new cv.Mat();
+        cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
 
-//         // Детектируем контуры
-//         const edges = new cv.Mat();
-//         cv.Canny(blur, edges, 40, 120);
+        // Детектируем контуры
+        const edges = new cv.Mat();
+        cv.Canny(blur, edges, 40, 120);
 
-//         const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
-//         cv.dilate(edges, edges, kernel);
+        const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
+        cv.dilate(edges, edges, kernel);
 
-//         const contours = new cv.MatVector();
-//         const hierarchy = new cv.Mat();
-//         cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+        const contours = new cv.MatVector();
+        const hierarchy = new cv.Mat();
+        cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
 
-//         let found = false;
+        let found = false;
 
-//         // координаты рамки
-//         const fr = frameElem.getBoundingClientRect();
-//         const vr = video.getBoundingClientRect();
-//         const scaleX = video.videoWidth / vr.width;
-//         const scaleY = video.videoHeight / vr.height;
+        // координаты рамки
+        const fr = frameElem.getBoundingClientRect();
+        const vr = video.getBoundingClientRect();
+        const scaleX = video.videoWidth / vr.width;
+        const scaleY = video.videoHeight / vr.height;
 
-//         const frameRect = {
-//             x: (fr.left - vr.left) * scaleX,
-//             y: (fr.top - vr.top) * scaleY,
-//             w: fr.width * scaleX,
-//             h: fr.height * scaleY,
-//         };
+        const frameRect = {
+            x: (fr.left - vr.left) * scaleX,
+            y: (fr.top - vr.top) * scaleY,
+            w: fr.width * scaleX,
+            h: fr.height * scaleY,
+        };
 
-//         for (let i = 0; i < contours.size(); i++) {
-//             const c = contours.get(i);
-//             const area = cv.contourArea(c);
-//             const r = cv.boundingRect(c);
-//             const ratio = r.height / r.width;
+        for (let i = 0; i < contours.size(); i++) {
+            const c = contours.get(i);
+            const area = cv.contourArea(c);
+            const r = cv.boundingRect(c);
+            const ratio = r.height / r.width;
 
-//             if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
-//             if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
+            if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
+            if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
 
-//             const PADDING = 0.2; // 10% запас
-//             const inside =
-//                 r.x > frameRect.x - frameRect.w * PADDING &&
-//                 r.y > frameRect.y - frameRect.h * PADDING &&
-//                 r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
-//                 r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
+            const PADDING = 0.2; // 10% запас
+            const inside =
+                r.x > frameRect.x - frameRect.w * PADDING &&
+                r.y > frameRect.y - frameRect.h * PADDING &&
+                r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
+                r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
 
-//             if (inside) {
-//                 found = true;
-//                 c.delete();
-//                 break;
-//             }
-//             c.delete();
-//         }
+            if (inside) {
+                found = true;
+                c.delete();
+                break;
+            }
+            c.delete();
+        }
 
-//         // Очистка
-//         src.delete();
-//         gray.delete();
-//         blur.delete();
-//         edges.delete();
-//         contours.delete();
-//         hierarchy.delete();
-//         kernel.delete();
+        // Очистка
+        src.delete();
+        gray.delete();
+        blur.delete();
+        edges.delete();
+        contours.delete();
+        hierarchy.delete();
+        kernel.delete();
 
-//         // Логика стабильности
-//         if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
-//         else stableRef.current = 0;
+        // Логика стабильности
+        if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
+        else stableRef.current = 0;
 
-//         const detected = stableRef.current >= N_CONSISTENT;
-//         onDetect(detected);
+        const detected = stableRef.current >= N_CONSISTENT;
+        onDetect(detected);
 
-//         const SMOOTHING_COUNT = 5; // сглаживаем по 5 кадрам
+        const SMOOTHING_COUNT = 5; // сглаживаем по 5 кадрам
 
-//         if (detected) smoothingRef.current = Math.min(SMOOTHING_COUNT, smoothingRef.current + 1);
-//         else smoothingRef.current = Math.max(0, smoothingRef.current - 1);
+        if (detected) smoothingRef.current = Math.min(SMOOTHING_COUNT, smoothingRef.current + 1);
+        else smoothingRef.current = Math.max(0, smoothingRef.current - 1);
 
-//         setSmoothDetected(smoothingRef.current > SMOOTHING_COUNT / 2);
-//     };
+        setSmoothDetected(smoothingRef.current > SMOOTHING_COUNT / 2);
+    };
 
-//     useEffect(() => {
-//         let last = 0;
-//         let mounted = true;
+    useEffect(() => {
+        let last = 0;
+        let mounted = true;
 
-//         const loop = (t) => {
-//             if (!mounted) return;
-//             if (!last || t - last >= PROCESS_MS) {
-//                 processOnce();
-//                 last = t;
-//             }
-//             rafRef.current = requestAnimationFrame(loop);
-//         };
+        const loop = (t) => {
+            if (!mounted) return;
+            if (!last || t - last >= PROCESS_MS) {
+                processOnce();
+                last = t;
+            }
+            rafRef.current = requestAnimationFrame(loop);
+        };
 
-//         rafRef.current = requestAnimationFrame(loop);
+        rafRef.current = requestAnimationFrame(loop);
 
-//         return () => {
-//             mounted = false;
-//             if (rafRef.current) cancelAnimationFrame(rafRef.current);
-//         };
-//     }, []);
+        return () => {
+            mounted = false;
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        };
+    }, []);
 
-//     return {};
-// }
+    return {};
+}
 
-// export default useMarkerDetection;
+export default useMarkerDetection;
 
 
 
@@ -1507,163 +1507,163 @@
 
 
 
-import { useEffect, useRef, useState } from "react";
+// import { useEffect, useRef, useState } from "react";
 
-export function useMarkerDetection(videoRef, frameRef, onDetect) {
-  const rafRef = useRef(null);
-  const tmpCanvasRef = useRef(null);
-  const confidenceRef = useRef(0);
-  const interpolatedRectRef = useRef(null);
+// export function useMarkerDetection(videoRef, frameRef, onDetect) {
+//   const rafRef = useRef(null);
+//   const tmpCanvasRef = useRef(null);
+//   const confidenceRef = useRef(0);
+//   const interpolatedRectRef = useRef(null);
 
-  const [smoothDetected, setSmoothDetected] = useState(false);
+//   const [smoothDetected, setSmoothDetected] = useState(false);
 
-  const MIN_AREA = 200;
-  const MAX_AREA = 4500;
-  const MIN_RATIO = 1.5;
-  const MAX_RATIO = 16;
-  const PROCESS_MS = 120;
-  const CONFIDENCE_MAX = 10;      // максимальное доверие
-  const CONFIDENCE_THRESHOLD = 6; // порог для фиксации
-  const INTERPOLATION_SPEED = 0.2;
+//   const MIN_AREA = 200;
+//   const MAX_AREA = 4500;
+//   const MIN_RATIO = 1.5;
+//   const MAX_RATIO = 16;
+//   const PROCESS_MS = 120;
+//   const CONFIDENCE_MAX = 10;      // максимальное доверие
+//   const CONFIDENCE_THRESHOLD = 6; // порог для фиксации
+//   const INTERPOLATION_SPEED = 0.2;
 
-  const processOnce = () => {
-    const video = videoRef.current;
-    const frameElem = frameRef.current;
-    if (!video || !frameElem || !window.cv) return;
-    if (video.readyState < 2) return;
+//   const processOnce = () => {
+//     const video = videoRef.current;
+//     const frameElem = frameRef.current;
+//     if (!video || !frameElem || !window.cv) return;
+//     if (video.readyState < 2) return;
 
-    let canvas = tmpCanvasRef.current;
-    if (!canvas) {
-      canvas = document.createElement("canvas");
-      tmpCanvasRef.current = canvas;
-    }
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+//     let canvas = tmpCanvasRef.current;
+//     if (!canvas) {
+//       canvas = document.createElement("canvas");
+//       tmpCanvasRef.current = canvas;
+//     }
+//     canvas.width = video.videoWidth;
+//     canvas.height = video.videoHeight;
+//     const ctx = canvas.getContext("2d", { willReadFrequently: true });
+//     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    const src = cv.imread(canvas);
-    const gray = new cv.Mat();
-    cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+//     const src = cv.imread(canvas);
+//     const gray = new cv.Mat();
+//     cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
-    const blur = new cv.Mat();
-    cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
+//     const blur = new cv.Mat();
+//     cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
 
-    const edges = new cv.Mat();
-    cv.Canny(blur, edges, 40, 120);
+//     const edges = new cv.Mat();
+//     cv.Canny(blur, edges, 40, 120);
 
-    const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
-    cv.dilate(edges, edges, kernel);
+//     const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
+//     cv.dilate(edges, edges, kernel);
 
-    const contours = new cv.MatVector();
-    const hierarchy = new cv.Mat();
-    cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+//     const contours = new cv.MatVector();
+//     const hierarchy = new cv.Mat();
+//     cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
 
-    let bestRect = null;
-    let bestConfidence = 0;
+//     let bestRect = null;
+//     let bestConfidence = 0;
 
-    const fr = frameElem.getBoundingClientRect();
-    const vr = video.getBoundingClientRect();
-    const scaleX = video.videoWidth / vr.width;
-    const scaleY = video.videoHeight / vr.height;
-    const frameRect = {
-      x: (fr.left - vr.left) * scaleX,
-      y: (fr.top - vr.top) * scaleY,
-      w: fr.width * scaleX,
-      h: fr.height * scaleY,
-    };
+//     const fr = frameElem.getBoundingClientRect();
+//     const vr = video.getBoundingClientRect();
+//     const scaleX = video.videoWidth / vr.width;
+//     const scaleY = video.videoHeight / vr.height;
+//     const frameRect = {
+//       x: (fr.left - vr.left) * scaleX,
+//       y: (fr.top - vr.top) * scaleY,
+//       w: fr.width * scaleX,
+//       h: fr.height * scaleY,
+//     };
 
-    for (let i = 0; i < contours.size(); i++) {
-      const c = contours.get(i);
-      const area = cv.contourArea(c);
-      const r = cv.boundingRect(c);
-      const ratio = r.height / r.width;
+//     for (let i = 0; i < contours.size(); i++) {
+//       const c = contours.get(i);
+//       const area = cv.contourArea(c);
+//       const r = cv.boundingRect(c);
+//       const ratio = r.height / r.width;
 
-      if (area < MIN_AREA || area > MAX_AREA || ratio < MIN_RATIO || ratio > MAX_RATIO) { 
-        c.delete(); 
-        continue; 
-      }
+//       if (area < MIN_AREA || area > MAX_AREA || ratio < MIN_RATIO || ratio > MAX_RATIO) { 
+//         c.delete(); 
+//         continue; 
+//       }
 
-      const PADDING = 0.2;
-      const inside =
-        r.x > frameRect.x - frameRect.w * PADDING &&
-        r.y > frameRect.y - frameRect.h * PADDING &&
-        r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
-        r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
+//       const PADDING = 0.2;
+//       const inside =
+//         r.x > frameRect.x - frameRect.w * PADDING &&
+//         r.y > frameRect.y - frameRect.h * PADDING &&
+//         r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
+//         r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
 
-      if (!inside) { c.delete(); continue; }
+//       if (!inside) { c.delete(); continue; }
 
-      // Проверка яркости для белой полоски
-      const roi = gray.roi(r);
-      const meanScalar = cv.mean(roi);
-      roi.delete();
+//       // Проверка яркости для белой полоски
+//       const roi = gray.roi(r);
+//       const meanScalar = cv.mean(roi);
+//       roi.delete();
 
-      const brightnessConfidence = meanScalar[0] / 255; // 0..1
-      if (brightnessConfidence < 0.7) { c.delete(); continue; }
+//       const brightnessConfidence = meanScalar[0] / 255; // 0..1
+//       if (brightnessConfidence < 0.7) { c.delete(); continue; }
 
-      if (brightnessConfidence > bestConfidence) {
-        bestConfidence = brightnessConfidence;
-        bestRect = r;
-      }
+//       if (brightnessConfidence > bestConfidence) {
+//         bestConfidence = brightnessConfidence;
+//         bestRect = r;
+//       }
 
-      c.delete();
-    }
+//       c.delete();
+//     }
 
-    src.delete();
-    gray.delete();
-    blur.delete();
-    edges.delete();
-    contours.delete();
-    hierarchy.delete();
-    kernel.delete();
+//     src.delete();
+//     gray.delete();
+//     blur.delete();
+//     edges.delete();
+//     contours.delete();
+//     hierarchy.delete();
+//     kernel.delete();
 
-    // накопление доверия
-    if (bestRect) confidenceRef.current = Math.min(CONFIDENCE_MAX, confidenceRef.current + 1);
-    else confidenceRef.current = Math.max(0, confidenceRef.current - 1);
+//     // накопление доверия
+//     if (bestRect) confidenceRef.current = Math.min(CONFIDENCE_MAX, confidenceRef.current + 1);
+//     else confidenceRef.current = Math.max(0, confidenceRef.current - 1);
 
-    const detected = confidenceRef.current >= CONFIDENCE_THRESHOLD;
-    onDetect(detected);
+//     const detected = confidenceRef.current >= CONFIDENCE_THRESHOLD;
+//     onDetect(detected);
 
-    setSmoothDetected(detected);
+//     setSmoothDetected(detected);
 
-    // плавная интерполяция рамки
-    if (bestRect) {
-      if (!interpolatedRectRef.current) interpolatedRectRef.current = { ...bestRect };
-      else {
-        const rect = interpolatedRectRef.current;
-        rect.x += (bestRect.x - rect.x) * INTERPOLATION_SPEED;
-        rect.y += (bestRect.y - rect.y) * INTERPOLATION_SPEED;
-        rect.width += (bestRect.width - rect.width) * INTERPOLATION_SPEED;
-        rect.height += (bestRect.height - rect.height) * INTERPOLATION_SPEED;
-        interpolatedRectRef.current = rect;
-      }
-    }
-  };
+//     // плавная интерполяция рамки
+//     if (bestRect) {
+//       if (!interpolatedRectRef.current) interpolatedRectRef.current = { ...bestRect };
+//       else {
+//         const rect = interpolatedRectRef.current;
+//         rect.x += (bestRect.x - rect.x) * INTERPOLATION_SPEED;
+//         rect.y += (bestRect.y - rect.y) * INTERPOLATION_SPEED;
+//         rect.width += (bestRect.width - rect.width) * INTERPOLATION_SPEED;
+//         rect.height += (bestRect.height - rect.height) * INTERPOLATION_SPEED;
+//         interpolatedRectRef.current = rect;
+//       }
+//     }
+//   };
 
-  useEffect(() => {
-    let last = 0;
-    let mounted = true;
+//   useEffect(() => {
+//     let last = 0;
+//     let mounted = true;
 
-    const loop = (t) => {
-      if (!mounted) return;
-      if (!last || t - last >= PROCESS_MS) {
-        processOnce();
-        last = t;
-      }
-      rafRef.current = requestAnimationFrame(loop);
-    };
+//     const loop = (t) => {
+//       if (!mounted) return;
+//       if (!last || t - last >= PROCESS_MS) {
+//         processOnce();
+//         last = t;
+//       }
+//       rafRef.current = requestAnimationFrame(loop);
+//     };
 
-    rafRef.current = requestAnimationFrame(loop);
+//     rafRef.current = requestAnimationFrame(loop);
 
-    return () => {
-      mounted = false;
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
+//     return () => {
+//       mounted = false;
+//       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+//     };
+//   }, []);
 
-  return { smoothDetected, interpolatedRect: interpolatedRectRef.current };
-}
+//   return { smoothDetected, interpolatedRect: interpolatedRectRef.current };
+// }
 
-export default useMarkerDetection;
+// export default useMarkerDetection;
 
 
