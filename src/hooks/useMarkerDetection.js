@@ -606,7 +606,7 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
 
     const MIN_AREA = 400;      // минимальная площадь контура
     const MIN_RATIO = 1.8;     // вытянутая по вертикали
-    const MAX_AREA = 4000; // подберите экспериментально под близкую камеру
+    const MAX_AREA = 5000; // подберите экспериментально под близкую камеру
     const MAX_RATIO = 15;      // запас
     const N_CONSISTENT = 3;    // сколько кадров подряд для стабильности
     const PROCESS_MS = 120;    // обработка раз в ms
