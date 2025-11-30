@@ -663,13 +663,21 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
 
         for (let i = 0; i < contours.size(); i++) {
             const c = contours.get(i);
-            const area = cv.contourArea(c);
-            // if (area < MIN_AREA) { c.delete(); continue; }
-            if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
+            // const area = cv.contourArea(c);
+            // if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
 
+            // const r = cv.boundingRect(c);
+            // const ratio = r.height / r.width;
+            // if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
+
+            const area = cv.contourArea(c);
             const r = cv.boundingRect(c);
             const ratio = r.height / r.width;
+            const heightRatio = r.height / video.videoHeight;
+
+            if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
             if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
+            if (heightRatio < 0.25 || heightRatio > 0.8) { c.delete(); continue; }
 
             // Проверяем попадание внутрь рамки
             const inside =
