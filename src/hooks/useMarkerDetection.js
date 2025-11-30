@@ -1343,26 +1343,188 @@
 
 
 
+// import { useEffect, useRef, useState } from "react";
+
+// export function useMarkerDetection(videoRef, frameRef, onDetect) {
+//   const rafRef = useRef(null);
+//   const tmpCanvasRef = useRef(null);
+//   const stableRef = useRef(0);
+//   const smoothingRef = useRef(0);
+
+//   const [smoothDetected, setSmoothDetected] = useState(false);
+//   const interpolatedRectRef = useRef(null); // текущая сглаженная рамка
+
+//   // Параметры фильтрации контуров
+//   const MIN_AREA = 300;
+//   const MAX_AREA = 4500;
+//   const MIN_RATIO = 1.5;
+//   const MAX_RATIO = 16;
+//   const N_CONSISTENT = 4;  
+//   const PROCESS_MS = 120;
+//   const SMOOTHING_COUNT = 7; 
+//   const INTERPOLATION_SPEED = 0.2; // скорость интерполяции [0..1]
+
+//   const processOnce = () => {
+//     const video = videoRef.current;
+//     const frameElem = frameRef.current;
+//     if (!video || !frameElem || !window.cv) return;
+//     if (video.readyState < 2) return;
+
+//     let canvas = tmpCanvasRef.current;
+//     if (!canvas) {
+//       canvas = document.createElement("canvas");
+//       tmpCanvasRef.current = canvas;
+//     }
+//     canvas.width = video.videoWidth;
+//     canvas.height = video.videoHeight;
+//     const ctx = canvas.getContext("2d", { willReadFrequently: true });
+//     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+//     // OpenCV
+//     const src = cv.imread(canvas);
+//     const gray = new cv.Mat();
+//     cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+
+//     const blur = new cv.Mat();
+//     cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
+
+//     const thresh = new cv.Mat();
+//     cv.threshold(blur, thresh, 200, 255, cv.THRESH_BINARY);
+
+//     const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
+//     cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
+
+//     const contours = new cv.MatVector();
+//     const hierarchy = new cv.Mat();
+//     cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+
+//     let found = false;
+//     let detectedRect = null;
+
+//     // Координаты рамки
+//     const fr = frameElem.getBoundingClientRect();
+//     const vr = video.getBoundingClientRect();
+//     const scaleX = video.videoWidth / vr.width;
+//     const scaleY = video.videoHeight / vr.height;
+//     const frameRect = {
+//       x: (fr.left - vr.left) * scaleX,
+//       y: (fr.top - vr.top) * scaleY,
+//       w: fr.width * scaleX,
+//       h: fr.height * scaleY,
+//     };
+
+//     for (let i = 0; i < contours.size(); i++) {
+//       const c = contours.get(i);
+//       const area = cv.contourArea(c);
+//       const r = cv.boundingRect(c);
+//       const ratio = r.height / r.width;
+
+//       if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
+//       if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
+
+//       const PADDING = 0.2;
+//       const inside =
+//         r.x > frameRect.x - frameRect.w * PADDING &&
+//         r.y > frameRect.y - frameRect.h * PADDING &&
+//         r.x + r.width < frameRect.x + frameRect.w * (1 + PADDING) &&
+//         r.y + r.height < frameRect.y + frameRect.h * (1 + PADDING);
+
+//       if (!inside) { c.delete(); continue; }
+
+//       const roi = gray.roi(r);
+//       const meanScalar = cv.mean(roi);
+//       roi.delete();
+//       if (meanScalar[0] < 180) { c.delete(); continue; }
+
+//       detectedRect = r;
+//       found = true;
+//       c.delete();
+//       break;
+//     }
+
+//     // Очистка
+//     src.delete();
+//     gray.delete();
+//     blur.delete();
+//     thresh.delete();
+//     contours.delete();
+//     hierarchy.delete();
+//     kernel.delete();
+
+//     // Стабильность по кадрам
+//     if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
+//     else stableRef.current = 0;
+
+//     const detected = stableRef.current >= N_CONSISTENT;
+//     onDetect(detected);
+
+//     // Сглаживание по кадрам
+//     if (detected) smoothingRef.current = Math.min(SMOOTHING_COUNT, smoothingRef.current + 1);
+//     else smoothingRef.current = Math.max(0, smoothingRef.current - 1);
+
+//     setSmoothDetected(smoothingRef.current > SMOOTHING_COUNT / 2);
+
+//     // Интерполяция позиции рамки
+//     if (detectedRect) {
+//       if (!interpolatedRectRef.current) {
+//         interpolatedRectRef.current = { ...detectedRect };
+//       } else {
+//         const rect = interpolatedRectRef.current;
+//         rect.x += (detectedRect.x - rect.x) * INTERPOLATION_SPEED;
+//         rect.y += (detectedRect.y - rect.y) * INTERPOLATION_SPEED;
+//         rect.width += (detectedRect.width - rect.width) * INTERPOLATION_SPEED;
+//         rect.height += (detectedRect.height - rect.height) * INTERPOLATION_SPEED;
+//         interpolatedRectRef.current = rect;
+//       }
+//     }
+//   };
+
+//   useEffect(() => {
+//     let last = 0;
+//     let mounted = true;
+
+//     const loop = (t) => {
+//       if (!mounted) return;
+//       if (!last || t - last >= PROCESS_MS) {
+//         processOnce();
+//         last = t;
+//       }
+//       rafRef.current = requestAnimationFrame(loop);
+//     };
+
+//     rafRef.current = requestAnimationFrame(loop);
+
+//     return () => {
+//       mounted = false;
+//       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+//     };
+//   }, []);
+
+//   return { smoothDetected, interpolatedRect: interpolatedRectRef.current };
+// }
+
+// export default useMarkerDetection;
+
+
+
 import { useEffect, useRef, useState } from "react";
 
 export function useMarkerDetection(videoRef, frameRef, onDetect) {
   const rafRef = useRef(null);
   const tmpCanvasRef = useRef(null);
-  const stableRef = useRef(0);
-  const smoothingRef = useRef(0);
+  const confidenceRef = useRef(0);
+  const interpolatedRectRef = useRef(null);
 
   const [smoothDetected, setSmoothDetected] = useState(false);
-  const interpolatedRectRef = useRef(null); // текущая сглаженная рамка
 
-  // Параметры фильтрации контуров
-  const MIN_AREA = 300;
+  const MIN_AREA = 200;
   const MAX_AREA = 4500;
   const MIN_RATIO = 1.5;
   const MAX_RATIO = 16;
-  const N_CONSISTENT = 4;  
   const PROCESS_MS = 120;
-  const SMOOTHING_COUNT = 7; 
-  const INTERPOLATION_SPEED = 0.2; // скорость интерполяции [0..1]
+  const CONFIDENCE_MAX = 10;      // максимальное доверие
+  const CONFIDENCE_THRESHOLD = 6; // порог для фиксации
+  const INTERPOLATION_SPEED = 0.2;
 
   const processOnce = () => {
     const video = videoRef.current;
@@ -1380,7 +1542,6 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // OpenCV
     const src = cv.imread(canvas);
     const gray = new cv.Mat();
     cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
@@ -1388,20 +1549,19 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
     const blur = new cv.Mat();
     cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
 
-    const thresh = new cv.Mat();
-    cv.threshold(blur, thresh, 200, 255, cv.THRESH_BINARY);
+    const edges = new cv.Mat();
+    cv.Canny(blur, edges, 40, 120);
 
     const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3));
-    cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
+    cv.dilate(edges, edges, kernel);
 
     const contours = new cv.MatVector();
     const hierarchy = new cv.Mat();
-    cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+    cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
 
-    let found = false;
-    let detectedRect = null;
+    let bestRect = null;
+    let bestConfidence = 0;
 
-    // Координаты рамки
     const fr = frameElem.getBoundingClientRect();
     const vr = video.getBoundingClientRect();
     const scaleX = video.videoWidth / vr.width;
@@ -1419,8 +1579,10 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
       const r = cv.boundingRect(c);
       const ratio = r.height / r.width;
 
-      if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
-      if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
+      if (area < MIN_AREA || area > MAX_AREA || ratio < MIN_RATIO || ratio > MAX_RATIO) { 
+        c.delete(); 
+        continue; 
+      }
 
       const PADDING = 0.2;
       const inside =
@@ -1431,49 +1593,48 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
 
       if (!inside) { c.delete(); continue; }
 
+      // Проверка яркости для белой полоски
       const roi = gray.roi(r);
       const meanScalar = cv.mean(roi);
       roi.delete();
-      if (meanScalar[0] < 180) { c.delete(); continue; }
 
-      detectedRect = r;
-      found = true;
+      const brightnessConfidence = meanScalar[0] / 255; // 0..1
+      if (brightnessConfidence < 0.7) { c.delete(); continue; }
+
+      if (brightnessConfidence > bestConfidence) {
+        bestConfidence = brightnessConfidence;
+        bestRect = r;
+      }
+
       c.delete();
-      break;
     }
 
-    // Очистка
     src.delete();
     gray.delete();
     blur.delete();
-    thresh.delete();
+    edges.delete();
     contours.delete();
     hierarchy.delete();
     kernel.delete();
 
-    // Стабильность по кадрам
-    if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
-    else stableRef.current = 0;
+    // накопление доверия
+    if (bestRect) confidenceRef.current = Math.min(CONFIDENCE_MAX, confidenceRef.current + 1);
+    else confidenceRef.current = Math.max(0, confidenceRef.current - 1);
 
-    const detected = stableRef.current >= N_CONSISTENT;
+    const detected = confidenceRef.current >= CONFIDENCE_THRESHOLD;
     onDetect(detected);
 
-    // Сглаживание по кадрам
-    if (detected) smoothingRef.current = Math.min(SMOOTHING_COUNT, smoothingRef.current + 1);
-    else smoothingRef.current = Math.max(0, smoothingRef.current - 1);
+    setSmoothDetected(detected);
 
-    setSmoothDetected(smoothingRef.current > SMOOTHING_COUNT / 2);
-
-    // Интерполяция позиции рамки
-    if (detectedRect) {
-      if (!interpolatedRectRef.current) {
-        interpolatedRectRef.current = { ...detectedRect };
-      } else {
+    // плавная интерполяция рамки
+    if (bestRect) {
+      if (!interpolatedRectRef.current) interpolatedRectRef.current = { ...bestRect };
+      else {
         const rect = interpolatedRectRef.current;
-        rect.x += (detectedRect.x - rect.x) * INTERPOLATION_SPEED;
-        rect.y += (detectedRect.y - rect.y) * INTERPOLATION_SPEED;
-        rect.width += (detectedRect.width - rect.width) * INTERPOLATION_SPEED;
-        rect.height += (detectedRect.height - rect.height) * INTERPOLATION_SPEED;
+        rect.x += (bestRect.x - rect.x) * INTERPOLATION_SPEED;
+        rect.y += (bestRect.y - rect.y) * INTERPOLATION_SPEED;
+        rect.width += (bestRect.width - rect.width) * INTERPOLATION_SPEED;
+        rect.height += (bestRect.height - rect.height) * INTERPOLATION_SPEED;
         interpolatedRectRef.current = rect;
       }
     }
