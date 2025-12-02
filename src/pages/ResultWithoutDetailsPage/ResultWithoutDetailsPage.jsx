@@ -72,14 +72,16 @@ const ResultWithoutDetailsPage = () => {
                                 <p className={styles.innerText}>Want to understand why your pH looks like this? Add your age group, hormone status, background, and current symptoms to get more tailored insights.</p>
                                 <div className={styles.btnTop}>
                                     <Button>Add my details</Button>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
-                        <div className={styles.btn}>
-                            <Button>Save to my history</Button>
-                        </div>
-                        <div className={styles.wrapLine}>
-                            <div className={styles.line}></div>
+                        <div className={styles.bottomBlock}>
+                            <div className={styles.btn}>
+                                <Button>Save to my history</Button>
+                            </div>
+                            <div className={styles.wrapLine}>
+                                <div className={styles.line}></div>
+                            </div>
                         </div>
                     </div>
                 </Container>

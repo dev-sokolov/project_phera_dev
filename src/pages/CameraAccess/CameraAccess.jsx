@@ -38,7 +38,7 @@ const CameraAccess = () => {
                                 </div>
                             </div>
                             <div className={styles.textBlock}>
-                                <h2 className={styles.heading}>Allow camera <br /> to scan your strip</h2>
+                                <h2 className={styles.heading}>Allow Camera <br /> To Scan Your Strip</h2>
                                 <p className={styles.text}>We’ll use your camera for a moment to read the color on your test strip. The scan is done automatically and stays private.</p>
                             </div>
                             <div className={styles.bottomBlock}>

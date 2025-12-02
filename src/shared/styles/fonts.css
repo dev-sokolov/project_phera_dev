@@ -5,107 +5,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 /* --- Cooper Hewitt (local from: public/fonts) --- */
 
-/* Thin (100) */
-/* @font-face {
+@font-face {
   font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-Thin.otf') format('opentype');
+  src: url('/fonts/cooper-hewitt-latin-100-normal.woff2') format('woff2'),
+       url('/fonts/cooper-hewitt-latin-100-normal.woff') format('woff');
   font-weight: 100;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-ThinItalic.otf') format('opentype');
-  font-weight: 100;
-  font-style: italic;
-} */
+  src: url('/fonts/cooper-hewitt-latin-200-normal.woff2') format('woff2'),
+       url('/fonts/cooper-hewitt-latin-200-normal.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
 
-/* Light (300) */
 @font-face {
   font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-Light.otf') format('opentype');
+  src: url('/fonts/cooper-hewitt-latin-300-normal.woff2') format('woff2'),
+       url('/fonts/cooper-hewitt-latin-300-normal.woff') format('woff');
   font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-LightItalic.otf') format('opentype');
-  font-weight: 300;
-  font-style: italic;
-}
-
-/* Book (400 normal) */
-@font-face {
-  font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-Book.otf') format('opentype');
+  src: url('/fonts/cooper-hewitt-latin-400-normal.woff2') format('woff2'),
+       url('/fonts/cooper-hewitt-latin-400-normal.woff') format('woff');
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-BookItalic.otf') format('opentype');
-  font-weight: 400;
-  font-style: italic;
-}
-
-/* Medium (500) */
-@font-face {
-  font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-Medium.otf') format('opentype');
+  src: url('/fonts/cooper-hewitt-latin-500-normal.woff2') format('woff2'),
+       url('/fonts/cooper-hewitt-latin-500-normal.woff') format('woff');
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-MediumItalic.otf') format('opentype');
-  font-weight: 500;
-  font-style: italic;
-}
-
-/* Semibold (600) */
-@font-face {
-  font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-Semibold.otf') format('opentype');
+  src: url('/fonts/cooper-hewitt-latin-600-normal.woff2') format('woff2'),
+       url('/fonts/cooper-hewitt-latin-600-normal.woff') format('woff');
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-SemiboldItalic.otf') format('opentype');
-  font-weight: 600;
-  font-style: italic;
-}
-
-/* Bold (700) */
-@font-face {
-  font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-Bold.otf') format('opentype');
+  src: url('/fonts/cooper-hewitt-latin-700-normal.woff2') format('woff2'),
+       url('/fonts/cooper-hewitt-latin-700-normal.woff') format('woff');
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-BoldItalic.otf') format('opentype');
-  font-weight: 700;
-  font-style: italic;
-}
-
-/* Heavy (900) */
-@font-face {
-  font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-Heavy.otf') format('opentype');
-  font-weight: 900;
+  src: url('/fonts/cooper-hewitt-latin-800-normal.woff2') format('woff2'),
+       url('/fonts/cooper-hewitt-latin-800-normal.woff') format('woff');
+  font-weight: 800;
   font-style: normal;
-}
-
-@font-face {
-  font-family: 'Cooper Hewitt';
-  src: url('/fonts/CooperHewitt-HeavyItalic.otf') format('opentype');
-  font-weight: 900;
-  font-style: italic;
+  font-display: swap;
 }

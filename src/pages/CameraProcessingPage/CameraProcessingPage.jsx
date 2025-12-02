@@ -27,7 +27,7 @@ const CameraProcessingPage = () => {
                     <div className={styles.containerInner}>
                         <div className={styles.wrapTextBlock}>
                             <div className={styles.textBlock}>
-                                <h2 className={styles.heading}>Processing Your test</h2>
+                                <h2 className={styles.heading}>Processing Your Test</h2>
                                 <p className={styles.text}>This usually takes less than a minute.Please keep this screen open — your result will appear automatically.</p>
                             </div>
                         </div>
