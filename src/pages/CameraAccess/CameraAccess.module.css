@@ -4,18 +4,25 @@
     width: 100%;
 } */
 
-.fakeStatusBar {
+/* .fakeStatusBar {
     height: env(safe-area-inset-top, 20px);
-    /* fallback 20px для всех iPhone */
     background-color: black;
     width: 100%;
     position: fixed;
-    /* фиксируем сверху */
     top: 0;
     left: 0;
     z-index: 1000;
     padding-top: env(safe-area-inset-top, 20px);
-    /* чтобы контент не перекрывал fakeStatusBar */
+} */
+
+.fakeStatusBar {
+    height: env(safe-area-inset-top, 20px); /* учитывает notch, fallback 20px */
+    background-color: black; /* нужный цвет */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .wrapLogo {
@@ -36,6 +43,8 @@
     height: 100dvh;
     display: flex;
     flex-direction: column;
+
+     padding-top: env(safe-area-inset-top, 20px);
 }
 
 .containerInner {
