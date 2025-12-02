@@ -2,9 +2,11 @@
     background-color: var(--main-background-color);
     display: flex;
     flex-direction: column;
+    display: block;
     padding-bottom: 114px;
-    min-height: 100vh;
+    min-height: 100dvh;
     /* ← ОБЯЗАТЕЛЬНО */
+    overflow-y: auto;
 }
 
 .wrapLogo {
@@ -177,8 +179,8 @@
     left: 50%;
     transform: translate(-50%);
     width: 100%;
-    /* background-color: var(--main-background-color); */
-    background-color: red;
+    background-color: var(--main-background-color);
+    /* background-color: red; */
     /* width: 393px; */
     max-width: 393px;
     padding: 0 24px;
