@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useEffect } from "react";
 
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
@@ -20,22 +19,8 @@ const CameraAccess = () => {
         setIsCameraOn(false);
     };
 
-     useEffect(() => {
-        // создаём meta-тег
-        const meta = document.createElement("meta");
-        meta.name = "apple-mobile-web-app-status-bar-style";
-        meta.content = "black"; // или "black-translucent"
-        document.head.appendChild(meta);
-
-        // удаляем meta-тег при уходе со страницы
-        return () => {
-            document.head.removeChild(meta);
-        };
-    }, []);
-
-    return (
+        return (
         <>
-        <div className={styles.fakeStatusBar}></div>
             {!isCameraOn ? (
                 <div className={styles.content}>
                     <div className={styles.wrapLogo}>
@@ -60,7 +45,7 @@ const CameraAccess = () => {
                                 <p className={styles.bottomText}>Your privacy is protected at every step. Frames are processed in memory and automatically discarded after scanning.</p>
                                 <div className={styles.btns}>
                                     <Button onClick={() => navigate("/camera-capture")}>Allow camera</Button>
-                                    <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
+                                    <ButtonReverse onClick={() => navigate(-1)}>Go back</ButtonReverse>
                                 </div>
                                 <div className={styles.wrapLine}>
                                     <div className={styles.line}></div>

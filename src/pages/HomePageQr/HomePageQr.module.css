@@ -83,14 +83,13 @@
     line-height: 18px;
     color: #717680;
     text-align: center;
-    width: 276px;
+    max-width: 276px;
 }
 
 .wrapLine {
     display: flex;
     justify-content: center;
     padding-bottom: 8px;
-    /* padding-top: 11px; */
 }
 
 .line {

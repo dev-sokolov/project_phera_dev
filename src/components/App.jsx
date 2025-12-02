@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import HomePageQr from "../pages/HomePageQr/HomePageQr";
+import HowItWorksPage from "../pages/HowItWorksPage/HowItWorksPage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import Steps from "../pages/Steps/Steps";
 import Steps1 from "../pages/Steps/Steps1/Steps1";
@@ -21,6 +22,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePageQr />} />
+      <Route path="/how-it-works" element={<HowItWorksPage />} />
       <Route path="/steps" element={<Steps />} />
       <Route path="/steps/1" element={<Steps1 />} />
       <Route path="/steps/2" element={<Steps2 />} />
