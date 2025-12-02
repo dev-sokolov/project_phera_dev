@@ -76,6 +76,7 @@ const ResultWithoutDetailsPage = () => {
                             </div>
                         </div>
                         <div className={styles.bottomBlock}>
+                            <div className={styles.bottomLine}></div>
                             <div className={styles.btn}>
                                 <Button>Save to my history</Button>
                             </div>

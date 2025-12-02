@@ -186,7 +186,16 @@
     padding: 0 24px;
     margin: 0 auto;
     z-index: 1000;
-    border-top: 1px solid var(--main-background-color-border);
+    /* border-top: 1px solid var(--main-background-color-border); */
+}
+
+.bottomLine {
+    width: 345px;
+    /* ← нужная тебе ширина */
+    height: 1px;
+    background-color: var(--main-background-color-border);
+    margin: 0 auto;
+    /* центрируем линию */
 }
 
 .btn {
