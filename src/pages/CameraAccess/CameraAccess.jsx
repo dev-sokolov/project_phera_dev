@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useEffect } from "react";
 
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
@@ -18,6 +19,19 @@ const CameraAccess = () => {
         navigate("/result", { state: result });
         setIsCameraOn(false);
     };
+
+     useEffect(() => {
+        // создаём meta-тег
+        const meta = document.createElement("meta");
+        meta.name = "apple-mobile-web-app-status-bar-style";
+        meta.content = "black"; // или "black-translucent"
+        document.head.appendChild(meta);
+
+        // удаляем meta-тег при уходе со страницы
+        return () => {
+            document.head.removeChild(meta);
+        };
+    }, []);
 
     return (
         <>
