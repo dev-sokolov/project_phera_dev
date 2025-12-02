@@ -35,6 +35,7 @@ const CameraAccess = () => {
 
     return (
         <>
+        <div className={styles.fakeStatusBar}></div>
             {!isCameraOn ? (
                 <div className={styles.content}>
                     <div className={styles.wrapLogo}>
