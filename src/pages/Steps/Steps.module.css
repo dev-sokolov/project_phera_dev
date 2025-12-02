@@ -34,8 +34,11 @@
 
 .heading {
     font-size: 24px;
-    font-weight: 711;
+    font-family: 'Cooper Hewitt';
+    font-weight: 710;
     color: var(--main-color);
+    line-height: 1.2;
+    /* line-height: 100%; */
 }
 
 .text {

@@ -2,6 +2,7 @@
     padding-top: 11.5px;
     padding-bottom: 11.5px;
     width: 100%;
+    font-family: "Open Sans", sans-serif;
     font-size: 16px;
     font-weight: 600;
     border-radius: 100px;
@@ -12,7 +13,7 @@
     border: none;
     transition: background-color 0.2s;
     /* font-family: "Open Sans", sans-serif; */
-    font-family: "Inter", sans-serif;
+    /* font-family: "Inter", sans-serif; */
     /* font-family: 'Cooper Hewitt', sans-serif; */
 }
 
@@ -21,4 +22,3 @@
     color: #fff;
     border: none;
 }
-
