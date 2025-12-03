@@ -109,21 +109,21 @@ const CameraCapture = ({ onCapture, onExit }) => {
                             screenshotFormat="image/png"
                             videoConstraints={videoConstraints}
                             className={`${styles.webcamVideo} ${isReady ? styles.show : ""}`}
-                            // onUserMedia={() => {
-                            //     videoRef.current = webcamRef.current.video;
-                            // }}
                             onUserMedia={() => {
                                 videoRef.current = webcamRef.current.video;
-
-                                // Настройки для мобильных браузеров
-                                const videoEl = videoRef.current;
-                                if (videoEl) {
-                                    videoEl.controls = false;
-                                    videoEl.setAttribute("controls", "false");
-                                    videoEl.setAttribute("playsinline", "true");
-                                    videoEl.setAttribute("webkit-playsinline", "true");
-                                }
                             }}
+                            // onUserMedia={() => {
+                            //     videoRef.current = webcamRef.current.video;
+
+                            //     // Настройки для мобильных браузеров
+                            //     const videoEl = videoRef.current;
+                            //     if (videoEl) {
+                            //         videoEl.controls = false;
+                            //         videoEl.setAttribute("controls", "false");
+                            //         videoEl.setAttribute("playsinline", "true");
+                            //         videoEl.setAttribute("webkit-playsinline", "true");
+                            //     }
+                            // }}
                             onUserMediaError={(err) => {
                                 console.error("Camera error:", err);
                                 alert("Unable to start camera. Check permissions.");
