@@ -3,7 +3,7 @@
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    padding-bottom: 89px;
+    padding-bottom: 79px;
 }
 
 .wrapLogo {
@@ -77,15 +77,16 @@
 
 .bottomBlock {
     background-color: var(--main-background-color);
-    max-width: 393px;
-    padding: 10px 24px 24px;
-    margin: 0 auto;
+    padding: 10px 0 24px;
 
     position: fixed;
     bottom: 0;
-    left: 50%;
-    transform: translate(-50%);
+    left: 0;
     width: 100%;
-    z-index: 1000;
 }
 
+.bottomBlockInner {
+    max-width: 393px;
+    padding: 0 24px;
+    margin: 0 auto;
+}

@@ -54,8 +54,10 @@ const HowItWorksPage = () => {
                         </div>
 
                         <div className={styles.bottomBlock}>
-                            <div className={styles.btn}>
-                                <Button onClick={() => navigate("/steps")}>Start test</Button>
+                            <div className={styles.bottomBlockInner}>
+                                <div className={styles.btn}>
+                                    <Button onClick={() => navigate("/steps")}>Start test</Button>
+                                </div>
                             </div>
                         </div>
                     </div>

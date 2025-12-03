@@ -8,7 +8,7 @@
     overflow-y: auto;
 }
 
-.wrapLogo {
+/* .wrapLogo {
     padding: 21px;
     display: flex;
     justify-content: center;
@@ -19,7 +19,7 @@
 .logo {
     width: 61px;
     height: 23px;
-}
+} */
 
 .containerInner {
     display: flex;

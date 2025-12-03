@@ -6,30 +6,30 @@ import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import CameraCapture from "../CameraCapture/CameraCapture";
 
-import Logo from "../../assets/Logo";
+// import Logo from "../../assets/Logo";
 import CameraAccessImg from "../../assets/CameraAccessImg";
 import styles from "./AddDetailsPage.module.css";
 
 const AddDetailsPage = () => {
-    const [isCameraOn, setIsCameraOn] = useState(false);
     const navigate = useNavigate();
 
-    const handleCapture = (result) => {
-        navigate("/result", { state: result });
-        setIsCameraOn(false);
-    };
+
 
     return (
         <>
             <div className={styles.content}>
-                <div className={styles.wrapLogo}>
+                {/* <div className={styles.wrapLogo}>
                     <div className={styles.logo}>
                         <Logo />
                     </div>
-                </div>
+                </div> */}
                 <Container>
                     <div className={styles.containerInner}>
-                        <div className={styles.title}>Your pH result ADD DETAILS</div>
+                        <div className={styles.wrapHeading}>
+                            <h2 className={styles.heading}>Make this result more personal</h2>
+                            <div className={styles.date}>12.06.25 | 8:23 PM</div>
+                        </div>
+                        <h1 className={styles.title}>Your details help us make your insights more accurate and helpful.</h1>
                         <div className={styles.visualBlock}>
                             <div className={styles.actions}></div>
                             <div className={styles.num}>7.35</div>
@@ -76,13 +76,13 @@ const AddDetailsPage = () => {
                             </div>
                         </div>
                         {/* <div className={styles.bottomBlock}> */}
-                            {/* <div className={styles.bottomLine}></div> */}
-                            <div className={styles.btn}>
-                                <Button>Save to my history</Button>
-                            </div>
-                            <div className={styles.wrapLine}>
-                                <div className={styles.line}></div>
-                            </div>
+                        {/* <div className={styles.bottomLine}></div> */}
+                        <div className={styles.btn}>
+                            <Button>Save to my history</Button>
+                        </div>
+                        <div className={styles.wrapLine}>
+                            <div className={styles.line}></div>
+                        </div>
                         {/* </div> */}
                     </div>
                 </Container>
