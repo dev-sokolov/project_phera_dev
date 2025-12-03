@@ -105,6 +105,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
                         <Webcam
                             ref={webcamRef}
                             audio={false}
+                            muted
                             screenshotFormat="image/png"
                             videoConstraints={videoConstraints}
                             className={`${styles.webcamVideo} ${isReady ? styles.show : ""}`}
