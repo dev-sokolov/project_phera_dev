@@ -6,7 +6,7 @@ import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import CameraCapture from "../CameraCapture/CameraCapture";
 
-// import Logo from "../../assets/Logo";
+import Logo from "../../assets/Logo";
 import CameraAccessImg from "../../assets/CameraAccessImg";
 import styles from "./AddDetailsPage.module.css";
 
