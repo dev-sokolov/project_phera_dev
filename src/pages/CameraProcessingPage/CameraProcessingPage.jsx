@@ -13,7 +13,7 @@ const CameraProcessingPage = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate("/result-without-details"); // укажи путь к странице результатов
-        }, 1002000); // 3000 мс = 3 секунды
+        }, 2000); // 3000 мс = 3 секунды
 
         return () => clearTimeout(timer); // очистка таймера при размонтировании
     }, [navigate]);
