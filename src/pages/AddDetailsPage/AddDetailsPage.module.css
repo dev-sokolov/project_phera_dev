@@ -9,15 +9,11 @@
 
     /* -------------------------------------- */
     background-color: var(--main-background-color);
-    /* display: block; */
-     display: flex;
+    display: flex;
     flex-direction: column;
     min-height: 100dvh;
     overflow-y: auto;
-
-    padding-top: 65px;
-    /* ← отодвинуть весь контент вниз */
-
+    padding-top: 66px;
 }
 
 .wrapLogo {
@@ -29,13 +25,10 @@
 
     /* ------------------------------------------------- */
     position: fixed;
-    /* ← фиксируем */
     top: 0;
-    /* ← закрепить к верхнему краю */
     left: 0;
     right: 0;
     z-index: 1000;
-    /* ← чтобы было поверх контента */
 }
 
 .logo {
