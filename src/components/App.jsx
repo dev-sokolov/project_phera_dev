@@ -1,6 +1,6 @@
-import { Routes, Route } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
+import ScrollToTop from "./ScrollToTop/ScrollToTop";
 import HomePageQr from "../pages/HomePageQr/HomePageQr";
 import HowItWorksPage from "../pages/HowItWorksPage/HowItWorksPage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
@@ -21,27 +21,30 @@ import "../shared/styles/style.css";
 function App() {
   const navigate = useNavigate();
   return (
-    <Routes>
-      <Route path="/" element={<HomePageQr />} />
-      <Route path="/how-it-works" element={<HowItWorksPage />} />
-      <Route path="/steps" element={<Steps />} />
-      <Route path="/steps/1" element={<Steps1 />} />
-      <Route path="/steps/2" element={<Steps2 />} />
-      <Route path="/steps/3" element={<Steps3 />} />
-      <Route path="/steps/4" element={<Steps4 />} />
-      <Route path="/steps/5" element={<Steps5 />} />
-      <Route path="/camera-access" element={<CameraAccess />} />
-      <Route path="/camera-capture" element={<CameraCapture
-        onExit={() => navigate("/camera-access")}
-        onCapture={(result) => navigate("/result", { state: result })}
-      />
-      }
-      />
-      <Route path="/camera-processing" element={<CameraProcessingPage />} />
-      <Route path="/result-without-details" element={<ResultWithoutDetailsPage />} />
-      <Route path="/add-details" element={<AddDetailsPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<HomePageQr />} />
+        <Route path="/how-it-works" element={<HowItWorksPage />} />
+        <Route path="/steps" element={<Steps />} />
+        <Route path="/steps/1" element={<Steps1 />} />
+        <Route path="/steps/2" element={<Steps2 />} />
+        <Route path="/steps/3" element={<Steps3 />} />
+        <Route path="/steps/4" element={<Steps4 />} />
+        <Route path="/steps/5" element={<Steps5 />} />
+        <Route path="/camera-access" element={<CameraAccess />} />
+        <Route path="/camera-capture" element={<CameraCapture
+          onExit={() => navigate("/camera-access")}
+          onCapture={(result) => navigate("/result", { state: result })}
+        />
+        }
+        />
+        <Route path="/camera-processing" element={<CameraProcessingPage />} />
+        <Route path="/result-without-details" element={<ResultWithoutDetailsPage />} />
+        <Route path="/add-details" element={<AddDetailsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </>
   )
 }
 
