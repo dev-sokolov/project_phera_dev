@@ -4,7 +4,6 @@
     flex-direction: column;
     display: block;
     /* padding-bottom: 114px; */
-    padding-bottom: 114px;
     min-height: 100dvh;
     overflow-y: auto;
 }
@@ -174,25 +173,24 @@
 }
 
 .bottomBlock {
+    /* position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100%; */
     background-color: var(--main-background-color);
     max-width: 393px;
     padding: 0 24px;
     margin: 0 auto;
-
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%);
-    width: 100%;
-    z-index: 1000;
+    /* z-index: 1000; */
 }
 
-.bottomLine {
+/* .bottomLine {
     width: 345px;
     height: 1px;
     background-color: var(--main-background-color-border);
     margin: 0 auto;
-}
+} */
 
 .btn {
     margin-top: 35px;

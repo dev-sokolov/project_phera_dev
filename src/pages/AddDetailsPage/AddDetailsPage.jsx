@@ -8,9 +8,9 @@ import CameraCapture from "../CameraCapture/CameraCapture";
 
 import Logo from "../../assets/Logo";
 import CameraAccessImg from "../../assets/CameraAccessImg";
-import styles from "./ResultWithoutDetailsPage.module.css";
+import styles from "./AddDetailsPage.module.css";
 
-const ResultWithoutDetailsPage = () => {
+const AddDetailsPage = () => {
     const [isCameraOn, setIsCameraOn] = useState(false);
     const navigate = useNavigate();
 
@@ -76,23 +76,14 @@ const ResultWithoutDetailsPage = () => {
                             </div>
                         </div>
                         {/* <div className={styles.bottomBlock}> */}
-                        {/* <div className={styles.bottomLine}></div> */}
-                        {/* <div className={styles.btn}>
-                                <Button>Save to my history</Button>
-                            </div>
-                            <div className={styles.wrapLine}>
-                                <div className={styles.line}></div>
-                            </div> */}
-                        {/* </div> */}
-                        <div className={styles.bottomBlock}>
-                            <div className={styles.bottomLine}></div>
+                            {/* <div className={styles.bottomLine}></div> */}
                             <div className={styles.btn}>
                                 <Button>Save to my history</Button>
                             </div>
                             <div className={styles.wrapLine}>
                                 <div className={styles.line}></div>
                             </div>
-                        </div>
+                        {/* </div> */}
                     </div>
                 </Container>
             </div>
@@ -100,4 +91,4 @@ const ResultWithoutDetailsPage = () => {
     )
 };
 
-export default ResultWithoutDetailsPage;
+export default AddDetailsPage;
