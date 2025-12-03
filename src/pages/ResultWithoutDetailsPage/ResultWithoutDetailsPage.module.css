@@ -188,13 +188,6 @@
     z-index: 1000;
 }
 
-/* .bottomLine {
-    width: 345px;
-    height: 1px;
-    background-color: var(--main-background-color-border);
-    margin: 0 auto;
-} */
-
 .btn {
     margin-top: 10px;
 }
