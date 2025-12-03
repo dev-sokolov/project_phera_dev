@@ -1,9 +1,7 @@
 .content {
     background-color: var(--main-background-color);
-    /* min-height: 100dvh; */
     display: flex;
     flex-direction: column;
-    /* flex: 1; */
     height: 100dvh;
 }
 
@@ -24,24 +22,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* flex-grow: 1; */
     position: relative;
     flex: 1;
-    /* margin-left: 20px;
-    margin-right: 20px; */
-    /* padding: 0 20px;
-    margin: 0; */
-    /* max-width: 352px; */
 }
 
 .wrapTextBlock {
     position: absolute;
-    /* max-width: 393px; */
     top: 50%;
     left: 50%;
-    /* transform: translate(0, -70%); */
     transform: translate(-50%, -50%);
-    /* max-width: 352px; */
     width: 100%;
     display: flex;
     justify-content: center;
@@ -53,7 +42,6 @@
     gap: 10px;
     align-items: center;
     text-align: center;
-    /* width: 100%; */
     padding: 0 20px;
     max-width: 352px;
 }
@@ -61,8 +49,6 @@
 .wrapLoading {
     width: 120px;
     height: 120px;
-    /* width: 100px;
-    height: 100px; */
 }
 
 .loading {

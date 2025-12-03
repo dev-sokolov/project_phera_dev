@@ -12,10 +12,9 @@ const CameraProcessingPage = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            navigate("/result-without-details"); // укажи путь к странице результатов
-        }, 1002000); // 3000 мс = 3 секунды
-
-        return () => clearTimeout(timer); // очистка таймера при размонтировании
+            navigate("/result-without-details");
+        }, 3000);
+        return () => clearTimeout(timer);
     }, [navigate]);
     return (
         <>
@@ -26,7 +25,6 @@ const CameraProcessingPage = () => {
                     </div>
                 </div>
                 <Container fullWidth>
-                {/* <Container > */}
                     <div className={styles.containerInner}>
                         <div className={styles.wrapTextBlock}>
                             <div className={styles.textBlock}>
