@@ -17,7 +17,7 @@ const AddDetailsPage = () => {
 
     return (
         <>
-            <div className={styles.content}>
+            <div className={styles.content} data-scroll-container>
                 {/* <div className={styles.wrapLogo}>
                     <div className={styles.logo}>
                         <Logo />
