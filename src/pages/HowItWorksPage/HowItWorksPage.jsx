@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
-import homeQr from "../../assets/images/homeQr.jpg";
 import Logo from "../../assets/Logo";
 import onboardingStep1 from "../../assets/images/onboardingStep1.jpg"
 import onboardingStep2 from "../../assets/images/onboardingStep2.jpg"
@@ -58,9 +57,6 @@ const HowItWorksPage = () => {
                             <div className={styles.btn}>
                                 <Button onClick={() => navigate("/steps")}>Start test</Button>
                             </div>
-                            {/* <div className={styles.wrapLine}>
-                            <div className={styles.line}></div>
-                        </div> */}
                         </div>
                     </div>
                 </Container>
