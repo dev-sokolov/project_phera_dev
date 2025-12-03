@@ -78,7 +78,7 @@ const AddDetailsPage = () => {
                         {/* <div className={styles.bottomBlock}> */}
                         {/* <div className={styles.bottomLine}></div> */}
                         <div className={styles.btn}>
-                            <Button>Save to my history</Button>
+                            <Button onClick={() => navigate("/result-without-details")}>Save to my history</Button>
                         </div>
                         <div className={styles.wrapLine}>
                             <div className={styles.line}></div>
