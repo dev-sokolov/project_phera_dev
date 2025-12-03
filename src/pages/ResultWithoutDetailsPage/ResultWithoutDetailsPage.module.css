@@ -173,29 +173,12 @@
     margin-top: 8px;
 }
 
-.bottomBlock {
-    /* background-color: var(--main-background-color);
-    max-width: 393px; */
-    /* padding: 0 24px; */
-    /* padding: 0 24px 25px;
-    margin: 0 auto; */
-
-    /* position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%);
-    width: 100%;
-    z-index: 1000; */
-}
-
 .fixedBlock {
     padding: 0 24px;
     margin: 0 auto;
 
     background-color: var(--main-background-color);
     max-width: 393px;
-
-    /* padding-top: 10px; */
 
     position: fixed;
     bottom: 0;
