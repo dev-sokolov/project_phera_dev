@@ -1,11 +1,21 @@
 .content {
-    background-color: var(--main-background-color);
+    /* background-color: var(--main-background-color);
     display: flex;
     flex-direction: column;
     display: block;
-    /* padding-bottom: 114px; */
+    padding-bottom: 114px;
+    min-height: 100dvh;
+    overflow-y: auto; */
+
+    /* -------------------------------------- */
+    background-color: var(--main-background-color);
+    display: block;
     min-height: 100dvh;
     overflow-y: auto;
+
+    padding-top: 65px;
+    /* ← отодвинуть весь контент вниз */
+
 }
 
 .wrapLogo {
@@ -14,6 +24,16 @@
     justify-content: center;
     border-bottom: 1px solid var(--main-background-color-border);
     background-color: #FFFFFF;
+
+    /* ------------------------------------------------- */
+    position: fixed;
+    /* ← фиксируем */
+    top: 0;
+    /* ← закрепить к верхнему краю */
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    /* ← чтобы было поверх контента */
 }
 
 .logo {

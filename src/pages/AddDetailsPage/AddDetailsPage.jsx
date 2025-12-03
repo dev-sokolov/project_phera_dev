@@ -13,8 +13,6 @@ import styles from "./AddDetailsPage.module.css";
 const AddDetailsPage = () => {
     const navigate = useNavigate();
 
-
-
     return (
         <>
             <div className={styles.content} data-scroll-container>
