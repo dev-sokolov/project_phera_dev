@@ -1,11 +1,10 @@
 .content {
     background-color: var(--main-background-color);
-    min-height: 100dvh;
+    /* min-height: 100dvh; */
     display: flex;
     flex-direction: column;
-    flex: 1;
+    /* flex: 1; */
     height: 100dvh;
-    /* вот это важно */
 }
 
 .wrapLogo {
@@ -25,9 +24,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     flex-grow: 1;
-    /* height: 100%; */
     position: relative;
     flex: 1;
     margin-left: 20px;
@@ -38,14 +35,9 @@
     position: absolute;
     max-width: 312px;
     top: 50%;
-    transform: translate(0, -70%);
-
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px; 
-    width: 100%; */
+    left: 50%;
+    /* transform: translate(0, -70%); */
+    transform: translate(-50%, -50%);
 }
 
 .textBlock {
