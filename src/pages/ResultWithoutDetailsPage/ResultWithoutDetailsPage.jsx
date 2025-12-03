@@ -8,6 +8,13 @@ import styles from "./ResultWithoutDetailsPage.module.css";
 const ResultWithoutDetailsPage = () => {
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const contentEl = document.querySelector(`.${styles.content}`);
+        if (contentEl) {
+            contentEl.scrollTop = 0;
+        }
+    }, []);
+
     return (
         <>
             <div className={styles.content}>
