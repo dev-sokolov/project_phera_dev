@@ -29,7 +29,7 @@ const AddDetailsPage = () => {
                 </div>
                 <Container>
                     <div className={styles.containerInner}>
-                        <div className={styles.title}>Your pH result</div>
+                        <div className={styles.title}>Your pH result ADD DETAILS</div>
                         <div className={styles.visualBlock}>
                             <div className={styles.actions}></div>
                             <div className={styles.num}>7.35</div>

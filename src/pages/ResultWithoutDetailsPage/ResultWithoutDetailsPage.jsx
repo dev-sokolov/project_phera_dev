@@ -1,23 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
 import Button from "../../components/Button/Button";
-import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import CameraCapture from "../CameraCapture/CameraCapture";
 
 import Logo from "../../assets/Logo";
-import CameraAccessImg from "../../assets/CameraAccessImg";
 import styles from "./ResultWithoutDetailsPage.module.css";
 
 const ResultWithoutDetailsPage = () => {
-    const [isCameraOn, setIsCameraOn] = useState(false);
     const navigate = useNavigate();
-
-    const handleCapture = (result) => {
-        navigate("/result", { state: result });
-        setIsCameraOn(false);
-    };
 
     return (
         <>
@@ -64,14 +53,13 @@ const ResultWithoutDetailsPage = () => {
                                             If you notice new symptoms (odor, itching, unusual discharge), you can retest or talk to a clinician.
                                         </p>
                                     </div>
-                                    {/* <p className={styles.text}>If you notice new symptoms (odor, itching, unusual discharge), you can retest or talk to a clinician.</p> */}
                                 </div>
                             </div>
                             <div className={styles.advice}>
                                 <h3 className={styles.heading}>Make this result more personal</h3>
                                 <p className={styles.innerText}>Want to understand why your pH looks like this? Add your age group, hormone status, background, and current symptoms to get more tailored insights.</p>
                                 <div className={styles.btnTop}>
-                                    <Button>Add my details</Button>
+                                    <Button onClick={() => navigate("/add-details")}>Add my details</Button>
                                 </div>
                             </div>
                         </div>
