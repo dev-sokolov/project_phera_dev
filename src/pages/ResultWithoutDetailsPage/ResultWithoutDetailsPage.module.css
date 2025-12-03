@@ -32,6 +32,8 @@
     min-height: 100dvh;
     overflow-y: auto;
     padding-top: 66px;
+    padding-bottom: 114px;
+    /* padding-bottom: 89px; */
 }
 
 .wrapLogo {
