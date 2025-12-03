@@ -20,11 +20,11 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const contentEl = document.querySelector(".content"); // класс твоего контейнера
-    if (contentEl) {
-      contentEl.scrollTop = 0; // прокручиваем внутрь контейнера
+    const container = document.querySelector("[data-scroll-container]");
+    if (container) {
+      container.scrollTop = 0;
     } else {
-      window.scrollTo(0, 0); // запасной вариант
+      window.scrollTo(0, 0);
     }
   }, [pathname]);
 
