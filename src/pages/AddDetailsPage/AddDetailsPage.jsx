@@ -12,7 +12,6 @@ import styles from "./AddDetailsPage.module.css";
 
 const AddDetailsPage = () => {
     const navigate = useNavigate();
-    // checking
 
     return (
         <>
