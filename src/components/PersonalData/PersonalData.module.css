@@ -1,0 +1,14 @@
+.wrapper {
+    width: 100%;
+    background-color: #FFFFFF;
+    padding: 14.5px;
+    border-radius: 15px;
+}
+
+.heading {
+    margin-bottom: 16px;
+    color: #1D2530;
+    font-weight: 600;
+}
+
+
