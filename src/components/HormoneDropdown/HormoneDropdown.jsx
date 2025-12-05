@@ -53,7 +53,7 @@ const HormoneDropdown = ({ hormone, onChange }) => {
       <h4 className={styles.title}>Hormone Status</h4>
       <div
         // className={styles.select}
-        className={`${styles.select} ${hormone ? styles.selected : ""}`}
+        className={`${styles.select} ${hormone.length > 0 ? styles.selected : ""}`}
         onClick={toggle}
         ref={selectRef}
         tabIndex={0}
@@ -62,7 +62,7 @@ const HormoneDropdown = ({ hormone, onChange }) => {
       >
         {displayText}
         {/* <span className={styles.arrow}>{isOpen ? "▲" : "▼"}</span> */}
-         <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`}><ArrowDown /></span>
+        <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`}><ArrowDown /></span>
       </div>
 
       {isOpen && (
