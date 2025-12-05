@@ -49,7 +49,7 @@
 
 .dropdown {
     position: absolute;
-    background-color: white;
+    background-color: #FFFFFF;
     border: 1px solid #ddd;
     border-radius: 10px;
     margin-top: 4px;
@@ -58,11 +58,21 @@
     width: 100%;
     z-index: 10;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    padding: 5px;
+    /* padding: 5px; */
     color: #1D2530;
-    max-height: 250px;
-    overflow-y: auto;
+    /* max-height: 250px; */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease, opacity 0.25s ease, padding 0.25s ease;
+    /* overflow-y: auto; */
     font-size: 14px;
+}
+
+.dropdownOpen {
+    max-height: 300px; /* достаточно для всех элементов */
+    opacity: 1;
+    padding: 5px;
 }
 
 .dropdownItem {
