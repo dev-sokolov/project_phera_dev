@@ -9,7 +9,8 @@ const hormoneOptions = [
   "Thyroid hormones",
 ];
 
-const HormoneDropdown = ({ hormone, onChange, onRemove }) => {
+// const HormoneDropdown = ({ hormone, onChange, onRemove }) => {
+const HormoneDropdown = ({ hormone, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
 

@@ -1,12 +1,14 @@
 .wrap {
     display: block;
     position: relative;
+    padding: 20px 14.5px;
+    background-color: #FFFFFF;
 }
 
 .title {
-    color: #1D2530;
-    font-size: 14px;
-    font-weight: 500;
+    color: var(--main-color);
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .select {
@@ -15,17 +17,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    margin-top: 8px;
-    margin-bottom: 24px;
-    padding: 8px 16px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--main-color);
+    border-radius: 10px;
+    margin-top: 10px;
+    /* margin-bottom: 24px; */
+    padding: 12px 14.5px;
     cursor: pointer;
     font-size: 14px;
-    color: #1D2530;
-    background-color: #FAFAFA;
+    color: #A4A7AE;
+    /* background-color: #FAFAFA; */
     transition: background-color 0.3s;
+
 }
 
 .select:hover {

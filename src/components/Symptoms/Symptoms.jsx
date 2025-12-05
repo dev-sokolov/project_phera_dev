@@ -1,105 +1,57 @@
-import { useState, useRef, useEffect, memo } from "react";
+import { useRef, memo } from "react";
+
+import IconNoSymptoms from "../../assets/icons/IconNoSymptoms";
+import IconFishyOdor from "../../assets/icons/IconFishyOdor";
+import IconItching from "../../assets/icons/IconItching";
+import IconThickWhite from "../../assets/icons/IconThickWhite";
+import IconGreyWhite from "../../assets/icons/IconGreyWhite";
+import IconGreenYellow from "../../assets/icons/IconGreenYellow";
+
 import styles from "./Symptoms.module.css";
 
-const symptomOptions = [
-    "Fatigue",
-    "Acne",
-    "Irritability",
-    "Headache",
-    "Mood swings",
-    "Hot flashes",
-    "Insomnia",
-    "Anxiety",
-    "Bloating",
-    "Cramps",
+const symptomsOptions = [
+    { label: "No symptoms", icon: <IconNoSymptoms /> },
+    { label: "Fishy odor", icon: <IconFishyOdor /> },
+    { label: "Itching or burning", icon: <IconItching /> },
+    { label: "Thick and white", icon: <IconThickWhite /> },
+    { label: "Greylish white and runny", icon: <IconGreyWhite /> },
+    { label: "Green / Yellow / Brown", icon: <IconGreenYellow /> },
 ];
 
-const Symptoms = () => {
-    const [inputValue, setInputValue] = useState("");
-    const [selectedSymptoms, setSelectedSymptoms] = useState([]);
-    const [filteredSymptoms, setFilteredSymptoms] = useState(symptomOptions);
-    const [isOpen, setIsOpen] = useState(false);
-
+const Symptoms = ({ symptoms, onChange }) => {
     const containerRef = useRef(null);
 
-    useEffect(() => {
-        const filtered = symptomOptions.filter(
-            (s) =>
-                s.toLowerCase().includes(inputValue.toLowerCase()) &&
-                !selectedSymptoms.includes(s)
+    const symptomList = symptomsOptions.map((item) => {
+        const isActive = symptoms.includes(item.label);
+
+        return (
+            <div
+                key={item.label}
+                className={isActive ? styles.itemSelected : styles.item}
+                onClick={() => onChange(item.label)}
+            >
+                <div className={styles.wpapIcon}>
+                    <div className={styles.icon}>
+                        {item.icon}
+                    </div>
+                </div>
+                <span>{item.label}</span>
+            </div>
         );
-        setFilteredSymptoms(filtered);
-    }, [inputValue, selectedSymptoms]);
-
-    // click out
-    useEffect(() => {
-        const handleOutsideClick = (e) => {
-            if (containerRef.current && !containerRef.current.contains(e.target)) {
-                setIsOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleOutsideClick);
-        return () => document.removeEventListener("mousedown", handleOutsideClick);
-    }, []);
-
-    const handleSelectSymptom = (symptom) => {
-        setSelectedSymptoms((prev) => [...prev, symptom]);
-        setInputValue("");
-        setIsOpen(false);
-    };
-
-    const handleRemoveSymptom = (symptom) => {
-        setSelectedSymptoms((prev) => prev.filter((s) => s !== symptom));
-    };
-
-    const handleInputFocus = () => {
-         setIsOpen(true);
-    };
+    });
 
     return (
         <div className={styles.wrap} ref={containerRef}>
-            <h4 className={styles.title}>Symptoms</h4>
-            <input
-                type="text"
-                className={styles.input}
-                placeholder="Type to search symptoms"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onFocus={handleInputFocus}
-            />
-            {isOpen && inputValue.trim().length > 0 && filteredSymptoms.length > 0 && (
-                <div className={styles.dropdown}>
-                    {filteredSymptoms.map((symptom) => (
-                        <div
-                            key={symptom}
-                            className={styles.dropdownItem}
-                            onClick={() => handleSelectSymptom(symptom)}
-                        >
-                            {symptom}
-                        </div>
-                    ))}
-                </div>
-            )}
-            {selectedSymptoms.length > 0 && (
-                <div className={styles.selectedList}>
-                    {selectedSymptoms.map((symptom) => (
-                        <span key={symptom} className={styles.selectedTag}>
-                            {symptom}
-                            <button
-                                type="button"
-                                className={styles.removeBtn}
-                                onClick={() => handleRemoveSymptom(symptom)}
-                            >
-                                ×
-                            </button>
-                        </span>
-                    ))}
-                </div>
-            )}
+            <h4 className={styles.title}>Symptoms today</h4>
+            <p className={styles.text}>Select all that apply.</p>
+            <div className={styles.wrapSymptomsList}>
+                {symptomList}
+            </div>
         </div>
     );
 };
 
 export default memo(Symptoms);
+
 
 

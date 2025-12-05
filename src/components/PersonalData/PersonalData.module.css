@@ -1,14 +1,15 @@
 .wrapper {
-    width: 100%;
-    background-color: #FFFFFF;
-    padding: 14.5px;
-    border-radius: 15px;
+    width: 100%;    
+    /* padding-left: 14.5px;
+    padding-right: 14.5px; */
 }
 
-.heading {
-    margin-bottom: 16px;
-    color: #1D2530;
-    font-weight: 600;
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
+
+
 
 

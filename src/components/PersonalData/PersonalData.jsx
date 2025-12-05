@@ -5,7 +5,7 @@ import Symptoms from "../Symptoms/Symptoms";
 
 import styles from "./PersonalData.module.css";
 
-const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestral }) => {
+const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestral, symptoms, setSymptoms }) => {
     const handleHormoneChange = (value) => {
         setHormone((prev) =>
             prev.includes(value)
@@ -14,9 +14,9 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestra
         );
     };
 
-    const handleHormoneRemove = (value) => {
-        setHormone((prev) => prev.filter((h) => h !== value));
-    };
+    // const handleHormoneRemove = (value) => {
+    //     setHormone((prev) => prev.filter((h) => h !== value));
+    // };
 
     const handleAncestralChange = (value) => {
         setAncestral((prev) =>
@@ -26,27 +26,36 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestra
         );
     };
 
-    const handleAncestralRemove = (value) => {
-        setAncestral((prev) => prev.filter((h) => h !== value));
+    const handleSymptomsChange = (value) => {
+        setSymptoms((prev) =>
+            prev.includes(value)
+                ? prev.filter((h) => h !== value)
+                : [...prev, value]
+        );
     };
+
+    // const handleAncestralRemove = (value) => {
+    //     setAncestral((prev) => prev.filter((h) => h !== value));
+    // };
 
     return (
         <>
-            {/* <div className={`${styles.wrapper} ${!isActive ? styles.inactive : ""}`}> */}
             <div className={styles.wrapper}>
                 <form className={styles.form}>
                     <AgeDropdown age={age} onSelect={setAge} />
                     <HormoneDropdown
                         hormone={hormone}
                         onChange={handleHormoneChange}
-                        onRemove={handleHormoneRemove}
+                    // onRemove={handleHormoneRemove}
                     />
                     <AncestralDropdown
                         ancestral={ancestral}
                         onChange={handleAncestralChange}
-                        onRemove={handleAncestralRemove}
                     />
-                    <Symptoms />
+                    <Symptoms
+                        symptoms={symptoms}
+                        onChange={handleSymptomsChange}
+                    />
                 </form>
             </div>
         </>
