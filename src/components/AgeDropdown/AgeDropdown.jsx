@@ -55,8 +55,7 @@ const AgeDropdown = ({ age, onSelect }) => {
                 <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`}><ArrowDown /></span>
             </div>
 
-            {isOpen && (
-                // <div className={styles.dropdown} style={{ width: selectWidth }}>
+            {/* {isOpen && ( */}
                 <div className={`${styles.dropdown} ${isOpen ? styles.dropdownOpen : ""}`} style={{ width: selectWidth }}>
                     {ageOptions.map((option) => (
                         <div
@@ -69,7 +68,7 @@ const AgeDropdown = ({ age, onSelect }) => {
                         </div>
                     ))}
                 </div>
-            )}
+            {/* )} */}
         </div>
     );
 };
