@@ -43,7 +43,8 @@ const AgeDropdown = ({ age, onSelect }) => {
         <div className={styles.wrap} ref={containerRef}>
             <h4 className={styles.title}>Age Group</h4>
             <div
-                className={styles.select}
+                // className={styles.select}
+                className={`${styles.select} ${age ? styles.selected : ""}`}
                 onClick={toggle}
                 ref={selectRef}
                 tabIndex={0}

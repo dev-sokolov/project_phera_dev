@@ -28,6 +28,10 @@
     color: #A4A7AE;
 }
 
+.selected {
+    color: #000000;
+}
+
 .select:hover {
     /* background-color: #00303D;
     color: #FFFFFF; */
@@ -58,6 +62,7 @@
     color: #1D2530;
     max-height: 250px;
     overflow-y: auto;
+    font-size: 14px;
 }
 
 .dropdownItem {
