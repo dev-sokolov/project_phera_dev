@@ -66,11 +66,18 @@ const AddDetailsPage = () => {
                             />
                         </div>
 
-                        <div className={styles.btn}>
-                            <Button onClick={() => navigate("/result-without-details")}>Save</Button>
+                        <div className={styles.bottomBlock}>
+                            <div className={styles.bottomBlockInner}>
+                                <Button onClick={() => navigate("/result-without-details")}>Save</Button>
+                            </div>
                         </div>
                     </div>
                 </Container>
+                {/* <div className={styles.bottomBlock}>
+                    <div className={styles.bottomBlockInner}>
+                        <Button onClick={() => navigate("/result-without-details")}>Save</Button>
+                    </div>
+                </div> */}
             </div>
         </>
     )

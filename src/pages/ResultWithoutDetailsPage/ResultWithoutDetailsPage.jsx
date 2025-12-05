@@ -72,12 +72,9 @@ const ResultWithoutDetailsPage = () => {
                             </div>
                         </div>
                         <div className={styles.bottomBlock}>
-                            <div className={styles.fixedBlock}>
+                            <div className={styles.bottomBlockInner}>
                                 <div className={styles.btn}>
                                     <Button>Save to my history</Button>
-                                </div>
-                                <div className={styles.wrapLine}>
-                                    <div className={styles.line}></div>
                                 </div>
                             </div>
                         </div>

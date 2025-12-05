@@ -14,6 +14,11 @@
     min-height: 100dvh;
     overflow-y: auto;
     padding-top: 66px;
+    padding-bottom: 79px;
+
+    /* padding-right: var(--scrollbar-width); */
+
+    scrollbar-gutter: stable;
 }
 
 .wrapLogo {
@@ -121,11 +126,6 @@
     cursor: pointer;
 }
 
-
-
-
-
-
 .innerText {
     font-size: 13px;
 }
@@ -163,25 +163,39 @@
 }
 
 .bottomBlock {
-    /* position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%);
-    width: 100%; */
     background-color: var(--main-background-color);
+    padding: 10px 0 24px;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    left: 49%;
+    transform: translate(-50%);
+}
+
+.bottomBlockInner {
     max-width: 393px;
     padding: 0 24px;
     margin: 0 auto;
-    /* z-index: 1000; */
 }
 
-/* .bottomLine {
-    width: 345px;
-    height: 1px;
-    background-color: var(--main-background-color-border);
-    margin: 0 auto;
+/* .bottomBlock {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--main-background-color);
+  padding: 10px 0 24px;
+  display: flex;
+  justify-content: center; 
+  z-index: 1000;
+}
+
+.bottomBlockInner {
+  max-width: 393px; 
+  width: 100%; 
+  padding: 0 24px; 
+  box-sizing: border-box;
 } */
 
-.btn {
-    margin-top: 35px;
-}
