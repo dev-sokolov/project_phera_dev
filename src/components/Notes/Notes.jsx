@@ -6,6 +6,14 @@ import styles from "./Notes.module.css";
 const Notes = ({ notes, setNotes }) => {
   const [isEditing, setIsEditing] = useState(false);
   const containerRef = useRef(null);
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+    }
+  }, [notes]);
 
   // click out
   useEffect(() => {
@@ -36,6 +44,7 @@ const Notes = ({ notes, setNotes }) => {
 
       {isEditing ? (
         <textarea
+          ref={textareaRef}
           className={styles.textarea}
           value={notes}
           maxLength={500}

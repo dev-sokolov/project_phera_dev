@@ -28,8 +28,8 @@
 
 .textarea {
   width: 100%;
-  min-height: 70px; /* вместо height */
+  min-height: 70px;
   font-size: 16px;
-  resize: vertical; /* чтобы могла увеличиваться мышкой */
-  padding: 8px;
+  /* resize: vertical; 
+  padding: 8px; */
 }
