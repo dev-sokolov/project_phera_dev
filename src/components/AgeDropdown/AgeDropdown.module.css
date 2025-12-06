@@ -1,15 +1,13 @@
 .wrap {
     display: block;
     position: relative;
-    padding: 20px 14.5px;
-    background-color: #FFFFFF;
     width: 100%;
 }
 
 .title {
-    color: var(--main-color);
+    color: #1F1F1F;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .select {
@@ -18,13 +16,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #FFFFFF;
-    border: 1px solid var(--main-color);
+    background-color: #FDFDFD;
+    border: 1px solid #0C121E;
     border-radius: 10px;
     margin-top: 10px;
-    padding: 12px 14.5px;
+    padding: 10px 10px 10px 14px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     color: #A4A7AE;
 }
 
@@ -32,10 +30,10 @@
     color: #000000;
 }
 
-.select:hover {
+/* .select:hover {
     background-color: #00303D;
     color: #FFFFFF;
-}
+} */
 
 .arrow {
     display: flex;
@@ -53,7 +51,7 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     margin-top: 4px;
-    left: 14.5px;
+    left: 0;
     right: 0;
     width: 100%;
     z-index: 10;
@@ -63,11 +61,13 @@
     opacity: 0;
     overflow: hidden;
     transition: max-height 0.25s ease, opacity 0.25s ease, padding 0.25s ease;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .dropdownOpen {
     max-height: 300px;
+    max-height: 40vh;
+    overflow-y: auto;
     opacity: 1;
     padding: 5px;
 }
@@ -76,7 +76,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 14.5px;
+    padding: 10px 10px 10px 14px;
     border-radius: 10px;
     cursor: pointer;
 }

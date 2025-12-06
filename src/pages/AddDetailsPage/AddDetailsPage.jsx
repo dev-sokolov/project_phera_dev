@@ -40,18 +40,11 @@ const AddDetailsPage = () => {
                 </div>
                 <Container>
                     <div className={styles.containerInner}>
-                        <div className={styles.wrapHeading}>
-                            <h2 className={styles.heading}>Make this result more personal</h2>
-                            <div className={styles.date}>12.06.25 | 8:23 PM</div>
-                        </div>
-                        <h1 className={styles.title}>Your details help us make your insights more accurate and helpful.</h1>
-                        <div className={styles.wrapCheckbox}>
-                            <label className={styles.contentCheckbox}>
-                                <input type="checkbox" className={styles.checkbox} />
-                                <p className={styles.checkboxText}>
-                                    By sharing this information, you consent to pHera using it to personalize your insights. Your data stays private and is never shared without your permission. Read more in our <a href="#">Privacy Policy</a>.
-                                </p>
-                            </label>
+                        <div className={styles.heading}>
+                            <h1 className={styles.title}>Your details help us make your insights more accurate and helpful.</h1>
+                            <p className={styles.privacyPolicy}>
+                                By sharing this information, you consent to pHera using it to personalize your insights. Your data stays private and is never shared without your permission. Read more in our <a href="#">Privacy Policy</a>.
+                            </p>
                         </div>
                         <div className={styles.personalData}>
                             <PersonalData
@@ -69,15 +62,11 @@ const AddDetailsPage = () => {
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
                                 <Button onClick={() => navigate("/result-without-details")}>Save</Button>
+                                <ButtonReverse>Go back</ButtonReverse>
                             </div>
                         </div>
                     </div>
                 </Container>
-                {/* <div className={styles.bottomBlock}>
-                    <div className={styles.bottomBlockInner}>
-                        <Button onClick={() => navigate("/result-without-details")}>Save</Button>
-                    </div>
-                </div> */}
             </div>
         </>
     )

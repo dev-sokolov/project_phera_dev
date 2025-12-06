@@ -3,10 +3,12 @@
     position: relative;
     padding: 20px 14.5px;
     background-color: #FFFFFF;
+    border-radius: 10px;
 }
 
 .title {
-    color: var(--main-color);;
+    color: var(--main-color);
+    ;
     font-size: 16px;
     font-weight: 600;
 }
@@ -59,4 +61,3 @@
     max-width: 18px;
     min-height: 18px;
 }
-

@@ -61,46 +61,25 @@ const HormoneDropdown = ({ hormone, onChange }) => {
         aria-haspopup="listbox"
       >
         {displayText}
-        {/* <span className={styles.arrow}>{isOpen ? "▲" : "▼"}</span> */}
         <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`}><ArrowDown /></span>
       </div>
 
-      {isOpen && (
-        // <div className={styles.dropdown}>
-        <div className={`${styles.dropdown} ${isOpen ? styles.dropdownOpen : ""}`} style={{ width: selectWidth }}>
-          {hormoneOptions.map((option) => (
-            <div
-              key={option}
-              className={styles.dropdownItem}
-              onClick={() => onChange(option)}
-              role="option"
-            >
-              <span
-                className={`${styles.checkmarkLeft} ${hormone.includes(option) ? styles.visible : ""}`}>
-                ✓
-              </span>
-              <span>{option}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* {hormone.length > 0 && (
-        <div className={styles.selectedList}>
-          {hormone.map((item) => (
-            <span key={item} className={styles.selectedTag}>
-              {item}
-              <button
-                type="button"
-                className={styles.removeBtn}
-                onClick={() => onRemove(item)}
-              >
-                ×
-              </button>
+      <div className={`${styles.dropdown} ${isOpen ? styles.dropdownOpen : ""}`} style={{ width: selectWidth }}>
+        {hormoneOptions.map((option) => (
+          <div
+            key={option}
+            className={styles.dropdownItem}
+            onClick={() => onChange(option)}
+            role="option"
+          >
+            <span
+              className={`${styles.checkmarkLeft} ${hormone.includes(option) ? styles.visible : ""}`}>
+              ✓
             </span>
-          ))}
-        </div>
-      )} */}
+            <span>{option}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
