@@ -6,7 +6,8 @@
     overflow-y: auto;
     padding-top: 66px;
     /* padding-bottom: 79px; */
-    padding-bottom: 151px;
+    /* padding-bottom: 151px; */
+    padding-bottom: 170px;
 
     scrollbar-gutter: stable;
 }
