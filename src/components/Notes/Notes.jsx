@@ -1,28 +1,3 @@
-// import { useState } from "react";
-// import EditNotes from "../../assets/icons/EditNotes";
-
-// import styles from "./Notes.module.css";
-
-// const Notes = ({ notes, setNotes }) => {
-//   const [isEditing, setIsEditing] = useState(false);
-
-//   return (
-//     <div className={styles.wrap}>
-//       <div className={styles.heading}>
-//         <h4 className={styles.title}>Notes</h4>
-//         <div onClick={() => setIsEditing(true)}>
-//           <EditNotes />
-//         </div>
-//       </div>
-//       <p className={styles.text}>
-//         Add notes, any extra symptoms, or how you’ve been feeling
-//       </p>
-//     </div>
-//   );
-// };
-
-// export default Notes;
-
 import { useState, useRef, useEffect } from "react";
 import EditNotes from "../../assets/icons/EditNotes";
 
@@ -36,7 +11,7 @@ const Notes = ({ notes, setNotes }) => {
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setIsOpen(false);
+        setIsEditing(false);
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
