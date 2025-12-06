@@ -28,7 +28,7 @@ const Notes = ({ notes, setNotes }) => {
 
   // click Escape
   useEffect(() => {
-    const handleEscape = (e) => e.key === "Escape" && setIsOpen(false);
+    const handleEscape = (e) => e.key === "Escape" && setIsEditing(false);
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
