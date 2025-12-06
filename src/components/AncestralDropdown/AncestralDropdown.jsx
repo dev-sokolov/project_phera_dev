@@ -1,6 +1,8 @@
 import { useRef, memo } from "react";
-import styles from "./AncestralDropdown.module.css";
+
 import CheckboxTick from "../../assets/icons/CheckboxTick";
+
+import styles from "./AncestralDropdown.module.css";
 
 const ancestralOptions = [
   "Asian",

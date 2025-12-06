@@ -29,6 +29,7 @@ const AddDetailsPage = () => {
     const [hormone, setHormone] = useState([]);
     const [ancestral, setAncestral] = useState([]);
     const [symptoms, setSymptoms] = useState([]);
+    const [notes, setNotes] = useState("");
 
     return (
         <>
@@ -56,6 +57,8 @@ const AddDetailsPage = () => {
                                 setAncestral={setAncestral}
                                 symptoms={symptoms}
                                 setSymptoms={setSymptoms}
+                                notes={notes}
+                                setNotes={setNotes}
                             />
                         </div>
 

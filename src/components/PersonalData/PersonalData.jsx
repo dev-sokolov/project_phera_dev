@@ -2,10 +2,11 @@ import AgeDropdown from "../AgeDropdown/AgeDropdown";
 import HormoneDropdown from "../HormoneDropdown/HormoneDropdown";
 import AncestralDropdown from "../AncestralDropdown/AncestralDropdown";
 import Symptoms from "../Symptoms/Symptoms";
+import Notes from "../Notes/Notes";
 
 import styles from "./PersonalData.module.css";
 
-const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestral, symptoms, setSymptoms }) => {
+const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestral, symptoms, setSymptoms, notes, setNotes }) => {
     const handleHormoneChange = (value) => {
         setHormone((prev) =>
             prev.includes(value)
@@ -56,6 +57,7 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestra
                         symptoms={symptoms}
                         onChange={handleSymptomsChange}
                     />
+                    <Notes notes={notes} setNotes={setNotes} />
                 </form>
             </div>
         </>
