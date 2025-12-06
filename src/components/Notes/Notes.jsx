@@ -23,13 +23,32 @@
 
 // export default Notes;
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import EditNotes from "../../assets/icons/EditNotes";
 
 import styles from "./Notes.module.css";
 
 const Notes = ({ notes, setNotes }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const containerRef = useRef(null);
+
+  // click out
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+
+  // click Escape
+  useEffect(() => {
+    const handleEscape = (e) => e.key === "Escape" && setIsOpen(false);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
 
   return (
     <div className={styles.wrap}>
