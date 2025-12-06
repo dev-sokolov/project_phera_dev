@@ -1,41 +1,29 @@
 import { useRef, memo } from "react";
 
-import IconNoSymptoms from "../../assets/icons/IconNoSymptoms";
-import IconFishyOdor from "../../assets/icons/IconFishyOdor";
-import IconItching from "../../assets/icons/IconItching";
-import IconThickWhite from "../../assets/icons/IconThickWhite";
-import IconGreyWhite from "../../assets/icons/IconGreyWhite";
-import IconGreenYellow from "../../assets/icons/IconGreenYellow";
-
 import styles from "./Symptoms.module.css";
 
 const symptomsOptions = [
-    { label: "No symptoms", icon: <IconNoSymptoms /> },
-    { label: "Fishy odor", icon: <IconFishyOdor /> },
-    { label: "Itching or burning", icon: <IconItching /> },
-    { label: "Thick and white", icon: <IconThickWhite /> },
-    { label: "Greylish white and runny", icon: <IconGreyWhite /> },
-    { label: "Green / Yellow / Brown", icon: <IconGreenYellow /> },
+    "No symptoms",
+    "Fishy odor",
+    "Itching or burning",
+    "Thick and white",
+    "Greylish white and runny",
+    "Green / Yellow / Brown",
 ];
 
 const Symptoms = ({ symptoms, onChange }) => {
     const containerRef = useRef(null);
 
     const symptomList = symptomsOptions.map((item) => {
-        const isActive = symptoms.includes(item.label);
+        const isActive = symptoms.includes(item);
 
         return (
             <div
-                key={item.label}
+                key={item}
                 className={isActive ? styles.itemSelected : styles.item}
-                onClick={() => onChange(item.label)}
+                onClick={() => onChange(item)}
             >
-                <div className={styles.wpapIcon}>
-                    <div className={styles.icon}>
-                        {item.icon}
-                    </div>
-                </div>
-                <span>{item.label}</span>
+                <span>{item}</span>
             </div>
         );
     });
@@ -43,7 +31,6 @@ const Symptoms = ({ symptoms, onChange }) => {
     return (
         <div className={styles.wrap} ref={containerRef}>
             <h4 className={styles.title}>Symptoms today</h4>
-            <p className={styles.text}>Select all that apply.</p>
             <div className={styles.wrapSymptomsList}>
                 {symptomList}
             </div>
