@@ -34,7 +34,7 @@ const ResultWithDetailsPageNormal = () => {
                 </div>
                 <Container>
                     <div className={styles.containerInner}>
-                        <h1 className={styles.title}>Your pH result PLUS</h1>
+                        <h1 className={styles.title}>Your pH result</h1>
                         <div className={styles.visualBlock}>
                             <div className={styles.actions}></div>
                             <div className={styles.num}>7.35</div>
