@@ -36,13 +36,8 @@ const Steps4 = () => {
                                 Once the test area is in focus, the scan will happen automatically — no need to press anything.</p>
                         </div>
                         <div className={styles.bottomBlock}>
-                            <div className={styles.btns}>
-                                <Button onClick={() => navigate("/steps/5")}>Next</Button>
-                                <ButtonReverse onClick={() => navigate("/steps/3")}>Go back</ButtonReverse>
-                            </div>
-                            <div className={styles.wrapLine}>
-                                <div className={styles.line}></div>
-                            </div>
+                            <Button onClick={() => navigate("/steps/5")}>Next</Button>
+                            <ButtonReverse onClick={() => navigate("/steps/3")}>Go back</ButtonReverse>
                         </div>
                     </div>
                 </Container>

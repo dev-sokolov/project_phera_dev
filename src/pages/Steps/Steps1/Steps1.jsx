@@ -35,13 +35,8 @@ const Steps1 = () => {
                             <p className={styles.text}>Open your pHera box, take one strip, and remove the foil right before testing. Hold it by the white handle only, to keep the test area clean and dry.</p>
                         </div>
                         <div className={styles.bottomBlock}>
-                            <div className={styles.btns}>
-                                <Button onClick={() => navigate("/steps/2")}>Next</Button>
-                                <ButtonReverse onClick={() => navigate("/steps")}>Go back</ButtonReverse>
-                            </div>
-                            <div className={styles.wrapLine}>
-                                <div className={styles.line}></div>
-                            </div>
+                            <Button onClick={() => navigate("/steps/2")}>Next</Button>
+                            <ButtonReverse onClick={() => navigate("/steps")}>Go back</ButtonReverse>
                         </div>
                     </div>
                 </Container>

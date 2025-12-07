@@ -35,13 +35,8 @@ const Steps3 = () => {
                             <p className={styles.text}>Leave it for about a minute so the color can develop fully. When you’re ready, pHera will guide you to scan your strip.</p>
                         </div>
                         <div className={styles.bottomBlock}>
-                            <div className={styles.btns}>
-                                <Button onClick={() => navigate("/steps/4")}>Next</Button>
-                                <ButtonReverse onClick={() => navigate("/steps/2")}>Go back</ButtonReverse>
-                            </div>
-                            <div className={styles.wrapLine}>
-                                <div className={styles.line}></div>
-                            </div>
+                            <Button onClick={() => navigate("/steps/4")}>Next</Button>
+                            <ButtonReverse onClick={() => navigate("/steps/2")}>Go back</ButtonReverse>
                         </div>
                     </div>
                 </Container>

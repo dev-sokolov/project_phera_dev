@@ -41,9 +41,6 @@ const HomePageQr = () => {
                                 We respect your privacy — your results stay secure and visible only to you.
                             </p>
                         </div>
-                        <div className={styles.wrapLine}>
-                            <div className={styles.line}></div>
-                        </div>
                     </div>
                 </Container>
             </div>

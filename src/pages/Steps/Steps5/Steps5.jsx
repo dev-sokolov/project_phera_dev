@@ -37,13 +37,8 @@ const Steps5 = () => {
                             <p className={styles.textItalic}>Next, we’ll take you to a quick scan of your test strip.</p>
                         </div>
                         <div className={styles.bottomBlock}>
-                            <div className={styles.btns}>
-                                <Button onClick={() => navigate("/camera-access")}>Next</Button>
-                                <ButtonReverse onClick={() => navigate("/steps/4")}>Go back</ButtonReverse>
-                            </div>
-                            <div className={styles.wrapLine}>
-                                <div className={styles.line}></div>
-                            </div>
+                            <Button onClick={() => navigate("/camera-access")}>Next</Button>
+                            <ButtonReverse onClick={() => navigate("/steps/4")}>Go back</ButtonReverse>
                         </div>
                     </div>
                 </Container>

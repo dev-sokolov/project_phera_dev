@@ -87,27 +87,10 @@
 
 .bottomBlock {
     margin-top: auto;
+    margin-bottom: 36px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.btns {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 
-.wrapLine {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 8px;
-    padding-top: 11px;
-}
-
-.line {
-    width: 134px;
-    height: 5px;
-    background-color: #000000;
-    border-radius: 100px;
-}

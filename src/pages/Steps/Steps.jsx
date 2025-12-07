@@ -26,13 +26,8 @@ const Steps = () => {
                         </div>
                         <Link to="/camera-access" className={styles.skip}>Skip steps</Link>
                         <div className={styles.bottomBlock}>
-                            <div className={styles.btns}>
-                                <Button onClick={() => navigate("/steps/1")}>Next</Button>
-                                <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
-                            </div>
-                            <div className={styles.wrapLine}>
-                                <div className={styles.line}></div>
-                            </div>
+                            <Button onClick={() => navigate("/steps/1")}>Next</Button>
+                            <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
                         </div>
                     </div>
                 </Container>

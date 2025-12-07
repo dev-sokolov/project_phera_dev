@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button/Button";
+import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import Logo from "../../assets/Logo";
 import onboardingStep1 from "../../assets/images/onboardingStep1.jpg"
@@ -57,6 +58,7 @@ const HowItWorksPage = () => {
                             <div className={styles.bottomBlockInner}>
                                 <div className={styles.btn}>
                                     <Button onClick={() => navigate("/steps")}>Start test</Button>
+                                    <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
                                 </div>
                             </div>
                         </div>

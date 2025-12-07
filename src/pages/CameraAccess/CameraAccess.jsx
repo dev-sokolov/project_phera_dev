@@ -19,7 +19,7 @@ const CameraAccess = () => {
         setIsCameraOn(false);
     };
 
-        return (
+    return (
         <>
             {!isCameraOn ? (
                 <div className={styles.content}>
@@ -28,7 +28,7 @@ const CameraAccess = () => {
                             <Logo />
                         </div>
                     </div>
-                    <Container>
+                    <Container fullWidth>
                         <div className={styles.containerInner}>
                             <div className={styles.wrapImg}>
                                 <div className={styles.innerImg}>
@@ -42,13 +42,10 @@ const CameraAccess = () => {
                                 <p className={styles.text}>We’ll use your camera for a moment to read the color on your test strip. The scan is done automatically and stays private.</p>
                             </div>
                             <div className={styles.bottomBlock}>
-                                <p className={styles.bottomText}>Your privacy is protected at every step. Frames are processed in memory and automatically discarded after scanning.</p>
+                                <p className={styles.bottomText}>Your privacy is protected at every step.</p>
                                 <div className={styles.btns}>
                                     <Button onClick={() => navigate("/camera-capture")}>Allow camera</Button>
                                     <ButtonReverse onClick={() => navigate(-1)}>Go back</ButtonReverse>
-                                </div>
-                                <div className={styles.wrapLine}>
-                                    <div className={styles.line}></div>
                                 </div>
                             </div>
                         </div>

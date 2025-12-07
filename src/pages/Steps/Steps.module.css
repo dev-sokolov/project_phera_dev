@@ -50,31 +50,14 @@
     font-weight: 600;
     text-decoration: underline;
     color: var(--main-color);
+    margin-bottom: 85px;
 }
 
 .bottomBlock {
-    margin-top: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.btns {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 
-.wrapLine {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 8px;
-    padding-top: 11px;
-}
 
-.line {
-    width: 134px;
-    height: 5px;
-    background-color: #000000;
-    border-radius: 100px;
-}

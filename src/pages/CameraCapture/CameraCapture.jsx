@@ -3,11 +3,13 @@ import Webcam from "react-webcam";
 import { useCameraReady } from "../../hooks/useCameraReady";
 import { useMarkerDetection } from "../../hooks/useMarkerDetection";
 import { useNavigate } from "react-router-dom";
-import AdjustableFrame from "./AdjustableFrame";
+// import AdjustableFrame from "./AdjustableFrame";
 
 import whiteFrame from "../../assets/whiteFrame.svg";
 import greenFrame from "../../assets/greenFrame.svg";
 import Logo from "../../assets/Logo";
+import CameraIllumination from "../../assets/icons/CameraIllumination";
+import ArrowLeft from "../../assets/icons/ArrowLeft";
 
 import styles from "./CameraCapture.module.css";
 
@@ -82,6 +84,13 @@ const CameraCapture = ({ onCapture, onExit }) => {
     return (
         <div className={styles.content}>
             <div className={styles.wrapLogo}>
+                <button
+                    className={styles.arrowLeft}
+                    onClick={handleExit}
+                    aria-label="Go back"
+                >
+                    <ArrowLeft />
+                </button>
                 <div className={styles.logo}>
                     <Logo />
                 </div>
@@ -102,6 +111,11 @@ const CameraCapture = ({ onCapture, onExit }) => {
                             </div>
                         </div>
 
+                        {/* Иконка освещения камеры */}
+                        <button className={styles.cameraIlluminationBtn}>
+                            <CameraIllumination />
+                        </button>
+
                         <Webcam
                             ref={webcamRef}
                             audio={false}
@@ -118,17 +132,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
                             }}
                             playsInline
                         />
-
-                        {/* EXIT BUTTON */}
-                        <div className={styles.wrapExitBtn}>
-                            <button
-                                className={styles.exitBtn}
-                                onClick={handleExit}
-                                aria-label="Exit"
-                            >
-                                X
-                            </button>
-                        </div>
                     </div>
                 </div>
 
