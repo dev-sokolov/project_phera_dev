@@ -5,8 +5,7 @@
     min-height: 100dvh;
     overflow-y: auto;
     padding-top: 66px;
-    /* padding-bottom: 114px; */
-    padding-bottom: 180px;
+    padding-bottom: 114px;
 }
 
 .wrapLogo {
@@ -138,34 +137,33 @@
     gap: 10px;
 }
 
-.wrapHeading {
-    display: flex;
-    justify-content: space-between;
-}
-
 .heading {
-    color: #1F1F1F;
+    font-family: 'Cooper Hewitt', sans-serif;
     font-weight: 700;
 }
 
-.arrow {
-    display: flex;
-    transition: transform 0.25s ease;
-    transform-origin: center;
-    cursor: pointer;
+.innerText {
+    font-size: 13px;
 }
 
-.arrowOpen {
-    transform: rotate(180deg);
+.wrapText {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .text {
-    font-size: 14px;
-    color: #1F1F1F;
-}   
+    display: flex;
+    gap: 15px;
+}
 
-.hidden {
-    display: none;
+.point {
+    position: relative;
+    min-width: 7px;
+    height: 7px;
+    background-color: #006D5B;
+    border-radius: 50%;
+    top: 5px;
 }
 
 .advice {
@@ -178,12 +176,6 @@
 
 .btnTop {
     margin-top: 8px;
-}
-
-.info {
-    font-size: 12px;
-    color: #717680;
-    text-align: center;
 }
 
 .fixedBlock {
@@ -203,7 +195,7 @@
 
 .bottomBlock {
     background-color: var(--main-background-color);
-    padding: 16px 0 29px;
+    padding: 10px 0 24px;
 
     position: fixed;
     bottom: 0;
@@ -216,3 +208,4 @@
     padding: 0 24px;
     margin: 0 auto;
 }
+

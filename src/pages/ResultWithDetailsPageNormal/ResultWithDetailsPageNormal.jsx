@@ -1,15 +1,13 @@
-import { useState } from "react";
+// import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
 
-import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import Logo from "../../assets/Logo";
-import styles from "./ResultWithoutDetailsPage.module.css";
+import styles from "./ResultWithDetailsPageNormal.module.css";
 
-const ResultWithoutDetailsPage = () => {
+const ResultWithDetailsPageNormal = () => {
     const navigate = useNavigate();
-    const [isOpen, setIsOpen] = useState(false);
 
     // useEffect(() => {
     //     const contentEl = document.querySelector(`.${styles.content}`);
@@ -28,7 +26,7 @@ const ResultWithoutDetailsPage = () => {
                 </div>
                 <Container>
                     <div className={styles.containerInner}>
-                        <div className={styles.title}>Your pH result</div>
+                        <div className={styles.title}>Your pH result PLUS</div>
                         <div className={styles.visualBlock}>
                             <div className={styles.actions}></div>
                             <div className={styles.num}>7.35</div>
@@ -49,26 +47,28 @@ const ResultWithoutDetailsPage = () => {
                         <div className={styles.textBlock}>
                             <p className={styles.textResult}>This result suggests that your vaginal environment is in its usual balance. Your pH can still shift slightly with your cycle, sex, or products you use, but nothing in this reading looks concerning on its own.</p>
                             <div className={styles.recommendations}>
-                                <div className={styles.wrapHeading}>
-                                    <h3 className={styles.heading}>Recommendations</h3>
-                                    {/* <ArrowDownGrey /> */}
-                                    <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`} onClick={() => setIsOpen(!isOpen)}>
-                                        <ArrowDownGrey />
-                                    </span>
+                                <h3 className={styles.heading}>Recommendations</h3>
+                                <div className={styles.wrapText}>
+                                    <div className={styles.text}>
+                                        <div className={styles.point}></div>
+                                        <p className={styles.innerText}>
+                                            Keep following your usual routine — no changes are needed based on this result.
+                                        </p>
+                                    </div>
+                                    <div className={styles.text}>
+                                        <div className={styles.point}></div>
+                                        <p className={styles.innerText}>
+                                            If you notice new symptoms (odor, itching, unusual discharge), you can retest or talk to a clinician.
+                                        </p>
+                                    </div>
                                 </div>
-                                <p className={`${isOpen ? styles.text : styles.hidden}`}>
-                                    Add your age group, hormone status, background, and current symptoms to get more tailored insights.
-                                </p>
                             </div>
                             <div className={styles.advice}>
                                 <h3 className={styles.heading}>Make this result more personal</h3>
-                                <p className={styles.text}>Want to understand why your pH looks like this? Add your age group, hormone status, background, and current symptoms to get more tailored insights.</p>
+                                <p className={styles.innerText}>Want to understand why your pH looks like this? Add your age group, hormone status, background, and current symptoms to get more tailored insights.</p>
                                 <div className={styles.btnTop}>
                                     <Button onClick={() => navigate("/add-details")}>Add my details</Button>
                                 </div>
-                                <p className={styles.info}>
-                                    Your data stays private and is never shared without your consent
-                                </p>
                             </div>
                         </div>
                         <div className={styles.bottomBlock}>
@@ -85,4 +85,4 @@ const ResultWithoutDetailsPage = () => {
     )
 };
 
-export default ResultWithoutDetailsPage;
+export default ResultWithDetailsPageNormal;

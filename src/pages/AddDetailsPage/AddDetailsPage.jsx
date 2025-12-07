@@ -64,8 +64,8 @@ const AddDetailsPage = () => {
 
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
-                                <Button onClick={() => navigate("/result-without-details")}>Save</Button>
-                                <ButtonReverse>Go back</ButtonReverse>
+                                <Button onClick={() => navigate("/result-with-details-normal")}>Save</Button>
+                                <ButtonReverse onClick={() => navigate("/result-without-details")}>Go back</ButtonReverse>
                             </div>
                         </div>
                     </div>

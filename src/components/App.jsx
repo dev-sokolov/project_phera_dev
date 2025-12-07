@@ -15,6 +15,7 @@ import CameraCapture from "../pages/CameraCapture/CameraCapture";
 import CameraProcessingPage from "../pages/CameraProcessingPage/CameraProcessingPage";
 import ResultWithoutDetailsPage from "../pages/ResultWithoutDetailsPage/ResultWithoutDetailsPage";
 import AddDetailsPage from "../pages/AddDetailsPage/AddDetailsPage";
+import ResultWithDetailsPageNormal from "../pages/ResultWithDetailsPageNormal/ResultWithDetailsPageNormal";
 
 import "../shared/styles/style.css";
 
@@ -41,6 +42,7 @@ function App() {
         />
         <Route path="/camera-processing" element={<CameraProcessingPage />} />
         <Route path="/result-without-details" element={<ResultWithoutDetailsPage />} />
+        <Route path="/result-with-details-normal" element={<ResultWithDetailsPageNormal />} />
         <Route path="/add-details" element={<AddDetailsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
