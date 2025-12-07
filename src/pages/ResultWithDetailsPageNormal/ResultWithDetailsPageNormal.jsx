@@ -1,20 +1,28 @@
-// import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
 
+import learnMore from "../../assets/images/learnMore.jpg"
+import EditNotesGrey from "../../assets/icons/EditNotesGrey";
 import Logo from "../../assets/Logo";
 import styles from "./ResultWithDetailsPageNormal.module.css";
+
+const detailOptions = [
+    "18-24",
+    "Mid-cycle",
+    "Asian",
+    "No symptoms",
+];
 
 const ResultWithDetailsPageNormal = () => {
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const contentEl = document.querySelector(`.${styles.content}`);
-    //     if (contentEl) {
-    //         contentEl.scrollTop = 0;
-    //     }
-    // }, []);
+    const detailslList = detailOptions.map((item) => {
+
+        return (
+            <div key={item} className={styles.item}>{item}</div>
+        );
+    });
 
     return (
         <>
@@ -26,7 +34,7 @@ const ResultWithDetailsPageNormal = () => {
                 </div>
                 <Container>
                     <div className={styles.containerInner}>
-                        <div className={styles.title}>Your pH result PLUS</div>
+                        <h1 className={styles.title}>Your pH result PLUS</h1>
                         <div className={styles.visualBlock}>
                             <div className={styles.actions}></div>
                             <div className={styles.num}>7.35</div>
@@ -44,8 +52,23 @@ const ResultWithDetailsPageNormal = () => {
                                 <p>Elevated</p>
                             </div>
                         </div>
-                        <div className={styles.textBlock}>
+                        <div className={styles.infoBlock}>
                             <p className={styles.textResult}>This result suggests that your vaginal environment is in its usual balance. Your pH can still shift slightly with your cycle, sex, or products you use, but nothing in this reading looks concerning on its own.</p>
+                            <div className={styles.details}>
+                                <div className={styles.wrapHeading}>
+                                    <h4 className={styles.heading}>Details for this result</h4>
+                                    <button
+                                        className={styles.editBtn}
+                                        onClick={() => navigate("/add-details")}
+                                        aria-label="Edit details"
+                                    >
+                                        <EditNotesGrey />
+                                    </button>
+                                </div>
+                                <div className={styles.wrapDetailslList}>
+                                    {detailslList}
+                                </div>
+                            </div>
                             <div className={styles.recommendations}>
                                 <h3 className={styles.heading}>Recommendations</h3>
                                 <div className={styles.wrapText}>
@@ -63,19 +86,24 @@ const ResultWithDetailsPageNormal = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={styles.advice}>
-                                <h3 className={styles.heading}>Make this result more personal</h3>
-                                <p className={styles.innerText}>Want to understand why your pH looks like this? Add your age group, hormone status, background, and current symptoms to get more tailored insights.</p>
-                                <div className={styles.btnTop}>
-                                    <Button onClick={() => navigate("/add-details")}>Add my details</Button>
+                            <h2 className={styles.titleSecondary}>Learn more about your result</h2>
+                            <div className={styles.wrapLearnMore}>
+                                <div className={styles.img}><img src={learnMore} alt="Learn more" /></div>
+                                <div className={styles.learnMore}>
+                                    <div className={styles.learnMoreTitle}>
+                                        Why do I get yeast infections around my period?
+                                    </div>
+                                    <p className={styles.learnMoreText}>
+                                        Yeast infections are commonly associated with your period...
+                                    </p>
+                                    <a href="#" className={styles.learnMoreLink}>Learn more</a>
                                 </div>
+
                             </div>
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
-                                <div className={styles.btn}>
-                                    <Button>Save to my history</Button>
-                                </div>
+                                <Button>Save to my history</Button>
                             </div>
                         </div>
                     </div>

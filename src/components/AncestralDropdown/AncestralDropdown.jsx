@@ -1,4 +1,4 @@
-import { useRef, memo } from "react";
+import { memo } from "react";
 
 import CheckboxTick from "../../assets/icons/CheckboxTick";
 
@@ -15,7 +15,6 @@ const ancestralOptions = [
 ];
 
 const AncestralDropdown = ({ ancestral, onChange }) => {
-  const containerRef = useRef(null);
 
   const ancestralList = ancestralOptions.map((item) => {
     const isActive = ancestral.includes(item);
@@ -33,7 +32,7 @@ const AncestralDropdown = ({ ancestral, onChange }) => {
   });
 
   return (
-    <div className={styles.wrap} ref={containerRef}>
+    <div className={styles.wrap}>
       <h4 className={styles.title}>Ancestral Background(s)</h4>
       <div className={styles.wrapAncestralList}>
         {ancestralList}

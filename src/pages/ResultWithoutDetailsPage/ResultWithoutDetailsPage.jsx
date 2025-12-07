@@ -11,13 +11,6 @@ const ResultWithoutDetailsPage = () => {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
 
-    // useEffect(() => {
-    //     const contentEl = document.querySelector(`.${styles.content}`);
-    //     if (contentEl) {
-    //         contentEl.scrollTop = 0;
-    //     }
-    // }, []);
-
     return (
         <>
             <div className={styles.content} data-scroll-container>
@@ -51,7 +44,6 @@ const ResultWithoutDetailsPage = () => {
                             <div className={styles.recommendations}>
                                 <div className={styles.wrapHeading}>
                                     <h3 className={styles.heading}>Recommendations</h3>
-                                    {/* <ArrowDownGrey /> */}
                                     <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`} onClick={() => setIsOpen(!isOpen)}>
                                         <ArrowDownGrey />
                                     </span>
@@ -73,9 +65,7 @@ const ResultWithoutDetailsPage = () => {
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
-                                <div className={styles.btn}>
-                                    <Button>Save to my history</Button>
-                                </div>
+                                <Button>Save to my history</Button>
                             </div>
                         </div>
                     </div>
