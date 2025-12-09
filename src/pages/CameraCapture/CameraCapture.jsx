@@ -90,8 +90,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
 
     useMarkerDetection(videoRef, frameRef, setInside);
 
-
-    // Внутренний компонент рамки
     const Frame = ({ inside }) => (
         <img
             src={inside ? greenFrame : whiteFrame}
@@ -101,8 +99,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
     );
 
     const buttonContent = isInside ? "Successfully captured" : "Move closer";
-
-    // const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
     return (
         <div className={styles.content}>
@@ -134,10 +130,8 @@ const CameraCapture = ({ onCapture, onExit }) => {
                             </div>
                         </div>
 
-                        {/* Иконка освещения камеры */}
                         <button className={styles.cameraIlluminationBtn} onClick={toggleTorch}>
                             <CameraIllumination active={torchOn}/>
-                            {/* <CameraIllumination /> */}
                         </button>
 
                         <Webcam

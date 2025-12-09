@@ -8,8 +8,7 @@
 //     {...rest}
 //   >
 //     <path
-//       // stroke="#00343D"
-//       stroke={active ? "#00B274" : "#00343D"}
+//       stroke="#00343D"
 //       strokeLinecap="round"
 //       strokeLinejoin="round"
 //       strokeMiterlimit={10}
@@ -26,7 +25,7 @@ const CameraIllumination = ({ active, ...rest }) => (
     width={22}
     height={22}
     fill="none"
-    {...rest}   // ← теперь rest существует
+    {...rest}  
   >
     <path
       stroke={active ? "#00B274" : "#00343D"}
