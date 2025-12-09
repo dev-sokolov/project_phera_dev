@@ -91,9 +91,9 @@ const ResultWithDetailsPageNormal = () => {
                             </div> */}
                             <div className={styles.recommendations}>
                                 {/* <h3 className={styles.heading}>Recommendations</h3> */}
-                                 <div className={styles.wrapHeading}>
+                                 <div className={styles.wrapHeading} onClick={() => setIsOpen(!isOpen)}>
                                     <h3 className={styles.heading}>Recommendations</h3>
-                                    <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`} onClick={() => setIsOpen(!isOpen)}>
+                                    <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`}>
                                         <ArrowDownGrey />
                                     </span>
                                 </div>

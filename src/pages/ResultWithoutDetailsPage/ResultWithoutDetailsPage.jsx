@@ -42,9 +42,9 @@ const ResultWithoutDetailsPage = () => {
                         <div className={styles.textBlock}>
                             <p className={styles.textResult}>This result suggests that your vaginal environment is in its usual balance. Your pH can still shift slightly with your cycle, sex, or products you use, but nothing in this reading looks concerning on its own.</p>
                             <div className={styles.recommendations}>
-                                <div className={styles.wrapHeading}>
+                                <div className={styles.wrapHeading} onClick={() => setIsOpen(!isOpen)}>
                                     <h3 className={styles.heading}>Recommendations</h3>
-                                    <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`} onClick={() => setIsOpen(!isOpen)}>
+                                    <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`}>
                                         <ArrowDownGrey />
                                     </span>
                                 </div>
