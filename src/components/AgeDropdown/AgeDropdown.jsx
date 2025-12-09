@@ -10,13 +10,16 @@ const AgeDropdown = ({ age, onSelect }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectWidth, setSelectWidth] = useState(0);
     const containerRef = useRef(null);
-    
+
     const toggle = () => setIsOpen((prev) => !prev);
 
     useEffect(() => {
         if (!selectRef.current) return;
         const resizeObserver = new ResizeObserver(() => {
-            setSelectWidth(selectRef.current.offsetWidth);
+            // setSelectWidth(selectRef.current.offsetWidth);
+            if (selectRef.current) {
+                setSelectWidth(selectRef.current.offsetWidth);
+            }
         });
         resizeObserver.observe(selectRef.current);
         return () => resizeObserver.disconnect();

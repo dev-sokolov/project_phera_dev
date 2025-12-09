@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
 
+import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import learnMore from "../../assets/images/learnMore.jpg"
 import EditNotesGrey from "../../assets/icons/EditNotesGrey";
 import Logo from "../../assets/Logo";
@@ -16,6 +18,7 @@ const detailOptions = [
 
 const ResultWithDetailsPageNormal = () => {
     const navigate = useNavigate();
+    const [isOpen, setIsOpen] = useState(false);
 
     const detailslList = detailOptions.map((item) => {
 
@@ -69,9 +72,32 @@ const ResultWithDetailsPageNormal = () => {
                                     {detailslList}
                                 </div>
                             </div>
-                            <div className={styles.recommendations}>
+                            {/* <div className={styles.recommendations}>
                                 <h3 className={styles.heading}>Recommendations</h3>
                                 <div className={styles.wrapText}>
+                                    <div className={styles.text}>
+                                        <div className={styles.point}></div>
+                                        <p className={styles.innerText}>
+                                            Keep following your usual routine — no changes are needed based on this result.
+                                        </p>
+                                    </div>
+                                    <div className={styles.text}>
+                                        <div className={styles.point}></div>
+                                        <p className={styles.innerText}>
+                                            If you notice new symptoms (odor, itching, unusual discharge), you can retest or talk to a clinician.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div> */}
+                            <div className={styles.recommendations}>
+                                {/* <h3 className={styles.heading}>Recommendations</h3> */}
+                                 <div className={styles.wrapHeading}>
+                                    <h3 className={styles.heading}>Recommendations</h3>
+                                    <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`} onClick={() => setIsOpen(!isOpen)}>
+                                        <ArrowDownGrey />
+                                    </span>
+                                </div>
+                                <div className={`${styles.wrapText} ${styles.collapse} ${isOpen ? styles.open : ""}`}>
                                     <div className={styles.text}>
                                         <div className={styles.point}></div>
                                         <p className={styles.innerText}>

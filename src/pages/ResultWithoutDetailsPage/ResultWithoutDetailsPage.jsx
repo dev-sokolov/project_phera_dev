@@ -48,9 +48,9 @@ const ResultWithoutDetailsPage = () => {
                                         <ArrowDownGrey />
                                     </span>
                                 </div>
-                                <p className={`${isOpen ? styles.text : styles.hidden}`}>
-                                    Add your age group, hormone status, background, and current symptoms to get more tailored insights.
-                                </p>
+                                <div className={`${styles.collapse} ${isOpen ? styles.open : ""}`}>
+                                    <p className={styles.text}>Add your age group, hormone status, background, and current symptoms to get more tailored insights.</p>
+                                </div>
                             </div>
                             <div className={styles.advice}>
                                 <h3 className={styles.heading}>Make this result more personal</h3>

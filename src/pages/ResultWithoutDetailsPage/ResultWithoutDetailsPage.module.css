@@ -134,7 +134,7 @@
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    /* gap: 10px; */
     border-radius: 10px;
 }
 
@@ -162,10 +162,21 @@
 .text {
     font-size: 14px;
     color: #1F1F1F;
+    margin-top: 10px;
 }
 
-.hidden {
-    display: none;
+.collapse {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.35s ease;
+    margin: 0;
+    padding: 0;
+}
+
+.open {
+    opacity: 1;
+    max-height: 500px;
 }
 
 .advice {

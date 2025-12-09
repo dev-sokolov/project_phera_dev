@@ -26,7 +26,8 @@ const AddDetailsPage = () => {
 
     // const [isDataSharingActive, setIsDataSharingActive] = useState(false);
     const [age, setAge] = useState("");
-    const [hormone, setHormone] = useState([]);
+    // const [hormone, setHormone] = useState([]);
+    const [hormone, setHormone] = useState("");
     const [ancestral, setAncestral] = useState([]);
     const [symptoms, setSymptoms] = useState([]);
     const [notes, setNotes] = useState("");

@@ -46,7 +46,8 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestra
                     <AgeDropdown age={age} onSelect={setAge} />
                     <HormoneDropdown
                         hormone={hormone}
-                        onChange={handleHormoneChange}
+                        // onChange={handleHormoneChange}
+                        onSelect={setHormone}
                     // onRemove={handleHormoneRemove}
                     />
                     <AncestralChoice
