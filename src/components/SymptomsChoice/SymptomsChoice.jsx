@@ -1,6 +1,6 @@
 import { useRef, memo } from "react";
 
-import styles from "./Symptoms.module.css";
+import styles from "./SymptomsChoice.module.css";
 
 const symptomsOptions = [
     "No symptoms",
@@ -11,7 +11,7 @@ const symptomsOptions = [
     "Green / Yellow / Brown",
 ];
 
-const Symptoms = ({ symptoms, onChange }) => {
+const SymptomsChoice = ({ symptoms, onChange }) => {
     const containerRef = useRef(null);
 
     const symptomList = symptomsOptions.map((item) => {
@@ -38,7 +38,7 @@ const Symptoms = ({ symptoms, onChange }) => {
     );
 };
 
-export default memo(Symptoms);
+export default memo(SymptomsChoice);
 
 
 

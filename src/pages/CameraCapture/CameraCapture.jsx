@@ -137,6 +137,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
                         {/* Иконка освещения камеры */}
                         <button className={styles.cameraIlluminationBtn} onClick={toggleTorch}>
                             <CameraIllumination active={torchOn}/>
+                            {/* <CameraIllumination /> */}
                         </button>
 
                         <Webcam

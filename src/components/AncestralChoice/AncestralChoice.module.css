@@ -43,13 +43,3 @@
     color: var(--main-color);
     cursor: pointer;
 }
-
-.checkmark {
-    display: inline-block;
-    opacity: 1;
-    transition: opacity 0.2s;
-}
-
-.checkmarkHidden {
-    display: none;
-}

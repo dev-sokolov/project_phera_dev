@@ -1,7 +1,7 @@
 import AgeDropdown from "../AgeDropdown/AgeDropdown";
 import HormoneDropdown from "../HormoneDropdown/HormoneDropdown";
-import AncestralDropdown from "../AncestralDropdown/AncestralDropdown";
-import Symptoms from "../Symptoms/Symptoms";
+import AncestralChoice from "../AncestralChoice/AncestralChoice";
+import Symptoms from "../SymptomsChoice/SymptomsChoice";
 import Notes from "../Notes/Notes";
 
 import styles from "./PersonalData.module.css";
@@ -49,7 +49,7 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestra
                         onChange={handleHormoneChange}
                     // onRemove={handleHormoneRemove}
                     />
-                    <AncestralDropdown
+                    <AncestralChoice
                         ancestral={ancestral}
                         onChange={handleAncestralChange}
                     />

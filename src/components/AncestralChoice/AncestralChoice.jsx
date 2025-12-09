@@ -1,8 +1,6 @@
 import { memo } from "react";
 
-import CheckboxTick from "../../assets/icons/CheckboxTick";
-
-import styles from "./AncestralDropdown.module.css";
+import styles from "./AncestralChoice.module.css";
 
 const ancestralOptions = [
   "Asian",
@@ -14,7 +12,7 @@ const ancestralOptions = [
   "Other",
 ];
 
-const AncestralDropdown = ({ ancestral, onChange }) => {
+const AncestralChoice = ({ ancestral, onChange }) => {
 
   const ancestralList = ancestralOptions.map((item) => {
     const isActive = ancestral.includes(item);
@@ -25,7 +23,6 @@ const AncestralDropdown = ({ ancestral, onChange }) => {
         className={isActive ? styles.isemSelected : styles.item}
         onClick={() => onChange(item)}
       >
-        <span className={isActive ? styles.checkmark : styles.checkmarkHidden}><CheckboxTick /></span>
         {item}
       </div>
     );
@@ -41,4 +38,4 @@ const AncestralDropdown = ({ ancestral, onChange }) => {
   );
 };
 
-export default memo(AncestralDropdown);
+export default memo(AncestralChoice);
