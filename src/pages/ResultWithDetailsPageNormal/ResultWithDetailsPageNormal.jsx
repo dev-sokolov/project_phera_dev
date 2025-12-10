@@ -109,7 +109,7 @@ const ResultWithDetailsPageNormal = () => {
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
-                                <Button>Save to my history</Button>
+                                <Button onClick={() => navigate("/sing-up")}>Save to my history</Button>
                             </div>
                         </div>
                     </div>

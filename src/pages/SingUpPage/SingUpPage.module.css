@@ -1,9 +1,26 @@
 .wrapLogo {
+    position: relative;
     padding: 21px;
     display: flex;
     justify-content: center;
+    align-items: center;
     border-bottom: 1px solid var(--main-background-color-border);
     background-color: #FFFFFF;
+}
+
+.arrowLeft {
+    all: unset;
+    position: absolute;
+    left: 31px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 23px;
+    height: 23px;
 }
 
 .logo {
@@ -20,9 +37,9 @@
 
 .img {
     width: 100%;
-    padding-top: 12px;
+    padding-top: 20px;
     /* padding-bottom: 29px; */
-    padding-bottom: 20px;
+    padding-bottom: 50px;
     border-radius: 24px;
 }
 
@@ -39,6 +56,8 @@
     gap: 10px;
     text-align: center;
     margin-bottom: 20px;
+    max-width: 312px;
+    margin: 0 auto;
 }
 
 .welcome {
@@ -48,7 +67,7 @@
 }
 
 .heading {
-    font-size: 22px;
+    font-size: 24px;
     font-family: 'Cooper Hewitt', sans-serif;
     font-weight: 700;
     line-height: 1.3;
@@ -62,9 +81,10 @@
 
 .bottomBlock {
     margin-top: auto;
-    margin-bottom: 29px;
+    margin-bottom: 36px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
 }
 
@@ -73,6 +93,7 @@
     flex-direction: column;
     gap: 10px;
     margin-top: auto;
+    width: 100%;
 }
 
 .bottomText {

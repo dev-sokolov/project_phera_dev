@@ -16,6 +16,7 @@ import CameraProcessingPage from "../pages/CameraProcessingPage/CameraProcessing
 import ResultWithoutDetailsPage from "../pages/ResultWithoutDetailsPage/ResultWithoutDetailsPage";
 import AddDetailsPage from "../pages/AddDetailsPage/AddDetailsPage";
 import ResultWithDetailsPageNormal from "../pages/ResultWithDetailsPageNormal/ResultWithDetailsPageNormal";
+import SingUpPage from "../pages/SingUpPage/SingUpPage";
 
 import "../shared/styles/style.css";
 
@@ -42,8 +43,9 @@ function App() {
         />
         <Route path="/camera-processing" element={<CameraProcessingPage />} />
         <Route path="/result-without-details" element={<ResultWithoutDetailsPage />} />
-        <Route path="/result-with-details-normal" element={<ResultWithDetailsPageNormal />} />
         <Route path="/add-details" element={<AddDetailsPage />} />
+        <Route path="/result-with-details-normal" element={<ResultWithDetailsPageNormal />} />
+        <Route path="/sing-up" element={<SingUpPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
