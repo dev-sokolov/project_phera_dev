@@ -25,12 +25,12 @@ const AddDetailsPage = () => {
     // console.log(`phValue: ${safePh}, date: ${date}`);
 
     // const [isDataSharingActive, setIsDataSharingActive] = useState(false);
-    const [age, setAge] = useState("");
-    // const [hormone, setHormone] = useState([]);
-    const [hormone, setHormone] = useState("");
-    const [ancestral, setAncestral] = useState([]);
-    const [symptoms, setSymptoms] = useState([]);
-    const [notes, setNotes] = useState("");
+
+    const [age, setAge] = useState(state?.age || "");
+    const [hormone, setHormone] = useState(state?.hormone || "");
+    const [ancestral, setAncestral] = useState(state?.ancestral || []);
+    const [symptoms, setSymptoms] = useState(state?.symptoms || []);
+    const [notes, setNotes] = useState(state?.notes || "");
 
     return (
         <>
@@ -65,7 +65,20 @@ const AddDetailsPage = () => {
 
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
-                                <Button onClick={() => navigate("/result-with-details-normal")}>Save</Button>
+                                {/* <Button onClick={() => navigate("/result-with-details-normal")}>Save</Button> */}
+                                <Button
+                                    onClick={() => navigate("/result-with-details-normal", {
+                                        state: {
+                                            age,
+                                            hormone,
+                                            ancestral,
+                                            symptoms,
+                                            notes
+                                        }
+                                    })}
+                                >
+                                    Save
+                                </Button>
                                 <ButtonReverse onClick={() => navigate("/result-without-details")}>Go back</ButtonReverse>
                             </div>
                         </div>
