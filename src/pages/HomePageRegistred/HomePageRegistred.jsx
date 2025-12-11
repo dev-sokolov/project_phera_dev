@@ -26,7 +26,7 @@ const HomePageRegistred = () => {
     // ].filter(Boolean);
 
     const detailOptions = [     // временно, потом удалить  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // "18-24", "Mid-cycle", "Asian", "No symptoms"
+        "18-24", "Mid-cycle", "Asian", "No symptoms"
     ];
 
     const hasDetails = detailOptions.length > 0;
