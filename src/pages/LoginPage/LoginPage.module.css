@@ -89,6 +89,7 @@
     width: 100%;
     font-size: 16px;
     font-weight: 400;
+    background-color: transparent;
 }
 
 .input::placeholder {
@@ -109,14 +110,14 @@
 
 .bottomBlock {
     margin-top: auto;
-    margin-bottom: 36px;
+    margin-bottom: 27px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
 .error {
-    color: #ff4d4f; 
+    color: #ff4d4f;
     font-size: 14px;
     margin-top: 4px;
 }
@@ -124,4 +125,21 @@
 .btnDisabled {
     background-color: #D5D7DA;
     cursor: not-allowed;
+}
+
+.wrapinfo {
+    display: flex;
+    justify-content: center;
+}
+
+.info {
+    font-size: 12px;
+}
+
+.signin {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1F1F1F;
+    text-decoration: underline;
+    margin-left: 10px;
 }

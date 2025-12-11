@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
@@ -7,57 +7,50 @@ import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import Logo from "../../assets/Logo";
 import Eye from "../../assets/icons/Eye";
-import { registrPasswordApi } from "../../shared/api/auth-api";
+import { loginApi } from "../../shared/api/auth-api";
 
 import styles from "./LoginPage.module.css";
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [serverError, setServerError] = useState("");
 
     const { register, handleSubmit, watch, formState: { errors }, clearErrors } = useForm({
         defaultValues: {
+            username: "",
             password: "",
-            // confirmPassword: ""
         },
         mode: "onBlur"
     });
 
+    const username = watch("username");
     const password = watch("password");
-    // const confirmPassword = watch("confirmPassword");
 
-    const showPasswordError = errors.password && password.length < 6;
-    // const showConfirmError = errors.confirmPassword && confirmPassword !== password;
+    const isFormValid = username.length >= 2 && password.length >= 6;
 
-    const isFormValid =
-        password.length >= 6 &&
-        password.length >= 6 &&
-        password === password;
-
-    // const onSubmit = async ({ password }) => {  // !!!!! реальный запрос на бэкенд  !!!!!!!!!!
+    // const onSubmit = async ({ username, password }) => {  //!!!!!!!! реальный  !!!!!!!!!!
     //     try {
     //         setServerError("");
 
-    //         // 1️⃣ запрос на backend
-    //         const res = await registrPasswordApi(password);
+    //         // 🔹 запрос на backend
+    //         const res = await loginApi({ username, password });
 
-    //         // 2️⃣ получаем token
+    //         // 🔹 backend возвращает токен
     //         const token = res?.token;
     //         if (!token) {
     //             setServerError("Unexpected server response");
     //             return;
     //         }
 
-    //         // 3️⃣ сохраняем токен для следующего шага
-    //         localStorage.setItem("reg_token", token);
+    //         // 🔹 сохраняем токен
+    //         localStorage.setItem("token", token);
 
-    //         // 4️⃣ переход на следующий шаг
-    //         navigate("/signup/name");
+    //         // 🔹 переход на домашнюю страницу
+    //         navigate("/home");
 
     //     } catch (e) {
-    //         setServerError(e?.response?.data?.message || "Server error");
+    //         setServerError(e?.response?.data?.message || "Invalid username or password");
     //     }
     // };
 
@@ -70,10 +63,9 @@ const LoginPage = () => {
             const token = "fake-token";
 
             // 🔹 сохраняем токен
-            localStorage.setItem("reg_token", token);
+            localStorage.setItem("token", token);
 
-            // 🔹 переходим на следующий шаг
-            navigate("/signup/name");
+            navigate("/home");
         } catch (e) {
             setServerError("Server error");
         }
@@ -102,19 +94,20 @@ const LoginPage = () => {
                                     <input
                                         {...register("username", {
                                             required: "Enter your username",
-                                            // minLength: { value: 6, message: "Min 6 characters" },
+                                            minLength: { value: 2, message: "Min 2 characters" },
                                             onChange: (e) => {
-                                                if (e.target.value.length >= 6) clearErrors("username");
+                                                if (e.target.value.length >= 2) clearErrors("username");
                                             }
                                         })}
                                         placeholder="Enter your username"
                                         id="username"
                                         type="text"
                                         className={styles.input}
-                                        // aria-invalid={!!showUsernamedError}
                                     />
+                                    {errors.username && (
+                                        <p className={styles.error}>{errors.username.message}</p>
+                                    )}
                                 </div>
-                                {/* {showUsernamedError && <p className={styles.error}>{errors.password.message}</p>} */}
                             </div>
 
                             <div className={styles.itemInput}>
@@ -123,22 +116,21 @@ const LoginPage = () => {
                                 <div className={styles.inputWrapper}>
                                     <input
                                         {...register("password", {
-                                            required: "Confirm your password",
-                                            validate: value =>
-                                                value === watch("password") || "Passwords do not match",
-                                            onChange: () => {
-                                                if (watch("password") === watch("password")) clearErrors("password");
+                                            required: "Enter your password",
+                                            minLength: { value: 6, message: "Min 6 characters" },
+                                            onChange: (e) => {
+                                                if (e.target.value.length >= 6) clearErrors("password");
                                             }
                                         })}
-                                        // placeholder="Confirm your password"
                                         id="password"
                                         type={showPassword ? "text" : "password"}
                                         className={styles.input}
-                                        aria-invalid={!!showPasswordError}
                                     />
-                                    <Eye className={styles.icon} onClick={() => setShowPassword(prev => !prev)} />
+                                    <Eye className={styles.icon} onClick={() => setShowPassword(s => !s)} />
                                 </div>
-                                {showPasswordError && <p className={styles.error}>{errors.showPasswordError.message}</p>}
+                                {errors.password && (
+                                    <p className={styles.error}>{errors.password.message}</p>
+                                )}
                             </div>
                         </div>
 
@@ -155,6 +147,9 @@ const LoginPage = () => {
                             <ButtonReverse onClick={() => navigate("/signup")}>Go back</ButtonReverse>
                         </div>
                     </form>
+                    <div className={styles.wrapinfo}>
+                        <p className={styles.info}>New to pHera?<Link to="/registration/username" className={styles.signin}>SIGN UP</Link></p>
+                    </div>
                 </div>
             </Container>
         </div>

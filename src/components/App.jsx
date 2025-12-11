@@ -22,9 +22,9 @@ import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import RegistrationStepPassword from "../pages/RegistrationStepPassword/RegistrationStepPassword";
 import RegistrationStepName from "../pages/RegistrationStepName/RegistrationStepName";
 import LoginPage from "../pages/LoginPage/LoginPage";
+import HomePageRegistred from "../pages/HomePageRegistred/HomePageRegistred";
 
 import "../shared/styles/style.css";
-
 
 function App() {
   const navigate = useNavigate();
@@ -55,6 +55,7 @@ function App() {
         <Route path="/registration/username" element={<RegistrationStepName />} />
         <Route path="/registration/password" element={<RegistrationStepPassword />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element={<HomePageRegistred />} />
 
 
         <Route path="*" element={<NotFoundPage />} />

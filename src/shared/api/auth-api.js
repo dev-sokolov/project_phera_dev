@@ -21,3 +21,14 @@ export const registrNameApi = async (token, name) => {
 
     return data;
 };
+
+
+export const loginApi = async ({ username, password }) => {
+    const { data } = await backendInstance.post("/auth/login", {
+        username,
+        password
+    });
+
+    return data; // backend должен вернуть token
+};
+
