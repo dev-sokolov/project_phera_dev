@@ -26,8 +26,10 @@ const HomePageRegistred = () => {
     // ].filter(Boolean);
 
     const detailOptions = [     // временно, потом удалить  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        "18-24", "Mid-cycle", "Asian", "No symptoms"
+        // "18-24", "Mid-cycle", "Asian", "No symptoms"
     ];
+
+    const hasDetails = detailOptions.length > 0;
 
     const detailsList = detailOptions.map((item) => (
         <div key={item} className={styles.item}>{item}</div>
@@ -63,59 +65,71 @@ const HomePageRegistred = () => {
                                     <div className={styles.phLevel}>Normal pH</div>
                                 </div>
                             </div>
-                            <div className={styles.details}>
-                                <div className={styles.wrapHeading}>
-                                    <h4 className={styles.heading}>Details for this result</h4>
-                                    <button
-                                        className={styles.editBtn}
-                                        onClick={() => navigate("/add-details", { state })}
-                                        aria-label="Edit details"
-                                    >
-                                        <EditNotesGrey />
-                                    </button>
-                                </div>
-                                <div className={styles.wrapDetailslList}>
-                                    {detailsList}
-                                </div>
-                            </div>
-                            <div className={styles.recommendations}>
-                                <div className={`${styles.wrapHeading} ${styles.pointer}`} onClick={() => setIsOpen(!isOpen)}>
-                                    <h3 className={styles.heading}>Recommendations</h3>
-                                    <span className={`${styles.arrow} ${!isOpen ? styles.arrowOpen : ""}`}>
-                                        <ArrowDownGrey />
-                                    </span>
-                                </div>
-                                <div className={`${styles.wrapText} ${styles.collapse} ${!isOpen ? styles.open : ""}`}>
-                                    <div className={styles.text}>
-                                        <div className={styles.point}></div>
-                                        <p className={styles.innerText}>
-                                            If you have symptoms (odor, itching, unusual discharge), we recommend speaking with a clinician for proper testing and treatment.
-                                        </p>
-                                    </div>
-                                    <div className={styles.text}>
-                                        <div className={styles.point}></div>
-                                        <p className={styles.innerText}>
-                                            If you feel well, you can retest within 2–3 days to see if your pH returns to your usual range.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={styles.wrapLearnMore}>
-                                <h2 className={styles.titleSecondary}>Learn more about your result</h2>
-                                <div className={styles.wrapLearnMoreInner}>
-                                    <div className={styles.img}><img src={learnMore} alt="Learn more" /></div>
-                                    <div className={styles.learnMore}>
-                                        <div className={styles.learnMoreTitle}>
-                                            Why do I get yeast infections around my period?
-                                        </div>
-                                        <p className={styles.learnMoreText}>
-                                            Yeast infections are commonly associated with your period...
-                                        </p>
-                                        <a href="#" className={styles.learnMoreLink}>Learn more</a>
-                                    </div>
 
+                            {hasDetails ? (
+                                <>
+                                    <div className={styles.details}>
+                                        <div className={styles.wrapHeading}>
+                                            <h4 className={styles.heading}>Details for this result</h4>
+                                            <button
+                                                className={styles.editBtn}
+                                                onClick={() => navigate("/add-details", { state })}
+                                                aria-label="Edit details"
+                                            >
+                                                <EditNotesGrey />
+                                            </button>
+                                        </div>
+                                        <div className={styles.wrapDetailslList}>
+                                            {detailsList}
+                                        </div>
+                                    </div>
+                                    <div className={styles.recommendations}>
+                                        <div className={`${styles.wrapHeading} ${styles.pointer}`} onClick={() => setIsOpen(!isOpen)}>
+                                            <h3 className={styles.heading}>Recommendations</h3>
+                                            <span className={`${styles.arrow} ${!isOpen ? styles.arrowOpen : ""}`}>
+                                                <ArrowDownGrey />
+                                            </span>
+                                        </div>
+                                        <div className={`${styles.wrapText} ${styles.collapse} ${!isOpen ? styles.open : ""}`}>
+                                            <div className={styles.text}>
+                                                <div className={styles.point}></div>
+                                                <p className={styles.innerText}>
+                                                    If you have symptoms (odor, itching, unusual discharge), we recommend speaking with a clinician for proper testing and treatment.
+                                                </p>
+                                            </div>
+                                            <div className={styles.text}>
+                                                <div className={styles.point}></div>
+                                                <p className={styles.innerText}>
+                                                    If you feel well, you can retest within 2–3 days to see if your pH returns to your usual range.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className={styles.wrapLearnMore}>
+                                        <h2 className={styles.titleSecondary}>Learn more about your result</h2>
+                                        <div className={styles.wrapLearnMoreInner}>
+                                            <div className={styles.img}><img src={learnMore} alt="Learn more" /></div>
+                                            <div className={styles.learnMore}>
+                                                <div className={styles.learnMoreTitle}>
+                                                    Why do I get yeast infections around my period?
+                                                </div>
+                                                <p className={styles.learnMoreText}>
+                                                    Yeast infections are commonly associated with your period...
+                                                </p>
+                                                <a href="#" className={styles.learnMoreLink}>Learn more</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className={styles.adviceBlock}>
+                                    <div className={styles.heading}>Complete your health profile</div>
+                                    <p className={styles.innerText}>Want to understand why your pH looks like this? Add your age group, hormone status, background, and current symptoms to get more tailored insights.</p>
+                                    <Button className={styles.adviceBtn} onClick={() => navigate("/add-details")}>Add my details</Button>
                                 </div>
-                            </div>
+                            )}
+
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>

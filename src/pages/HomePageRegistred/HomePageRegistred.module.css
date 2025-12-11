@@ -48,6 +48,7 @@
     cursor: pointer;
     border: none;
     background: none;
+    /* padding: 5px; */
     padding: 0;
 }
 
@@ -360,6 +361,18 @@
     font-weight: 600;
     color: #1F1F1F;
     margin-top: 8px;
+}
+
+.adviceBlock {
+    padding: 16px 20px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.adviceBtn {
+    margin-top: 12px;
 }
 
 @media (max-width: 393px) {
