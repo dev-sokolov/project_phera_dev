@@ -14,27 +14,27 @@ import styles from "./LoginPage.module.css";
 const LoginPage = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [serverError, setServerError] = useState("");
 
     const { register, handleSubmit, watch, formState: { errors }, clearErrors } = useForm({
         defaultValues: {
             password: "",
-            confirmPassword: ""
+            // confirmPassword: ""
         },
         mode: "onBlur"
     });
 
     const password = watch("password");
-    const confirmPassword = watch("confirmPassword");
+    // const confirmPassword = watch("confirmPassword");
 
     const showPasswordError = errors.password && password.length < 6;
-    const showConfirmError = errors.confirmPassword && confirmPassword !== password;
+    // const showConfirmError = errors.confirmPassword && confirmPassword !== password;
 
     const isFormValid =
         password.length >= 6 &&
-        confirmPassword.length >= 6 &&
-        password === confirmPassword;
+        password.length >= 6 &&
+        password === password;
 
     // const onSubmit = async ({ password }) => {  // !!!!! реальный запрос на бэкенд  !!!!!!!!!!
     //     try {
@@ -96,49 +96,49 @@ const LoginPage = () => {
 
                         <div className={styles.dataSent}>
                             <div className={styles.itemInput}>
-                                <label htmlFor="password" className={styles.label}>Username</label>
+                                <label htmlFor="username" className={styles.label}>Username</label>
+
+                                <div className={styles.inputWrapper}>
+                                    <input
+                                        {...register("username", {
+                                            required: "Enter your username",
+                                            // minLength: { value: 6, message: "Min 6 characters" },
+                                            onChange: (e) => {
+                                                if (e.target.value.length >= 6) clearErrors("username");
+                                            }
+                                        })}
+                                        placeholder="Enter your username"
+                                        id="username"
+                                        type="text"
+                                        className={styles.input}
+                                        // aria-invalid={!!showUsernamedError}
+                                    />
+                                </div>
+                                {/* {showUsernamedError && <p className={styles.error}>{errors.password.message}</p>} */}
+                            </div>
+
+                            <div className={styles.itemInput}>
+                                <label htmlFor="password" className={styles.label}>Password</label>
 
                                 <div className={styles.inputWrapper}>
                                     <input
                                         {...register("password", {
-                                            required: "Enter your username",
-                                            // minLength: { value: 6, message: "Min 6 characters" },
-                                            onChange: (e) => {
-                                                if (e.target.value.length >= 6) clearErrors("password");
-                                            }
-                                        })}
-                                        placeholder="Enter your username"
-                                        id="password"
-                                        type="text"
-                                        className={styles.input}
-                                        aria-invalid={!!showPasswordError}
-                                    />
-                                </div>
-                                {showPasswordError && <p className={styles.error}>{errors.password.message}</p>}
-                            </div>
-
-                            <div className={styles.itemInput}>
-                                <label htmlFor="confirmPassword" className={styles.label}>Password</label>
-
-                                <div className={styles.inputWrapper}>
-                                    <input
-                                        {...register("confirmPassword", {
                                             required: "Confirm your password",
                                             validate: value =>
                                                 value === watch("password") || "Passwords do not match",
                                             onChange: () => {
-                                                if (watch("confirmPassword") === watch("password")) clearErrors("confirmPassword");
+                                                if (watch("password") === watch("password")) clearErrors("password");
                                             }
                                         })}
                                         // placeholder="Confirm your password"
-                                        id="confirmPassword"
-                                        type={showConfirmPassword ? "text" : "password"}
+                                        id="password"
+                                        type={showPassword ? "text" : "password"}
                                         className={styles.input}
-                                        aria-invalid={!!showConfirmError}
+                                        aria-invalid={!!showPasswordError}
                                     />
-                                    <Eye className={styles.icon} onClick={() => setShowConfirmPassword(prev => !prev)} />
+                                    <Eye className={styles.icon} onClick={() => setShowPassword(prev => !prev)} />
                                 </div>
-                                {showConfirmError && <p className={styles.error}>{errors.confirmPassword.message}</p>}
+                                {showPasswordError && <p className={styles.error}>{errors.showPasswordError.message}</p>}
                             </div>
                         </div>
 
