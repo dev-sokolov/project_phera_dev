@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
@@ -11,6 +12,10 @@ import styles from "./SignUpPage.module.css";
 
 const SignUpPage = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        localStorage.removeItem("reg_username");
+    }, []);
 
     return (
         <>
@@ -43,7 +48,7 @@ const SignUpPage = () => {
                     </div>
                     <div className={styles.bottomBlock}>
                         <div className={styles.btns}>
-                            <Button onClick={() => navigate("/signup/password")}>Create account</Button>
+                            <Button onClick={() => navigate("/signup/username")}>Create account</Button>
                             <ButtonReverse>Log In</ButtonReverse>
                         </div>
                     </div>

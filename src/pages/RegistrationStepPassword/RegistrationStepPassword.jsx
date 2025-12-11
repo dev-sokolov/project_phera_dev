@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
-import Button from "../../../components/Button/Button";
-import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
-import Container from "../../../components/Container/Container";
-import Logo from "../../../assets/Logo";
-import Eye from "../../../assets/icons/Eye";
-import { registrPasswordApi } from "../../../shared/api/auth-api";
+import Button from "../../components/Button/Button";
+import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
+import Container from "../../components/Container/Container";
+import Logo from "../../assets/Logo";
+import Eye from "../../assets/icons/Eye";
+import { registrPasswordApi } from "../../shared/api/auth-api";
 
 import styles from "./RegistrationStepPassword.module.css";
 
@@ -17,18 +17,20 @@ const RegistrationStepPassword = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [serverError, setServerError] = useState("");
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, formState: { errors }, clearErrors } = useForm({
         defaultValues: {
             password: "",
             confirmPassword: ""
         },
-        mode: "onChange"
+        mode: "onBlur"
     });
 
     const password = watch("password");
     const confirmPassword = watch("confirmPassword");
 
-    // проверка валидности формы
+    const showPasswordError = errors.password && password.length < 6;
+    const showConfirmError = errors.confirmPassword && confirmPassword !== password;
+
     const isFormValid =
         password.length >= 6 &&
         confirmPassword.length >= 6 &&
@@ -91,7 +93,7 @@ const RegistrationStepPassword = () => {
                         <div className={styles.crumbs}>
                             <div className={styles.itemColored}></div>
                             <div className={styles.itemColored}></div>
-                            <div className={styles.item}></div>
+                            {/* <div className={styles.item}></div> */}
                         </div>
 
                         <div className={styles.textBlock}>
@@ -110,16 +112,20 @@ const RegistrationStepPassword = () => {
                                     <input
                                         {...register("password", {
                                             required: "Create your password",
-                                            minLength: { value: 6, message: "Min 6 characters" }
+                                            minLength: { value: 6, message: "Min 6 characters" },
+                                            onChange: (e) => {
+                                                if (e.target.value.length >= 6) clearErrors("password");
+                                            }
                                         })}
                                         placeholder="Create your password"
                                         id="password"
                                         type={showPassword ? "text" : "password"}
                                         className={styles.input}
+                                        aria-invalid={!!showPasswordError}
                                     />
                                     <Eye className={styles.icon} onClick={() => setShowPassword(prev => !prev)} />
                                 </div>
-                                {errors.password && <p className={styles.error}>{errors.password.message}</p>}
+                                {showPasswordError && <p className={styles.error}>{errors.password.message}</p>}
                             </div>
 
                             <div className={styles.itemInput}>
@@ -130,16 +136,20 @@ const RegistrationStepPassword = () => {
                                         {...register("confirmPassword", {
                                             required: "Confirm your password",
                                             validate: value =>
-                                                value === watch("password") || "Passwords do not match"
+                                                value === watch("password") || "Passwords do not match",
+                                            onChange: () => {
+                                                if (watch("confirmPassword") === watch("password")) clearErrors("confirmPassword");
+                                            }
                                         })}
                                         placeholder="Confirm your password"
                                         id="confirmPassword"
                                         type={showConfirmPassword ? "text" : "password"}
                                         className={styles.input}
+                                        aria-invalid={!!showConfirmError}
                                     />
                                     <Eye className={styles.icon} onClick={() => setShowConfirmPassword(prev => !prev)} />
                                 </div>
-                                {errors.confirmPassword && <p className={styles.error}>{errors.confirmPassword.message}</p>}
+                                {showConfirmError && <p className={styles.error}>{errors.confirmPassword.message}</p>}
                             </div>
                         </div>
 
@@ -151,9 +161,9 @@ const RegistrationStepPassword = () => {
                                 className={!isFormValid ? styles.btnDisabled : ""}
                                 disabled={!isFormValid}
                             >
-                                Continue
+                                Confirm
                             </Button>
-                            <ButtonReverse onClick={() => navigate("/signup")}>Go back</ButtonReverse>
+                            <ButtonReverse onClick={() => navigate("/signup/username")}>Go back</ButtonReverse>
                         </div>
                     </form>
                 </div>
