@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import singUp from "../../assets/images/singUp.jpg";
+import signUp from "../../assets/images/signUp.jpg";
 import Logo from "../../assets/Logo";
 import ArrowLeft from "../../assets/icons/ArrowLeft";
 
-import styles from "./SingUpPage.module.css";
+import styles from "./SignUpPage.module.css";
 
-const SingUpPage = () => {
+const SignUpPage = () => {
     const navigate = useNavigate();
 
     return (
@@ -35,7 +35,7 @@ const SingUpPage = () => {
                 </div>
                 <Container>
                     <div className={styles.img}>
-                        <img src={singUp} alt="Sing up page img" />
+                        <img src={signUp} alt="Sing up page img" />
                     </div>
                     <div className={styles.textBlock}>
                         <h1 className={styles.heading}>Don’t lose your progress</h1>
@@ -43,8 +43,8 @@ const SingUpPage = () => {
                     </div>
                     <div className={styles.bottomBlock}>
                         <div className={styles.btns}>
-                            <Button onClick={() => navigate("/steps")}>Create account</Button>
-                            <ButtonReverse onClick={() => navigate("/how-it-works")}>Log In</ButtonReverse>
+                            <Button onClick={() => navigate("/signup/password")}>Create account</Button>
+                            <ButtonReverse>Log In</ButtonReverse>
                         </div>
                     </div>
                 </Container>
@@ -53,4 +53,4 @@ const SingUpPage = () => {
     )
 };
 
-export default SingUpPage
+export default SignUpPage

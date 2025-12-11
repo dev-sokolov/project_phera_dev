@@ -16,9 +16,13 @@ import CameraProcessingPage from "../pages/CameraProcessingPage/CameraProcessing
 import ResultWithoutDetailsPage from "../pages/ResultWithoutDetailsPage/ResultWithoutDetailsPage";
 import AddDetailsPage from "../pages/AddDetailsPage/AddDetailsPage";
 import ResultWithDetailsPageNormal from "../pages/ResultWithDetailsPageNormal/ResultWithDetailsPageNormal";
-import SingUpPage from "../pages/SingUpPage/SingUpPage";
+import SignUpPage from "../pages/SignUpPage/SignUpPage";
+// import RegistrationStep1 from "../pages/RegistrationFlow/RegistrationStep1/RegistrationStep1";
+// import RegistrationStepPassword from "../pages/RegistrationFlow/RegistrationStepPassword/RegistrationStepPassword";
+import RegistrationFlow from "../pages/RegistrationFlow/RegistrationFlow";
 
 import "../shared/styles/style.css";
+import RegistrationStepPassword from "../pages/RegistrationFlow/RegistrationStepPassword/RegistrationStepPassword";
 
 function App() {
   const navigate = useNavigate();
@@ -45,7 +49,13 @@ function App() {
         <Route path="/result-without-details" element={<ResultWithoutDetailsPage />} />
         <Route path="/add-details" element={<AddDetailsPage />} />
         <Route path="/result-with-details-normal" element={<ResultWithDetailsPageNormal />} />
-        <Route path="/sing-up" element={<SingUpPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/signup/password" element={<RegistrationStepPassword />} />
+        {/* <Route path="/signup/*" element={<RegistrationFlow />} /> */}
+        {/* <Route path="/signup/register/*" element={<RegistrationFlow />} /> */}
+        {/* <Route path="/registration" element={<RegistrationFlow />} /> */}
+        {/* <Route path="/singup/step-1" element={<RegistrationStep1 />} /> */}
+        {/* <Route path="/register/password" element={<RegistrationStepPassword />} /> */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
