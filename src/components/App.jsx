@@ -21,6 +21,7 @@ import SignUpPage from "../pages/SignUpPage/SignUpPage";
 // import RegistrationStepPassword from "../pages/RegistrationFlow/RegistrationStepPassword/RegistrationStepPassword";
 import RegistrationStepPassword from "../pages/RegistrationStepPassword/RegistrationStepPassword";
 import RegistrationStepName from "../pages/RegistrationStepName/RegistrationStepName";
+import LoginPage from "../pages/LoginPage/LoginPage";
 
 import "../shared/styles/style.css";
 
@@ -51,8 +52,9 @@ function App() {
         <Route path="/add-details" element={<AddDetailsPage />} />
         <Route path="/result-with-details-normal" element={<ResultWithDetailsPageNormal />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/signup/username" element={<RegistrationStepName />} />
-        <Route path="/signup/password" element={<RegistrationStepPassword />} />
+        <Route path="/registration/username" element={<RegistrationStepName />} />
+        <Route path="/registration/password" element={<RegistrationStepPassword />} />
+        <Route path="/login" element={<LoginPage />} />
 
 
         <Route path="*" element={<NotFoundPage />} />

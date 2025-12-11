@@ -48,8 +48,8 @@ const SignUpPage = () => {
                     </div>
                     <div className={styles.bottomBlock}>
                         <div className={styles.btns}>
-                            <Button onClick={() => navigate("/signup/username")}>Create account</Button>
-                            <ButtonReverse>Log In</ButtonReverse>
+                            <Button onClick={() => navigate("/registration/username")}>Create account</Button>
+                            <ButtonReverse onClick={() => navigate("/login")}>Log In</ButtonReverse>
                         </div>
                     </div>
                 </Container>

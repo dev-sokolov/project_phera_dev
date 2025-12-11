@@ -9,9 +9,9 @@ import Logo from "../../assets/Logo";
 import Eye from "../../assets/icons/Eye";
 import { registrPasswordApi } from "../../shared/api/auth-api";
 
-import styles from "./RegistrationStepPassword.module.css";
+import styles from "./LoginPage.module.css";
 
-const RegistrationStepPassword = () => {
+const LoginPage = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -90,46 +90,35 @@ const RegistrationStepPassword = () => {
             <Container>
                 <div className={styles.containerInner}>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className={styles.crumbs}>
-                            <div className={styles.itemColored}></div>
-                            <div className={styles.itemColored}></div>
-                            {/* <div className={styles.item}></div> */}
-                        </div>
-
                         <div className={styles.textBlock}>
-                            <h1 className={styles.heading}>Set your password</h1>
-                            <p className={styles.text}>
-                                Create a secure password to protect your account.
-                                You’ll use it to log in next time.
-                            </p>
+                            <h1 className={styles.heading}>Welcome back! Log in to your account</h1>
                         </div>
 
                         <div className={styles.dataSent}>
                             <div className={styles.itemInput}>
-                                <label htmlFor="password" className={styles.label}>Password</label>
+                                <label htmlFor="password" className={styles.label}>Username</label>
 
                                 <div className={styles.inputWrapper}>
                                     <input
                                         {...register("password", {
-                                            required: "Create your password",
-                                            minLength: { value: 6, message: "Min 6 characters" },
+                                            required: "Enter your username",
+                                            // minLength: { value: 6, message: "Min 6 characters" },
                                             onChange: (e) => {
                                                 if (e.target.value.length >= 6) clearErrors("password");
                                             }
                                         })}
-                                        placeholder="Create your password"
+                                        placeholder="Enter your username"
                                         id="password"
-                                        type={showPassword ? "text" : "password"}
+                                        type="text"
                                         className={styles.input}
                                         aria-invalid={!!showPasswordError}
                                     />
-                                    <Eye className={styles.icon} onClick={() => setShowPassword(prev => !prev)} />
                                 </div>
                                 {showPasswordError && <p className={styles.error}>{errors.password.message}</p>}
                             </div>
 
                             <div className={styles.itemInput}>
-                                <label htmlFor="confirmPassword" className={styles.label}>Confirm your password</label>
+                                <label htmlFor="confirmPassword" className={styles.label}>Password</label>
 
                                 <div className={styles.inputWrapper}>
                                     <input
@@ -141,7 +130,7 @@ const RegistrationStepPassword = () => {
                                                 if (watch("confirmPassword") === watch("password")) clearErrors("confirmPassword");
                                             }
                                         })}
-                                        placeholder="Confirm your password"
+                                        // placeholder="Confirm your password"
                                         id="confirmPassword"
                                         type={showConfirmPassword ? "text" : "password"}
                                         className={styles.input}
@@ -161,9 +150,9 @@ const RegistrationStepPassword = () => {
                                 className={!isFormValid ? styles.btnDisabled : ""}
                                 disabled={!isFormValid}
                             >
-                                Confirm
+                                Log In
                             </Button>
-                            <ButtonReverse onClick={() => navigate("/registration/username")}>Go back</ButtonReverse>
+                            <ButtonReverse onClick={() => navigate("/signup")}>Go back</ButtonReverse>
                         </div>
                     </form>
                 </div>
@@ -172,5 +161,5 @@ const RegistrationStepPassword = () => {
     );
 };
 
-export default RegistrationStepPassword;
+export default LoginPage;
 
