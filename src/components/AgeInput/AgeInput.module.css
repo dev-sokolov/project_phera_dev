@@ -32,23 +32,14 @@
 }
 
 .warn {
-    /* margin-top: 10px; */
     margin-top: 4px;
     font-size: 14px;
     background: #FFF8E1;
-    /* very light amber */
     padding: 6px 10px;
     border-radius: 6px;
     border-left: 3px solid #FBBF24;
-    /* accent stripe */
     color: #5A4A00;
-    /* dark golden */
 }
-
-/* .select:hover {
-    background-color: #00303D;
-    color: #FFFFFF;
-} */
 
 .arrow {
     display: flex;
