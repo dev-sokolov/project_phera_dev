@@ -16,6 +16,11 @@ const StartPage = () => {
         localStorage.removeItem("reg_username");
     }, []);
 
+    useEffect(() => {
+        window.history.scrollRestoration = "manual";
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <>
             <div className={styles.content}>
