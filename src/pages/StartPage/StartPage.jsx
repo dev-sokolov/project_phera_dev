@@ -6,7 +6,6 @@ import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import signUp from "../../assets/images/signUp.jpg";
 import Logo from "../../assets/Logo";
-import ArrowLeft from "../../assets/icons/ArrowLeft";
 
 import styles from "./StartPage.module.css";
 
@@ -17,25 +16,10 @@ const StartPage = () => {
         localStorage.removeItem("reg_username");
     }, []);
 
-    const goBack = () => {
-        if (window.history.length > 2) {
-            navigate(-1);
-        } else {
-            navigate("/");
-        }
-    };
-
     return (
         <>
             <div className={styles.content}>
                 <div className={styles.wrapLogo}>
-                    <button
-                        className={styles.arrowLeft}
-                        onClick={goBack}
-                        aria-label="Go back"
-                    >
-                        <ArrowLeft />
-                    </button>
                     <div className={styles.logo}>
                         <Logo />
                     </div>
