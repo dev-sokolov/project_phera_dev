@@ -65,8 +65,8 @@
 }
 
 .dropdownOpen {
-    max-height: 300px;
-    max-height: 40vh;
+    max-height: 280px;
+    max-height: 35vh;
     overflow-y: auto;
     opacity: 1;
     padding: 5px;
