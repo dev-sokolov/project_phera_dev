@@ -43,9 +43,9 @@ const AddDetailsPage = () => {
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.heading}>
-                            <h1 className={styles.title}>Your details help us make your insights more accurate and helpful.</h1>
+                            <h1 className={styles.title}>To help us give you more accurate and meaningful insights, please select what best describes you.</h1>
                             <p className={styles.privacyPolicy}>
-                                By sharing this information, you consent to pHera using it to personalize your insights. Your data stays private and is never shared without your permission. Read more in our <a href="#">Privacy Policy</a>.
+                                We process your responses in real time only to provide context for your result. They are not stored. You can read more in our <a href="#">Privacy Policy</a>.
                             </p>
                         </div>
                         <div className={styles.personalData}>
