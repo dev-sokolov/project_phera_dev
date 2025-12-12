@@ -17,6 +17,7 @@ import ResultWithoutDetailsPage from "../pages/ResultWithoutDetailsPage/ResultWi
 import AddDetailsPage from "../pages/AddDetailsPage/AddDetailsPage";
 import ResultWithDetailsPageNormal from "../pages/ResultWithDetailsPageNormal/ResultWithDetailsPageNormal";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
+import StartPage from "../pages/StartPage/StartPage";
 // import RegistrationStep1 from "../pages/RegistrationFlow/RegistrationStep1/RegistrationStep1";
 // import RegistrationStepPassword from "../pages/RegistrationFlow/RegistrationStepPassword/RegistrationStepPassword";
 import RegistrationStepPassword from "../pages/RegistrationStepPassword/RegistrationStepPassword";
@@ -52,6 +53,7 @@ function App() {
         <Route path="/add-details" element={<AddDetailsPage />} />
         <Route path="/result-with-details-normal" element={<ResultWithDetailsPageNormal />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/start" element={<StartPage />} />
         <Route path="/registration/username" element={<RegistrationStepName />} />
         <Route path="/registration/password" element={<RegistrationStepPassword />} />
         <Route path="/login" element={<LoginPage />} />

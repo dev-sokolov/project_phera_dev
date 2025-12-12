@@ -8,9 +8,9 @@ import signUp from "../../assets/images/signUp.jpg";
 import Logo from "../../assets/Logo";
 import ArrowLeft from "../../assets/icons/ArrowLeft";
 
-import styles from "./SignUpPage.module.css";
+import styles from "./StartPage.module.css";
 
-const SignUpPage = () => {
+const StartPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,11 +42,11 @@ const SignUpPage = () => {
                 </div>
                 <Container>
                     <div className={styles.img}>
-                        <img src={signUp} alt="Sing up page img" />
+                        <img src={signUp} alt="Start page img" />
                     </div>
                     <div className={styles.textBlock}>
-                        <h1 className={styles.heading}>Don’t lose your progress</h1>
-                        <p className={styles.text}>Sign up to save your test history, track trends, and access personalized health recommendations.</p>
+                        <h1 className={styles.heading}>Quick, private vaginal pH testing right from your phone.</h1>
+                        <p className={styles.text}>Make sure you have your pHera test box and test strip ready. You’ll need them to scan your QR code and capture your result.</p>
                     </div>
                     <div className={styles.bottomBlock}>
                         <div className={styles.btns}>
@@ -60,4 +60,4 @@ const SignUpPage = () => {
     )
 };
 
-export default SignUpPage
+export default StartPage

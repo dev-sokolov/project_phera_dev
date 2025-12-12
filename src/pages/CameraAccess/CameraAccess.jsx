@@ -19,6 +19,14 @@ const CameraAccess = () => {
         setIsCameraOn(false);
     };
 
+    const goBack = () => {
+        if (window.history.length > 2) {
+            navigate(-1);
+        } else {
+            navigate("/");
+        }
+    };
+
     return (
         <>
             {!isCameraOn ? (
@@ -45,13 +53,7 @@ const CameraAccess = () => {
                                 <p className={styles.bottomText}>Your privacy is protected at every step.</p>
                                 <div className={styles.btns}>
                                     <Button onClick={() => navigate("/camera-capture")}>Allow camera</Button>
-                                    <ButtonReverse onClick={() => {
-                                        if (window.history.length > 2) {
-                                            navigate(-1);
-                                        } else {
-                                            navigate("/");
-                                        }
-                                    }}>Go back</ButtonReverse>
+                                    <ButtonReverse onClick={goBack}>Go back</ButtonReverse>
                                 </div>
                             </div>
                         </div>
