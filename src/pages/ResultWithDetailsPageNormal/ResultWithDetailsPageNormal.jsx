@@ -17,8 +17,10 @@ const ResultWithDetailsPageNormal = () => {
     const detailOptions = [
         state?.age,
         state?.hormone,
-        ...(state?.ancestral?.length ? state.ancestral : []),
-        ...(state?.symptoms?.length ? state.symptoms : []),
+        ...(state?.ethnicBackground?.length ? state.ethnicBackground : []),
+        ...(state?.discharge?.length ? state.discharge : []),
+        ...(state?.vulva?.length ? state.vulva : []),
+        ...(state?.smell?.length ? state.smell : []),
     ].filter(Boolean);
 
     const detailsList = detailOptions.map((item) => (

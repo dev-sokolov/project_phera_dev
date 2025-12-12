@@ -4,10 +4,19 @@
     width: 100%;
 }
 
+.wrapTitle {
+    display: flex;
+    gap: 5px;
+}
+
 .title {
     color: #1F1F1F;
     font-size: 16px;
     font-weight: 700;
+}
+
+.infoCircle {
+    cursor: pointer;
 }
 
 .input {

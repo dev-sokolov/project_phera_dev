@@ -28,8 +28,10 @@ const AddDetailsPage = () => {
 
     const [age, setAge] = useState(state?.age || "");
     const [hormone, setHormone] = useState(state?.hormone || "");
-    const [ancestral, setAncestral] = useState(state?.ancestral || []);
-    const [symptoms, setSymptoms] = useState(state?.symptoms || []);
+    const [ethnicBackground, setEthnicBackground] = useState(state?.ethnicBackground || []);
+    const [discharge, setDischarge] = useState(state?.discharge || []);
+    const [vulva, setVulva] = useState(state?.vulva || []);
+    const [smell, setSmell] = useState(state?.smell || []);
     const [notes, setNotes] = useState(state?.notes || "");
 
     return (
@@ -54,10 +56,14 @@ const AddDetailsPage = () => {
                                 setAge={setAge}
                                 hormone={hormone}
                                 setHormone={setHormone}
-                                ancestral={ancestral}
-                                setAncestral={setAncestral}
-                                symptoms={symptoms}
-                                setSymptoms={setSymptoms}
+                                ethnicBackground={ethnicBackground}
+                                setEthnicBackground={setEthnicBackground}
+                                discharge={discharge}
+                                setDischarge={setDischarge}
+                                vulva={vulva}
+                                setVulva={setVulva}
+                                smell={smell}
+                                setSmell={setSmell}
                                 notes={notes}
                                 setNotes={setNotes}
                             />
@@ -71,8 +77,10 @@ const AddDetailsPage = () => {
                                         state: {
                                             age,
                                             hormone,
-                                            ancestral,
-                                            symptoms,
+                                            ethnicBackground,
+                                            discharge,
+                                            vulva,
+                                            smell,
                                             notes
                                         }
                                     })}

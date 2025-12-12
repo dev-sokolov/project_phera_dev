@@ -13,15 +13,23 @@
     margin-bottom: 10px;
 }
 
-.wrapAncestralList {
+.wrapDischargeList {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     padding-top: 6px;
-
 }
 
 .item {
+    /* display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border: 1px solid var(--main-color);
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 14px; */
+
     padding: 8px 10px 9px;
     border: 1px solid var(--main-color);
     border-radius: 100px;
@@ -31,7 +39,7 @@
     color: var(--main-color);
 }
 
-.isemSelected {
+.itemSelected {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -43,3 +51,4 @@
     color: var(--main-color);
     cursor: pointer;
 }
+

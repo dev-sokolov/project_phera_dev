@@ -1,23 +1,41 @@
 import AgeInput from "../AgeInput/AgeInput";
 import HormoneDropdown from "../HormoneDropdown/HormoneDropdown";
-import AncestralChoice from "../AncestralChoice/AncestralChoice";
-import Symptoms from "../SymptomsChoice/SymptomsChoice";
+import EthnicBackground from "../EthnicBackground/EthnicBackground";
+import Discharge from "../Discharge/Discharge";
+import Vulva from "../Vulva/Vulva";
+import Smell from "../Smell/Smell";
 import Notes from "../Notes/Notes";
 
 import styles from "./PersonalData.module.css";
 
-const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestral, symptoms, setSymptoms, notes, setNotes }) => {
+const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setEthnicBackground, discharge, setDischarge, notes, setNotes, vulva, setVulva, smell, setSmell }) => {
 
-    const handleAncestralChange = (value) => {
-        setAncestral((prev) =>
+    const handleEthnicBackgroundChange = (value) => {
+        setEthnicBackground((prev) =>
             prev.includes(value)
                 ? prev.filter((h) => h !== value)
                 : [...prev, value]
         );
     };
 
-    const handleSymptomsChange = (value) => {
-        setSymptoms((prev) =>
+    const handleDischargeChange = (value) => {
+        setDischarge((prev) =>
+            prev.includes(value)
+                ? prev.filter((h) => h !== value)
+                : [...prev, value]
+        );
+    };
+
+    const handleVulvaChange = (value) => {
+        setVulva((prev) =>
+            prev.includes(value)
+                ? prev.filter((h) => h !== value)
+                : [...prev, value]
+        );
+    };
+
+    const handleSmellChange = (value) => {
+        setSmell((prev) =>
             prev.includes(value)
                 ? prev.filter((h) => h !== value)
                 : [...prev, value]
@@ -33,13 +51,21 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ancestral, setAncestra
                         hormone={hormone}
                         onSelect={setHormone}
                     />
-                    <AncestralChoice
-                        ancestral={ancestral}
-                        onChange={handleAncestralChange}
+                    <EthnicBackground
+                        ethnicBackground={ethnicBackground}
+                        onChange={handleEthnicBackgroundChange}
                     />
-                    <Symptoms
-                        symptoms={symptoms}
-                        onChange={handleSymptomsChange}
+                    <Discharge
+                        discharge={discharge}
+                        onChange={handleDischargeChange}
+                    />
+                    <Vulva
+                        vulva={vulva}
+                        onChange={handleVulvaChange}
+                    />
+                    <Smell
+                        smell={smell}
+                        onChange={handleSmellChange}
                     />
                     <Notes notes={notes} setNotes={setNotes} />
                 </form>
