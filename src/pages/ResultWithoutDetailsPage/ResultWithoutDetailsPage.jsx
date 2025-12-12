@@ -65,7 +65,7 @@ const ResultWithoutDetailsPage = () => {
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
-                                <Button>Save to my history</Button>
+                                <Button onClick={() => navigate("/signup")}>Save to my history</Button>
                             </div>
                         </div>
                     </div>

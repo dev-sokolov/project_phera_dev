@@ -133,7 +133,7 @@ const HomePageRegistred = () => {
                         </div>
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
-                                <Button onClick={() => navigate("/signup")}>Save to my history</Button>
+                                <Button onClick={() => navigate("/camera-capture")}>Start new scan</Button>
                             </div>
                         </div>
                     </div>

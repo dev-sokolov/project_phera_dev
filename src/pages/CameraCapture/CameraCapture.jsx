@@ -85,7 +85,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
         const video = webcamRef.current?.video;
         video?.srcObject?.getTracks().forEach((track) => track.stop());
         onExit();
-        navigate("/");
+        navigate(-1);
     };
 
     // useMarkerDetection(videoRef, frameRef, setInside); //временно !!!! убрать комментирование!!!!!!!!!!!!
