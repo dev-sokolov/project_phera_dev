@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import InfoCircle from "../../assets/icons/InfoCircle";
 import styles from "./AgeInput.module.css";
 
@@ -8,10 +8,30 @@ const MIN_AGE = 1;
 const AgeInput = ({ age, onChange }) => {
     const [localAge, setLocalAge] = useState(age ?? "");
     const [warning, setWarning] = useState("");
+    const [showInfo, setShowInfo] = useState(false);
+
+    const infoRef = useRef(null);
 
     useEffect(() => {
         setLocalAge(age ?? "");
     }, [age]);
+
+    // Закрытие по клику вне
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (infoRef.current && !infoRef.current.contains(e.target)) {
+                setShowInfo(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
+    }, []);
 
     const handleChange = (e) => {
         const raw = e.target.value;
@@ -51,8 +71,24 @@ const AgeInput = ({ age, onChange }) => {
         <div className={styles.wrap}>
             <div className={styles.wrapTitle}>
                 <h4 className={styles.title}>Age</h4>
-                <InfoCircle className={styles.infoCircle} />
+                {/* <InfoCircle className={styles.infoCircle} /> */}
+                <div
+                    className={styles.infoCircle}
+                    onClick={() => setShowInfo((prev) => !prev)}
+                    ref={infoRef}
+                >
+                    <InfoCircle />
+                </div>
             </div>
+
+            {showInfo && (
+                <div className={styles.popover}>
+                    <p>
+                        Your age helps us provide more accurate insights.
+                        Age affects vaginal microbiome, pH balance and hormone changes.
+                    </p>
+                </div>
+            )}
 
             <input
                 type="number"
