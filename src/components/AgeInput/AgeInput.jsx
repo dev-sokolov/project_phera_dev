@@ -84,8 +84,7 @@ const AgeInput = ({ age, onChange }) => {
             {showInfo && (
                 <div className={styles.popover}>
                     <p>
-                        Your age helps us provide more accurate insights.
-                        Age affects vaginal microbiome, pH balance and hormone changes.
+                        It is normal for vaginal pH to change with age, because of how hormones work at different life stages. Such shifts can slightly affect natural self-lubrication and odor.
                     </p>
                 </div>
             )}
