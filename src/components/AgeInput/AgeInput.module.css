@@ -15,29 +15,21 @@
     font-weight: 700;
 }
 
-/* .infoCircle {
-    cursor: pointer;
-} */
-
 .popover {
     position: absolute;
     top: -10px;
-    /* top: -5px; */
-    /* right: 0; */
     left: 50%;
-    /* transform: translateY(-100%); */
     transform: translate(-50%, -100%);
-    /* transform: translateX(-50%); */
     width: 260px;
 
-    background: white;
+    background: #F5F5F5;
     border: 1px solid #E2E2E2;
-    border-radius: 12px;
-    padding: 12px 14px;
+    border-radius: 8px;
+    padding: 8px 12px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
 
-    font-size: 14px;
-    color: #1F1F1F;
+    font-size: 10px;
+    color: #414651;
     line-height: 1.35;
 
     z-index: 9999;
