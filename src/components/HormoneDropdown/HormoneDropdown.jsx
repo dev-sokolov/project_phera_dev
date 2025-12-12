@@ -94,11 +94,17 @@ import styles from "./HormoneDropdown.module.css";
 
 // const ageOptions = ["18-24", "25-34", "35-44", "45-54", "55+"];
 const hormoneOptions = [
-  "Estrogen",
-  "Progesterone",
-  "Testosterone",
-  "Cortisol",
-  "Thyroid hormones",
+  "On my period",
+  "Just after my period",
+  "Mid-cycle / around ovulation",
+  "Pregnant",
+  "Postpartum",
+  "Perimenopause",
+  "Menopause",
+  "On hormonal birth control",
+  "On hormone therapy",
+  "None of the above",
+  "Not sure",
 ];
 
 // const HormoneDropdown = ({ hormone, onChange, onRemove }) => {
