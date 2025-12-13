@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import InfoCircle from "../../assets/icons/InfoCircle";
+import { useState, useEffect } from "react";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import styles from "./AgeInput.module.css";
 
 const MAX_AGE = 120;
@@ -8,30 +8,10 @@ const MIN_AGE = 1;
 const AgeInput = ({ age, onChange }) => {
     const [localAge, setLocalAge] = useState(age ?? "");
     const [warning, setWarning] = useState("");
-    const [showInfo, setShowInfo] = useState(false);
-
-    const infoRef = useRef(null);
 
     useEffect(() => {
         setLocalAge(age ?? "");
     }, [age]);
-
-    // Закрытие по клику вне
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (infoRef.current && !infoRef.current.contains(e.target)) {
-                setShowInfo(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        document.addEventListener("touchstart", handleClickOutside);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-            document.removeEventListener("touchstart", handleClickOutside);
-        };
-    }, []);
 
     const handleChange = (e) => {
         const raw = e.target.value;
@@ -69,25 +49,9 @@ const AgeInput = ({ age, onChange }) => {
 
     return (
         <div className={styles.wrap}>
-            <div className={styles.wrapTitle}>
-                <h4 className={styles.title}>Age</h4>
-                <div
-                    className={styles.infoCircle}
-                    onClick={() => setShowInfo((prev) => !prev)}
-                    ref={infoRef}
-                >
-                    <InfoCircle />
-                </div>
-            </div>
-
-            {showInfo && (
-                <div className={styles.popover} role="tooltip">
-                    <div className={styles.popoverContent}>
-                        It is normal for vaginal pH to change with age, because of how hormones work at different life stages. Such shifts can slightly affect natural self-lubrication and odor.
-                    </div>
-                    <span className={styles.popoverArrow} />
-                </div>
-            )}
+            <InfoTooltip title="Age">
+                It is normal for vaginal pH to change with age, because of how hormones work at different life stages. Such shifts can slightly affect natural self-lubrication and odor.
+            </InfoTooltip>
 
             <input
                 type="number"

@@ -1,5 +1,6 @@
 import { useRef, memo } from "react";
 
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import styles from "./Smell.module.css";
 
 const smellOptions = [
@@ -28,7 +29,10 @@ const Smell = ({ smell, onChange }) => {
 
     return (
         <div className={styles.wrap} ref={containerRef}>
-            <h4 className={styles.title}>Smell</h4>
+            {/* <h4 className={styles.title}>Smell</h4> */}
+            <InfoTooltip title="Smell">
+                A healthy vagina can have a natural scent that is metallic, musky, earthy, or tangy - all of these are normal! If you notice any of the unusual odors, such as those listed below, it might be helpful to mention them to your clinician.
+            </InfoTooltip>
             <div className={styles.wrapSmellList}>
                 {smellList}
             </div>

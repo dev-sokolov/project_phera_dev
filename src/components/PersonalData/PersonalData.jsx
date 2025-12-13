@@ -2,13 +2,13 @@ import AgeInput from "../AgeInput/AgeInput";
 import HormoneDropdown from "../HormoneDropdown/HormoneDropdown";
 import EthnicBackground from "../EthnicBackground/EthnicBackground";
 import Discharge from "../Discharge/Discharge";
-import Vulva from "../Vulva/Vulva";
+import VulvaCondition from "../Vulvacondition/Vulvacondition";
 import Smell from "../Smell/Smell";
 import Notes from "../Notes/Notes";
 
 import styles from "./PersonalData.module.css";
 
-const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setEthnicBackground, discharge, setDischarge, notes, setNotes, vulva, setVulva, smell, setSmell }) => {
+const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setEthnicBackground, discharge, setDischarge, notes, setNotes, vulvaCondition, setVulvaCondition, smell, setSmell }) => {
 
     const handleEthnicBackgroundChange = (value) => {
         setEthnicBackground((prev) =>
@@ -26,8 +26,8 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setE
         );
     };
 
-    const handleVulvaChange = (value) => {
-        setVulva((prev) =>
+    const handleVulvaConditionChange = (value) => {
+        setVulvaCondition((prev) =>
             prev.includes(value)
                 ? prev.filter((h) => h !== value)
                 : [...prev, value]
@@ -59,9 +59,9 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setE
                         discharge={discharge}
                         onChange={handleDischargeChange}
                     />
-                    <Vulva
-                        vulva={vulva}
-                        onChange={handleVulvaChange}
+                    <VulvaCondition
+                        vulvaCondition={vulvaCondition}
+                        onChange={handleVulvaConditionChange}
                     />
                     <Smell
                         smell={smell}

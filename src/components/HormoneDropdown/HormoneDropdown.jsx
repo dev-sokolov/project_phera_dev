@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import ArrowDown from "../../assets/icons/ArrowDown";
 
-import InfoCircle from "../../assets/icons/InfoCircle";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import styles from "./HormoneDropdown.module.css";
 
 const hormoneOptions = [
@@ -22,29 +22,9 @@ const HormoneDropdown = ({ hormone, onSelect }) => {
   const selectRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectWidth, setSelectWidth] = useState(0);
-  const [showInfo, setShowInfo] = useState(false);
-
-  const infoRef = useRef(null);
   const containerRef = useRef(null);
 
   const toggle = () => setIsOpen((prev) => !prev);
-
-  // Закрытие по клику вне
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (infoRef.current && !infoRef.current.contains(e.target)) {
-        setShowInfo(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, []);
 
   useEffect(() => {
     if (!selectRef.current) return;
@@ -77,26 +57,10 @@ const HormoneDropdown = ({ hormone, onSelect }) => {
 
   return (
     <div className={styles.wrap} ref={containerRef}>
-      {/* <h4 className={styles.title}>Hormone Status</h4> */}
-      <div className={styles.wrapTitle}>
-        <h4 className={styles.title}>Hormone Status</h4>
-        <div
-          className={styles.infoCircle}
-          onClick={() => setShowInfo((prev) => !prev)}
-          ref={infoRef}
-        >
-          <InfoCircle />
-        </div>
-      </div>
-
-      {showInfo && (
-        <div className={styles.popover}>
-          <p>
-            Knowing your hormone status helps us understand the main factors that influence your pH level.
-          </p>
-        </div>
-      )}
-
+      <InfoTooltip title="Hormone Status">
+        Knowing your hormone status helps us understand the main factors that influence your pH level.
+      </InfoTooltip>
+     
       <div
         className={`${styles.select} ${hormone ? styles.selected : ""}`}
         onClick={toggle}

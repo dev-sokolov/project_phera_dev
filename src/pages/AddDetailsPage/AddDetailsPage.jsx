@@ -30,7 +30,7 @@ const AddDetailsPage = () => {
     const [hormone, setHormone] = useState(state?.hormone || "");
     const [ethnicBackground, setEthnicBackground] = useState(state?.ethnicBackground || []);
     const [discharge, setDischarge] = useState(state?.discharge || []);
-    const [vulva, setVulva] = useState(state?.vulva || []);
+    const [vulvaCondition, setVulvaCondition] = useState(state?.vulvaCondition || []);
     const [smell, setSmell] = useState(state?.smell || []);
     const [notes, setNotes] = useState(state?.notes || "");
 
@@ -60,8 +60,8 @@ const AddDetailsPage = () => {
                                 setEthnicBackground={setEthnicBackground}
                                 discharge={discharge}
                                 setDischarge={setDischarge}
-                                vulva={vulva}
-                                setVulva={setVulva}
+                                vulvaCondition={vulvaCondition}
+                                setVulvaCondition={setVulvaCondition}
                                 smell={smell}
                                 setSmell={setSmell}
                                 notes={notes}
@@ -79,7 +79,7 @@ const AddDetailsPage = () => {
                                             hormone,
                                             ethnicBackground,
                                             discharge,
-                                            vulva,
+                                            vulvaCondition,
                                             smell,
                                             notes
                                         }

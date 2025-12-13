@@ -19,7 +19,7 @@ const ResultWithDetailsPageNormal = () => {
         state?.hormone,
         ...(state?.ethnicBackground?.length ? state.ethnicBackground : []),
         ...(state?.discharge?.length ? state.discharge : []),
-        ...(state?.vulva?.length ? state.vulva : []),
+        ...(state?.vulvaCondition?.length ? state.vulvaCondition : []),
         ...(state?.smell?.length ? state.smell : []),
     ].filter(Boolean);
 

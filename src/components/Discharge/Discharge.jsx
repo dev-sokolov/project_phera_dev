@@ -1,5 +1,6 @@
 import { useRef, memo } from "react";
 
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import styles from "./Discharge.module.css";
 
 const dischargeOptions = [
@@ -33,7 +34,9 @@ const Discharge = ({ discharge, onChange }) => {
 
     return (
         <div className={styles.wrap} ref={containerRef}>
-            <h4 className={styles.title}>Discharge</h4>
+            <InfoTooltip title="Discharge">
+                Discharge varies from person to person. It is influenced by your cycle, hygiene products, medications, stress, and a lot of other factors. Look out for discharge of unusual colour and texture.
+            </InfoTooltip>
             <div className={styles.wrapDischargeList}>
                 {dischargeList}
             </div>

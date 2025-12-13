@@ -1,5 +1,6 @@
 import { memo } from "react";
 
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import styles from "./EthnicBackground.module.css";
 
 const ethnicBackgroundOptions = [
@@ -34,7 +35,10 @@ const EthnicBackground = ({ ethnicBackground, onChange }) => {
 
   return (
     <div className={styles.wrap}>
-      <h4 className={styles.title}>Ethnic background(s)</h4>
+      <InfoTooltip title="Ethnic background(s)">
+        Racial and ethnic backgrounds are linked to natural differences in genetics, immune responses, and care habits. This can shape vaginal flora and therefore its acidity, moisture, and scent. Knowing this helps pHera understand what is normal for your body.
+      </InfoTooltip>
+
       <div className={styles.wrapEthnicBackgroundlList}>
         {ethnicBackgroundList}
       </div>
