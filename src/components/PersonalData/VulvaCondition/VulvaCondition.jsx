@@ -1,6 +1,6 @@
 import { useRef, memo } from "react";
 
-import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./VulvaCondition.module.css";
 
 const vulvaConditionOptions = [

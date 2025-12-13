@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-import ArrowDown from "../../assets/icons/ArrowDown";
+import ArrowDown from "../../../assets/icons/ArrowDown";
 
-import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./HormoneDropdown.module.css";
 
 const hormoneOptions = [
@@ -60,7 +60,7 @@ const HormoneDropdown = ({ hormone, onSelect }) => {
       <InfoTooltip title="Hormone Status">
         Knowing your hormone status helps us understand the main factors that influence your pH level.
       </InfoTooltip>
-     
+
       <div
         className={`${styles.select} ${hormone ? styles.selected : ""}`}
         onClick={toggle}

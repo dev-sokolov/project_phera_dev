@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import EditNotes from "../../assets/icons/EditNotes";
+import EditNotes from "../../../assets/icons/EditNotes";
 
 import styles from "./Notes.module.css";
 

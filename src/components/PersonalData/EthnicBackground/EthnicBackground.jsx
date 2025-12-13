@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./EthnicBackground.module.css";
 
 const ethnicBackgroundOptions = [

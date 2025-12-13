@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./AgeInput.module.css";
 
 const MAX_AGE = 120;

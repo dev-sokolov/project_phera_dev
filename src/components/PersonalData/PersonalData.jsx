@@ -1,10 +1,10 @@
-import AgeInput from "../AgeInput/AgeInput";
-import HormoneDropdown from "../HormoneDropdown/HormoneDropdown";
-import EthnicBackground from "../EthnicBackground/EthnicBackground";
-import Discharge from "../Discharge/Discharge";
-import VulvaCondition from "../Vulvacondition/Vulvacondition";
-import Smell from "../Smell/Smell";
-import Notes from "../Notes/Notes";
+import AgeInput from "./AgeInput/AgeInput";
+import HormoneDropdown from "./HormoneDropdown/HormoneDropdown";
+import EthnicBackground from "./EthnicBackground/EthnicBackground";
+import Discharge from "./Discharge/Discharge";
+import VulvaCondition from "./VulvaCondition/Vulvacondition";
+import Smell from "./Smell/Smell";
+import Notes from "./Notes/Notes";
 
 import styles from "./PersonalData.module.css";
 
