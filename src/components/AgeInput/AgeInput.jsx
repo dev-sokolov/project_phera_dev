@@ -71,7 +71,6 @@ const AgeInput = ({ age, onChange }) => {
         <div className={styles.wrap}>
             <div className={styles.wrapTitle}>
                 <h4 className={styles.title}>Age</h4>
-                {/* <InfoCircle className={styles.infoCircle} /> */}
                 <div
                     className={styles.infoCircle}
                     onClick={() => setShowInfo((prev) => !prev)}
@@ -82,10 +81,11 @@ const AgeInput = ({ age, onChange }) => {
             </div>
 
             {showInfo && (
-                <div className={styles.popover}>
-                    <p>
+                <div className={styles.popover} role="tooltip">
+                    <div className={styles.popoverContent}>
                         It is normal for vaginal pH to change with age, because of how hormones work at different life stages. Such shifts can slightly affect natural self-lubrication and odor.
-                    </p>
+                    </div>
+                    <span className={styles.popoverArrow} />
                 </div>
             )}
 
