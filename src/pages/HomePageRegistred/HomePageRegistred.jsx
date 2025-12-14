@@ -135,7 +135,6 @@ const HomePageRegistred = () => {
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
                                 <Button onClick={() => navigate("/steps")}>Start new scan</Button>
-                                <Button  className={styles.buttonReverseMargin} onClick={() => navigate("/home-no-test-registred")}>Go to Home page without test (temporary)</Button>
                             </div>
                         </div>
                     </div>
