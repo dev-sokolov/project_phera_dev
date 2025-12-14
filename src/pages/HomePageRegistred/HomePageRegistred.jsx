@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 
 import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
@@ -134,6 +135,7 @@ const HomePageRegistred = () => {
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
                                 <Button onClick={() => navigate("/steps")}>Start new scan</Button>
+                                <Button  className={styles.buttonReverseMargin} onClick={() => navigate("/home-no-test-registred")}>Go to Home page without test (temporary)</Button>
                             </div>
                         </div>
                     </div>
