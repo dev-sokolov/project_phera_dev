@@ -10,13 +10,6 @@ const AppLayout = () => {
 
     return (
         <>
-            {/* <Header onBurgerClick={() => setMenuOpen(true)} /> */}
-            {/* <Header onBurgerClick={() => setMenuOpen(prev => !prev)} isMenuOpen={isMenuOpen} />
-            <BurgerMenu
-                isMenuOpen={isMenuOpen}
-                onClose={() => setMenuOpen(false)}
-            />
-            <Outlet /> */}
             <Header onBurgerClick={toggleMenu} isMenuOpen={isMenuOpen} />
             <BurgerMenu isOpen={isMenuOpen} onClose={() => setMenuOpen(false)} />
             <Outlet />

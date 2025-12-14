@@ -24,6 +24,7 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import HomeCompletePage from "../pages/HomeCompletePage/HomeCompletePage";
 import HomeTestedPage from "../pages/HomeTestedPage/HomeTestedPage";
 import HomeStartPage from "../pages/HomeStartPage/HomeStartPage";
+import TestsHistoryPage from "../pages/TestsHistoryPage/TestsHistoryPage";
 
 import "../shared/styles/style.css";
 
@@ -60,6 +61,7 @@ function App() {
         <Route path="/home/complete" element={<HomeCompletePage />} />
         <Route path="/home/tested" element={<HomeTestedPage />} />
         <Route path="/home/start" element={<HomeStartPage />} />
+        <Route path="/test-history" element={<TestsHistoryPage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
