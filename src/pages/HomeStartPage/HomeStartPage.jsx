@@ -13,7 +13,8 @@ import noTestHomeMain from "../../assets/images/noTestHomeMain.jpg"
 import onboardingStep1 from "../../assets/images/onboardingStep1.jpg"
 import onboardingStep2 from "../../assets/images/onboardingStep2.jpg"
 import onboardingStep3 from "../../assets/images/onboardingStep3.jpg"
-import library from "../../assets/images/library.jpg"
+import library1 from "../../assets/images/library1.jpg"
+import library2 from "../../assets/images/library2.jpg"
 
 import styles from "./HomeStartPage.module.css";
 
@@ -111,7 +112,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.libraryItem}>
                                     <div className={styles.libraryImg}>
-                                        <img src={library} alt="Library 1" />
+                                        <img src={library1} alt="Library 1" />
                                     </div>
                                     <p className={styles.libraryText}>
                                         Lorem ipsum dolor
@@ -122,7 +123,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.libraryItem}>
                                     <div className={styles.libraryImg}>
-                                        <img src={library} alt="Library 1" />
+                                        <img src={library2} alt="Library 1" />
                                     </div>
                                     <p className={styles.libraryText}>
                                         Lorem ipsum dolor
@@ -133,7 +134,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.libraryItem}>
                                     <div className={styles.libraryImg}>
-                                        <img src={library} alt="Library 1" />
+                                        <img src={library1} alt="Library 1" />
                                     </div>
                                     <p className={styles.libraryText}>
                                         Lorem ipsum dolor
@@ -144,7 +145,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.libraryItem}>
                                     <div className={styles.libraryImg}>
-                                        <img src={library} alt="Library 1" />
+                                        <img src={library2} alt="Library 1" />
                                     </div>
                                     <p className={styles.libraryText}>
                                         Lorem ipsum dolor
@@ -155,7 +156,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.libraryItem}>
                                     <div className={styles.libraryImg}>
-                                        <img src={library} alt="Library 1" />
+                                        <img src={library1} alt="Library 1" />
                                     </div>
                                     <p className={styles.libraryText}>
                                         Lorem ipsum dolor
