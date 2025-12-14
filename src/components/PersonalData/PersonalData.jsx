@@ -2,7 +2,7 @@ import AgeInput from "./AgeInput/AgeInput";
 import HormoneDropdown from "./HormoneDropdown/HormoneDropdown";
 import EthnicBackground from "./EthnicBackground/EthnicBackground";
 import Discharge from "./Discharge/Discharge";
-import VulvaCondition from "./VulvaCondition/Vulvacondition";
+import VulvaCondition from "./VulvaCondition/VulvaCondition";
 import Smell from "./Smell/Smell";
 import Notes from "./Notes/Notes";
 
