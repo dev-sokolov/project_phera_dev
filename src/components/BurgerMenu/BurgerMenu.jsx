@@ -4,7 +4,7 @@ import styles from "./BurgerMenu.module.css";
 
 const BurgerMenu = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
-    if (!isOpen) return null;
+    // if (!isOpen) return null;
 
     const goTo = (path) => {
         navigate(path);
@@ -12,9 +12,9 @@ const BurgerMenu = ({ isOpen, onClose }) => {
     };
 
     return (
-        <div className={styles.overlay} onClick={onClose}>
+        <div className={`${styles.overlay} ${isOpen ? styles.open : ""}`} onClick={onClose}>
             <ul onClick={(e) => e.stopPropagation()}>
-                {/* <li className={styles.item} onClick={() => goTo("/home")}>Home</li> */}
+                {/* <li className={styles.item} onClick={() => goTo("/home")}><span>Home</span><ArrowRightBlack /></li> */}
                 <li className={styles.item} onClick={() => goTo("/home/complete")}><span>Home</span><ArrowRightBlack /></li>
                 <li className={styles.item} onClick={() => goTo("/test-history")}><span>Test history</span><ArrowRightBlack /></li>
                 <li className={styles.item} onClick={() => goTo("/health-library")}><span>Health library</span><ArrowRightBlack /></li>

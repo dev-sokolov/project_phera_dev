@@ -8,6 +8,18 @@
     justify-content: center;
     z-index: 2000;
     padding-top: 66px;
+
+
+    /* background-color: rgba(0, 0, 0, 0.2); */
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.overlay.open {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .overlay ul {
@@ -18,6 +30,15 @@
     list-style: none;
     display: flex;
     flex-direction: column;
+
+    transform: translateY(-12px);
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.overlay.open ul {
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .item {
@@ -30,3 +51,12 @@
     justify-content: space-between;
     cursor: pointer;
 }
+
+/* .item {
+  transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+.item:hover {
+  background-color: #F2F4F3;
+  padding-left: 8px;
+} */
