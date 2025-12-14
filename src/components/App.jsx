@@ -25,6 +25,7 @@ import HomeCompletePage from "../pages/HomeCompletePage/HomeCompletePage";
 import HomeTestedPage from "../pages/HomeTestedPage/HomeTestedPage";
 import HomeStartPage from "../pages/HomeStartPage/HomeStartPage";
 import TestsHistoryPage from "../pages/TestsHistoryPage/TestsHistoryPage";
+import HealthLibrary from "../pages/HealthLibrary/HealthLibrary";
 
 import "../shared/styles/style.css";
 
@@ -62,6 +63,7 @@ function App() {
         <Route path="/home/tested" element={<HomeTestedPage />} />
         <Route path="/home/start" element={<HomeStartPage />} />
         <Route path="/test-history" element={<TestsHistoryPage />} />
+        <Route path="/health-library" element={<HealthLibrary />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

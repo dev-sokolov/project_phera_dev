@@ -61,7 +61,7 @@
 }
 
 .howItWorksBlock {
-    padding: 30px 16px;
+    padding: 30px 0 30px 16px;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -129,7 +129,7 @@
 
 .libraryBlock {
     background-color: #FFFFFF;
-    padding: 30px 16px;
+    padding: 30px 0 30px 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;

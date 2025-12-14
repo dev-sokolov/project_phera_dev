@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../components/Button/Button";
-import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import AppLayout from "../../components/Layout/AppLayout";
 
@@ -9,16 +8,12 @@ import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import learnMore from "../../assets/images/learnMore.jpg"
 import EditNotesGrey from "../../assets/icons/EditNotesGrey";
 import ArrowRightGrey from "../../assets/icons/ArrowRightGrey";
-import Logo from "../../assets/Logo";
 import styles from "./HomeCompletePage.module.css";
 
 const HomeCompletePage = () => {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
-    const [isOpenMenu, setIsOpenMenu] = useState(false);
     const { state } = useLocation();
-
-    const toggleMenu = () => setIsOpenMenu(prev => !prev);
 
     // const detailOptions = [   // временно, потом вернуть  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //     state?.age,
