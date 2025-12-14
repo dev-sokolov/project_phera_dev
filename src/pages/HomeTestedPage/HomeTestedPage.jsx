@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../components/Button/Button";
-import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 
 import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
@@ -9,9 +8,9 @@ import learnMore from "../../assets/images/learnMore.jpg"
 import EditNotesGrey from "../../assets/icons/EditNotesGrey";
 import ArrowRightGrey from "../../assets/icons/ArrowRightGrey";
 import Logo from "../../assets/Logo";
-import styles from "./HomePageRegistred.module.css";
+import styles from "./HomeTestedPage.module.css";
 
-const HomePageRegistred = () => {
+const HomeTestedPage = () => {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -27,7 +26,7 @@ const HomePageRegistred = () => {
     // ].filter(Boolean);
 
     const detailOptions = [     // временно, потом удалить  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        "18-24", "Mid-cycle", "Asian", "No symptoms"
+        // "18-24", "Mid-cycle", "Asian", "No symptoms"
     ];
 
     const hasDetails = detailOptions.length > 0;
@@ -144,4 +143,4 @@ const HomePageRegistred = () => {
     )
 };
 
-export default HomePageRegistred;
+export default HomeTestedPage;

@@ -15,9 +15,9 @@ import onboardingStep2 from "../../assets/images/onboardingStep2.jpg"
 import onboardingStep3 from "../../assets/images/onboardingStep3.jpg"
 import library from "../../assets/images/library.jpg"
 
-import styles from "./HomePageNoTestRegistred.module.css";
+import styles from "./HomeStartPage.module.css";
 
-const HomePageNoTestRegistred = () => {
+const HomeStartPage = () => {
     const navigate = useNavigate();
     const [isOpenMenu, setIsOpenMenu] = useState(false);
 
@@ -170,4 +170,4 @@ const HomePageNoTestRegistred = () => {
     )
 };
 
-export default HomePageNoTestRegistred;
+export default HomeStartPage;

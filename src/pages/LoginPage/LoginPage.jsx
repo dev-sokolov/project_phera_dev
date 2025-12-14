@@ -65,7 +65,7 @@ const LoginPage = () => {
             // 🔹 сохраняем токен
             localStorage.setItem("token", token);
 
-            navigate("/home");
+            navigate("/home/complete");
         } catch (e) {
             setServerError("Server error");
         }
