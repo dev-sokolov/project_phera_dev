@@ -41,16 +41,6 @@ const HomeCompletePage = () => {
         <>
             <div className={styles.content} data-scroll-container>
                 <AppLayout />
-                {/* <div className={styles.wrapLogo}>
-                    <button className={`${styles.burger} ${isOpenMenu ? styles.openMenu : ""}`} onClick={toggleMenu}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <div className={styles.logo}>
-                        <Logo />
-                    </div>
-                </div> */}
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.title}>Hi, Helena</div>

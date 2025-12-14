@@ -7,6 +7,7 @@ import "swiper/css/pagination";
 
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
+import AppLayout from "../../components/Layout/AppLayout";
 
 import Logo from "../../assets/Logo";
 import noTestHomeMain from "../../assets/images/noTestHomeMain.jpg"
@@ -27,17 +28,7 @@ const HomeStartPage = () => {
     return (
         <>
             <div className={styles.content} data-scroll-container>
-                <div className={styles.wrapLogo}>
-                    <button className={`${styles.burger} ${isOpenMenu ? styles.openMenu : ""}`} onClick={toggleMenu}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <div className={styles.logo}>
-                        <Logo />
-                    </div>
-                </div>
-                {/* <Container> */}
+                <AppLayout />
                 <div className={styles.containerInner}>
                     <div className={styles.greetingBlock}>
                         <div className={styles.img}>

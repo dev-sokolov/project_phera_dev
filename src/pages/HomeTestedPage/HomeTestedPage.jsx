@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
+import AppLayout from "../../components/Layout/AppLayout";
 
 import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import learnMore from "../../assets/images/learnMore.jpg"
@@ -38,16 +39,7 @@ const HomeTestedPage = () => {
     return (
         <>
             <div className={styles.content} data-scroll-container>
-                <div className={styles.wrapLogo}>
-                    <button className={`${styles.burger} ${isOpenMenu ? styles.openMenu : ""}`} onClick={toggleMenu}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <div className={styles.logo}>
-                        <Logo />
-                    </div>
-                </div>
+                <AppLayout />
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.title}>Hi, Helena</div>
