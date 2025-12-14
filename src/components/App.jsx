@@ -24,6 +24,7 @@ import RegistrationStepPassword from "../pages/RegistrationStepPassword/Registra
 import RegistrationStepName from "../pages/RegistrationStepName/RegistrationStepName";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import HomePageRegistred from "../pages/HomePageRegistred/HomePageRegistred";
+import HomePageNotRegistred from "../pages/HomePageNoTestRegistred/HomePageNoTestRegistred";
 
 import "../shared/styles/style.css";
 
@@ -58,6 +59,7 @@ function App() {
         <Route path="/registration/password" element={<RegistrationStepPassword />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/home" element={<HomePageRegistred />} />
+        <Route path="/home-no-test-registred" element={<HomePageNotRegistred />} />
 
 
         <Route path="*" element={<NotFoundPage />} />
