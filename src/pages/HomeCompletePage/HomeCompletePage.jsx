@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
+import AppLayout from "../../components/Layout/AppLayout";
 
 import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import learnMore from "../../assets/images/learnMore.jpg"
@@ -39,7 +40,8 @@ const HomeCompletePage = () => {
     return (
         <>
             <div className={styles.content} data-scroll-container>
-                <div className={styles.wrapLogo}>
+                <AppLayout />
+                {/* <div className={styles.wrapLogo}>
                     <button className={`${styles.burger} ${isOpenMenu ? styles.openMenu : ""}`} onClick={toggleMenu}>
                         <span></span>
                         <span></span>
@@ -48,7 +50,7 @@ const HomeCompletePage = () => {
                     <div className={styles.logo}>
                         <Logo />
                     </div>
-                </div>
+                </div> */}
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.title}>Hi, Helena</div>
