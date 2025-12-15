@@ -29,6 +29,6 @@ export const loginApi = async ({ username, password }) => {
         password
     });
 
-    return data; // backend должен вернуть token
+    return data; // backend has to return token
 };
 

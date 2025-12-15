@@ -1,5 +1,3 @@
-// -------------------------------------------------------------рабочая версия
-
 import { useEffect, useRef, useState } from "react";
 
 export function useMarkerDetection(videoRef, frameRef, onDetect) {
@@ -10,12 +8,12 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
     const [smoothDetected, setSmoothDetected] = useState(false);
     const smoothingRef = useRef(0);
 
-    const MIN_AREA = 300;      // минимальная площадь контура
-    const MAX_AREA = 4500;     // максимальная площадь
-    const MIN_RATIO = 1.5;     // минимальное соотношение высоты/ширины
-    const MAX_RATIO = 16;      // максимальное соотношение
-    const N_CONSISTENT = 4;    // сколько кадров подряд для стабильности
-    const PROCESS_MS = 120;    // обработка раз в ms
+    const MIN_AREA = 300;      
+    const MAX_AREA = 4500;    
+    const MIN_RATIO = 1.5;     
+    const MAX_RATIO = 16;      
+    const N_CONSISTENT = 4;   
+    const PROCESS_MS = 120;   
 
     const processOnce = () => {
         const video = videoRef.current;
@@ -23,7 +21,6 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
         if (!video || !frameElem || !window.cv) return;
         if (video.readyState < 2) return;
 
-        // создаём canvas и копируем кадр видео
         let canvas = tmpCanvasRef.current;
         if (!canvas) {
             canvas = document.createElement("canvas");
@@ -39,11 +36,9 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
         const gray = new cv.Mat();
         cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
-        // Размываем для уменьшения шума
         const blur = new cv.Mat();
         cv.GaussianBlur(gray, blur, new cv.Size(5, 5), 0);
 
-        // Детектируем контуры
         const edges = new cv.Mat();
         cv.Canny(blur, edges, 40, 120);
 
@@ -56,7 +51,7 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
 
         let found = false;
 
-        // координаты рамки
+        // frame
         const fr = frameElem.getBoundingClientRect();
         const vr = video.getBoundingClientRect();
         const scaleX = video.videoWidth / vr.width;
@@ -78,7 +73,7 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
             if (area < MIN_AREA || area > MAX_AREA) { c.delete(); continue; }
             if (ratio < MIN_RATIO || ratio > MAX_RATIO) { c.delete(); continue; }
 
-            const PADDING = 0.2; // 10% запас
+            const PADDING = 0.2; 
             const inside =
                 r.x > frameRect.x - frameRect.w * PADDING &&
                 r.y > frameRect.y - frameRect.h * PADDING &&
@@ -93,7 +88,7 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
             c.delete();
         }
 
-        // Очистка
+        // Clean
         src.delete();
         gray.delete();
         blur.delete();
@@ -102,14 +97,13 @@ export function useMarkerDetection(videoRef, frameRef, onDetect) {
         hierarchy.delete();
         kernel.delete();
 
-        // Логика стабильности
         if (found) stableRef.current = Math.min(N_CONSISTENT, stableRef.current + 1);
         else stableRef.current = 0;
 
         const detected = stableRef.current >= N_CONSISTENT;
         onDetect(detected);
 
-        const SMOOTHING_COUNT = 5; // сглаживаем по 5 кадрам
+        const SMOOTHING_COUNT = 5; 
 
         if (detected) smoothingRef.current = Math.min(SMOOTHING_COUNT, smoothingRef.current + 1);
         else smoothingRef.current = Math.max(0, smoothingRef.current - 1);

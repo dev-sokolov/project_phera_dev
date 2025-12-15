@@ -7,14 +7,10 @@
     font-weight: 600;
     border-radius: 100px;
     cursor: pointer;
-    /* background-color: #00303D; */
     background-color: var(--main-color);
     color: #FFFFFF;
     border: none;
     transition: background-color 0.2s;
-    /* font-family: "Open Sans", sans-serif; */
-    /* font-family: "Inter", sans-serif; */
-    /* font-family: 'Cooper Hewitt', sans-serif; */
 }
 
 .btn:hover {

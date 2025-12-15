@@ -40,7 +40,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* width: 100%; */
     flex-grow: 1;
     overflow: hidden;
 }
@@ -55,8 +54,6 @@
 .cameraContainer {
     position: relative;
     width: 100%;
-    /* flex-grow: 1; */
-    /* overflow: hidden; */
     background-color: black;
 }
 
@@ -79,18 +76,16 @@
     z-index: 10;
 }
 
-/* ------------------ Рамка фокуса ------------------ */
+/* ------------------ frame focus ------------------ */
 .overlay {
     position: absolute;
     inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* gap: 31px; */
     gap: 19px;
     pointer-events: none;
     z-index: 5;
-    /* margin-top: 31px; */
     margin-top: 19px;
 }
 
@@ -111,8 +106,6 @@
 
     border: none;
     cursor: pointer;
-
-    /* backdrop-filter: blur(4px); */
 }
 
 .btn {
@@ -135,7 +128,6 @@
     margin-top: 10px;
     display: flex;
     flex-direction: column;
-    /* gap: 20px; */
     padding-right: 24px;
     padding-left: 24px;
 }

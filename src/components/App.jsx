@@ -1,4 +1,5 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
+import AppLayout from "./Layout/AppLayout";
 
 import ScrollToTop from "./ScrollToTop/ScrollToTop";
 import HomePageQr from "../pages/HomePageQr/HomePageQr";
@@ -59,7 +60,7 @@ function App() {
         <Route path="/registration/username" element={<RegistrationStepName />} />
         <Route path="/registration/password" element={<RegistrationStepPassword />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/home/complete" element={<HomeCompletePage />} />
+        <Route path="/home/complete" element={<AppLayout headerVariant="auth"><HomeCompletePage /></AppLayout>} />
         <Route path="/home/tested" element={<HomeTestedPage />} />
         <Route path="/home/start" element={<HomeStartPage />} />
         <Route path="/test-history" element={<TestsHistoryPage />} />

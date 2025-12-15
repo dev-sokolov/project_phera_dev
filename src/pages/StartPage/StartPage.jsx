@@ -17,14 +17,6 @@ const StartPage = () => {
         localStorage.removeItem("reg_username");
     }, []);
 
-    const goBack = () => {
-        if (window.history.length > 2) {
-            navigate(-1);
-        } else {
-            navigate("https://phera.digital/");
-        }
-    };
-
     return (
         <>
             <div className={styles.content}>

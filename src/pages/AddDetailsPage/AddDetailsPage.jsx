@@ -71,7 +71,6 @@ const AddDetailsPage = () => {
 
                         <div className={styles.bottomBlock}>
                             <div className={styles.bottomBlockInner}>
-                                {/* <Button onClick={() => navigate("/result-with-details-normal")}>Save</Button> */}
                                 <Button
                                     onClick={() => navigate("/result-with-details-normal", {
                                         state: {

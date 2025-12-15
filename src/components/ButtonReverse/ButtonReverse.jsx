@@ -9,5 +9,3 @@ const ButtonReverse = ({ onClick, children }) => {
 };
 
 export default ButtonReverse;
-
-// <Button onClick={handleReset}>Home</Button>

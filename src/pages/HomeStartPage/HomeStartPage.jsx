@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,14 +5,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import Button from "../../components/Button/Button";
-import Container from "../../components/Container/Container";
-import AppLayout from "../../components/Layout/AppLayout";
 
-import Logo from "../../assets/Logo";
 import noTestHomeMain from "../../assets/images/noTestHomeMain.jpg"
-import onboardingStep1 from "../../assets/images/onboardingStep1.jpg"
-import onboardingStep2 from "../../assets/images/onboardingStep2.jpg"
-import onboardingStep3 from "../../assets/images/onboardingStep3.jpg"
 import carouselHowItWorksStep1 from "../../assets/images/carousel/carouselHowItWorksStep1.jpg"
 import carouselHowItWorksStep2 from "../../assets/images/carousel/carouselHowItWorksStep2.jpg"
 import carouselHowItWorksStep3 from "../../assets/images/carousel/carouselHowItWorksStep3.jpg"
@@ -24,14 +17,10 @@ import styles from "./HomeStartPage.module.css";
 
 const HomeStartPage = () => {
     const navigate = useNavigate();
-    const [isOpenMenu, setIsOpenMenu] = useState(false);
-
-    const toggleMenu = () => setIsOpenMenu(prev => !prev);
 
     return (
         <>
             <div className={styles.content} data-scroll-container>
-                <AppLayout />
                 <div className={styles.containerInner}>
                     <div className={styles.greetingBlock}>
                         <div className={styles.img}>

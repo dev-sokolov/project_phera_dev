@@ -328,7 +328,7 @@
 
 @media (max-width: 393px) {
     .img {
-        width: 80%;        /* или 40%, или max-width: 100%, как тебе подходит */
+        width: 80%;      
         height: auto;
         flex-shrink: 1;   
     }

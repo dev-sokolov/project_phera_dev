@@ -93,7 +93,6 @@ const RegistrationStepPassword = () => {
                         <div className={styles.crumbs}>
                             <div className={styles.itemColored}></div>
                             <div className={styles.itemColored}></div>
-                            {/* <div className={styles.item}></div> */}
                         </div>
 
                         <div className={styles.textBlock}>

@@ -2,13 +2,11 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
-import AppLayout from "../../components/Layout/AppLayout";
 
 import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import learnMore from "../../assets/images/learnMore.jpg"
 import EditNotesGrey from "../../assets/icons/EditNotesGrey";
 import ArrowRightGrey from "../../assets/icons/ArrowRightGrey";
-import Logo from "../../assets/Logo";
 import styles from "./HomeTestedPage.module.css";
 
 const HomeTestedPage = () => {
@@ -39,7 +37,6 @@ const HomeTestedPage = () => {
     return (
         <>
             <div className={styles.content} data-scroll-container>
-                <AppLayout />
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.title}>Hi, Helena</div>

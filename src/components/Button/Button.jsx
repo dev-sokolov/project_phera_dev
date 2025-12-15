@@ -1,21 +1,11 @@
 import styles from "./Button.module.css";
 
-// const Button = ({ onClick, children, type = "button" }) => {
-//     return (
-//         <button type={type} onClick={onClick} className={styles.btn}>
-//             {children}
-//         </button>
-//     )
-// };
-
-// export default Button;
-
 const Button = ({ onClick, children, type = "button", className = "", disabled }) => {
     return (
         <button
             type={type}
             onClick={onClick}
-            className={`${styles.btn} ${className}`} // объединяем базовый класс с любым внешним
+            className={`${styles.btn} ${className}`} 
             disabled={disabled}
         >
             {children}
@@ -24,5 +14,3 @@ const Button = ({ onClick, children, type = "button", className = "", disabled }
 };
 
 export default Button;
-
-// <Button onClick={handleReset}>Home</Button>

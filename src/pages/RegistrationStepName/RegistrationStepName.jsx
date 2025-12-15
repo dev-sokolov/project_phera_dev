@@ -92,7 +92,6 @@ const RegistrationStepName = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className={styles.crumbs}>
                             <div className={styles.itemColored}></div>
-                            {/* <div className={styles.itemColored}></div> */}
                             <div className={styles.item}></div>
                         </div>
 
