@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+import ArrowLeft from "../../assets/icons/ArrowLeft";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
@@ -16,10 +17,25 @@ const StartPage = () => {
         localStorage.removeItem("reg_username");
     }, []);
 
+    const goBack = () => {
+        if (window.history.length > 2) {
+            navigate(-1);
+        } else {
+            navigate("https://phera.digital/");
+        }
+    };
+
     return (
         <>
             <div className={styles.content}>
                 <div className={styles.wrapLogo}>
+                    <button
+                        className={styles.arrowLeft}
+                        onClick={() => navigate("https://phera.digital/")}
+                        aria-label="Go back"
+                    >
+                        <ArrowLeft />
+                    </button>
                     <div className={styles.logo}>
                         <Logo />
                     </div>

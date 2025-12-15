@@ -1,17 +1,26 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../Header/Header";
-import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import Header from "./Header/Header";
+import BurgerMenu from "./BurgerMenu/BurgerMenu";
 
-const AppLayout = () => {
+const AppLayout = ({ headerVariant = "auth" }) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
-
-    const toggleMenu = () => setMenuOpen(prev => !prev);
 
     return (
         <>
-            <Header onBurgerClick={toggleMenu} isMenuOpen={isMenuOpen} />
-            <BurgerMenu isOpen={isMenuOpen} onClose={() => setMenuOpen(false)} />
+            <Header
+                variant={headerVariant}
+                isMenuOpen={isMenuOpen}
+                onBurgerClick={() => setMenuOpen(true)}
+            />
+
+            {headerVariant === "auth" && (
+                <BurgerMenu
+                    isMenuOpen={isMenuOpen}
+                    onClose={() => setMenuOpen(false)}
+                />
+            )}
+
             <Outlet />
         </>
     );

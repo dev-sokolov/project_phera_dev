@@ -23,6 +23,21 @@
     height: 23px;
 }
 
+.arrowLeft {
+    all: unset;
+    position: absolute;
+    left: 31px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 23px;
+    height: 23px;
+}
+
 .logo {
     width: 61px;
     height: 23px;
@@ -89,7 +104,3 @@
     margin-top: auto;
     width: 100%;
 }
-
-
-
-

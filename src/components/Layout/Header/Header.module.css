@@ -1,7 +1,5 @@
 .wrapLogo {
     padding: 16px;
-    /* display: flex;
-    justify-content: center; */
     border-bottom: 1px solid var(--main-background-color-border);
     background-color: #FFFFFF;
 
@@ -13,7 +11,6 @@
 
     display: flex;
     justify-content: center;
-    /* центрируем логотип */
     align-items: center;
 }
 
@@ -48,7 +45,6 @@
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Анимация открытия — бургер → крестик */
 .burger.openMenu span:nth-child(1) {
     transform: translateY(4px) rotate(45deg);
 }

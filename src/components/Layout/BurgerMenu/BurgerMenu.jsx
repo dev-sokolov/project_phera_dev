@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import ArrowRightBlack from "../../assets/icons/ArrowRightBlack";
+import ArrowRightBlack from "../../../assets/icons/ArrowRightBlack";
 import styles from "./BurgerMenu.module.css";
 
-const BurgerMenu = ({ isOpen, onClose }) => {
+const BurgerMenu = ({ isMenuOpen, onClose }) => {
     const navigate = useNavigate();
-    // if (!isOpen) return null;
+    if (!isMenuOpen) return null;
 
     const goTo = (path) => {
         navigate(path);
@@ -12,7 +12,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
     };
 
     return (
-        <div className={`${styles.overlay} ${isOpen ? styles.open : ""}`} onClick={onClose}>
+        <div className={`${styles.overlay} ${isMenuOpen ? styles.open : ""}`} onClick={onClose}>
             <ul onClick={(e) => e.stopPropagation()}>
                 {/* <li className={styles.item} onClick={() => goTo("/home")}><span>Home</span><ArrowRightBlack /></li> */}
                 <li className={styles.item} onClick={() => goTo("/home/complete")}><span>Home</span><ArrowRightBlack /></li>

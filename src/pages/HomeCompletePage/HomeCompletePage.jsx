@@ -35,7 +35,7 @@ const HomeCompletePage = () => {
     return (
         <>
             <div className={styles.content} data-scroll-container>
-                <AppLayout />
+                <AppLayout headerVariant="guest"/>
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.title}>Hi, Helena</div>
