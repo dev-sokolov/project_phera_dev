@@ -166,7 +166,7 @@
 
 .bottomBlock {
     background-color: var(--main-background-color);
-    padding: 16px 0 29px;
+    padding: 16px 0 16px;
 
     position: fixed;
     bottom: 0;
