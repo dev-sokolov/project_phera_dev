@@ -5,7 +5,6 @@ import { useState } from "react";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import Logo from "../../assets/Logo";
 import { registrNameApi } from "../../shared/api/auth-api";
 
 import styles from "./RegistrationStepName.module.css";
@@ -81,12 +80,6 @@ const RegistrationStepName = () => {
 
     return (
         <div className={styles.content}>
-            <div className={styles.wrapLogo}>
-                <div className={styles.logo}>
-                    <Logo />
-                </div>
-            </div>
-
             <Container>
                 <div className={styles.containerInner}>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -141,7 +134,7 @@ const RegistrationStepName = () => {
                         </div>
                     </form>
                     <div className={styles.wrapinfo}>
-                        <p className={styles.info}>Already have an account?<Link to="/login" className={styles.login}>LOG IN</Link></p> 
+                        <p className={styles.info}>Already have an account?<Link to="/login" className={styles.login}>LOG IN</Link></p>
                     </div>
                 </div>
             </Container>

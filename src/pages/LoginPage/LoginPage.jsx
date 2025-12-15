@@ -5,7 +5,6 @@ import { useState } from "react";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import Logo from "../../assets/Logo";
 import Eye from "../../assets/icons/Eye";
 import { loginApi } from "../../shared/api/auth-api";
 
@@ -73,12 +72,6 @@ const LoginPage = () => {
 
     return (
         <div className={styles.content}>
-            <div className={styles.wrapLogo}>
-                <div className={styles.logo}>
-                    <Logo />
-                </div>
-            </div>
-
             <Container>
                 <div className={styles.containerInner}>
                     <form onSubmit={handleSubmit(onSubmit)}>

@@ -56,3 +56,18 @@
 .burger.openMenu span:nth-child(3) {
     transform: translateY(-4px) rotate(-45deg);
 }
+
+.backBtn {
+    all: unset;
+    position: absolute;
+    left: 31px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 23px;
+    height: 23px;
+}

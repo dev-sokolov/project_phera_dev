@@ -4,7 +4,6 @@ import Lottie from "lottie-react";
 import Container from "../../components/Container/Container";
 
 import loader from "../../assets/lottie/loader.json";
-import Logo from "../../assets/Logo";
 import styles from "./CameraProcessingPage.module.css";
 
 const CameraProcessingPage = () => {
@@ -19,11 +18,6 @@ const CameraProcessingPage = () => {
     return (
         <>
             <div className={styles.content}>
-                <div className={styles.wrapLogo}>
-                    <div className={styles.logo}>
-                        <Logo />
-                    </div>
-                </div>
                 <Container fullWidth>
                     <div className={styles.containerInner}>
                         <div className={styles.wrapTextBlock}>

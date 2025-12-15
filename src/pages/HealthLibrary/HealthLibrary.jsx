@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import Button from "../../components/Button/Button";
-import AppLayout from "../../components/Layout/AppLayout";
 import healthLibrary from "../../assets/images/healthLibrary.jpg"
 import ArrowRightBlack from "../../assets/icons/ArrowRightBlack";
 
@@ -17,7 +16,6 @@ const HealthLibrary = () => {
     return (
         <>
             <div className={styles.content} data-scroll-container>
-                <AppLayout />
                 <div className={styles.containerInner}>
                     <h1 className={styles.title}>Health library</h1>
                     <div className={styles.libraryBlock}>

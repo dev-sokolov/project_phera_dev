@@ -4,7 +4,7 @@
     flex-direction: column;
     min-height: 100dvh;
     overflow-y: auto;
-    padding-top: 66px;
+    padding-top: 56px;
     padding-bottom: 141px;
 }
 
@@ -14,7 +14,7 @@
     max-width: 393px;
     width: 100%;
     margin: 0 auto;
-    padding-top: 37px;
+    padding-top: 47px;
     padding-left: 24px;
 }
 

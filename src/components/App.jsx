@@ -32,39 +32,39 @@ import "../shared/styles/style.css";
 
 function App() {
   const navigate = useNavigate();
+
   return (
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<HomePageQr />} />
-        <Route path="/how-it-works" element={<HowItWorksPage />} />
-        <Route path="/steps" element={<Steps />} />
-        <Route path="/steps/1" element={<Steps1 />} />
-        <Route path="/steps/2" element={<Steps2 />} />
-        <Route path="/steps/3" element={<Steps3 />} />
-        <Route path="/steps/4" element={<Steps4 />} />
-        <Route path="/steps/5" element={<Steps5 />} />
-        <Route path="/camera-access" element={<CameraAccess />} />
+        <Route path="/" element={<AppLayout><HomePageQr /></AppLayout>} />
+        <Route path="/how-it-works" element={<AppLayout><HowItWorksPage /></AppLayout>} />
+        <Route path="/steps" element={<AppLayout><Steps /></AppLayout>} />
+        <Route path="/steps/1" element={<AppLayout><Steps1 /></AppLayout>} />
+        <Route path="/steps/2" element={<AppLayout><Steps2 /></AppLayout>} />
+        <Route path="/steps/3" element={<AppLayout><Steps3 /></AppLayout>} />
+        <Route path="/steps/4" element={<AppLayout><Steps4 /></AppLayout>} />
+        <Route path="/steps/5" element={<AppLayout><Steps5 /></AppLayout>} />
+        <Route path="/camera-access" element={<AppLayout><CameraAccess /></AppLayout>} />
         <Route path="/camera-capture" element={<CameraCapture
           onExit={() => navigate("/camera-access")}
           onCapture={(result) => navigate("/result", { state: result })}
+        />}
         />
-        }
-        />
-        <Route path="/camera-processing" element={<CameraProcessingPage />} />
-        <Route path="/result-without-details" element={<ResultWithoutDetailsPage />} />
-        <Route path="/add-details" element={<AddDetailsPage />} />
-        <Route path="/result-with-details-normal" element={<ResultWithDetailsPageNormal />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/start" element={<StartPage />} />
-        <Route path="/registration/username" element={<RegistrationStepName />} />
-        <Route path="/registration/password" element={<RegistrationStepPassword />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/camera-processing" element={<AppLayout><CameraProcessingPage /></AppLayout>} />
+        <Route path="/result-without-details" element={<AppLayout><ResultWithoutDetailsPage /></AppLayout>} />
+        <Route path="/add-details" element={<AppLayout><AddDetailsPage /></AppLayout>} />
+        <Route path="/result-with-details-normal" element={<AppLayout><ResultWithDetailsPageNormal /></AppLayout>} />
+        <Route path="/signup" element={<AppLayout showBack onBack={() => navigate("/result-with-details-normal")}><SignUpPage /></AppLayout>} />
+        <Route path="/start" element={<AppLayout showBack onBack={() => navigate("https://phera.digital/")}><StartPage /></AppLayout>} />
+        <Route path="/registration/username" element={<AppLayout><RegistrationStepName /></AppLayout>} />
+        <Route path="/registration/password" element={<AppLayout><RegistrationStepPassword /></AppLayout>} />
+        <Route path="/login" element={<AppLayout><LoginPage /></AppLayout>} />
         <Route path="/home/complete" element={<AppLayout headerVariant="auth"><HomeCompletePage /></AppLayout>} />
-        <Route path="/home/tested" element={<HomeTestedPage />} />
-        <Route path="/home/start" element={<HomeStartPage />} />
-        <Route path="/test-history" element={<TestsHistoryPage />} />
-        <Route path="/health-library" element={<HealthLibrary />} />
+        <Route path="/home/tested" element={<AppLayout headerVariant="auth"><HomeTestedPage /></AppLayout>} />
+        <Route path="/home/start" element={<AppLayout headerVariant="auth"><HomeStartPage /></AppLayout>} />
+        <Route path="/test-history" element={<AppLayout headerVariant="auth"><TestsHistoryPage /></AppLayout>} />
+        <Route path="/health-library" element={<AppLayout headerVariant="auth"><HealthLibrary /></AppLayout>} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

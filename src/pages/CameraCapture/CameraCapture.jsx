@@ -84,26 +84,25 @@ const CameraCapture = ({ onCapture, onExit }) => {
     const handleExit = () => {
         const video = webcamRef.current?.video;
         video?.srcObject?.getTracks().forEach((track) => track.stop());
-        onExit();
-        navigate(-1);
+          onExit?.();
     };
 
     // useMarkerDetection(videoRef, frameRef, setInside); //временно !!!! убрать комментирование!!!!!!!!!!!!
 
     useEffect(() => {                        //временно !!!!!!!! Удалить!!!!!!!!!!!!
-    const timer1 = setTimeout(() => {       //временно !!!!!!!! Удалить!!!!!!!!!!!!
-        setInside(true);                    //временно !!!!!!!! Удалить!!!!!!!!!!!!
-    }, 3000);                               //временно !!!!!!!! Удалить!!!!!!!!!!!!
+        const timer1 = setTimeout(() => {       //временно !!!!!!!! Удалить!!!!!!!!!!!!
+            setInside(true);                    //временно !!!!!!!! Удалить!!!!!!!!!!!!
+        }, 3000);                               //временно !!!!!!!! Удалить!!!!!!!!!!!!
 
-    const timer2 = setTimeout(() => {       //временно !!!!!!!! Удалить!!!!!!!!!!!!
-        navigate("/camera-processing");     //временно !!!!!!!! Удалить!!!!!!!!!!!!
-    }, 4000);                               //временно !!!!!!!! Удалить!!!!!!!!!!!!
+        const timer2 = setTimeout(() => {       //временно !!!!!!!! Удалить!!!!!!!!!!!!
+            navigate("/camera-processing");     //временно !!!!!!!! Удалить!!!!!!!!!!!!
+        }, 4000);                               //временно !!!!!!!! Удалить!!!!!!!!!!!!
 
-    return () => {                          //временно !!!!!!!! Удалить!!!!!!!!!!!!
-        clearTimeout(timer1);               //временно !!!!!!!! Удалить!!!!!!!!!!!!
-        clearTimeout(timer2);               //временно !!!!!!!! Удалить!!!!!!!!!!!!
-    };                                      //временно !!!!!!!! Удалить!!!!!!!!!!!!
-}, []);                                     //временно !!!!!!!! Удалить!!!!!!!!!!!!
+        return () => {                          //временно !!!!!!!! Удалить!!!!!!!!!!!!
+            clearTimeout(timer1);               //временно !!!!!!!! Удалить!!!!!!!!!!!!
+            clearTimeout(timer2);               //временно !!!!!!!! Удалить!!!!!!!!!!!!
+        };                                      //временно !!!!!!!! Удалить!!!!!!!!!!!!
+    }, []);                                     //временно !!!!!!!! Удалить!!!!!!!!!!!!
 
     const Frame = ({ inside }) => (
         <img
@@ -146,7 +145,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
                         </div>
 
                         <button className={styles.cameraIlluminationBtn} onClick={toggleTorch}>
-                            <CameraIllumination active={torchOn}/>
+                            <CameraIllumination active={torchOn} />
                         </button>
 
                         <Webcam

@@ -5,8 +5,6 @@ import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import signUp from "../../assets/images/signUp.jpg";
-import Logo from "../../assets/Logo";
-import ArrowLeft from "../../assets/icons/ArrowLeft";
 
 import styles from "./SignUpPage.module.css";
 
@@ -28,18 +26,6 @@ const SignUpPage = () => {
     return (
         <>
             <div className={styles.content}>
-                <div className={styles.wrapLogo}>
-                    <button
-                        className={styles.arrowLeft}
-                        onClick={goBack}
-                        aria-label="Go back"
-                    >
-                        <ArrowLeft />
-                    </button>
-                    <div className={styles.logo}>
-                        <Logo />
-                    </div>
-                </div>
                 <Container>
                     <div className={styles.img}>
                         <img src={signUp} alt="Sing up page img" />

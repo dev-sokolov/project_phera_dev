@@ -1,6 +1,5 @@
 import Container from "../../components/Container/Container";
-import AppLayout from "../../components/Layout/AppLayout";
-import ArrowRightBlackSmall from "../../assets/icons/ArrowRightBlackSmall"; 
+import ArrowRightBlackSmall from "../../assets/icons/ArrowRightBlackSmall";
 import styles from "./TestsHistoryPage.module.css";
 
 const TestsHistoryPage = () => {
@@ -8,7 +7,6 @@ const TestsHistoryPage = () => {
     return (
         <>
             <div className={styles.content} data-scroll-container>
-                <AppLayout />
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.title}>Test history</div>

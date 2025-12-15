@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
 
-import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
-import Logo from "../../assets/Logo";
 import styles from "./ResultWithoutDetailsPage.module.css";
 
 const ResultWithoutDetailsPage = () => {
@@ -14,11 +12,6 @@ const ResultWithoutDetailsPage = () => {
     return (
         <>
             <div className={styles.content} data-scroll-container>
-                <div className={styles.wrapLogo}>
-                    <div className={styles.logo}>
-                        <Logo />
-                    </div>
-                </div>
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.title}>Your pH result</div>
@@ -41,17 +34,7 @@ const ResultWithoutDetailsPage = () => {
                         </div>
                         <div className={styles.textBlock}>
                             <p className={styles.textResult}>This result suggests that your vaginal environment is in its usual balance. Your pH can still shift slightly with your cycle, sex, or products you use, but nothing in this reading looks concerning on its own.</p>
-                            <div className={styles.recommendations}>
-                                <div className={styles.wrapHeading} onClick={() => setIsOpen(!isOpen)}>
-                                    <h3 className={styles.heading}>Recommendations</h3>
-                                    <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ""}`}>
-                                        <ArrowDownGrey />
-                                    </span>
-                                </div>
-                                <div className={`${styles.collapse} ${isOpen ? styles.open : ""}`}>
-                                    <p className={styles.text}>Add your age group, hormone status, background, and current symptoms to get more tailored insights.</p>
-                                </div>
-                            </div>
+
                             <div className={styles.advice}>
                                 <h3 className={styles.heading}>Make this result more personal</h3>
                                 <p className={styles.text}>Want to understand why your pH looks like this? Add your age group, hormone status, background, and current symptoms to get more tailored insights.</p>

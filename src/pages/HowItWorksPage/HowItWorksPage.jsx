@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import Logo from "../../assets/Logo";
 import onboardingStep1 from "../../assets/images/onboardingStep1.jpg"
 import onboardingStep2 from "../../assets/images/onboardingStep2.jpg"
 import onboardingStep3 from "../../assets/images/onboardingStep3.jpg"
@@ -16,11 +15,6 @@ const HowItWorksPage = () => {
     return (
         <>
             <div className={styles.content}>
-                <div className={styles.wrapLogo}>
-                    <div className={styles.logo}>
-                        <Logo />
-                    </div>
-                </div>
                 <Container>
                     <div className={styles.wrapper}>
                         <h1 className={styles.title}>How pHera testing works</h1>

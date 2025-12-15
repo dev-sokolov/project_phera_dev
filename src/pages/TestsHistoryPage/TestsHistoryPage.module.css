@@ -4,8 +4,7 @@
     flex-direction: column;
     min-height: 100dvh;
     overflow-y: auto;
-    padding-top: 66px;
-    padding-top: 66px;
+    padding-top: 56px;
 }
 
 .containerInner {
@@ -40,7 +39,6 @@
     color: #A4A7AE;
     font-size: 12px;
     font-weight: 600;
-    /* margin-bottom: 10px; */
 }
 
 .wrapDate {

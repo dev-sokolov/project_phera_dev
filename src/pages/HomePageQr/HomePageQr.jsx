@@ -4,8 +4,6 @@ import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import homeQr from "../../assets/images/homeQr.jpg";
-import Logo from "../../assets/Logo";
-
 import styles from "./HomePageQr.module.css";
 
 const HomePageQr = () => {
@@ -14,11 +12,6 @@ const HomePageQr = () => {
     return (
         <>
             <div className={styles.content}>
-                <div className={styles.wrapLogo}>
-                    <div className={styles.logo}>
-                        <Logo />
-                    </div>
-                </div>
                 <Container>
                     <div className={styles.img}>
                         <img src={homeQr} alt="home page img" />

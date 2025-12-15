@@ -6,7 +6,6 @@ import Container from "../../components/Container/Container";
 import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import learnMore from "../../assets/images/learnMore.jpg"
 import EditNotesGrey from "../../assets/icons/EditNotesGrey";
-import Logo from "../../assets/Logo";
 import styles from "./ResultWithDetailsPageNormal.module.css";
 
 const ResultWithDetailsPageNormal = () => {
@@ -30,11 +29,6 @@ const ResultWithDetailsPageNormal = () => {
     return (
         <>
             <div className={styles.content} data-scroll-container>
-                <div className={styles.wrapLogo}>
-                    <div className={styles.logo}>
-                        <Logo />
-                    </div>
-                </div>
                 <Container>
                     <div className={styles.containerInner}>
                         <h1 className={styles.title}>Your pH result</h1>
