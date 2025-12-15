@@ -99,6 +99,7 @@
     max-width: 218px;
     /* height: 200px; */
     display: block;
+    border-radius: 10px;
 }
 
 :global(.swiper) {

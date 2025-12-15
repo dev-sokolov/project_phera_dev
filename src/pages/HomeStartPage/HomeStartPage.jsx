@@ -14,6 +14,9 @@ import noTestHomeMain from "../../assets/images/noTestHomeMain.jpg"
 import onboardingStep1 from "../../assets/images/onboardingStep1.jpg"
 import onboardingStep2 from "../../assets/images/onboardingStep2.jpg"
 import onboardingStep3 from "../../assets/images/onboardingStep3.jpg"
+import carouselHowItWorksStep1 from "../../assets/images/carousel/carouselHowItWorksStep1.jpg"
+import carouselHowItWorksStep2 from "../../assets/images/carousel/carouselHowItWorksStep2.jpg"
+import carouselHowItWorksStep3 from "../../assets/images/carousel/carouselHowItWorksStep3.jpg"
 import library1 from "../../assets/images/library1.jpg"
 import library2 from "../../assets/images/library2.jpg"
 
@@ -36,7 +39,7 @@ const HomeStartPage = () => {
                         </div>
                         <div className={styles.wrapText}>
                             <p className={styles.text}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+                                A quick pH test helps you understand your vaginal balance and spot changes early — right from your phone. Have your pHera test box and strip ready. We’ll guide you step by step and scan your result automatically.
                             </p>
                         </div>
                         <div className={styles.btn}>
@@ -56,7 +59,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.carouselItem}>
                                     <div className={styles.carouselImg}>
-                                        <img src={onboardingStep1} alt="Step 1" />
+                                        <img src={carouselHowItWorksStep1} loading="lazy" alt="Step 1" />
                                     </div>
                                     <h3 className={styles.carouselTitle}>Scan your kit</h3>
                                     <p className={styles.carouselText}>
@@ -68,7 +71,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.carouselItem}>
                                     <div className={styles.carouselImg}>
-                                        <img src={onboardingStep2} alt="Step 2" />
+                                        <img src={carouselHowItWorksStep2} loading="lazy" alt="Step 2" />
                                     </div>
                                     <h3 className={styles.carouselTitle}>Allow camera access</h3>
                                     <p className={styles.carouselText}>
@@ -80,7 +83,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.carouselItem}>
                                     <div className={styles.carouselImg}>
-                                        <img src={onboardingStep3} alt="Step 3" />
+                                        <img src={carouselHowItWorksStep3} loading="lazy" alt="Step 3" />
                                     </div>
                                     <h3 className={styles.carouselTitle}>Get your result</h3>
                                     <p className={styles.carouselText}>
