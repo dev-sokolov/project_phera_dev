@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -22,10 +22,10 @@ const HealthLibrary = () => {
                     <div className={styles.libraryBlock}>
                         <div className={styles.wrapHeading}>
                             <h2 className={styles.heading}>About care</h2>
-                            <div className={styles.wrapSeeAll}>
+                            <Link to="/subscription" className={styles.wrapSeeAll}>
                                 <div className={styles.seeAll}>See all</div>
                                 <ArrowRightBlack />
-                            </div>
+                            </Link>
                         </div>
                         <Swiper
                             className={`${styles.swiper} ${styles.librarySwiper}`}
@@ -89,10 +89,10 @@ const HealthLibrary = () => {
                     <div className={styles.libraryBlock}>
                         <div className={styles.wrapHeading}>
                             <h2 className={styles.heading}>About care</h2>
-                            <div className={styles.wrapSeeAll}>
+                            <Link to="/subscription" className={styles.wrapSeeAll}>
                                 <div className={styles.seeAll}>See all</div>
                                 <ArrowRightBlack />
-                            </div>
+                            </Link>
                         </div>
                         <Swiper
                             className={`${styles.swiper} ${styles.librarySwiper}`}
@@ -153,7 +153,7 @@ const HealthLibrary = () => {
                         </Swiper>
                     </div>
                     <BottomBlock>
-                        <Button >Unlock all articles</Button>
+                        <Button onClick={() => navigate("/subscription")} >Unlock all articles</Button>
                     </BottomBlock>
                 </div>
             </div >

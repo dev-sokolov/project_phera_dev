@@ -7,7 +7,7 @@
     border-radius: 100px;
     cursor: pointer;
     background-color: transparent;
-    color: var(--main-color);
+    color: #1F1F1F;
     border: 1px solid var(--main-color);
     font-family: "Inter", sans-serif;
 }

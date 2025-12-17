@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
@@ -7,14 +6,10 @@ import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import signUp from "../../assets/images/signUp.jpg";
 
-import styles from "./SignUpPage.module.css";
+import styles from "./SubscriptionPage.module.css";
 
-const SignUpPage = () => {
+const SubscriptionPage = () => {
     const navigate = useNavigate();
-
-    useEffect(() => {
-        localStorage.removeItem("reg_username");
-    }, []);
 
     const goBack = () => {
         if (window.history.length > 2) {
@@ -29,15 +24,15 @@ const SignUpPage = () => {
             <div className={styles.content}>
                 <Container>
                     <div className={styles.img}>
-                        <img src={signUp} alt="Sing up page image" />
+                        <img src={signUp} alt="Subscription page img" />
                     </div>
                     <div className={styles.textBlock}>
-                        <h1 className={styles.heading}>Don’t lose your progress</h1>
-                        <p className={styles.text}>Sign up to save your test history, track trends, and access personalized health recommendations.</p>
+                        <h1 className={styles.heading}>Unlock your full pHera experience</h1>
+                        <p className={styles.text}>Get tailored insights, trusted education, and ongoing guidance designed around your body and your results.</p>
                     </div>
                     <BottomBlock>
-                        <Button onClick={() => navigate("/registration/username")}>Create account</Button>
-                        <ButtonReverse onClick={() => navigate("/login")}>Log In</ButtonReverse>
+                        <Button onClick={() => navigate("/registration/username")}>Subscribe</Button>
+                        <ButtonReverse onClick={goBack}>Maybe later</ButtonReverse>
                     </BottomBlock>
                 </Container>
             </div>
@@ -45,4 +40,4 @@ const SignUpPage = () => {
     )
 };
 
-export default SignUpPage
+export default SubscriptionPage;

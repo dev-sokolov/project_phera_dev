@@ -27,11 +27,20 @@ import HomeTestedPage from "../pages/HomeTestedPage/HomeTestedPage";
 import HomeStartPage from "../pages/HomeStartPage/HomeStartPage";
 import TestsHistoryPage from "../pages/TestsHistoryPage/TestsHistoryPage";
 import HealthLibrary from "../pages/HealthLibrary/HealthLibrary";
+import SubscriptionPage from "../pages/SubscriptionPage/SubscriptionPage";
 
 import "../shared/styles/style.css";
 
 function App() {
   const navigate = useNavigate();
+
+  const goBack = () => {
+    if (window.history.length > 2) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
+  };
 
   return (
     <>
@@ -65,6 +74,7 @@ function App() {
         <Route path="/home/start" element={<AppLayout headerVariant="auth"><HomeStartPage /></AppLayout>} />
         <Route path="/test-history" element={<AppLayout headerVariant="auth"><TestsHistoryPage /></AppLayout>} />
         <Route path="/health-library" element={<AppLayout headerVariant="auth"><HealthLibrary /></AppLayout>} />
+        <Route path="/subscription" element={<AppLayout showBack onBack={goBack}><SubscriptionPage /></AppLayout>} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

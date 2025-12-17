@@ -26,13 +26,17 @@
 
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 
-    font-size: 10px;
-    color: #414651;
-    line-height: 1.35;
+
 
     z-index: 9999;
 
     animation: popoverFadeIn 180ms ease-out forwards;
+}
+
+.content {
+    font-size: 12px;
+    color: #414651;
+    line-height: 1.35;
 }
 
 @keyframes popoverFadeIn {
@@ -40,6 +44,7 @@
         opacity: 0;
         transform: translate(-50%, -105%) scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: translate(-50%, -100%) scale(1);
