@@ -32,7 +32,7 @@ const SubscriptionPage = () => {
                     </div>
                     <BottomBlock>
                         <Button onClick={() => navigate("/payment")}>Subscribe</Button>
-                        <ButtonReverse onClick={goBack}>Maybe later</ButtonReverse>
+                        <ButtonReverse onClick={() => navigate("/health-library")}>Maybe later</ButtonReverse>
                     </BottomBlock>
                 </Container>
             </div>
