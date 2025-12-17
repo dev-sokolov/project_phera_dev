@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 
+import BottomBlock from "../../../components/BottomBlock/BottomBlock";
 import Button from "../../../components/Button/Button";
 import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
 import Container from "../../../components/Container/Container";
@@ -29,10 +30,10 @@ const Steps4 = () => {
                             <p className={styles.text}>Place the strip inside the on-screen frame and hold your phone steady.
                                 Once the test area is in focus, the scan will happen automatically — no need to press anything.</p>
                         </div>
-                        <div className={styles.bottomBlock}>
+                        <BottomBlock>
                             <Button onClick={() => navigate("/steps/5")}>Next</Button>
                             <ButtonReverse onClick={() => navigate("/steps/3")}>Go back</ButtonReverse>
-                        </div>
+                        </BottomBlock>
                     </div>
                 </Container>
             </div>

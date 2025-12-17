@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
@@ -48,14 +49,10 @@ const HowItWorksPage = () => {
                             </div>
                         </div>
 
-                        <div className={styles.bottomBlock}>
-                            <div className={styles.bottomBlockInner}>
-                                <div className={styles.btn}>
-                                    <Button onClick={() => navigate("/steps")}>Start test</Button>
-                                    <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
-                                </div>
-                            </div>
-                        </div>
+                        <BottomBlock>
+                            <Button onClick={() => navigate("/steps")}>Start test</Button>
+                            <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
+                        </BottomBlock>
                     </div>
                 </Container>
             </div>

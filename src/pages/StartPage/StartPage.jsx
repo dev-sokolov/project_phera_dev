@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
@@ -26,12 +27,10 @@ const StartPage = () => {
                         <h1 className={styles.heading}>Quick, private vaginal pH testing right from your phone.</h1>
                         <p className={styles.text}>Make sure you have your pHera test box and test strip ready. You’ll need them to scan your QR code and capture your result.</p>
                     </div>
-                    <div className={styles.bottomBlock}>
-                        <div className={styles.btns}>
-                            <Button onClick={() => navigate("/registration/username")}>Create account</Button>
-                            <ButtonReverse onClick={() => navigate("/login")}>Log In</ButtonReverse>
-                        </div>
-                    </div>
+                    <BottomBlock>
+                        <Button onClick={() => navigate("/registration/username")}>Create account</Button>
+                        <ButtonReverse onClick={() => navigate("/login")}>Log In</ButtonReverse>
+                    </BottomBlock>
                 </Container>
             </div>
         </>

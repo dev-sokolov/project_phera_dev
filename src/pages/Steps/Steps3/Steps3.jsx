@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 
+import BottomBlock from "../../../components/BottomBlock/BottomBlock";
 import Button from "../../../components/Button/Button";
 import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
 import Container from "../../../components/Container/Container";
@@ -28,10 +29,10 @@ const Steps3 = () => {
                             <h2 className={styles.heading}>Let the strip settle</h2>
                             <p className={styles.text}>Leave it for about a minute so the color can develop fully. When you’re ready, pHera will guide you to scan your strip.</p>
                         </div>
-                        <div className={styles.bottomBlock}>
+                        <BottomBlock>
                             <Button onClick={() => navigate("/steps/4")}>Next</Button>
                             <ButtonReverse onClick={() => navigate("/steps/2")}>Go back</ButtonReverse>
-                        </div>
+                        </BottomBlock>
                     </div>
                 </Container>
             </div>

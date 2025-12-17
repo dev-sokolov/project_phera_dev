@@ -81,17 +81,3 @@
     color: #1F1F1F;
     max-width: 114px;
 }
-
-.bottomBlock {
-    padding: 16px 0 29px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-}
-
-.bottomBlockInner {
-    max-width: 393px;
-    padding: 0 24px;
-    margin: 0 auto;
-}

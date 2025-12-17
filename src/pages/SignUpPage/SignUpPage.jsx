@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
@@ -34,12 +35,10 @@ const SignUpPage = () => {
                         <h1 className={styles.heading}>Don’t lose your progress</h1>
                         <p className={styles.text}>Sign up to save your test history, track trends, and access personalized health recommendations.</p>
                     </div>
-                    <div className={styles.bottomBlock}>
-                        <div className={styles.btns}>
-                            <Button onClick={() => navigate("/registration/username")}>Create account</Button>
-                            <ButtonReverse onClick={() => navigate("/login")}>Log In</ButtonReverse>
-                        </div>
-                    </div>
+                    <BottomBlock>
+                        <Button onClick={() => navigate("/registration/username")}>Create account</Button>
+                        <ButtonReverse onClick={() => navigate("/login")}>Log In</ButtonReverse>
+                    </BottomBlock>
                 </Container>
             </div>
         </>

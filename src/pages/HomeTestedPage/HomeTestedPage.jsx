@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
 
@@ -120,11 +121,9 @@ const HomeTestedPage = () => {
                             )}
 
                         </div>
-                        <div className={styles.bottomBlock}>
-                            <div className={styles.bottomBlockInner}>
-                                <Button onClick={() => navigate("/steps")}>Start new scan</Button>
-                            </div>
-                        </div>
+                        <BottomBlock>
+                            <Button onClick={() => navigate("/steps")}>Start new scan</Button>
+                        </BottomBlock>
                     </div>
                 </Container>
             </div>

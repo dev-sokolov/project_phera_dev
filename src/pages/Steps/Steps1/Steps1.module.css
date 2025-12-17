@@ -72,11 +72,3 @@
 .text {
     line-height: 1.3;
 }
-
-.bottomBlock {
-    margin-top: auto;
-    margin-bottom: 36px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}

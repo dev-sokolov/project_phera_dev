@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
 
@@ -46,11 +47,9 @@ const ResultWithoutDetailsPage = () => {
                                 </p>
                             </div>
                         </div>
-                        <div className={styles.bottomBlock}>
-                            <div className={styles.bottomBlockInner}>
-                                <Button onClick={() => navigate("/signup")}>Save to my history</Button>
-                            </div>
-                        </div>
+                        <BottomBlock>
+                            <Button onClick={() => navigate("/signup")}>Save to my history</Button>
+                        </BottomBlock>
                     </div>
                 </Container>
             </div>

@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 
+import BottomBlock from "../../../components/BottomBlock/BottomBlock";
 import Button from "../../../components/Button/Button";
 import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
 import Container from "../../../components/Container/Container";
@@ -30,10 +31,10 @@ const Steps5 = () => {
 
                             <p className={styles.textItalic}>Next, we’ll take you to a quick scan of your test strip.</p>
                         </div>
-                        <div className={styles.bottomBlock}>
+                        <BottomBlock>
                             <Button onClick={() => navigate("/camera-access")}>Next</Button>
                             <ButtonReverse onClick={() => navigate("/steps/4")}>Go back</ButtonReverse>
-                        </div>
+                        </BottomBlock>
                     </div>
                 </Container>
             </div>

@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import healthLibrary from "../../assets/images/healthLibrary.jpg"
 import ArrowRightBlack from "../../assets/icons/ArrowRightBlack";
@@ -151,11 +152,9 @@ const HealthLibrary = () => {
                             </SwiperSlide>
                         </Swiper>
                     </div>
-                    <div className={styles.bottomBlock}>
-                        <div className={styles.bottomBlockInner}>
-                            <Button >Unlock all articles</Button>
-                        </div>
-                    </div>
+                    <BottomBlock>
+                        <Button >Unlock all articles</Button>
+                    </BottomBlock>
                 </div>
             </div >
         </>

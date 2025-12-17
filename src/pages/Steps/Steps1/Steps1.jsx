@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 
+import BottomBlock from "../../../components/BottomBlock/BottomBlock";
 import Button from "../../../components/Button/Button";
 import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
 import Container from "../../../components/Container/Container";
@@ -28,10 +29,10 @@ const Steps1 = () => {
                             <h2 className={styles.heading}>Open your test strip</h2>
                             <p className={styles.text}>Open your pHera box, take one strip, and remove the foil right before testing. Hold it by the white handle only, to keep the test area clean and dry.</p>
                         </div>
-                        <div className={styles.bottomBlock}>
+                        <BottomBlock>
                             <Button onClick={() => navigate("/steps/2")}>Next</Button>
                             <ButtonReverse onClick={() => navigate("/steps")}>Go back</ButtonReverse>
-                        </div>
+                        </BottomBlock>
                     </div>
                 </Container>
             </div>

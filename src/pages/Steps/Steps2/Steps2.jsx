@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 
+import BottomBlock from "../../../components/BottomBlock/BottomBlock";
 import Button from "../../../components/Button/Button";
 import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
 import Container from "../../../components/Container/Container";
@@ -28,10 +29,10 @@ const Steps2 = () => {
                             <h2 className={styles.heading}>Collect your sample</h2>
                             <p className={styles.text}>Gently place the strip just inside the vaginal opening for about 2–3 seconds. Then remove it and place it on a clean, dry surface.</p>
                         </div>
-                        <div className={styles.bottomBlock}>
+                        <BottomBlock>
                             <Button onClick={() => navigate("/steps/3")}>Next</Button>
                             <ButtonReverse onClick={() => navigate("/steps/1")}>Go back</ButtonReverse>
-                        </div>
+                        </BottomBlock>
                     </div>
                 </Container>
             </div>

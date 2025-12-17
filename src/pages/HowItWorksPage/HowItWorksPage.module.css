@@ -26,7 +26,6 @@
 .steps {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
 }
 
 .step {
@@ -63,24 +62,3 @@
     max-width: 295px;
 }
 
-.bottomBlock {
-    background-color: var(--main-background-color);
-    padding: 16px 0 36px;
-
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-}
-
-.bottomBlockInner {
-    max-width: 393px;
-    padding: 0 24px;
-    margin: 0 auto;
-}
-
-.btn {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}

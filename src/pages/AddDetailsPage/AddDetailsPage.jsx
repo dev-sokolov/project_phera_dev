@@ -2,6 +2,7 @@ import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { useState } from "react";
 
 import PersonalData from "../../components/PersonalData/PersonalData";
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
@@ -63,26 +64,24 @@ const AddDetailsPage = () => {
                             />
                         </div>
 
-                        <div className={styles.bottomBlock}>
-                            <div className={styles.bottomBlockInner}>
-                                <Button
-                                    onClick={() => navigate("/result-with-details-normal", {
-                                        state: {
-                                            age,
-                                            hormone,
-                                            ethnicBackground,
-                                            discharge,
-                                            vulvaCondition,
-                                            smell,
-                                            notes
-                                        }
-                                    })}
-                                >
-                                    Save
-                                </Button>
-                                <ButtonReverse onClick={() => navigate("/result-without-details")}>Go back</ButtonReverse>
-                            </div>
-                        </div>
+                        <BottomBlock>
+                            <Button
+                                onClick={() => navigate("/result-with-details-normal", {
+                                    state: {
+                                        age,
+                                        hormone,
+                                        ethnicBackground,
+                                        discharge,
+                                        vulvaCondition,
+                                        smell,
+                                        notes
+                                    }
+                                })}
+                            >
+                                Save
+                            </Button>
+                            <ButtonReverse onClick={() => navigate("/result-without-details")}>Go back</ButtonReverse>
+                        </BottomBlock>
                     </div>
                 </Container>
             </div>

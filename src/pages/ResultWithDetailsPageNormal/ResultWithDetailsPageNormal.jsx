@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
-// import BottomActions from "../../components/BottomActions/BottomActions";
-import BottomBlock from "../../components/BottomBlock/BottomBlock";
-import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 
 import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import learnMore from "../../assets/images/learnMore.jpg"
@@ -106,20 +105,9 @@ const ResultWithDetailsPageNormal = () => {
 
                             </div>
                         </div>
-                        {/* <div className={styles.bottomBlock}>
-                            <div className={styles.bottomBlockInner}>
-                                <Button onClick={() => navigate("/signup")}>Save to my history</Button>
-                            </div>
-                        </div> */}
                         <BottomBlock>
                             <Button onClick={() => navigate("/signup")}>Save to my history</Button>
-                            <ButtonReverse onClick={() => navigate("/")}>Save! to my history</ButtonReverse>
                         </BottomBlock>
-                        {/* <div className={styles.bottomBlock}>
-                            <div className={styles.bottomBlockInner}>
-                                <Button onClick={() => navigate("/signup")}>Save to my history</Button>
-                            </div>
-                        </div> */}
                     </div>
                 </Container>
             </div>
