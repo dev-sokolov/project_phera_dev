@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
-// import { useRef, useState } from "react";
 import { useRef, useState, useEffect } from "react";
 
-import BottomBlock from "../../../components/BottomBlock/BottomBlock";
-import Button from "../../../components/Button/Button";
-import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
-import Container from "../../../components/Container/Container";
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
+import Button from "../../components/Button/Button";
+import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
+import Container from "../../components/Container/Container";
 
 import styles from "./PaymentPage.module.css";
 
