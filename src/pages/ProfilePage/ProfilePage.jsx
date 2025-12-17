@@ -61,15 +61,6 @@ const ProfilePage = () => {
                             <div className={styles.heading}>Password</div>
 
                             {isEditingPassword ? (
-                                // <input
-                                //     className={styles.input}
-                                //     // type="text"
-                                //     type={showPassword ? "text" : "password"}
-                                //     value={password}
-                                //     onChange={(e) => setPassword(e.target.value)}
-                                //     onBlur={() => setIsEditingPassword(false)}
-                                //     autoFocus
-                                // />
                                 <input
                                     className={styles.input}
                                     type={showPassword ? "text" : "password"}
@@ -88,10 +79,6 @@ const ProfilePage = () => {
                             )}
                         </div>
 
-                        {/* <button className={styles.btn} onClick={() => setShowPassword(v => !v)}>
-                            {showPassword ? "HIDE" : "SHOW"}
-                        </button> */}
-
                         {isEditingPassword && (
                             <button
                                 className={styles.btn}
@@ -101,16 +88,6 @@ const ProfilePage = () => {
                                 {showPassword ? "HIDE" : "SHOW"}
                             </button>
                         )}
-
-                        {/* <button
-                            className={styles.edit}
-                            onClick={() => {
-                                setIsEditingPassword(true);
-                                setShowPassword(false);
-                            }}
-                        >
-                            EDIT
-                        </button> */}
 
                         <button
                             className={styles.edit}
