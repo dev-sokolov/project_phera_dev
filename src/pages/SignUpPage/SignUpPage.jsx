@@ -5,7 +5,7 @@ import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import signUp from "../../assets/images/signUp.jpg";
+import welcomeImage from "../../assets/images/welcomeImage.jpg";
 
 import styles from "./SignUpPage.module.css";
 
@@ -29,7 +29,7 @@ const SignUpPage = () => {
             <div className={styles.content}>
                 <Container>
                     <div className={styles.img}>
-                        <img src={signUp} alt="Sing up page image" />
+                        <img src={welcomeImage} alt="Sing up page image" />
                     </div>
                     <div className={styles.textBlock}>
                         <h1 className={styles.heading}>Don’t lose your progress</h1>

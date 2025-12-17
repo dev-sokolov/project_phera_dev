@@ -4,7 +4,7 @@ import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import signUp from "../../assets/images/signUp.jpg";
+import welcomeImage from "../../assets/images/welcomeImage.jpg";
 
 import styles from "./SubscriptionPage.module.css";
 
@@ -24,14 +24,14 @@ const SubscriptionPage = () => {
             <div className={styles.content}>
                 <Container>
                     <div className={styles.img}>
-                        <img src={signUp} alt="Subscription page img" />
+                        <img src={welcomeImage} alt="Subscription page img" />
                     </div>
                     <div className={styles.textBlock}>
                         <h1 className={styles.heading}>Unlock your full pHera experience</h1>
                         <p className={styles.text}>Get tailored insights, trusted education, and ongoing guidance designed around your body and your results.</p>
                     </div>
                     <BottomBlock>
-                        <Button onClick={() => navigate("/registration/username")}>Subscribe</Button>
+                        <Button onClick={() => navigate("/payment")}>Subscribe</Button>
                         <ButtonReverse onClick={goBack}>Maybe later</ButtonReverse>
                     </BottomBlock>
                 </Container>

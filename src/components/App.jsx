@@ -28,6 +28,7 @@ import HomeStartPage from "../pages/HomeStartPage/HomeStartPage";
 import TestsHistoryPage from "../pages/TestsHistoryPage/TestsHistoryPage";
 import HealthLibrary from "../pages/HealthLibrary/HealthLibrary";
 import SubscriptionPage from "../pages/SubscriptionPage/SubscriptionPage";
+import PaymentPage from "../pages/SubscriptionPage/PaymentPage/PaymentPage";
 
 import "../shared/styles/style.css";
 
@@ -75,6 +76,7 @@ function App() {
         <Route path="/test-history" element={<AppLayout headerVariant="auth"><TestsHistoryPage /></AppLayout>} />
         <Route path="/health-library" element={<AppLayout headerVariant="auth"><HealthLibrary /></AppLayout>} />
         <Route path="/subscription" element={<AppLayout showBack onBack={goBack}><SubscriptionPage /></AppLayout>} />
+        <Route path="/payment" element={<AppLayout headerVariant="auth"><PaymentPage /></AppLayout>} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -5,7 +5,7 @@ import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import signUp from "../../assets/images/signUp.jpg";
+import welcomeImage from "../../assets/images/welcomeImage.jpg";
 
 import styles from "./StartPage.module.css";
 
@@ -21,7 +21,7 @@ const StartPage = () => {
             <div className={styles.content}>
                 <Container>
                     <div className={styles.img}>
-                        <img src={signUp} alt="Start page img" />
+                        <img src={welcomeImage} alt="Start page img" />
                     </div>
                     <div className={styles.textBlock}>
                         <h1 className={styles.heading}>Quick, private vaginal pH testing right from your phone.</h1>
