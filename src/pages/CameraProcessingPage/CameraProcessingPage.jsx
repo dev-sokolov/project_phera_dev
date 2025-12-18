@@ -20,13 +20,15 @@ const CameraProcessingPage = () => {
             <div className={styles.content}>
                 <Container fullWidth>
                     <div className={styles.containerInner}>
-                        <div className={styles.wrapTextBlock}>
-                            <div className={styles.textBlock}>
+                        <div className={styles.wrapper}>
+                            <div className={styles.wrappInner}>
                                 <div className={styles.wrapLoading}>
                                     <Lottie className={styles.loading} animationData={loader} loop={true} />
                                 </div>
-                                <h2 className={styles.heading}>Processing Your Test</h2>
-                                <p className={styles.text}>This usually takes less than a minute.Please keep this screen open — your result will appear automatically.</p>
+                                <div className={styles.textBlock}>
+                                    <h2 className={styles.heading}>Processing Your Test</h2>
+                                    <p className={styles.text}>This usually takes less than a minute.Please keep this screen open — your result will appear automatically.</p>
+                                </div>
                             </div>
                         </div>
                     </div>

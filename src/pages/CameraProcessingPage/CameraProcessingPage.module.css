@@ -19,7 +19,7 @@
     min-height: calc(100dvh - 56px);
 }
 
-.wrapTextBlock {
+.wrapper {
     /* position: absolute;
     top: 50%;
     left: 50%;
@@ -36,7 +36,7 @@
     margin: auto;
 }
 
-.textBlock {
+.wrappInner {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -55,6 +55,10 @@
     width: 100%;
     height: 100%;
     margin-bottom: 31px;
+}
+
+.textBlock {
+    grid-row: 3;
 }
 
 .heading {
