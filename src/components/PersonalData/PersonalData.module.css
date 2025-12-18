@@ -1,5 +1,5 @@
 .wrapper {
-    width: 100%;    
+    width: 100%;
 }
 
 .form {
@@ -8,6 +8,11 @@
     gap: 20px;
 }
 
-
-
-
+.heading {
+    margin-top: 10px;
+    font-family: 'Cooper Hewitt', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--main-color);
+    line-height: 1.3;
+}
