@@ -17,8 +17,11 @@ const TestsHistoryEmptyPage = () => {
                     <div className={styles.containerInner}>
                         <div className={styles.mainBlock}>
                             <div className={styles.icon}><EmptyFile /></div>
-                            <h1 className={styles.title}>Your test history will appear here</h1>
-                            <div className={styles.text}>After your first scan, you’ll be able to see your past results here and notice patterns over time.</div>
+                            <div className={styles.textBlock}>
+                                <h1 className={styles.title}>Your test history will appear here</h1>
+                                <div className={styles.text}>After your first scan, you’ll be able to see your past results here and notice patterns over time.</div>
+                            </div>
+
                         </div>
 
                         <BottomBlock>
