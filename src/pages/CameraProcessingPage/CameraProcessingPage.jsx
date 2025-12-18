@@ -1,9 +1,9 @@
 // import { useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
-// import Lottie from "lottie-react";
+import Lottie from "lottie-react";
 // import Container from "../../components/Container/Container";
 
-// import loader from "../../assets/lottie/loader.json";
+import loader from "../../assets/lottie/loader.json";
 // import styles from "./CameraProcessingPage.module.css";
 
 // const CameraProcessingPage = () => {
@@ -58,10 +58,13 @@ const CameraProcessingPage = () => {
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.mainBlock}>
-                            <div className={styles.icon}><EmptyFile /></div>
+                            {/* <div className={styles.icon}><EmptyFile /></div> */}
+                            {/* <div className={styles.wrapLoading}> */}
+                                <Lottie className={styles.loading} animationData={loader} loop={true} />
+                            {/* </div> */}
                             <div className={styles.textBlock}>
-                                <h1 className={styles.title}>Your test history will appear here</h1>
-                                <div className={styles.text}>After your first scan, you’ll be able to see your past results here and notice patterns over time.</div>
+                                <h1 className={styles.title}>Processing your test</h1>
+                                <div className={styles.text}>Studies suggest that most vaginal pH changes are linked to everyday factors — not infections.</div>
                             </div>
 
                         </div>
