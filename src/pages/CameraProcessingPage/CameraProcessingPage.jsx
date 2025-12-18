@@ -12,7 +12,7 @@ const CameraProcessingPage = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate("/result-without-details");
-        }, 30000);
+        }, 300000);
         return () => clearTimeout(timer);
     }, [navigate]);
     return (
@@ -26,8 +26,8 @@ const CameraProcessingPage = () => {
                                     <Lottie className={styles.loading} animationData={loader} loop={true} />
                                 </div>
                                 <div className={styles.textBlock}>
-                                    <h2 className={styles.heading}>Processing Your Test</h2>
-                                    <p className={styles.text}>This usually takes less than a minute.Please keep this screen open — your result will appear automatically.</p>
+                                    <h2 className={styles.heading}>Processing your test</h2>
+                                    <p className={styles.text}>Studies suggest that most vaginal pH changes are linked to everyday factors — not infections.</p>
                                 </div>
                             </div>
                         </div>
