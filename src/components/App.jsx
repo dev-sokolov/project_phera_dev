@@ -26,6 +26,7 @@ import HomeCompletePage from "../pages/HomeCompletePage/HomeCompletePage";
 import HomeTestedPage from "../pages/HomeTestedPage/HomeTestedPage";
 import HomeStartPage from "../pages/HomeStartPage/HomeStartPage";
 import TestsHistoryPage from "../pages/TestsHistoryPage/TestsHistoryPage";
+import TestsHistoryEmptyPage from "../pages/TestsHistoryEmptyPage/TestsHistoryEmptyPage";
 import HealthLibrary from "../pages/HealthLibrary/HealthLibrary";
 import SubscriptionPage from "../pages/SubscriptionPage/SubscriptionPage";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
@@ -75,6 +76,7 @@ function App() {
         <Route path="/home/tested" element={<AppLayout headerVariant="auth"><HomeTestedPage /></AppLayout>} />
         <Route path="/home/start" element={<AppLayout headerVariant="auth"><HomeStartPage /></AppLayout>} />
         <Route path="/test-history" element={<AppLayout headerVariant="auth"><TestsHistoryPage /></AppLayout>} />
+        <Route path="/test-history-empty" element={<AppLayout headerVariant="auth"><TestsHistoryEmptyPage /></AppLayout>} />
         <Route path="/health-library" element={<AppLayout headerVariant="auth"><HealthLibrary /></AppLayout>} />
         <Route path="/profile" element={<AppLayout headerVariant="auth"><ProfilePage /></AppLayout>} />
         <Route path="/subscription" element={<AppLayout showBack onBack={() => navigate("/health-library")}><SubscriptionPage /></AppLayout>} />
