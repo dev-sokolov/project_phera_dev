@@ -1,23 +1,26 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 
 import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./EthnicBackground.module.css";
 
 const ethnicBackgroundOptions = [
   "African / Black",
+  "North African",
+  "Arab",
+  "Middle Eastern",
   "East Asian",
   "South Asian",
   "Southeast Asian",
-  "Middle Eastern",
-  "North African",
-  "European / White",
-  "Latin American / Hispanic",
-  "Indigenous",
-  "Mixed background",
+  "Central Asian / Caucasus",
+  "Latin American / Latina / Latinx / Hispanic",
+  "Sinti / Roma",
+  "White / Caucasian / European",
+  "Mixed / Multiple ancestrie",
   "Other",
 ];
 
 const EthnicBackground = ({ ethnicBackground, onChange }) => {
+  const [isOpen, setIsOpen] = useState(true);
 
   const ethnicBackgroundList = ethnicBackgroundOptions.map((item) => {
     const isActive = ethnicBackground.includes(item);
@@ -34,12 +37,12 @@ const EthnicBackground = ({ ethnicBackground, onChange }) => {
   });
 
   return (
-    <div className={styles.wrap}>
-      <InfoTooltip title="Ethnic background(s)">
+    <div className={styles.wrap} >
+      <InfoTooltip title="Ethnic background(s)" onToggle={() => setIsOpen((v) => !v)} onToggleArrow={isOpen}>
         Racial and ethnic backgrounds are linked to natural differences in genetics, immune responses, and care habits. This can shape vaginal flora and therefore its acidity, moisture, and scent. Knowing this helps pHera understand what is normal for your body.
       </InfoTooltip>
 
-      <div className={styles.wrapEthnicBackgroundlList}>
+      <div className={`${styles.list} ${!isOpen ? styles.collapsed : ""}`}>
         {ethnicBackgroundList}
       </div>
     </div>

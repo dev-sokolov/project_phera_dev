@@ -49,7 +49,7 @@ const AgeInput = ({ age, onChange }) => {
 
     return (
         <div className={styles.wrap}>
-            <InfoTooltip title="Age">
+            <InfoTooltip title="Age" showArrow={false}>
                 It is normal for vaginal pH to change with age, because of how hormones work at different life stages. Such shifts can slightly affect natural self-lubrication and odor.
             </InfoTooltip>
 

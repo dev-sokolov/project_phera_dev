@@ -1,17 +1,17 @@
-import { useRef, memo } from "react";
+import { memo, useState } from "react";
 
 import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./Smell.module.css";
 
 const smellOptions = [
-    "Strong and unpleasant (“Fishy”)",
+    "Strong and unpleasant (“fishy”)",
     "Sour",
     "Chemical-like",
     "Very strong or rotten",
 ];
 
 const Smell = ({ smell, onChange }) => {
-    const containerRef = useRef(null);
+    const [isOpen, setIsOpen] = useState(true);
 
     const smellList = smellOptions.map((item) => {
         const isActive = smell.includes(item);
@@ -28,11 +28,11 @@ const Smell = ({ smell, onChange }) => {
     });
 
     return (
-        <div className={styles.wrap} ref={containerRef}>
-            <InfoTooltip title="Smell">
+        <div className={styles.wrap} >
+            <InfoTooltip title="Smell" onToggle={() => setIsOpen((v) => !v)} onToggleArrow={isOpen}>
                 A healthy vagina can have a natural scent that is metallic, musky, earthy, or tangy - all of these are normal! If you notice any of the unusual odors, such as those listed below, it might be helpful to mention them to your clinician.
             </InfoTooltip>
-            <div className={styles.wrapSmellList}>
+            <div className={`${styles.list} ${!isOpen ? styles.collapsed : ""}`}>
                 {smellList}
             </div>
         </div>

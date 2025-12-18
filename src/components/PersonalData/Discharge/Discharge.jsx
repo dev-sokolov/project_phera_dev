@@ -1,4 +1,4 @@
-import { useRef, memo } from "react";
+import { memo, useState } from "react";
 
 import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./Discharge.module.css";
@@ -9,14 +9,13 @@ const dischargeOptions = [
     "Sticky",
     "Egg white",
     "Clumpy white",
-    "Yellow",
-    "Green",
-    "Red",
-    "Brown",
+    "Grey and watery",
+    "Yellow / Green",
+    "Red / Brown",
 ];
 
 const Discharge = ({ discharge, onChange }) => {
-    const containerRef = useRef(null);
+    const [isOpen, setIsOpen] = useState(true);
 
     const dischargeList = dischargeOptions.map((item) => {
         const isActive = discharge.includes(item);
@@ -33,11 +32,11 @@ const Discharge = ({ discharge, onChange }) => {
     });
 
     return (
-        <div className={styles.wrap} ref={containerRef}>
-            <InfoTooltip title="Discharge">
+        <div className={styles.wrap}>
+            <InfoTooltip title="Discharge" onToggle={() => setIsOpen((v) => !v)} onToggleArrow={isOpen}>
                 Discharge varies from person to person. It is influenced by your cycle, hygiene products, medications, stress, and a lot of other factors. Look out for discharge of unusual colour and texture.
             </InfoTooltip>
-            <div className={styles.wrapDischargeList}>
+            <div className={`${styles.list} ${!isOpen ? styles.collapsed : ""}`}>
                 {dischargeList}
             </div>
         </div>

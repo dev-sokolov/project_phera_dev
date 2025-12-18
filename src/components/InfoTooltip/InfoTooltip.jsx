@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import InfoCircle from "../../assets/icons/InfoCircle";
+import ArrowDown from "../../assets/icons/ArrowDown";
 import styles from "./InfoTooltip.module.css";
 
-const InfoTooltip = ({ title, children }) => {
+const InfoTooltip = ({ title, children, onToggle, onToggleArrow, showArrow = true }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
 
@@ -23,14 +24,25 @@ const InfoTooltip = ({ title, children }) => {
 
     return (
         <div className={styles.wrap} ref={ref}>
-            <div className={styles.wrapTitle}>
+            <div className={styles.wrapTitle} onClick={onToggle}>
                 <h4 className={styles.title}>{title}</h4>
                 <div
                     className={styles.infoCircle}
-                    onClick={() => setOpen((v) => !v)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setOpen((v) => !v);
+                    }}
                 >
                     <InfoCircle />
                 </div>
+                {showArrow && (
+                    <div
+                        className={`${styles.arrow} ${onToggleArrow ? styles.arrowOpen : ""
+                            }`}
+                    >
+                        <ArrowDown />
+                    </div>
+                )}
             </div>
 
             {open && (

@@ -47,13 +47,13 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setE
             <div className={styles.wrapper}>
                 <form className={styles.form}>
                     <AgeInput age={age} onChange={setAge} />
-                    <HormoneDropdown
-                        hormone={hormone}
-                        onSelect={setHormone}
-                    />
                     <EthnicBackground
                         ethnicBackground={ethnicBackground}
                         onChange={handleEthnicBackgroundChange}
+                    />
+                    <HormoneDropdown
+                        hormone={hormone}
+                        onSelect={setHormone}
                     />
                     <Discharge
                         discharge={discharge}

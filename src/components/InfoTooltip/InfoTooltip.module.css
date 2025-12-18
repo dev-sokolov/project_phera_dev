@@ -1,7 +1,9 @@
 .wrapTitle {
     display: flex;
-    gap: 5px;
+    align-items: center;
+    gap: 7px;
     position: relative;
+    cursor: pointer;
 }
 
 .title {
@@ -67,4 +69,15 @@
     touch-action: manipulation;
     display: flex;
     align-items: center;
+}
+
+.arrow {
+    margin-left: auto;
+    display: flex;
+    transition: transform 0.25s ease;
+    transform-origin: center;
+}
+
+.arrowOpen {
+    transform: rotate(180deg);
 }
