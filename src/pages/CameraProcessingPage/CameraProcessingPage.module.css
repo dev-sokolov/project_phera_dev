@@ -12,7 +12,6 @@
     flex-direction: column;
 
     min-height: calc(100dvh - 56px);
-    padding-bottom: 88px;
 }
 
 .mainBlock {
