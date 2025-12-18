@@ -52,10 +52,10 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setE
                         onChange={handleEthnicBackgroundChange}
                     />
                     <div className={styles.heading}>Hormone status</div>
-                    <HormoneDropdown
+                    {/* <HormoneDropdown
                         hormone={hormone}
                         onSelect={setHormone}
-                    />
+                    /> */}
                     <Discharge
                         discharge={discharge}
                         onChange={handleDischargeChange}
