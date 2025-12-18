@@ -1,10 +1,20 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
-import loader from "../../assets/lottie/loader.json";
 import Container from "../../components/Container/Container";
 
+import loader from "../../assets/lottie/loader.json";
 import styles from "./CameraProcessingPage.module.css";
 
 const CameraProcessingPage = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigate("/result-without-details");
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, [navigate]);
 
     return (
         <>
