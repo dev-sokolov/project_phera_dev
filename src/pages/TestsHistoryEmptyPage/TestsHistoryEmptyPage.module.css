@@ -15,26 +15,6 @@
     padding-bottom: 88px;
 }
 
-/* .mainBlock {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    max-width: 316px;
-    margin: auto;
-}
-
-.icon {
-    margin-bottom: 32px;
-}
-
-.textBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-} */
-
 .mainBlock {
     display: grid;
     grid-template-rows: 1fr auto auto 1fr;

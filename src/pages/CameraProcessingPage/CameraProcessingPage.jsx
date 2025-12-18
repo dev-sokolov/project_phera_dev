@@ -12,7 +12,7 @@ const CameraProcessingPage = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate("/result-without-details");
-        }, 3000);
+        }, 30000);
         return () => clearTimeout(timer);
     }, [navigate]);
     return (
@@ -27,12 +27,6 @@ const CameraProcessingPage = () => {
                                 </div>
                                 <h2 className={styles.heading}>Processing Your Test</h2>
                                 <p className={styles.text}>This usually takes less than a minute.Please keep this screen open — your result will appear automatically.</p>
-                            </div>
-                        </div>
-
-                        <div className={styles.bottomBlock}>
-                            <div className={styles.wrapLine}>
-                                <div className={styles.line}></div>
                             </div>
                         </div>
                     </div>
