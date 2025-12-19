@@ -1,29 +1,44 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 import Header from "./Header/Header";
 import BurgerMenu from "./BurgerMenu/BurgerMenu";
 
+// const pageVariants = {
+//     initial: {
+//         opacity: 0,
+//         y: 10,
+//     },
+//     animate: {
+//         opacity: 1,
+//         y: 0,
+//     },
+//     exit: {
+//         opacity: 0,
+//         y: -10,
+//     },
+// };
+
 const pageVariants = {
-    // initial: {
-    //     opacity: 0,
-    //     y: 10,
-    // },
-    // animate: {
-    //     opacity: 1,
-    //     y: 0,
-    // },
-    // exit: {
-    //     opacity: 0,
-    //     y: -10,
-    // },
-    initial: { x: "100%" },
-    animate: { x: 0 },
-    exit: { x: "-30%" },
+    initial: {
+        opacity: 0,
+        y: 8,
+    },
+    animate: {
+        opacity: 1,
+        y: 0,
+    },
+    exit: {
+        opacity: 0,
+        y: -8,
+    },
 };
 
 const AppLayout = ({ headerVariant = "guest", children, showBack = false, onBack }) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
+
+      const location = useLocation();
 
     return (
         <>
