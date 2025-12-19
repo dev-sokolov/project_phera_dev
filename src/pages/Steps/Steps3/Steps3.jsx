@@ -27,7 +27,7 @@ const Steps3 = () => {
                         <div className={styles.textBlock}>
                             <div className={styles.step}>Step 3</div>
                             <h2 className={styles.heading}>Let the strip settle</h2>
-                            <p className={styles.text}>Leave it for about a minute so the color can develop fully. When you’re ready, pHera will guide you to scan your strip.</p>
+                            <p className={styles.text}>Place the test strip on a clean, dry surface. We’ll start a 2-minute timer to allow the color to fully develop before scanning.</p>
                         </div>
                         <BottomBlock>
                             <Button onClick={() => navigate("/steps/4")}>Next</Button>

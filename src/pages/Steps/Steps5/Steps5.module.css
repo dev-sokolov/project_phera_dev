@@ -58,6 +58,7 @@
 .step {
     font-weight: 600;
     text-transform: uppercase;
+    color: var(--main-color-secondary);
 }
 
 .heading {
@@ -78,4 +79,3 @@
     line-height: 1.3;
     margin-bottom: 20px;
 }
-

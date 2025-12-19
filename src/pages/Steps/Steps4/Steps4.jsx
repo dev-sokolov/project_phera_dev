@@ -27,8 +27,10 @@ const Steps4 = () => {
                         <div className={styles.textBlock}>
                             <div className={styles.step}>Step 4</div>
                             <h2 className={styles.heading}>Scan your strip</h2>
-                            <p className={styles.text}>Place the strip inside the on-screen frame and hold your phone steady.
-                                Once the test area is in focus, the scan will happen automatically — no need to press anything.</p>
+                            <div className={styles.wrapText}>
+                                <p className={styles.text}>Place the strip inside the on-screen frame and hold your phone steady.</p>
+                                <p className={styles.text}>Use good lighting so the test area is clearly visible. The scan will happen automatically once it’s in focus.</p>
+                            </div>
                         </div>
                         <BottomBlock>
                             <Button onClick={() => navigate("/steps/5")}>Next</Button>
