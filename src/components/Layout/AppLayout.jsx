@@ -26,7 +26,7 @@ const pageVariants = {
     exit: { opacity: 0, y: -8, },
 };
 
-const AppLayout = ({ headerVariant = "guest", children, showBack = false, onBack }) => {
+const AppLayout = ({ headerVariant = "guest", children, showBack = false, onBack, bottom }) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
 
     const location = useLocation();
@@ -62,7 +62,7 @@ const AppLayout = ({ headerVariant = "guest", children, showBack = false, onBack
                 </motion.main>
             </AnimatePresence> */}
 
-            <motion.div
+            {/* <motion.div
                 key={location.pathname}
                 initial="initial"
                 animate="animate"
@@ -72,7 +72,24 @@ const AppLayout = ({ headerVariant = "guest", children, showBack = false, onBack
                 style={{ overflowX: "hidden" }} // важно, чтобы страница не скроллилась по горизонтали
             >
                 {children}
-            </motion.div>
+            </motion.div> */}
+
+            <motion.main
+                key={location.pathname}
+                variants={pageVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={{ duration: 0.3 }}
+            >
+                {children}
+            </motion.main>
+
+            {bottom && (
+                <div >
+                    {bottom}
+                </div>
+            )}
         </>
     );
 };

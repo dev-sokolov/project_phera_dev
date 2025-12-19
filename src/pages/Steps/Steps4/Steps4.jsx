@@ -32,12 +32,16 @@ const Steps4 = () => {
                                 <p className={styles.text}>Use good lighting so the test area is clearly visible. The scan will happen automatically once it’s in focus.</p>
                             </div>
                         </div>
-                        <BottomBlock>
+                        {/* <BottomBlock>
                             <Button onClick={() => navigate("/steps/5")}>Next</Button>
                             <ButtonReverse onClick={() => navigate("/steps/3")}>Go back</ButtonReverse>
-                        </BottomBlock>
+                        </BottomBlock> */}
                     </div>
                 </Container>
+                <BottomBlock>
+                    <Button onClick={() => navigate("/steps/5")}>Next</Button>
+                    <ButtonReverse onClick={() => navigate("/steps/3")}>Go back</ButtonReverse>
+                </BottomBlock>
             </div>
         </>
     )

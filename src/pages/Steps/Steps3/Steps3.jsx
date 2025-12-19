@@ -29,12 +29,16 @@ const Steps3 = () => {
                             <h2 className={styles.heading}>Let the strip settle</h2>
                             <p className={styles.text}>Place the test strip on a clean, dry surface. We’ll start a 2-minute timer to allow the color to fully develop before scanning.</p>
                         </div>
-                        <BottomBlock>
+                        {/* <BottomBlock>
                             <Button onClick={() => navigate("/steps/4")}>Next</Button>
                             <ButtonReverse onClick={() => navigate("/steps/2")}>Go back</ButtonReverse>
-                        </BottomBlock>
+                        </BottomBlock> */}
                     </div>
                 </Container>
+                <BottomBlock>
+                    <Button onClick={() => navigate("/steps/4")}>Next</Button>
+                    <ButtonReverse onClick={() => navigate("/steps/2")}>Go back</ButtonReverse>
+                </BottomBlock>
             </div>
         </>
     )

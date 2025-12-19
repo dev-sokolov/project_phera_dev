@@ -49,12 +49,16 @@ const HowItWorksPage = () => {
                             </div>
                         </div>
 
-                        <BottomBlock>
+                        {/* <BottomBlock>
                             <Button onClick={() => navigate("/steps")}>Start test</Button>
                             <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
-                        </BottomBlock>
+                        </BottomBlock> */}
                     </div>
                 </Container>
+                <BottomBlock>
+                    <Button onClick={() => navigate("/steps")}>Start test</Button>
+                    <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
+                </BottomBlock>
             </div>
         </>
     )

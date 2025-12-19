@@ -1,19 +1,19 @@
 import { motion } from "framer-motion";
 import styles from "./BottomBlock.module.css";
 
-// const BottomBlock = ({ children }) => {
-//     return (
-//         <>
-//             <div className={styles.bottomBlock}>
-//                 <div className={styles.bottomBlockInner}>
-//                     {children}
-//                 </div>
-//             </div>
-//         </>
-//     )
-// };
+const BottomBlock = ({ children }) => {
+    return (
+        <>
+            <div className={styles.bottomBlock}>
+                <div className={styles.bottomBlockInner}>
+                    {children}
+                </div>
+            </div>
+        </>
+    )
+};
 
-// export default BottomBlock;
+export default BottomBlock;
 
 // const BottomBlock = ({ children }) => {
 //     return (
@@ -31,19 +31,19 @@ import styles from "./BottomBlock.module.css";
 
 // export default BottomBlock;
 
-const BottomBlock = ({ children }) => {
-    return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className={styles.bottomBlock}
-        >
-            <div className={styles.bottomBlockInner}>
-                {children}
-            </div>
-        </motion.div>
-    );
-};
+// const BottomBlock = ({ children }) => {
+//     return (
+//         <motion.div
+//             initial={{ opacity: 0 }}
+//             animate={{ opacity: 1 }}
+//             transition={{ duration: 0.25, ease: "easeOut" }}
+//             className={styles.bottomBlock}
+//         >
+//             <div className={styles.bottomBlockInner}>
+//                 {children}
+//             </div>
+//         </motion.div>
+//     );
+// };
 
-export default BottomBlock;
+// export default BottomBlock;
