@@ -1,6 +1,7 @@
 import styles from "./ImageWrapper.module.css";
 
-const ImageWrapper = ({ src, alt, ratio = "16/9" }) => {
+// const ImageWrapper = ({ src, alt, ratio = "16/9" }) => {
+const ImageWrapper = ({ src, alt, ratio = "3/2" }) => {
     return (
         <div
             className={styles.img}
