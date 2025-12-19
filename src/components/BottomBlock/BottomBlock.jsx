@@ -36,7 +36,7 @@ const BottomBlock = ({ children }) => {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
             className={styles.bottomBlock}
         >
             <div className={styles.bottomBlockInner}>
