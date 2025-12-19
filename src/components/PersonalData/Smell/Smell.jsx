@@ -11,7 +11,7 @@ const smellOptions = [
 ];
 
 const Smell = ({ smell, onChange }) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const smellList = smellOptions.map((item) => {
         const isActive = smell.includes(item);

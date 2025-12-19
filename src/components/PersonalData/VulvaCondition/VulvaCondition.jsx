@@ -9,7 +9,7 @@ const vulvaConditionOptions = [
 ];
 
 const VulvaCondition = ({ vulvaCondition, onChange }) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const vulvaConditionList = vulvaConditionOptions.map((item) => {
         const isActive = vulvaCondition.includes(item);

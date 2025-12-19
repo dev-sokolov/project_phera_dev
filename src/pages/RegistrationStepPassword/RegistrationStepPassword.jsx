@@ -72,7 +72,7 @@ const RegistrationStepPassword = () => {
             localStorage.setItem("reg_token", token);
 
             // 🔹 переходим на следующий шаг
-            navigate("/home/complete");
+            navigate("/home/complete", { replace: true });
         } catch (e) {
             setServerError("Server error");
         }

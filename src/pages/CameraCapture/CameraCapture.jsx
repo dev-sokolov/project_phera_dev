@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import whiteFrame from "../../assets/whiteFrame.svg";
 import greenFrame from "../../assets/greenFrame.svg";
 import Logo from "../../assets/Logo";
-import CameraIllumination from "../../assets/icons/CameraIllumination";
 import ArrowLeft from "../../assets/icons/ArrowLeft";
 
 import styles from "./CameraCapture.module.css";
@@ -21,7 +20,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
 
     const [isInside, setInside] = useState(false);
     const [insideTimer, setInsideTimer] = useState(null);
-    const [torchOn, setTorchOn] = useState(false);
 
     const isReady = useCameraReady(webcamRef);
 
@@ -29,28 +27,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
         facingMode: "environment",
         width: { ideal: 1920 },
         height: { ideal: 1080 },
-    };
-
-    const toggleTorch = () => {
-        const video = webcamRef.current?.video;
-        const track = video?.srcObject?.getVideoTracks()?.[0];
-
-        if (!track) return;
-
-        const capabilities = track.getCapabilities();
-
-        // Проверяем, поддерживается ли вспышка
-        if (!capabilities.torch) {
-            console.warn("Torch is not supported on this device.");
-            return;
-        }
-
-        const newTorchState = !torchOn;
-        setTorchOn(newTorchState);
-
-        track.applyConstraints({
-            advanced: [{ torch: newTorchState }]
-        });
     };
 
     useEffect(() => {
@@ -143,10 +119,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
                                 {/* <AdjustableFrame /> */}
                             </div>
                         </div>
-
-                        <button className={styles.cameraIlluminationBtn} onClick={toggleTorch}>
-                            <CameraIllumination active={torchOn} />
-                        </button>
 
                         <Webcam
                             ref={webcamRef}

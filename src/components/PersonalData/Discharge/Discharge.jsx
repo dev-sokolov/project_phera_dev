@@ -15,7 +15,7 @@ const dischargeOptions = [
 ];
 
 const Discharge = ({ discharge, onChange }) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const dischargeList = dischargeOptions.map((item) => {
         const isActive = discharge.includes(item);

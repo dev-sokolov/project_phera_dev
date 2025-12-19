@@ -1,14 +1,14 @@
 import AgeInput from "./AgeInput/AgeInput";
-import HormoneDropdown from "./HormoneDropdown/HormoneDropdown";
 import EthnicBackground from "./EthnicBackground/EthnicBackground";
 import Discharge from "./Discharge/Discharge";
 import VulvaCondition from "./VulvaCondition/VulvaCondition";
 import Smell from "./Smell/Smell";
+import Urination from "./Urination/Urination";
 import Notes from "./Notes/Notes";
 
 import styles from "./PersonalData.module.css";
 
-const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setEthnicBackground, discharge, setDischarge, notes, setNotes, vulvaCondition, setVulvaCondition, smell, setSmell }) => {
+const PersonalData = ({ age, setAge, ethnicBackground, setEthnicBackground, discharge, setDischarge, vulvaCondition, setVulvaCondition, smell, setSmell, urination, setUrination, notes, setNotes, }) => {
 
     const handleEthnicBackgroundChange = (value) => {
         setEthnicBackground((prev) =>
@@ -42,6 +42,14 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setE
         );
     };
 
+    const handleUrinationChange = (value) => {
+        setUrination((prev) =>
+            prev.includes(value)
+                ? prev.filter((h) => h !== value)
+                : [...prev, value]
+        );
+    };
+
     return (
         <>
             <div className={styles.wrapper}>
@@ -52,10 +60,6 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setE
                         onChange={handleEthnicBackgroundChange}
                     />
                     <div className={styles.heading}>Hormone status</div>
-                    {/* <HormoneDropdown
-                        hormone={hormone}
-                        onSelect={setHormone}
-                    /> */}
                     <Discharge
                         discharge={discharge}
                         onChange={handleDischargeChange}
@@ -67,6 +71,10 @@ const PersonalData = ({ age, setAge, hormone, setHormone, ethnicBackground, setE
                     <Smell
                         smell={smell}
                         onChange={handleSmellChange}
+                    />
+                    <Urination
+                        urination={urination}
+                        onChange={handleUrinationChange}
                     />
                     <Notes notes={notes} setNotes={setNotes} />
                 </form>

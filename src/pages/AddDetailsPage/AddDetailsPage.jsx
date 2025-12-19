@@ -27,11 +27,11 @@ const AddDetailsPage = () => {
     // const [isDataSharingActive, setIsDataSharingActive] = useState(false);
 
     const [age, setAge] = useState(state?.age || "");
-    const [hormone, setHormone] = useState(state?.hormone || "");
     const [ethnicBackground, setEthnicBackground] = useState(state?.ethnicBackground || []);
     const [discharge, setDischarge] = useState(state?.discharge || []);
     const [vulvaCondition, setVulvaCondition] = useState(state?.vulvaCondition || []);
     const [smell, setSmell] = useState(state?.smell || []);
+    const [urination, setUrination] = useState(state?.urination || []);
     const [notes, setNotes] = useState(state?.notes || "");
 
     return (
@@ -49,8 +49,6 @@ const AddDetailsPage = () => {
                             <PersonalData
                                 age={age}
                                 setAge={setAge}
-                                hormone={hormone}
-                                setHormone={setHormone}
                                 ethnicBackground={ethnicBackground}
                                 setEthnicBackground={setEthnicBackground}
                                 discharge={discharge}
@@ -59,6 +57,8 @@ const AddDetailsPage = () => {
                                 setVulvaCondition={setVulvaCondition}
                                 smell={smell}
                                 setSmell={setSmell}
+                                urination={urination}
+                                setUrination={setUrination}
                                 notes={notes}
                                 setNotes={setNotes}
                             />
@@ -69,11 +69,11 @@ const AddDetailsPage = () => {
                                 onClick={() => navigate("/result-with-details-normal", {
                                     state: {
                                         age,
-                                        hormone,
                                         ethnicBackground,
                                         discharge,
                                         vulvaCondition,
                                         smell,
+                                        urination,
                                         notes
                                     }
                                 })}

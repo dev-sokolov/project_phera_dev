@@ -38,6 +38,10 @@
     justify-content: space-between;
 }
 
+.item:last-child {
+     border-bottom: none;
+}
+
 .data {
     display: flex;
     flex-direction: column;
@@ -52,19 +56,6 @@
 .value {
     font-size: 14px;
     line-height: 1.3;
-}
-
-.edit {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1F1F1F;
-    text-transform: uppercase;
-    text-decoration: underline;
-    margin-top: auto;
-
-    border: none;
-    background: transparent;
-    cursor: pointer;
 }
 
 .logout {
@@ -97,5 +88,10 @@
     border: none;
     background: transparent;
     cursor: pointer;
-  }
+}
 
+.eyeBtn {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+}

@@ -20,7 +20,7 @@ const ethnicBackgroundOptions = [
 ];
 
 const EthnicBackground = ({ ethnicBackground, onChange }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const ethnicBackgroundList = ethnicBackgroundOptions.map((item) => {
     const isActive = ethnicBackground.includes(item);

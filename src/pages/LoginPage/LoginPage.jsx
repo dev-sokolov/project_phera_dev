@@ -64,9 +64,17 @@ const LoginPage = () => {
             // 🔹 сохраняем токен
             localStorage.setItem("token", token);
 
-            navigate("/home/complete");
+            navigate("/home/complete", { replace: true });
         } catch (e) {
             setServerError("Server error");
+        }
+    };
+
+    const goBack = () => {
+        if (window.history.length > 2) {
+            navigate(-1);
+        } else {
+            navigate("/");
         }
     };
 
@@ -137,7 +145,7 @@ const LoginPage = () => {
                             >
                                 Log In
                             </Button>
-                            <ButtonReverse onClick={() => navigate("/signup")}>Go back</ButtonReverse>
+                            <ButtonReverse onClick={goBack}>Go back</ButtonReverse>
                         </div>
                     </form>
                     <div className={styles.wrapinfo}>

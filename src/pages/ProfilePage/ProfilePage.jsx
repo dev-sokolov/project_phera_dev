@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Eye from "../../assets/icons/Eye";
 import styles from "./ProfilePage.module.css";
 
 const ProfilePage = () => {
@@ -48,7 +49,7 @@ const ProfilePage = () => {
                         </div>
 
                         <button
-                            className={styles.edit}
+                            className={styles.btn}
                             onClick={() => setIsEditingUsername(true)}
                         >
                             EDIT
@@ -81,16 +82,16 @@ const ProfilePage = () => {
 
                         {isEditingPassword && (
                             <button
-                                className={styles.btn}
+                                className={`${styles.btn} ${styles.eyeBtn}`}
                                 onMouseDown={(e) => e.preventDefault()}
                                 onClick={() => setShowPassword(v => !v)}
                             >
-                                {showPassword ? "HIDE" : "SHOW"}
+                                <Eye />
                             </button>
                         )}
 
                         <button
-                            className={styles.edit}
+                            className={styles.btn}
                             onClick={() => {
                                 if (isEditingPassword) {
                                     setIsEditingPassword(false);

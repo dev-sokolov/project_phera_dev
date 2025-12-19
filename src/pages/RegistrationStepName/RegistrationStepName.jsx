@@ -72,9 +72,17 @@ const RegistrationStepName = () => {
             localStorage.setItem("reg_token", token);
 
             // 🔹 переходим на следующий шаг
-            navigate("/registration/password");
+            navigate("/registration/password", { replace: true });
         } catch (e) {
             setServerError("Server error");
+        }
+    };
+
+    const goBack = () => {
+        if (window.history.length > 2) {
+            navigate(-1);
+        } else {
+            navigate("/");
         }
     };
 
@@ -89,9 +97,9 @@ const RegistrationStepName = () => {
                         </div>
 
                         <div className={styles.textBlock}>
-                            <h1 className={styles.heading}>Welcome! Create your pHera account</h1>
+                            <h1 className={styles.heading}>Create your pHera account</h1>
                             <p className={styles.text}>
-                                Enter your number to receive a one-time code and securely save your results.
+                                Set a unique username to create your account and save your test results securely. You’ll use it to log in next time.
                             </p>
                         </div>
 
@@ -108,7 +116,7 @@ const RegistrationStepName = () => {
                                                 if (e.target.value.length >= 2) clearErrors("username");
                                             }
                                         })}
-                                        placeholder="Enter your username"
+                                        placeholder="Set your username"
                                         id="username"
                                         type="text"
                                         className={styles.input}
@@ -130,7 +138,7 @@ const RegistrationStepName = () => {
                             >
                                 Confirm
                             </Button>
-                            <ButtonReverse onClick={() => navigate("/signup")}>Go back</ButtonReverse>
+                            <ButtonReverse onClick={goBack}>Go back</ButtonReverse>
                         </div>
                     </form>
                     <div className={styles.wrapinfo}>
