@@ -1,6 +1,6 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
@@ -10,6 +10,7 @@ import { registrNameApi } from "../../shared/api/auth-api";
 import styles from "./RegistrationStepName.module.css";
 
 const RegistrationStepName = () => {
+    const location = useLocation();
     const navigate = useNavigate();
     const [serverError, setServerError] = useState("");
 
@@ -78,13 +79,33 @@ const RegistrationStepName = () => {
         }
     };
 
+    // const goBack = () => {
+    //     if (window.history.length > 2) {
+    //         navigate(-1);
+    //     } else {
+    //         navigate("/");
+    //     }
+    // };
+
     const goBack = () => {
-        if (window.history.length > 2) {
-            navigate(-1);
+        const from = sessionStorage.getItem("registration_from");
+
+        if (from) {
+            navigate(from, { replace: true });
         } else {
-            navigate("/");
+            navigate("/", { replace: true });
         }
     };
+
+    // если from уже есть — не перезаписываем
+    useEffect(() => {
+        if (!location.state?.from) return;
+
+        sessionStorage.setItem(
+            "registration_from",
+            location.state.from
+        );
+    }, []);
 
     return (
         <div className={styles.content}>

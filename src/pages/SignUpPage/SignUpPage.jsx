@@ -36,7 +36,7 @@ const SignUpPage = () => {
                         <p className={styles.text}>Sign up to save your test history, track trends, and access personalized health recommendations.</p>
                     </div>
                     <BottomBlock>
-                        <Button onClick={() => navigate("/registration/username")}>Create account</Button>
+                        <Button onClick={() => navigate("/registration/username", {state: { from: location.pathname }})}>Create account</Button>
                         <ButtonReverse onClick={() => navigate("/login")}>Log In</ButtonReverse>
                     </BottomBlock>
                 </Container>

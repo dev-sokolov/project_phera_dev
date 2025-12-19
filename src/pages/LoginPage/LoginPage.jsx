@@ -123,6 +123,7 @@ const LoginPage = () => {
                                                 if (e.target.value.length >= 6) clearErrors("password");
                                             }
                                         })}
+                                        placeholder="Enter your password"
                                         id="password"
                                         type={showPassword ? "text" : "password"}
                                         className={styles.input}
@@ -137,6 +138,10 @@ const LoginPage = () => {
 
                         {serverError && <p className={styles.error}>{serverError}</p>}
 
+                        <div className={styles.wrapLink}>
+                            <Link to="#" className={styles.link}>FORGOT PASSWORD?</Link>
+                        </div>
+
                         <div className={styles.bottomBlock}>
                             <Button
                                 type="submit"
@@ -149,7 +154,7 @@ const LoginPage = () => {
                         </div>
                     </form>
                     <div className={styles.wrapinfo}>
-                        <p className={styles.info}>New to pHera?<Link to="/registration/username" className={styles.signin}>SIGN UP</Link></p>
+                        <p className={styles.info}>New to pHera?<Link to="/registration/username" className={styles.link}>SIGN UP</Link></p>
                     </div>
                 </div>
             </Container>

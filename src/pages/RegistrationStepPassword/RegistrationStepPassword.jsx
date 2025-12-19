@@ -89,7 +89,7 @@ const RegistrationStepPassword = () => {
                         </div>
 
                         <div className={styles.textBlock}>
-                            <h1 className={styles.heading}>Set your password</h1>
+                            <h1 className={styles.heading}>Create a password</h1>
                             <p className={styles.text}>
                                 Create a secure password to protect your account.
                                 You’ll use it to log in next time.

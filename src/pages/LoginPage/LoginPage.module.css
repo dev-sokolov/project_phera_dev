@@ -48,8 +48,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    padding-top: 30px;
-    padding-bottom: 75px;
+    padding: 30px 0 16px;
 }
 
 .itemInput {
@@ -72,7 +71,7 @@
 .input {
     border: 1px solid #0C121E;
     border-radius: 10px;
-    padding: 10px 14px;
+    padding: 10px 44px 10px 14px;
     color: #1F1F1F;
     width: 100%;
     font-size: 16px;
@@ -124,7 +123,13 @@
     font-size: 12px;
 }
 
-.signin {
+.wrapLink {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 75px;
+}
+
+.link {
     font-size: 14px;
     font-weight: 600;
     color: #1F1F1F;
