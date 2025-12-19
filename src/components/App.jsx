@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import AppLayout from "./Layout/AppLayout";
 
 import ScrollToTop from "./ScrollToTop/ScrollToTop";
@@ -36,6 +36,7 @@ import "../shared/styles/style.css";
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // const goBack = () => {
   //   if (window.history.length > 2) {
@@ -48,7 +49,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
-      <Routes>
+      <Routes location={location} key={location.pathname}>
         <Route path="/" element={<AppLayout><HomePageQr /></AppLayout>} />
         <Route path="/how-it-works" element={<AppLayout><HowItWorksPage /></AppLayout>} />
         <Route path="/steps" element={<AppLayout><Steps /></AppLayout>} />
