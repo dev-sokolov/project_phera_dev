@@ -7,6 +7,7 @@ import Container from "../../components/Container/Container";
 import onboardingStep1 from "../../assets/images/onboardingStep1.jpg"
 import onboardingStep2 from "../../assets/images/onboardingStep2.jpg"
 import onboardingStep3 from "../../assets/images/onboardingStep3.jpg"
+import ImageWrapper from "../../components/ImageWrapper/ImageWrapper";
 
 import styles from "./HowItWorksPage.module.css";
 
@@ -22,7 +23,8 @@ const HowItWorksPage = () => {
                         <div className={styles.steps}>
                             <div className={styles.step}>
                                 <div className={styles.img}>
-                                    <img src={onboardingStep1} alt="step 1" />
+                                    {/* <img src={onboardingStep1} alt="step 1" /> */}
+                                    <ImageWrapper src={onboardingStep1} alt="step 1" ratio="4/3" />
                                 </div>
                                 <h2 className={styles.heading}>Scan your kit</h2>
                                 <p className={styles.text}>
@@ -31,7 +33,8 @@ const HowItWorksPage = () => {
                             </div>
                             <div className={styles.step}>
                                 <div className={styles.img}>
-                                    <img src={onboardingStep2} alt="step 2" />
+                                    {/* <img src={onboardingStep2} alt="step 2" /> */}
+                                     <ImageWrapper src={onboardingStep2} alt="step 2" ratio="4/3" />
                                 </div>
                                 <h2 className={styles.heading}>Allow camera access</h2>
                                 <p className={styles.text}>
@@ -40,7 +43,8 @@ const HowItWorksPage = () => {
                             </div>
                             <div className={styles.step}>
                                 <div className={styles.img}>
-                                    <img src={onboardingStep3} alt="step 3" />
+                                    {/* <img src={onboardingStep3} alt="step 3" /> */}
+                                    <ImageWrapper src={onboardingStep3} alt="step 3" ratio="4/3" />
                                 </div>
                                 <h2 className={styles.heading}>Get your result</h2>
                                 <p className={styles.text}>
