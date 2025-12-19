@@ -12,3 +12,6 @@ const ImageWrapper = ({ src, alt, ratio = "16/9" }) => {
 };
 
 export default ImageWrapper;
+
+// Использование
+// <ImageWrapper src={step5} alt="step 5" ratio="4/3" />
