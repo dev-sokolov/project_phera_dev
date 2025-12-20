@@ -35,8 +35,7 @@ const Steps5 = () => {
                     </div>
                 </Container>
                 <BottomBlock>
-                    {/* <Button onClick={() => navigate("/camera-access")}>Next</Button> */}
-                    <Button onClick={() => navigate("/steps/check")}>Next</Button>
+                    <Button onClick={() => navigate("/camera-access")}>Next</Button>
                     <ButtonReverse onClick={() => navigate("/steps/4")}>Go back</ButtonReverse>
                 </BottomBlock>
             </div>
