@@ -42,7 +42,6 @@ const CameraAccess = () => {
                         <p className={styles.bottomText}>Your privacy is protected at every step.</p>
                         <div className={styles.btns}>
                             <Button onClick={() => navigate("/camera-capture")}>Allow camera</Button>
-                            {/* <ButtonReverse onClick={goBack}>Go back</ButtonReverse> */}
                             <ButtonReverse onClick={() => navigate("/steps", { replace: true })}>Go back</ButtonReverse>
                         </div>
                     </div>

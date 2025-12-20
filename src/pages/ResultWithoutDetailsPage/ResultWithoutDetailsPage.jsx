@@ -47,11 +47,11 @@ const ResultWithoutDetailsPage = () => {
                                 </p>
                             </div>
                         </div>
-                        <BottomBlock>
-                            <Button onClick={() => navigate("/signup")}>Save to my history</Button>
-                        </BottomBlock>
                     </div>
                 </Container>
+                <BottomBlock>
+                    <Button onClick={() => navigate("/signup")}>Save to my history</Button>
+                </BottomBlock>
             </div>
         </>
     )

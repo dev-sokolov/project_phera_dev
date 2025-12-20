@@ -101,19 +101,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
 
     return (
         <div className={styles.content}>
-            {/* <div className={styles.wrapLogo}>
-                <button
-                    className={styles.arrowLeft}
-                    onClick={handleExit}
-                    aria-label="Go back"
-                >
-                    <ArrowLeft />
-                </button>
-                <div className={styles.logo}>
-                    <Logo />
-                </div>
-            </div> */}
-
             <div className={styles.containerInner}>
                 <div className={styles.cameraBlock}>
                     <div className={styles.cameraContainer}>

@@ -8,36 +8,6 @@
     padding-top: 56px;
 }
 
-.wrapLogo {
-    position: relative;
-    padding: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid var(--main-background-color-border);
-    background-color: #FFFFFF;
-}
-
-.arrowLeft {
-    all: unset;
-    position: absolute;
-    left: 31px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 23px;
-    height: 23px;
-}
-
-.logo {
-    width: 61px;
-    height: 23px;
-}
-
 .containerInner {
     display: flex;
     flex-direction: column;
@@ -108,10 +78,9 @@
 }
 
 .bottomBlock {
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
-    padding: 10px 0;
+    padding: 15px 0;
 }
 
 .text {

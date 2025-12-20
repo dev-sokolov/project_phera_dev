@@ -5,12 +5,13 @@
     min-height: 100dvh;
     overflow-y: auto;
     padding-top: 56px;
-    padding-bottom: 80px;
 }
 
 .containerInner {
     display: flex;
     flex-direction: column;
+
+    flex: 1;
 }
 
 .title {
@@ -139,6 +140,3 @@
     color: #717680;
     text-align: center;
 }
-
-
-
