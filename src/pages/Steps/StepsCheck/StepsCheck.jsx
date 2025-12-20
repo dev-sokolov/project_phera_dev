@@ -13,7 +13,10 @@ const StepsCheck = () => {
                 <div className={styles.scrollable}>
                     <Container>
                         <div className={styles.containerInner}>
-                            <div className={styles.check}></div>
+                            <div className={styles.check}>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis possimus, consequatur nemo magnam, quasi porro repudiandae at corporis, exercitationem vitae rem fugit veniam molestiae animi? Iste, quidem? Eligendi natus impedit quis assumenda illo! Nemo a nesciunt corrupti, facere recusandae alias, quas porro ab facilis at neque ducimus maiores laborum aliquid.</p>
+
+                            </div>
                             <div className={styles.check2}></div>
                             <div className={styles.check}>
                                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis possimus, consequatur nemo magnam, quasi porro repudiandae at corporis, exercitationem vitae rem fugit veniam molestiae animi? Iste, quidem? Eligendi natus impedit quis assumenda illo! Nemo a nesciunt corrupti, facere recusandae alias, quas porro ab facilis at neque ducimus maiores laborum aliquid.</p>
