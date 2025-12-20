@@ -15,7 +15,7 @@
 
     /* flex: 1; */
 
-    flex: 1 0 auto;
+    /* flex: 1 0 auto; */
 }
 
 .crumbs {
@@ -103,8 +103,11 @@
 }
 
 .scrollable {
-    /* overflow-y: auto; */
-    -webkit-overflow-scrolling: touch; 
-    flex: 1;
-}
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* flex: 1; */
 
+    min-height: 100vh;
+    /* padding-bottom: 100px; */
+    /* безопасная зона + Toolbar */
+}
