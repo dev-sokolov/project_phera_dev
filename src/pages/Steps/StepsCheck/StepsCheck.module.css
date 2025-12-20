@@ -102,3 +102,9 @@
     padding-bottom: 100px;
 }
 
+.scrollable {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
+    flex: 1;
+}
+
