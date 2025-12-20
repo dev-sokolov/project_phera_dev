@@ -1,6 +1,7 @@
 import AgeInput from "./AgeInput/AgeInput";
 import EthnicBackground from "./EthnicBackground/EthnicBackground";
 import MenstrualCycle from "./MenstrualCycle/MenstrualCycle";
+import HormoneDiagnoses from "./HormoneDiagnoses/HormoneDiagnoses";
 import Discharge from "./Discharge/Discharge";
 import VulvaCondition from "./VulvaCondition/VulvaCondition";
 import Smell from "./Smell/Smell";
@@ -16,6 +17,8 @@ const PersonalData = ({
     setEthnicBackground,
     menstrualCycle,
     setMenstrualCycle,
+    hormoneDiagnoses,
+    setHormoneDiagnoses,
     discharge,
     setDischarge,
     vulvaCondition,
@@ -38,6 +41,14 @@ const PersonalData = ({
 
     const handleMenstrualCycleChange = (value) => {
         setMenstrualCycle((prev) =>
+            prev.includes(value)
+                ? prev.filter((h) => h !== value)
+                : [...prev, value]
+        );
+    };
+
+    const handleHormoneDiagnosesChange = (value) => {
+        setHormoneDiagnoses((prev) =>
             prev.includes(value)
                 ? prev.filter((h) => h !== value)
                 : [...prev, value]
@@ -89,6 +100,10 @@ const PersonalData = ({
                     <MenstrualCycle
                         menstrualCycle={menstrualCycle}
                         onChange={handleMenstrualCycleChange}
+                    />
+                    <HormoneDiagnoses
+                        hormoneDiagnoses={hormoneDiagnoses}
+                        onChange={handleHormoneDiagnosesChange}
                     />
                     <Discharge
                         discharge={discharge}

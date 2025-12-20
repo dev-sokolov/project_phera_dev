@@ -1,22 +1,25 @@
 import { memo, useState } from "react";
-
 import InfoTooltip from "../../InfoTooltip/InfoTooltip";
-import styles from "./MenstrualCycle.module.css";
+import styles from "./HormoneDiagnoses.module.css";
 
 const options = [
-    "Regular",
-    "Irregular",
-    "No period for 12+ months",
-    "Never had a period",
-    "Perimenopause",
-    "Postmenopause",
+    "Adenomyosis",
+    "Amenorhea",
+    "Cushing’s syndrome",
+    "Diabetes",
+    "Endometriosis",
+    "Intersex status",
+    "Thyroid disorder",
+    "Uterine fibroids",
+    "Polycystic ovary syndrome (PCOS)",
+    "Premature ovarian insufficiency (POI)",
 ];
 
-const MenstrualCycle = ({ menstrualCycle, onChange }) => {
+const HormoneDiagnoses = ({ hormoneDiagnoses, onChange }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const list = options.map((item) => {
-        const isActive = menstrualCycle.includes(item);
+        const isActive = hormoneDiagnoses.includes(item);
 
         return (
             <div
@@ -31,7 +34,7 @@ const MenstrualCycle = ({ menstrualCycle, onChange }) => {
 
     return (
         <div className={styles.wrap}>
-            <InfoTooltip title="Menstrual cycle" onToggle={() => setIsOpen((v) => !v)} onToggleArrow={isOpen}></InfoTooltip>
+            <InfoTooltip title="Diagnoses related to hormones" onToggle={() => setIsOpen((v) => !v)} onToggleArrow={isOpen}></InfoTooltip>
             <div className={`${styles.list} ${!isOpen ? styles.collapsed : ""}`}>
                 {list}
             </div>
@@ -39,7 +42,7 @@ const MenstrualCycle = ({ menstrualCycle, onChange }) => {
     );
 };
 
-export default memo(MenstrualCycle);
+export default memo(HormoneDiagnoses);
 
 
 
