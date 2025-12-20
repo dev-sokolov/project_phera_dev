@@ -4,6 +4,8 @@
     flex-direction: column;
     background-color: var(--main-background-color);
     overflow: hidden;
+
+    padding-top: 56px;
 }
 
 .wrapLogo {
