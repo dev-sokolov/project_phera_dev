@@ -56,8 +56,8 @@ function App() {
         />}
         /> */}
         <Route path="/camera-capture" element={
-          <AppLayout showBack onBack={() => navigate("/camera-access")}>
-            <CameraCapture onExit={() => navigate("/camera-access")} onCapture={(result) => navigate("/camera-processing", { state: result })} />
+          <AppLayout showBack onBack={() => navigate("/camera-access", { replace: true })}>
+            <CameraCapture onExit={() => navigate("/camera-access", { replace: true })} onCapture={(result) => navigate("/camera-processing", { state: result, replace: true })} />
           </AppLayout>} />
         <Route path="/camera-processing" element={<AppLayout><CameraProcessingPage /></AppLayout>} />
         <Route path="/result-without-details" element={<AppLayout><ResultWithoutDetailsPage /></AppLayout>} />

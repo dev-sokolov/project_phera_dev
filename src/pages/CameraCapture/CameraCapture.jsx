@@ -80,6 +80,15 @@ const CameraCapture = ({ onCapture, onExit }) => {
         };                                      //временно !!!!!!!! Удалить!!!!!!!!!!!!
     }, []);                                     //временно !!!!!!!! Удалить!!!!!!!!!!!!
 
+    // useEffect(() => {
+    //     const handlePopState = () => {
+    //         navigate("/camera-access", { replace: true });
+    //     };
+
+    //     window.addEventListener("popstate", handlePopState);
+    //     return () => window.removeEventListener("popstate", handlePopState);
+    // }, [navigate]);
+
     const Frame = ({ inside }) => (
         <img
             src={inside ? greenFrame : whiteFrame}
