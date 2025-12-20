@@ -5,6 +5,7 @@ import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
 import homeQr from "../../assets/images/homeQr.jpg";
+import ImageWrapper from "../../components/ImageWrapper/ImageWrapper";
 import styles from "./HomePageQr.module.css";
 
 const HomePageQr = () => {
@@ -16,7 +17,8 @@ const HomePageQr = () => {
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.img}>
-                            <img src={homeQr} alt="home page img" />
+                            {/* <img src={homeQr} alt="home page img" /> */}
+                            <ImageWrapper src={homeQr} alt="home page img" ratio="345/285" />
                         </div>
                         <div className={styles.textBlock}>
                             <p className={styles.welcome}>Welcome to pHera</p>
