@@ -110,9 +110,19 @@
     min-height: 100vh;
     padding-bottom: 100px; */
 
-    min-height: auto;
+    /* min-height: auto;
     padding-bottom: 100px;
-    /* safe area + Toolbar */
+    
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch; */
+
+    overflow-y: auto;
+    /* важный момент! */
     -webkit-overflow-scrolling: touch;
+    min-height: auto;
+    /* не 100vh */
+    padding-top: 44px;
+    /* под фиксированный Header */
+    padding-bottom: 34px;
+    /* safe area */
 }
