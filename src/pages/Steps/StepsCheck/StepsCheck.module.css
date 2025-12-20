@@ -103,8 +103,8 @@
 }
 
 .scrollable {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
+    /* overflow-y: auto; */
+    -webkit-overflow-scrolling: touch; 
     flex: 1;
 }
 
