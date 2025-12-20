@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
@@ -13,17 +14,22 @@ const HomePageQr = () => {
         <>
             <div className={styles.content}>
                 <Container>
-                    <div className={styles.img}>
-                        <img src={homeQr} alt="home page img" />
+                    <div className={styles.containerInner}>
+                        <div className={styles.img}>
+                            <img src={homeQr} alt="home page img" />
+                        </div>
+                        <div className={styles.textBlock}>
+                            <p className={styles.welcome}>Welcome to pHera</p>
+                            <h2 className={styles.heading}>Simple, guided, and private —
+                                right from your phone.</h2>
+                            <p className={styles.text}>Have your pHera test box and strip ready.
+                                We’ll guide you step by step and scan
+                                your result automatically.</p>
+                        </div>
                     </div>
-                    <div className={styles.textBlock}>
-                        <p className={styles.welcome}>Welcome to pHera</p>
-                        <h2 className={styles.heading}>Simple, guided, and private —
-                            right from your phone.</h2>
-                        <p className={styles.text}>Have your pHera test box and strip ready.
-                            We’ll guide you step by step and scan
-                            your result automatically.</p>
-                    </div>
+
+                </Container>
+                <BottomBlock>
                     <div className={styles.bottomBlock}>
                         <div className={styles.btns}>
                             <Button onClick={() => navigate("/steps")}>Start test</Button>
@@ -31,11 +37,11 @@ const HomePageQr = () => {
                         </div>
                         <div className={styles.bottomText}>
                             <p>
-                                We respect your privacy — your results stay secure and visible only to you.
+                                We respect your privacy. Only you can save and see your results. 
                             </p>
                         </div>
                     </div>
-                </Container>
+                </BottomBlock>
             </div>
         </>
     )

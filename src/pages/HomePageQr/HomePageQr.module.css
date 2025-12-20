@@ -6,6 +6,14 @@
     padding-top: 56px;
 }
 
+.containerInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    flex: 1;
+}
+
 .img {
     width: 100%;
     padding-top: 20px;
