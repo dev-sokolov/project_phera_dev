@@ -1,11 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 
-import BottomBlock from "../../../components/BottomBlock/BottomBlock";
-import Button from "../../../components/Button/Button";
-import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
 import Container from "../../../components/Container/Container";
-import step5 from "../../../assets/images/step5.jpg";
-import ImageWrapper from "../../../components/ImageWrapper/ImageWrapper";
 
 import styles from "./StepsCheck.module.css";
 
@@ -19,28 +14,13 @@ const StepsCheck = () => {
                     <div className={styles.containerInner}>
                         <div className={styles.check}></div>
                         <div className={styles.check2}></div>
-                        <div className={styles.check}></div>
-                        {/* <div className={styles.crumbs}>
-                            <Link to="/steps/1" className={styles.itemColored}></Link>
-                            <Link to="/steps/2" className={styles.itemColored}></Link>
-                            <Link to="/steps/3" className={styles.itemColored}></Link>
-                            <Link to="/steps/4" className={styles.itemColored}></Link>
-                            <Link to="/steps/5" className={styles.itemColored}></Link>
+                        <div className={styles.check}>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis possimus, consequatur nemo magnam, quasi porro repudiandae at corporis, exercitationem vitae rem fugit veniam molestiae animi? Iste, quidem? Eligendi natus impedit quis assumenda illo! Nemo a nesciunt corrupti, facere recusandae alias, quas porro ab facilis at neque ducimus maiores laborum aliquid.</p>
                         </div>
-                        <div className={styles.img}><ImageWrapper src={step5} alt="step 5" ratio="345/218" /></div>
-                        <div className={styles.textBlock}>
-                            <div className={styles.step}>Step 5</div>
-                            <h2 className={styles.heading}>See your result</h2>
-                            <p className={styles.text}>Your pH result will appear within seconds, along with a clear explanation of what it means for you. Remember, this is an indicator of balance, not a diagnosis — we’ll guide you through the next steps.</p>
-
-                            <p className={styles.textItalic}>Next, we’ll take you to a quick scan of your test strip.</p>
-                        </div> */}
+                      
                     </div>
                 </Container>
-                {/* <BottomBlock>
-                    <Button onClick={() => navigate("/camera-access")}>Next</Button>
-                    <ButtonReverse onClick={() => navigate("/steps/5")}>Go back</ButtonReverse>
-                </BottomBlock> */}
+               
             </div>
         </>
     )
