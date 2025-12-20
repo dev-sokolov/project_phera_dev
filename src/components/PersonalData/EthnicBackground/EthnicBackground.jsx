@@ -3,7 +3,7 @@ import { memo, useState } from "react";
 import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./EthnicBackground.module.css";
 
-const ethnicBackgroundOptions = [
+const options = [
   "African / Black",
   "North African",
   "Arab",
@@ -22,7 +22,7 @@ const ethnicBackgroundOptions = [
 const EthnicBackground = ({ ethnicBackground, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const ethnicBackgroundList = ethnicBackgroundOptions.map((item) => {
+  const list = options.map((item) => {
     const isActive = ethnicBackground.includes(item);
 
     return (
@@ -43,7 +43,7 @@ const EthnicBackground = ({ ethnicBackground, onChange }) => {
       </InfoTooltip>
 
       <div className={`${styles.list} ${!isOpen ? styles.collapsed : ""}`}>
-        {ethnicBackgroundList}
+        {list}
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ const ResultWithDetailsPageNormal = () => {
     const detailOptions = [
         state?.age,
         ...(state?.ethnicBackground?.length ? state.ethnicBackground : []),
+        ...(state?.menstrualCycle?.length ? state.menstrualCycle : []),
         ...(state?.discharge?.length ? state.discharge : []),
         ...(state?.vulvaCondition?.length ? state.vulvaCondition : []),
         ...(state?.smell?.length ? state.smell : []),

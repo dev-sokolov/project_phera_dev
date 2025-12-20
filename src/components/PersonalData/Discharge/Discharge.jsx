@@ -3,7 +3,7 @@ import { memo, useState } from "react";
 import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./Discharge.module.css";
 
-const dischargeOptions = [
+const options = [
     "No discharge",
     "Creamy",
     "Sticky",
@@ -17,7 +17,7 @@ const dischargeOptions = [
 const Discharge = ({ discharge, onChange }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const dischargeList = dischargeOptions.map((item) => {
+    const list = options.map((item) => {
         const isActive = discharge.includes(item);
 
         return (
@@ -37,7 +37,7 @@ const Discharge = ({ discharge, onChange }) => {
                 Discharge varies from person to person. It is influenced by your cycle, hygiene products, medications, stress, and a lot of other factors. Look out for discharge of unusual colour and texture.
             </InfoTooltip>
             <div className={`${styles.list} ${!isOpen ? styles.collapsed : ""}`}>
-                {dischargeList}
+                {list}
             </div>
         </div>
     );

@@ -1,18 +1,23 @@
 import { memo, useState } from "react";
 
 import InfoTooltip from "../../InfoTooltip/InfoTooltip";
-import styles from "./VulvaCondition.module.css";
+import InfoHeader from "../../InfoHeader/InfoHeader";
+import styles from "./MenstrualCycle.module.css";
 
 const options = [
-    "Dry",
-    "Itchy",
+    "Regular",
+    "Irregular",
+    "No period for 12+ months",
+    "Never had a period",
+    "Perimenopause",
+    "Postmenopause",
 ];
 
-const VulvaCondition = ({ vulvaCondition, onChange }) => {
+const MenstrualCycle = ({ menstrualCycle, onChange }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const list = options.map((item) => {
-        const isActive = vulvaCondition.includes(item);
+        const isActive = menstrualCycle.includes(item);
 
         return (
             <div
@@ -27,9 +32,7 @@ const VulvaCondition = ({ vulvaCondition, onChange }) => {
 
     return (
         <div className={styles.wrap}>
-            <InfoTooltip title="Vulva & Vagina" onToggle={() => setIsOpen((v) => !v)} onToggleArrow={isOpen}>
-                It is normal to experience occasional dryness or itchiness - after shaving, using a new hygiene product, or wearing tight clothes. If such sensations become uncomfortable and appear along with other symptoms, they may signal an infection.
-            </InfoTooltip>
+            <InfoTooltip title="Menstrual cycle" onToggle={() => setIsOpen((v) => !v)} onToggleArrow={isOpen}></InfoTooltip>
             <div className={`${styles.list} ${!isOpen ? styles.collapsed : ""}`}>
                 {list}
             </div>
@@ -37,7 +40,7 @@ const VulvaCondition = ({ vulvaCondition, onChange }) => {
     );
 };
 
-export default memo(VulvaCondition);
+export default memo(MenstrualCycle);
 
 
 

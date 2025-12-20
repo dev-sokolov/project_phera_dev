@@ -1,5 +1,6 @@
 import AgeInput from "./AgeInput/AgeInput";
 import EthnicBackground from "./EthnicBackground/EthnicBackground";
+import MenstrualCycle from "./MenstrualCycle/MenstrualCycle";
 import Discharge from "./Discharge/Discharge";
 import VulvaCondition from "./VulvaCondition/VulvaCondition";
 import Smell from "./Smell/Smell";
@@ -8,10 +9,35 @@ import Notes from "./Notes/Notes";
 
 import styles from "./PersonalData.module.css";
 
-const PersonalData = ({ age, setAge, ethnicBackground, setEthnicBackground, discharge, setDischarge, vulvaCondition, setVulvaCondition, smell, setSmell, urination, setUrination, notes, setNotes, }) => {
+const PersonalData = ({
+    age,
+    setAge,
+    ethnicBackground,
+    setEthnicBackground,
+    menstrualCycle,
+    setMenstrualCycle,
+    discharge,
+    setDischarge,
+    vulvaCondition,
+    setVulvaCondition,
+    smell,
+    setSmell,
+    urination,
+    setUrination,
+    notes,
+    setNotes,
+}) => {
 
     const handleEthnicBackgroundChange = (value) => {
         setEthnicBackground((prev) =>
+            prev.includes(value)
+                ? prev.filter((h) => h !== value)
+                : [...prev, value]
+        );
+    };
+
+    const handleMenstrualCycleChange = (value) => {
+        setMenstrualCycle((prev) =>
             prev.includes(value)
                 ? prev.filter((h) => h !== value)
                 : [...prev, value]
@@ -60,6 +86,10 @@ const PersonalData = ({ age, setAge, ethnicBackground, setEthnicBackground, disc
                         onChange={handleEthnicBackgroundChange}
                     />
                     <div className={styles.heading}>Hormone status</div>
+                    <MenstrualCycle
+                        menstrualCycle={menstrualCycle}
+                        onChange={handleMenstrualCycleChange}
+                    />
                     <Discharge
                         discharge={discharge}
                         onChange={handleDischargeChange}
