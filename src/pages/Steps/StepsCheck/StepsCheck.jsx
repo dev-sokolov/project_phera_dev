@@ -18,6 +18,7 @@ const StepsCheck = () => {
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.check}></div>
+                        <div className={styles.check2}></div>
                         {/* <div className={styles.crumbs}>
                             <Link to="/steps/1" className={styles.itemColored}></Link>
                             <Link to="/steps/2" className={styles.itemColored}></Link>
