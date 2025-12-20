@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
+import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
@@ -34,15 +35,17 @@ const CameraAccess = () => {
                             <h2 className={styles.heading}>Allow Camera <br /> To Scan Your Strip</h2>
                             <p className={styles.text}>We’ll use your camera for a moment to read the color on your test strip. The scan is done automatically and stays private.</p>
                         </div>
-                        <div className={styles.bottomBlock}>
-                            <p className={styles.bottomText}>Your privacy is protected at every step.</p>
-                            <div className={styles.btns}>
-                                <Button onClick={() => navigate("/camera-capture")}>Allow camera</Button>
-                                <ButtonReverse onClick={goBack}>Go back</ButtonReverse>
-                            </div>
-                        </div>
                     </div>
                 </Container>
+                <BottomBlock>
+                    <div className={styles.bottomBlock}>
+                        <p className={styles.bottomText}>Your privacy is protected at every step.</p>
+                        <div className={styles.btns}>
+                            <Button onClick={() => navigate("/camera-capture")}>Allow camera</Button>
+                            <ButtonReverse onClick={goBack}>Go back</ButtonReverse>
+                        </div>
+                    </div>
+                </BottomBlock>
             </div>
         </>
     )

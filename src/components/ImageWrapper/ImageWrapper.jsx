@@ -1,11 +1,10 @@
 import styles from "./ImageWrapper.module.css";
 
-// const ImageWrapper = ({ src, alt, ratio = "16/9" }) => {
-const ImageWrapper = ({ src, alt, ratio = "3/2" }) => {
+const ImageWrapper = ({ src, alt, width, height }) => {
     return (
         <div
             className={styles.img}
-            style={{ aspectRatio: ratio }}
+            style={{ aspectRatio: `${width} / ${height}` }}
         >
             <img src={src} alt={alt} />
         </div>

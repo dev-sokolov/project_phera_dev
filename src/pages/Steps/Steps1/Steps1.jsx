@@ -4,6 +4,7 @@ import BottomBlock from "../../../components/BottomBlock/BottomBlock";
 import Button from "../../../components/Button/Button";
 import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
 import Container from "../../../components/Container/Container";
+import ImageWrapper from "../../../components/ImageWrapper/ImageWrapper";
 import step1 from "../../../assets/images/step1.jpg";
 
 import styles from "./Steps1.module.css";
@@ -23,16 +24,12 @@ const Steps1 = () => {
                             <Link to="/steps/4" className={styles.item}></Link>
                             <Link to="/steps/5" className={styles.item}></Link>
                         </div>
-                        <div className={styles.img}><img src={step1} alt="step 1" /></div>
+                        <ImageWrapper src={step1} alt="step 1" ratio="345/218" />
                         <div className={styles.textBlock}>
                             <div className={styles.step}>Step 1</div>
                             <h2 className={styles.heading}>Open your test strip</h2>
                             <p className={styles.text}>Open your pHera box, take one strip, and remove the foil right before testing. Hold it by the white handle only, to keep the test area clean and dry.</p>
                         </div>
-                        {/* <BottomBlock>
-                            <Button onClick={() => navigate("/steps/2")}>Next</Button>
-                            <ButtonReverse onClick={() => navigate("/steps")}>Go back</ButtonReverse>
-                        </BottomBlock> */}
                     </div>
                 </Container>
                 <BottomBlock>

@@ -4,6 +4,7 @@ import BottomBlock from "../../../components/BottomBlock/BottomBlock";
 import Button from "../../../components/Button/Button";
 import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
 import Container from "../../../components/Container/Container";
+import ImageWrapper from "../../../components/ImageWrapper/ImageWrapper";
 import step4 from "../../../assets/images/step4.jpg";
 
 import styles from "./Steps4.module.css";
@@ -23,7 +24,7 @@ const Steps4 = () => {
                             <Link to="/steps/4" className={styles.itemColored}></Link>
                             <Link to="/steps/5" className={styles.item}></Link>
                         </div>
-                        <div className={styles.img}><img src={step4} alt="step 4" /></div>
+                        <ImageWrapper src={step4} alt="step 4" ratio="345/218" />
                         <div className={styles.textBlock}>
                             <div className={styles.step}>Step 4</div>
                             <h2 className={styles.heading}>Scan your strip</h2>
@@ -32,10 +33,6 @@ const Steps4 = () => {
                                 <p className={styles.text}>Use good lighting so the test area is clearly visible. The scan will happen automatically once it’s in focus.</p>
                             </div>
                         </div>
-                        {/* <BottomBlock>
-                            <Button onClick={() => navigate("/steps/5")}>Next</Button>
-                            <ButtonReverse onClick={() => navigate("/steps/3")}>Go back</ButtonReverse>
-                        </BottomBlock> */}
                     </div>
                 </Container>
                 <BottomBlock>

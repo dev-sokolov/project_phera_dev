@@ -4,6 +4,7 @@ import BottomBlock from "../../../components/BottomBlock/BottomBlock";
 import Button from "../../../components/Button/Button";
 import ButtonReverse from "../../../components/ButtonReverse/ButtonReverse";
 import Container from "../../../components/Container/Container";
+import ImageWrapper from "../../../components/ImageWrapper/ImageWrapper";
 import step2 from "../../../assets/images/step2.jpg";
 
 import styles from "./Steps2.module.css";
@@ -23,16 +24,12 @@ const Steps2 = () => {
                             <Link to="/steps/4" className={styles.item}></Link>
                             <Link to="/steps/5" className={styles.item}></Link>
                         </div>
-                        <div className={styles.img}><img src={step2} alt="step 2" /></div>
+                        <ImageWrapper src={step2} alt="step 2" ratio="345/218" />
                         <div className={styles.textBlock}>
                             <div className={styles.step}>Step 2</div>
                             <h2 className={styles.heading}>Collect your sample</h2>
                             <p className={styles.text}>Gently place the strip just inside the vaginal opening for about 2–3 seconds. Then remove it and place it on a clean, dry surface.</p>
                         </div>
-                        {/* <BottomBlock>
-                            <Button onClick={() => navigate("/steps/3")}>Next</Button>
-                            <ButtonReverse onClick={() => navigate("/steps/1")}>Go back</ButtonReverse>
-                        </BottomBlock> */}
                     </div>
                 </Container>
                 <BottomBlock>

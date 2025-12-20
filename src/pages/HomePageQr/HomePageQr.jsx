@@ -17,7 +17,6 @@ const HomePageQr = () => {
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.img}>
-                            {/* <img src={homeQr} alt="home page img" /> */}
                             <ImageWrapper src={homeQr} alt="home page img" ratio="345/285" />
                         </div>
                         <div className={styles.textBlock}>

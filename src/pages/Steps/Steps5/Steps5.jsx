@@ -24,7 +24,6 @@ const Steps5 = () => {
                             <Link to="/steps/4" className={styles.itemColored}></Link>
                             <Link to="/steps/5" className={styles.itemColored}></Link>
                         </div>
-                        {/* <div className={styles.img}><img src={step5} alt="step 5" /></div> */}
                         <div className={styles.img}><ImageWrapper src={step5} alt="step 5" ratio="345/218" /></div>
                         <div className={styles.textBlock}>
                             <div className={styles.step}>Step 5</div>
@@ -33,10 +32,6 @@ const Steps5 = () => {
 
                             <p className={styles.textItalic}>Next, we’ll take you to a quick scan of your test strip.</p>
                         </div>
-                        {/* <BottomBlock>
-                            <Button onClick={() => navigate("/camera-access")}>Next</Button>
-                            <ButtonReverse onClick={() => navigate("/steps/4")}>Go back</ButtonReverse>
-                        </BottomBlock> */}
                     </div>
                 </Container>
                 <BottomBlock>

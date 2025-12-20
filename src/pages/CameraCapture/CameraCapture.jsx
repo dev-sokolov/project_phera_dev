@@ -143,9 +143,6 @@ const CameraCapture = ({ onCapture, onExit }) => {
                     <p className={styles.text}>
                         Place your test strip inside the frame and hold still — we’ll scan it automatically.
                     </p>
-                    <div className={styles.wrapLine}>
-                        <div className={styles.line}></div>
-                    </div>
                 </div>
             </div>
         </div>
