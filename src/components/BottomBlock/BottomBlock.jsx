@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import styles from "./BottomBlock.module.css";
 
 const BottomBlock = ({ children }) => {
