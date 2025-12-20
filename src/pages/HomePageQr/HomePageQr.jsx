@@ -17,7 +17,7 @@ const HomePageQr = () => {
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.img}>
-                            <ImageWrapper src={homeQr} alt="home page img" ratio="345/285" />
+                            <ImageWrapper src={homeQr} alt="home page img" width={345} height={285} />
                         </div>
                         <div className={styles.textBlock}>
                             <p className={styles.welcome}>Welcome to pHera</p>

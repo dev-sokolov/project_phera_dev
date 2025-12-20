@@ -24,7 +24,7 @@ const Steps2 = () => {
                             <Link to="/steps/4" className={styles.item}></Link>
                             <Link to="/steps/5" className={styles.item}></Link>
                         </div>
-                        <ImageWrapper src={step2} alt="step 2" ratio="345/218" />
+                        <ImageWrapper src={step2} alt="step 2" width={345} height={218} />
                         <div className={styles.textBlock}>
                             <div className={styles.step}>Step 2</div>
                             <h2 className={styles.heading}>Collect your sample</h2>

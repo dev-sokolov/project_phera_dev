@@ -24,7 +24,7 @@ const Steps3 = () => {
                             <Link to="/steps/4" className={styles.item}></Link>
                             <Link to="/steps/5" className={styles.item}></Link>
                         </div>
-                        <ImageWrapper src={step3} alt="step 3" ratio="345/218" />
+                        <ImageWrapper src={step3} alt="step 3" width={345} height={218} />
                         <div className={styles.textBlock}>
                             <div className={styles.step}>Step 3</div>
                             <h2 className={styles.heading}>Let the strip settle</h2>

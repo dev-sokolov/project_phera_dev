@@ -24,7 +24,7 @@ const Steps5 = () => {
                             <Link to="/steps/4" className={styles.itemColored}></Link>
                             <Link to="/steps/5" className={styles.itemColored}></Link>
                         </div>
-                        <div className={styles.img}><ImageWrapper src={step5} alt="step 5" ratio="345/218" /></div>
+                        <div className={styles.img}><ImageWrapper src={step5} alt="step 5" width={345} height={218} /></div>
                         <div className={styles.textBlock}>
                             <div className={styles.step}>Step 5</div>
                             <h2 className={styles.heading}>See your result</h2>

@@ -23,8 +23,7 @@ const HowItWorksPage = () => {
                         <div className={styles.steps}>
                             <div className={styles.step}>
                                 <div className={styles.img}>
-                                    {/* <img src={onboardingStep1} alt="step 1" /> */}
-                                    <ImageWrapper src={onboardingStep1} alt="step 1" ratio="345/200" />
+                                    <ImageWrapper src={onboardingStep1} alt="step 1" width={345} height={200} />
                                 </div>
                                 <h2 className={styles.heading}>Scan your kit</h2>
                                 <p className={styles.text}>
@@ -33,8 +32,7 @@ const HowItWorksPage = () => {
                             </div>
                             <div className={styles.step}>
                                 <div className={styles.img}>
-                                    {/* <img src={onboardingStep2} alt="step 2" /> */}
-                                     <ImageWrapper src={onboardingStep2} alt="step 2" ratio="345/200" />
+                                    <ImageWrapper src={onboardingStep2} alt="step 2" width={345} height={200} />
                                 </div>
                                 <h2 className={styles.heading}>Allow camera access</h2>
                                 <p className={styles.text}>
@@ -43,8 +41,7 @@ const HowItWorksPage = () => {
                             </div>
                             <div className={styles.step}>
                                 <div className={styles.img}>
-                                    {/* <img src={onboardingStep3} alt="step 3" /> */}
-                                    <ImageWrapper src={onboardingStep3} alt="step 3" ratio="345/200" />
+                                    <ImageWrapper src={onboardingStep3} alt="step 3" width={345} height={200} />
                                 </div>
                                 <h2 className={styles.heading}>Get your result</h2>
                                 <p className={styles.text}>
@@ -52,11 +49,6 @@ const HowItWorksPage = () => {
                                 </p>
                             </div>
                         </div>
-
-                        {/* <BottomBlock>
-                            <Button onClick={() => navigate("/steps")}>Start test</Button>
-                            <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
-                        </BottomBlock> */}
                     </div>
                 </Container>
                 <BottomBlock>

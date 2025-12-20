@@ -24,7 +24,7 @@ const Steps4 = () => {
                             <Link to="/steps/4" className={styles.itemColored}></Link>
                             <Link to="/steps/5" className={styles.item}></Link>
                         </div>
-                        <ImageWrapper src={step4} alt="step 4" ratio="345/218" />
+                        <ImageWrapper src={step4} alt="step 4" width={345} height={218} />
                         <div className={styles.textBlock}>
                             <div className={styles.step}>Step 4</div>
                             <h2 className={styles.heading}>Scan your strip</h2>
