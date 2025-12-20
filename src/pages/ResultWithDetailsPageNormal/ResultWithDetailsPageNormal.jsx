@@ -30,7 +30,7 @@ const ResultWithDetailsPageNormal = () => {
 
     return (
         <>
-            <div className={styles.content} data-scroll-container>
+            <div className={styles.content}>
                 <Container>
                     <div className={styles.containerInner}>
                         <h1 className={styles.title}>Your pH result</h1>
@@ -105,11 +105,11 @@ const ResultWithDetailsPageNormal = () => {
 
                             </div>
                         </div>
-                        <BottomBlock>
-                            <Button onClick={() => navigate("/signup")}>Save to my history</Button>
-                        </BottomBlock>
                     </div>
                 </Container>
+                <BottomBlock>
+                    <Button onClick={() => navigate("/signup")}>Save to my history</Button>
+                </BottomBlock>
             </div>
         </>
     )

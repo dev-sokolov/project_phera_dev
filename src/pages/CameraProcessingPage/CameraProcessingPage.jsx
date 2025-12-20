@@ -36,7 +36,7 @@ const CameraProcessingPage = () => {
 
     return (
         <>
-            <div className={styles.content} data-scroll-container>
+            <div className={styles.content}>
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.mainBlock}>

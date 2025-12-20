@@ -35,7 +35,7 @@ const HomeCompletePage = () => {
 
     return (
         <>
-            <div className={styles.content} data-scroll-container>
+            <div className={styles.content}>
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.title}>Hi, Helena</div>
@@ -117,13 +117,12 @@ const HomeCompletePage = () => {
                                     <Button className={styles.adviceBtn} onClick={() => navigate("/add-details")}>Add my details</Button>
                                 </div>
                             )}
-
                         </div>
-                        <BottomBlock>
-                            <Button onClick={() => navigate("/steps")}>Start new scan</Button>
-                        </BottomBlock>
                     </div>
                 </Container>
+                <BottomBlock>
+                    <Button onClick={() => navigate("/steps")}>Start new scan</Button>
+                </BottomBlock>
             </div>
         </>
     )

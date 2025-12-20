@@ -36,7 +36,7 @@ const AddDetailsPage = () => {
 
     return (
         <>
-            <div className={styles.content} data-scroll-container>
+            <div className={styles.content}>
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.heading}>
@@ -63,27 +63,26 @@ const AddDetailsPage = () => {
                                 setNotes={setNotes}
                             />
                         </div>
-
-                        <BottomBlock>
-                            <Button
-                                onClick={() => navigate("/result-with-details-normal", {
-                                    state: {
-                                        age,
-                                        ethnicBackground,
-                                        discharge,
-                                        vulvaCondition,
-                                        smell,
-                                        urination,
-                                        notes
-                                    }
-                                })}
-                            >
-                                Save
-                            </Button>
-                            <ButtonReverse onClick={() => navigate("/result-without-details")}>Go back</ButtonReverse>
-                        </BottomBlock>
                     </div>
                 </Container>
+                <BottomBlock>
+                    <Button
+                        onClick={() => navigate("/result-with-details-normal", {
+                            state: {
+                                age,
+                                ethnicBackground,
+                                discharge,
+                                vulvaCondition,
+                                smell,
+                                urination,
+                                notes
+                            }
+                        })}
+                    >
+                        Save
+                    </Button>
+                    <ButtonReverse onClick={() => navigate("/result-without-details")}>Go back</ButtonReverse>
+                </BottomBlock>
             </div>
         </>
     )

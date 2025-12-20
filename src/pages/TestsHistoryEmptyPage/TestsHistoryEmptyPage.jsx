@@ -12,7 +12,7 @@ const TestsHistoryEmptyPage = () => {
 
     return (
         <>
-            <div className={styles.content} data-scroll-container>
+            <div className={styles.content}>
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.mainBlock}>
@@ -21,14 +21,12 @@ const TestsHistoryEmptyPage = () => {
                                 <h1 className={styles.title}>Your test history will appear here</h1>
                                 <div className={styles.text}>After your first scan, you’ll be able to see your past results here and notice patterns over time.</div>
                             </div>
-
                         </div>
-
-                        <BottomBlock>
-                            <Button onClick={() => navigate("/steps")}>Start new scan</Button>
-                        </BottomBlock>
                     </div>
                 </Container>
+                <BottomBlock>
+                    <Button onClick={() => navigate("/steps")}>Start new scan</Button>
+                </BottomBlock>
             </div>
         </>
     )

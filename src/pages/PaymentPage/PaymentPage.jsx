@@ -46,58 +46,60 @@ const PaymentPage = () => {
         <>
             <div className={styles.content}>
                 <Container>
-                    <div className={styles.textBlock}>
-                        <h1 className={styles.heading}>Subscribe now</h1>
-                        <p className={styles.text}>Personalize your tracking, uncover your unique patterns, and access unlimited expert-backed articles with guidance and tips from our medical team.</p>
-                    </div>
-                    <div className={styles.wrapPayment}
-                        role="radiogroup"
-                        aria-label="Subscription plan"
-                    >
-                        {/* YEARLY */}
-                        <div
-                            ref={yearlyRef}
-                            className={`${styles.BlockPayment} ${activePlan === "yearly" ? styles.active : ""}`}
-                            role="radio"
-                            aria-checked={activePlan === "yearly"}
-                            tabIndex={activePlan === "yearly" ? 0 : -1}
-                            onClick={() => setActivePlan("yearly")}
-                            onKeyDown={(e) => handleKeyDown(e, "yearly")}
-                        >
-                            {activePlan === "yearly" && (
-                                <div className={styles.badge}>BEST VALUE</div>
-                            )}
-                            <div className={styles.data}>
-                                <div className={styles.period}>Yearly</div>
-                                <div className={styles.value}>€9.99</div>
-                                <div className={styles.periodicity}>Charged every 12 months</div>
-                            </div>
-                            <div className={`${styles.statusIndicator} ${activePlan === "yearly" ? styles.checked : ""}`} />
+                    <div className={styles.containerInner}>
+                        <div className={styles.textBlock}>
+                            <h1 className={styles.heading}>Subscribe now</h1>
+                            <p className={styles.text}>Personalize your tracking, uncover your unique patterns, and access unlimited expert-backed articles with guidance and tips from our medical team.</p>
                         </div>
+                        <div className={styles.wrapPayment}
+                            role="radiogroup"
+                            aria-label="Subscription plan"
+                        >
+                            {/* YEARLY */}
+                            <div
+                                ref={yearlyRef}
+                                className={`${styles.BlockPayment} ${activePlan === "yearly" ? styles.active : ""}`}
+                                role="radio"
+                                aria-checked={activePlan === "yearly"}
+                                tabIndex={activePlan === "yearly" ? 0 : -1}
+                                onClick={() => setActivePlan("yearly")}
+                                onKeyDown={(e) => handleKeyDown(e, "yearly")}
+                            >
+                                {activePlan === "yearly" && (
+                                    <div className={styles.badge}>BEST VALUE</div>
+                                )}
+                                <div className={styles.data}>
+                                    <div className={styles.period}>Yearly</div>
+                                    <div className={styles.value}>€9.99</div>
+                                    <div className={styles.periodicity}>Charged every 12 months</div>
+                                </div>
+                                <div className={`${styles.statusIndicator} ${activePlan === "yearly" ? styles.checked : ""}`} />
+                            </div>
 
-                        {/* MONTHLY */}
-                        <div
-                            ref={monthlyRef}
-                            className={`${styles.BlockPayment} ${activePlan === "monthly" ? styles.active : ""}`}
-                            role="radio"
-                            aria-checked={activePlan === "monthly"}
-                            tabIndex={activePlan === "monthly" ? 0 : -1}
-                            onClick={() => setActivePlan("monthly")}
-                            onKeyDown={(e) => handleKeyDown(e, "monthly")}
-                        >
-                            <div className={styles.data}>
-                                <div className={styles.period}>Monthly</div>
-                                <div className={styles.value}>€11.00</div>
-                                <div className={styles.periodicity}>Charged every month</div>
+                            {/* MONTHLY */}
+                            <div
+                                ref={monthlyRef}
+                                className={`${styles.BlockPayment} ${activePlan === "monthly" ? styles.active : ""}`}
+                                role="radio"
+                                aria-checked={activePlan === "monthly"}
+                                tabIndex={activePlan === "monthly" ? 0 : -1}
+                                onClick={() => setActivePlan("monthly")}
+                                onKeyDown={(e) => handleKeyDown(e, "monthly")}
+                            >
+                                <div className={styles.data}>
+                                    <div className={styles.period}>Monthly</div>
+                                    <div className={styles.value}>€11.00</div>
+                                    <div className={styles.periodicity}>Charged every month</div>
+                                </div>
+                                <div className={`${styles.statusIndicator} ${activePlan === "monthly" ? styles.checked : ""}`} />
                             </div>
-                            <div className={`${styles.statusIndicator} ${activePlan === "monthly" ? styles.checked : ""}`} />
                         </div>
                     </div>
-                    <BottomBlock>
-                        <Button >Continue</Button>
-                        <ButtonReverse onClick={() => navigate("/subscription")}>Go back</ButtonReverse>
-                    </BottomBlock>
                 </Container>
+                <BottomBlock>
+                    <Button >Continue</Button>
+                    <ButtonReverse onClick={() => navigate("/subscription")}>Go back</ButtonReverse>
+                </BottomBlock>
             </div>
         </>
     )

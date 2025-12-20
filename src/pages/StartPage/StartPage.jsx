@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
+import ImageWrapper from "../../components/ImageWrapper/ImageWrapper";
 import welcomeImage from "../../assets/images/welcomeImage.jpg";
 
 import styles from "./StartPage.module.css";
@@ -20,7 +21,7 @@ const StartPage = () => {
             <div className={styles.content}>
                 <Container>
                     <div className={styles.img}>
-                        <img src={welcomeImage} alt="Start page img" />
+                        <ImageWrapper src={welcomeImage} alt="Start page img" width={345} height={285} />
                     </div>
                     <div className={styles.textBlock}>
                         <div className={styles.greeting}>WELCOME TO PHERA</div>

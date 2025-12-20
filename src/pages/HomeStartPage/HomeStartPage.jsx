@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 
 import Button from "../../components/Button/Button";
 
+import ImageWrapper from "../../components/ImageWrapper/ImageWrapper";
 import noTestHomeMain from "../../assets/images/noTestHomeMain.jpg"
 import carouselHowItWorksStep1 from "../../assets/images/carousel/carouselHowItWorksStep1.jpg"
 import carouselHowItWorksStep2 from "../../assets/images/carousel/carouselHowItWorksStep2.jpg"
@@ -20,11 +21,11 @@ const HomeStartPage = () => {
 
     return (
         <>
-            <div className={styles.content} data-scroll-container>
+            <div className={styles.content}>
                 <div className={styles.containerInner}>
                     <div className={styles.greetingBlock}>
                         <div className={styles.img}>
-                            <img src={noTestHomeMain} alt="tests" />
+                            <ImageWrapper src={noTestHomeMain} alt="tests" width={345} height={214} />
                         </div>
                         <div className={styles.wrapText}>
                             <p className={styles.text}>
@@ -48,7 +49,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.carouselItem}>
                                     <div className={styles.carouselImg}>
-                                        <img src={carouselHowItWorksStep1} loading="lazy" alt="Step 1" />
+                                        <ImageWrapper src={carouselHowItWorksStep1} loading="lazy" alt="Step 1" width={218} height={200} />
                                     </div>
                                     <h3 className={styles.carouselTitle}>Scan your kit</h3>
                                     <p className={styles.carouselText}>
@@ -60,7 +61,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.carouselItem}>
                                     <div className={styles.carouselImg}>
-                                        <img src={carouselHowItWorksStep2} loading="lazy" alt="Step 2" />
+                                        <ImageWrapper src={carouselHowItWorksStep2} loading="lazy" alt="Step 2" width={218} height={200} />
                                     </div>
                                     <h3 className={styles.carouselTitle}>Allow camera access</h3>
                                     <p className={styles.carouselText}>
@@ -72,7 +73,7 @@ const HomeStartPage = () => {
                             <SwiperSlide>
                                 <div className={styles.carouselItem}>
                                     <div className={styles.carouselImg}>
-                                        <img src={carouselHowItWorksStep3} loading="lazy" alt="Step 3" />
+                                        <ImageWrapper src={carouselHowItWorksStep3} loading="lazy" alt="Step 3" width={218} height={200} />
                                     </div>
                                     <h3 className={styles.carouselTitle}>Get your result</h3>
                                     <p className={styles.carouselText}>

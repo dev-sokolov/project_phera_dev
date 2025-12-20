@@ -16,7 +16,7 @@ const HealthLibrary = () => {
 
     return (
         <>
-            <div className={styles.content} data-scroll-container>
+            <div className={styles.content}>
                 <div className={styles.containerInner}>
                     <h1 className={styles.title}>Health library</h1>
                     <div className={styles.libraryBlock}>
@@ -152,10 +152,10 @@ const HealthLibrary = () => {
                             </SwiperSlide>
                         </Swiper>
                     </div>
-                    <BottomBlock>
-                        <Button onClick={() => navigate("/subscription")} >Unlock all articles</Button>
-                    </BottomBlock>
                 </div>
+                <BottomBlock>
+                    <Button onClick={() => navigate("/subscription")} >Unlock all articles</Button>
+                </BottomBlock>
             </div >
         </>
     )

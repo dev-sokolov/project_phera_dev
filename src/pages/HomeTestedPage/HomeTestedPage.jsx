@@ -37,7 +37,7 @@ const HomeTestedPage = () => {
 
     return (
         <>
-            <div className={styles.content} data-scroll-container>
+            <div className={styles.content}>
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.title}>Hi, Helena</div>
@@ -121,11 +121,11 @@ const HomeTestedPage = () => {
                             )}
 
                         </div>
-                        <BottomBlock>
-                            <Button onClick={() => navigate("/steps")}>Start new scan</Button>
-                        </BottomBlock>
                     </div>
                 </Container>
+                <BottomBlock>
+                    <Button onClick={() => navigate("/steps")}>Start new scan</Button>
+                </BottomBlock>
             </div>
         </>
     )

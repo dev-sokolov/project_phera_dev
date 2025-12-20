@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
-    overflow-y: auto;
     padding-top: 56px;
 }
 
@@ -13,6 +12,8 @@
 
     min-height: calc(100dvh - 56px);
     padding-bottom: 88px;
+
+    flex: 1;
 }
 
 .mainBlock {

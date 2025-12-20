@@ -6,6 +6,13 @@
     padding-top: 56px;
 }
 
+.containerInner {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
 .textBlock {
     display: flex;
     flex-direction: column;
