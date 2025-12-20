@@ -1,6 +1,7 @@
 .content {
     background-color: var(--main-background-color);
-    height: 100dvh;
+    /* height: 100dvh; */
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     padding-top: 56px;
