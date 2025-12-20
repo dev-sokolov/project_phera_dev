@@ -36,7 +36,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
 
             // Запускаем таймер на 2 секунды
             const timer = setTimeout(() => {
-                navigate("/camera-processing");  // ← переход
+                navigate("/camera-processing", { replace: true });  // ← переход
             }, 2000);
 
             setInsideTimer(timer);
@@ -71,7 +71,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
         }, 3000);                               //временно !!!!!!!! Удалить!!!!!!!!!!!!
 
         const timer2 = setTimeout(() => {       //временно !!!!!!!! Удалить!!!!!!!!!!!!
-            navigate("/camera-processing");     //временно !!!!!!!! Удалить!!!!!!!!!!!!
+            navigate("/camera-processing", { replace: true });     //временно !!!!!!!! Удалить!!!!!!!!!!!!
         }, 4000);                               //временно !!!!!!!! Удалить!!!!!!!!!!!!
 
         return () => {                          //временно !!!!!!!! Удалить!!!!!!!!!!!!

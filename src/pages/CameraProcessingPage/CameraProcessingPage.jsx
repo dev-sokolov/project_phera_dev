@@ -21,7 +21,7 @@ const CameraProcessingPage = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            navigate("/result-without-details");
+            navigate("/result-without-details", { replace: true });
         }, 9000);
         return () => clearTimeout(timer);
     }, [navigate]);
