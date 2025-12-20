@@ -57,11 +57,11 @@ const CameraCapture = ({ onCapture, onExit }) => {
         };
     }, []);
 
-    const handleExit = () => {
-        const video = webcamRef.current?.video;
-        video?.srcObject?.getTracks().forEach((track) => track.stop());
-          onExit?.();
-    };
+    // const handleExit = () => {
+    //     const video = webcamRef.current?.video;
+    //     video?.srcObject?.getTracks().forEach((track) => track.stop());
+    //       onExit?.();
+    // };
 
     // useMarkerDetection(videoRef, frameRef, setInside); //временно !!!! убрать комментирование!!!!!!!!!!!!
 
@@ -92,7 +92,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
 
     return (
         <div className={styles.content}>
-            <div className={styles.wrapLogo}>
+            {/* <div className={styles.wrapLogo}>
                 <button
                     className={styles.arrowLeft}
                     onClick={handleExit}
@@ -103,7 +103,7 @@ const CameraCapture = ({ onCapture, onExit }) => {
                 <div className={styles.logo}>
                     <Logo />
                 </div>
-            </div>
+            </div> */}
 
             <div className={styles.containerInner}>
                 <div className={styles.cameraBlock}>

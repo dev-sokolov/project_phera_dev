@@ -32,7 +32,6 @@ import SubscriptionPage from "../pages/SubscriptionPage/SubscriptionPage";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 
-
 import "../shared/styles/style.css";
 
 function App() {
@@ -51,11 +50,15 @@ function App() {
         <Route path="/steps/4" element={<AppLayout><Steps4 /></AppLayout>} />
         <Route path="/steps/5" element={<AppLayout><Steps5 /></AppLayout>} />
         <Route path="/camera-access" element={<AppLayout><CameraAccess /></AppLayout>} />
-        <Route path="/camera-capture" element={<CameraCapture
+        {/* <Route path="/camera-capture" element={<CameraCapture
           onExit={() => navigate("/camera-access")}
           onCapture={(result) => navigate("/result", { state: result })}
         />}
-        />
+        /> */}
+        <Route path="/camera-capture" element={
+          <AppLayout showBack onBack={() => navigate("/camera-access")}>
+            <CameraCapture onExit={() => navigate("/camera-access")} onCapture={(result) => navigate("/camera-processing", { state: result })} />
+          </AppLayout>} />
         <Route path="/camera-processing" element={<AppLayout><CameraProcessingPage /></AppLayout>} />
         <Route path="/result-without-details" element={<AppLayout><ResultWithoutDetailsPage /></AppLayout>} />
         <Route path="/add-details" element={<AppLayout><AddDetailsPage /></AppLayout>} />
