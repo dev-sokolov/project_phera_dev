@@ -7,9 +7,9 @@ import Container from "../../../components/Container/Container";
 import step5 from "../../../assets/images/step5.jpg";
 import ImageWrapper from "../../../components/ImageWrapper/ImageWrapper";
 
-import styles from "./Steps5.module.css";
+import styles from "./StepsCheck.module.css";
 
-const Steps5 = () => {
+const StepsCheck = () => {
     const navigate = useNavigate();
 
     return (
@@ -17,7 +17,8 @@ const Steps5 = () => {
             <div className={styles.content}>
                 <Container>
                     <div className={styles.containerInner}>
-                        <div className={styles.crumbs}>
+                        <div className={styles.check}></div>
+                        {/* <div className={styles.crumbs}>
                             <Link to="/steps/1" className={styles.itemColored}></Link>
                             <Link to="/steps/2" className={styles.itemColored}></Link>
                             <Link to="/steps/3" className={styles.itemColored}></Link>
@@ -31,17 +32,16 @@ const Steps5 = () => {
                             <p className={styles.text}>Your pH result will appear within seconds, along with a clear explanation of what it means for you. Remember, this is an indicator of balance, not a diagnosis — we’ll guide you through the next steps.</p>
 
                             <p className={styles.textItalic}>Next, we’ll take you to a quick scan of your test strip.</p>
-                        </div>
+                        </div> */}
                     </div>
                 </Container>
-                <BottomBlock>
-                    {/* <Button onClick={() => navigate("/camera-access")}>Next</Button> */}
-                    <Button onClick={() => navigate("/steps/check")}>Next</Button>
-                    <ButtonReverse onClick={() => navigate("/steps/4")}>Go back</ButtonReverse>
-                </BottomBlock>
+                {/* <BottomBlock>
+                    <Button onClick={() => navigate("/camera-access")}>Next</Button>
+                    <ButtonReverse onClick={() => navigate("/steps/5")}>Go back</ButtonReverse>
+                </BottomBlock> */}
             </div>
         </>
     )
 };
 
-export default Steps5;
+export default StepsCheck;

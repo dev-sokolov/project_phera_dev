@@ -4,10 +4,10 @@ import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import ImageWrapper from "../../components/ImageWrapper/ImageWrapper";
 import onboardingStep1 from "../../assets/images/onboardingStep1.jpg"
 import onboardingStep2 from "../../assets/images/onboardingStep2.jpg"
 import onboardingStep3 from "../../assets/images/onboardingStep3.jpg"
+import ImageWrapper from "../../components/ImageWrapper/ImageWrapper";
 
 import styles from "./HowItWorksPage.module.css";
 
@@ -23,6 +23,7 @@ const HowItWorksPage = () => {
                         <div className={styles.steps}>
                             <div className={styles.step}>
                                 <div className={styles.img}>
+                                    {/* <img src={onboardingStep1} alt="step 1" /> */}
                                     <ImageWrapper src={onboardingStep1} alt="step 1" ratio="345/200" />
                                 </div>
                                 <h2 className={styles.heading}>Scan your kit</h2>
@@ -32,7 +33,8 @@ const HowItWorksPage = () => {
                             </div>
                             <div className={styles.step}>
                                 <div className={styles.img}>
-                                    <ImageWrapper src={onboardingStep2} alt="step 2" ratio="345/200" />
+                                    {/* <img src={onboardingStep2} alt="step 2" /> */}
+                                     <ImageWrapper src={onboardingStep2} alt="step 2" ratio="345/200" />
                                 </div>
                                 <h2 className={styles.heading}>Allow camera access</h2>
                                 <p className={styles.text}>
@@ -41,6 +43,7 @@ const HowItWorksPage = () => {
                             </div>
                             <div className={styles.step}>
                                 <div className={styles.img}>
+                                    {/* <img src={onboardingStep3} alt="step 3" /> */}
                                     <ImageWrapper src={onboardingStep3} alt="step 3" ratio="345/200" />
                                 </div>
                                 <h2 className={styles.heading}>Get your result</h2>
@@ -49,6 +52,11 @@ const HowItWorksPage = () => {
                                 </p>
                             </div>
                         </div>
+
+                        {/* <BottomBlock>
+                            <Button onClick={() => navigate("/steps")}>Start test</Button>
+                            <ButtonReverse onClick={() => navigate("/")}>Go back</ButtonReverse>
+                        </BottomBlock> */}
                     </div>
                 </Container>
                 <BottomBlock>

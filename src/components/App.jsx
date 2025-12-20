@@ -32,6 +32,8 @@ import SubscriptionPage from "../pages/SubscriptionPage/SubscriptionPage";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 
+import StepsCheck from "../pages/Steps/StepsCheck/StepsCheck";
+
 import "../shared/styles/style.css";
 
 function App() {
@@ -49,6 +51,7 @@ function App() {
         <Route path="/steps/3" element={<AppLayout><Steps3 /></AppLayout>} />
         <Route path="/steps/4" element={<AppLayout><Steps4 /></AppLayout>} />
         <Route path="/steps/5" element={<AppLayout><Steps5 /></AppLayout>} />
+        <Route path="/steps/check" element={<AppLayout><StepsCheck /></AppLayout>} />
         <Route path="/camera-access" element={<AppLayout><CameraAccess /></AppLayout>} />
         <Route path="/camera-capture" element={<CameraCapture
           onExit={() => navigate("/camera-access")}
