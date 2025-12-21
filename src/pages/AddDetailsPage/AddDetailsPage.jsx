@@ -45,6 +45,12 @@ const AddDetailsPage = () => {
             hormoneReplacement: []
         }
     );
+    const [fertilityJourney, setFertilityJourney] = useState(
+        state?.fertilityJourney || {
+            currentStatus: null,
+            fertilityTreatments: []
+        }
+    );
     const [discharge, setDischarge] = useState(state?.discharge || []);
     const [vulvaCondition, setVulvaCondition] = useState(state?.vulvaCondition || []);
     const [smell, setSmell] = useState(state?.smell || []);
@@ -76,6 +82,8 @@ const AddDetailsPage = () => {
                                 setBirthControl={setBirthControl}
                                 hormoneTherapy={hormoneTherapy}
                                 setHormoneTherapy={setHormoneTherapy}
+                                fertilityJourney={fertilityJourney}
+                                setFertilityJourney={setFertilityJourney}
                                 discharge={discharge}
                                 setDischarge={setDischarge}
                                 vulvaCondition={vulvaCondition}
@@ -100,6 +108,7 @@ const AddDetailsPage = () => {
                                 hormoneDiagnoses,
                                 birthControl,
                                 hormoneTherapy,
+                                fertilityJourney,
                                 discharge,
                                 vulvaCondition,
                                 smell,

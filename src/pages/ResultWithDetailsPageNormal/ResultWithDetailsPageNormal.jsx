@@ -26,6 +26,13 @@ const ResultWithDetailsPageNormal = () => {
         ].filter(Boolean)
         : [];
 
+    const fertilityJourneyValues = state?.fertilityJourney
+        ? [
+            state.fertilityJourney.currentStatus,
+            ...(state.fertilityJourney.fertilityTreatments || [])
+        ].filter(Boolean)
+        : [];
+
     const detailOptions = [
         state?.age,
         ...(state?.ethnicBackground?.length ? state.ethnicBackground : []),
@@ -33,6 +40,7 @@ const ResultWithDetailsPageNormal = () => {
         ...(state?.hormoneDiagnoses?.length ? state.hormoneDiagnoses : []),
         ...birthControlValues,
         ...hormoneTherapyValues,
+        ...fertilityJourneyValues,
         ...(state?.discharge?.length ? state.discharge : []),
         ...(state?.vulvaCondition?.length ? state.vulvaCondition : []),
         ...(state?.smell?.length ? state.smell : []),

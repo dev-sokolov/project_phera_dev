@@ -1,34 +1,34 @@
 import { memo, useState } from "react";
 import Radio from "../../Radio/Radio";
 import InfoTooltip from "../../InfoTooltip/InfoTooltip";
-import styles from "./HormoneTherapy.module.css";
+import styles from "./FertilityJourney.module.css";
 
-const radioOptions = ["Estrogen only", "Estrogen + progestin"];
-const listOptions = ["Testosterone", "Estrogen blocker", "Puberty blocker"];
+const radioOptions = ["I am pregnant", "I had a baby (last 12 months)", "I am not able to get pregnant", "I am trying to conceive"];
+const listOptions = ["Ovulation induction", "Intrauterine insemination (IUI)", "In vitro fertilisation (IVF)", "Egg freezing stimulation", "Luteal progesterone"];
 
-const HormoneTherapy = ({ hormoneTherapy, setHormoneTherapy }) => {
+const FertilityJourney = ({ fertilityJourney, setFertilityJourney }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleRadioChange = (value) => {
-        setHormoneTherapy(prev => ({
+        setFertilityJourney(prev => ({
             ...prev,
-            general: value
+            currentStatus: value
         }));
     };
 
     const handleListChange = (value) => {
-        setHormoneTherapy(prev => ({
+        setFertilityJourney(prev => ({
             ...prev,
-            hormoneReplacement: prev.hormoneReplacement.includes(value)
-                ? prev.hormoneReplacement.filter(v => v !== value)
-                : [...prev.hormoneReplacement, value]
+            fertilityTreatments: prev.fertilityTreatments.includes(value)
+                ? prev.fertilityTreatments.filter(v => v !== value)
+                : [...prev.fertilityTreatments, value]
         }));
     };
 
     return (
         <div className={styles.wrap}>
             <InfoTooltip
-                title="Hormone therapy"
+                title="Fertility journey"
                 onToggle={() => setIsOpen(v => !v)}
                 onToggleArrow={isOpen}
             />
@@ -37,13 +37,14 @@ const HormoneTherapy = ({ hormoneTherapy, setHormoneTherapy }) => {
 
                 {/* RADIO */}
                 <div className={styles.section}>
+                    <h4 className={styles.heading}>Current status:</h4>
                     {radioOptions.map(item => (
                         <Radio
                             key={item}
-                            name="hormone-therapy-general"
+                            name="fertility-journey-status"
                             value={item}
                             label={item}
-                            checked={hormoneTherapy.general === item}
+                            checked={fertilityJourney.currentStatus === item}
                             onChange={() => handleRadioChange(item)}
                         />
                     ))}
@@ -51,12 +52,9 @@ const HormoneTherapy = ({ hormoneTherapy, setHormoneTherapy }) => {
 
                 {/* LIST */}
                 <div className={styles.list}>
-                    <h4 className={styles.heading}>
-                        Hormone replacement therapy (HRT)
-                    </h4>
-
+                    <h4 className={styles.heading}>Fertility treatments (last 3 months)</h4>
                     {listOptions.map(item => {
-                        const isActive = hormoneTherapy.hormoneReplacement.includes(item);
+                        const isActive = fertilityJourney.fertilityTreatments.includes(item);
 
                         return (
                             <div
@@ -74,7 +72,7 @@ const HormoneTherapy = ({ hormoneTherapy, setHormoneTherapy }) => {
     );
 };
 
-export default memo(HormoneTherapy);
+export default memo(FertilityJourney);
 
 
 

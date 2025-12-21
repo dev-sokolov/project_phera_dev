@@ -4,6 +4,7 @@ import MenstrualCycle from "./MenstrualCycle/MenstrualCycle";
 import HormoneDiagnoses from "./HormoneDiagnoses/HormoneDiagnoses";
 import BirthControl from "./BirthControl/BirthControl";
 import HormoneTherapy from "./HormoneTherapy/HormoneTherapy";
+import FertilityJourney from "./FertilityJourney/FertilityJourney";
 import Discharge from "./Discharge/Discharge";
 import VulvaCondition from "./VulvaCondition/VulvaCondition";
 import Smell from "./Smell/Smell";
@@ -25,6 +26,8 @@ const PersonalData = ({
     setBirthControl,
     hormoneTherapy,
     setHormoneTherapy,
+    fertilityJourney,
+    setFertilityJourney,
     discharge,
     setDischarge,
     vulvaCondition,
@@ -98,46 +101,20 @@ const PersonalData = ({
             <div className={styles.wrapper}>
                 <form className={styles.form}>
                     <AgeInput age={age} onChange={setAge} />
-                    <EthnicBackground
-                        ethnicBackground={ethnicBackground}
-                        onChange={handleEthnicBackgroundChange}
-                    />
+                    <EthnicBackground ethnicBackground={ethnicBackground} onChange={handleEthnicBackgroundChange} />
+
                     <div className={styles.heading}>Hormone status</div>
-                    <MenstrualCycle
-                        menstrualCycle={menstrualCycle}
-                        onChange={handleMenstrualCycleChange}
-                    />
-                    <HormoneDiagnoses
-                        hormoneDiagnoses={hormoneDiagnoses}
-                        onChange={handleHormoneDiagnosesChange}
-                    />
-
-                    <BirthControl
-                        birthControl={birthControl}
-                        setBirthControl={setBirthControl}
-                    />
-
-                    <HormoneTherapy
-                        hormoneTherapy={hormoneTherapy}
-                        setHormoneTherapy={setHormoneTherapy}
-                    />
-
-                    <Discharge
-                        discharge={discharge}
-                        onChange={handleDischargeChange}
-                    />
-                    <VulvaCondition
-                        vulvaCondition={vulvaCondition}
-                        onChange={handleVulvaConditionChange}
-                    />
-                    <Smell
-                        smell={smell}
-                        onChange={handleSmellChange}
-                    />
-                    <Urination
-                        urination={urination}
-                        onChange={handleUrinationChange}
-                    />
+                    <MenstrualCycle menstrualCycle={menstrualCycle} onChange={handleMenstrualCycleChange} />
+                    <HormoneDiagnoses hormoneDiagnoses={hormoneDiagnoses} onChange={handleHormoneDiagnosesChange} />
+                    <BirthControl birthControl={birthControl} setBirthControl={setBirthControl} />
+                    <HormoneTherapy hormoneTherapy={hormoneTherapy} setHormoneTherapy={setHormoneTherapy} />
+                    <FertilityJourney fertilityJourney={fertilityJourney} setFertilityJourney={setFertilityJourney} />
+                    
+                    <div className={styles.heading}>Symptoms</div>
+                    <Discharge discharge={discharge} onChange={handleDischargeChange} />
+                    <VulvaCondition vulvaCondition={vulvaCondition} onChange={handleVulvaConditionChange} />
+                    <Smell smell={smell} onChange={handleSmellChange} />
+                    <Urination urination={urination} onChange={handleUrinationChange} />
                     <Notes notes={notes} setNotes={setNotes} />
                 </form>
             </div>
