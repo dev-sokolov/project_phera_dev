@@ -18,7 +18,7 @@ const HowItWorksPage = () => {
         <>
             <div className={styles.content}>
                 <Container>
-                    <div className={styles.wrapper}>
+                    <div className={styles.containerInner}>
                         <h1 className={styles.title}>How pHera testing works</h1>
                         <div className={styles.steps}>
                             <div className={styles.step}>

@@ -32,7 +32,7 @@ const ResultWithDetailsPageNormal = () => {
 
     return (
         <>
-            <div className={styles.content}>
+            <div className={styles.content} data-scroll-container>
                 <Container>
                     <div className={styles.containerInner}>
                         <h1 className={styles.title}>Your pH result</h1>

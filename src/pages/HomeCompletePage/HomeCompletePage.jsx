@@ -35,7 +35,7 @@ const HomeCompletePage = () => {
 
     return (
         <>
-            <div className={styles.content}>
+            <div className={styles.content} data-scroll-container>
                 <Container>
                     <div className={styles.containerInner}>
                         <div className={styles.title}>Hi, Helena</div>
