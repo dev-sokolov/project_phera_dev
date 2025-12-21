@@ -30,6 +30,21 @@ const AddDetailsPage = () => {
     const [ethnicBackground, setEthnicBackground] = useState(state?.ethnicBackground || []);
     const [menstrualCycle, setMenstrualCycle] = useState(state?.menstrualCycle || []);
     const [hormoneDiagnoses, setHormoneDiagnoses] = useState(state?.hormoneDiagnoses || []);
+    const [birthControl, setBirthControl] = useState(
+        state?.birthControl || {
+            general: null,
+            pill: null,
+            iud: null,
+            otherHormonalMethods: null,
+            permanentMethods: null,
+        }
+    );
+    const [hormoneTherapy, setHormoneTherapy] = useState(
+        state?.hormoneTherapy || {
+            general: null,
+            hormoneReplacement: []
+        }
+    );
     const [discharge, setDischarge] = useState(state?.discharge || []);
     const [vulvaCondition, setVulvaCondition] = useState(state?.vulvaCondition || []);
     const [smell, setSmell] = useState(state?.smell || []);
@@ -57,6 +72,10 @@ const AddDetailsPage = () => {
                                 setMenstrualCycle={setMenstrualCycle}
                                 hormoneDiagnoses={hormoneDiagnoses}
                                 setHormoneDiagnoses={setHormoneDiagnoses}
+                                birthControl={birthControl}
+                                setBirthControl={setBirthControl}
+                                hormoneTherapy={hormoneTherapy}
+                                setHormoneTherapy={setHormoneTherapy}
                                 discharge={discharge}
                                 setDischarge={setDischarge}
                                 vulvaCondition={vulvaCondition}
@@ -79,6 +98,8 @@ const AddDetailsPage = () => {
                                 ethnicBackground,
                                 menstrualCycle,
                                 hormoneDiagnoses,
+                                birthControl,
+                                hormoneTherapy,
                                 discharge,
                                 vulvaCondition,
                                 smell,

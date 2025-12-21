@@ -1,39 +1,59 @@
 import { memo, useState } from "react";
+import Radio from "../../Radio/Radio";
 
 import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./BirthControl.module.css";
 
-const options = [
-    "Regular",
-    "Irregular",
-    "No period for 12+ months",
-    "Never had a period",
-    "Perimenopause",
-    "Postmenopause",
-];
+const options = {
+    general: [
+        "No birth control or hormonal birth control",
+        "Stopped birth control in the last 3 months",
+        "Morning after-pill / emergency contraception in the last 7 days",
+    ],
+    pill: ["Combined pill", "Progestin-only pill"],
+    iud: ["Hormonal IUD", "Copper IUD"],
+    otherHormonalMethods: ["Contraceptive implant", "Contraceptive injection", "Vaginal ring", "Patch"],
+    permanentMethods: ["Tubal ligation"],
+};
 
-const BirthControl = ({ menstrualCycle, onChange }) => {
+const sectionTitles = {
+    general: "",
+    pill: "Pill",
+    iud: "IUD",
+    otherHormonalMethods: "Other hormonal methods",
+    permanentMethods: "Permanent methods",
+};
+
+const BirthControl = ({ birthControl, setBirthControl }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const handleChange = (section, value) => {
+        setBirthControl(prev => ({
+            ...prev,
+            [section]: value
+        }));
+    };
 
-    const list = options.map((item) => {
-        const isActive = menstrualCycle.includes(item);
-
-        return (
-            <div
-                key={item}
-                className={isActive ? styles.itemSelected : styles.item}
-                onClick={() => onChange(item)}
-            >
-                <span>{item}</span>
-            </div>
-        );
-    });
+    const sections = Object.entries(options).map(([section, items]) => (
+        <div key={section} className={styles.section}>
+            {sectionTitles[section] && <h4 className={styles.heading}>{sectionTitles[section]}:</h4>}
+            {items.map(item => (
+                <Radio
+                    key={item}
+                    name={`birthControl-${section}`}
+                    value={item}
+                    label={item}
+                    checked={birthControl[section] === item}
+                    onChange={() => handleChange(section, item)}
+                />
+            ))}
+        </div>
+    ));
 
     return (
         <div className={styles.wrap}>
-            <InfoTooltip title="Menstrual cycle" onToggle={() => setIsOpen((v) => !v)} onToggleArrow={isOpen}></InfoTooltip>
+            <InfoTooltip title="Birth control" onToggle={() => setIsOpen((v) => !v)} onToggleArrow={isOpen}></InfoTooltip>
             <div className={`${styles.list} ${!isOpen ? styles.collapsed : ""}`}>
-                {list}
+                {sections}
             </div>
         </div>
     );

@@ -8,13 +8,11 @@
 
 .list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding-top: 16px;
-    padding-right: 7px;
-    line-height: 1.3;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 12px;
 
-    max-height: 500px;
+    max-height: 700px;
     opacity: 1;
     overflow: hidden;
 
@@ -30,25 +28,20 @@
     padding-top: 0;
 }
 
-.item {
-    padding: 8px 10px 9px;
-    border: 1px solid var(--main-color);
-    border-radius: 100px;
-    cursor: pointer;
-    font-size: 14px;
-    background-color: #FFFFFF;
-    color: var(--main-color);
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 249px;
 }
 
-.itemSelected {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 10px 9px;
-    border: 1px solid var(--main-color);
-    border-radius: 100px;
-    background-color: #00343D1A;
+.heading {
     font-size: 14px;
-    color: var(--main-color);
-    cursor: pointer;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--main-color-secondary);
 }
+
+
+
+

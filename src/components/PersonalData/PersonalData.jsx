@@ -2,6 +2,8 @@ import AgeInput from "./AgeInput/AgeInput";
 import EthnicBackground from "./EthnicBackground/EthnicBackground";
 import MenstrualCycle from "./MenstrualCycle/MenstrualCycle";
 import HormoneDiagnoses from "./HormoneDiagnoses/HormoneDiagnoses";
+import BirthControl from "./BirthControl/BirthControl";
+import HormoneTherapy from "./HormoneTherapy/HormoneTherapy";
 import Discharge from "./Discharge/Discharge";
 import VulvaCondition from "./VulvaCondition/VulvaCondition";
 import Smell from "./Smell/Smell";
@@ -19,6 +21,10 @@ const PersonalData = ({
     setMenstrualCycle,
     hormoneDiagnoses,
     setHormoneDiagnoses,
+    birthControl,
+    setBirthControl,
+    hormoneTherapy,
+    setHormoneTherapy,
     discharge,
     setDischarge,
     vulvaCondition,
@@ -105,6 +111,17 @@ const PersonalData = ({
                         hormoneDiagnoses={hormoneDiagnoses}
                         onChange={handleHormoneDiagnosesChange}
                     />
+
+                    <BirthControl
+                        birthControl={birthControl}
+                        setBirthControl={setBirthControl}
+                    />
+
+                    <HormoneTherapy
+                        hormoneTherapy={hormoneTherapy}
+                        setHormoneTherapy={setHormoneTherapy}
+                    />
+
                     <Discharge
                         discharge={discharge}
                         onChange={handleDischargeChange}

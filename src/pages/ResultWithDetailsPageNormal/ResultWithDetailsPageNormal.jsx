@@ -15,11 +15,24 @@ const ResultWithDetailsPageNormal = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { state } = useLocation();
 
+    const birthControlValues = state?.birthControl
+        ? Object.values(state.birthControl).filter(Boolean)
+        : [];
+
+    const hormoneTherapyValues = state?.hormoneTherapy
+        ? [
+            state.hormoneTherapy.general,
+            ...(state.hormoneTherapy.hormoneReplacement || [])
+        ].filter(Boolean)
+        : [];
+
     const detailOptions = [
         state?.age,
         ...(state?.ethnicBackground?.length ? state.ethnicBackground : []),
         ...(state?.menstrualCycle?.length ? state.menstrualCycle : []),
         ...(state?.hormoneDiagnoses?.length ? state.hormoneDiagnoses : []),
+        ...birthControlValues,
+        ...hormoneTherapyValues,
         ...(state?.discharge?.length ? state.discharge : []),
         ...(state?.vulvaCondition?.length ? state.vulvaCondition : []),
         ...(state?.smell?.length ? state.smell : []),
