@@ -18,8 +18,7 @@ const BurgerMenu = ({ isMenuOpen, onClose }) => {
                 <li className={styles.item} onClick={() => goTo("/home/complete")}><span>Home</span><ArrowRightBlack /></li>
                 <li className={styles.item} onClick={() => goTo("/test-history")}><span>Test history</span><ArrowRightBlack /></li>
                 <li className={styles.item} onClick={() => goTo("/health-library")}><span>Health library</span><ArrowRightBlack /></li>
-                {/* <li className={styles.item} onClick={() => goTo("/trends")}><span>Trend preview</span><ArrowRightBlack /></li> */}
-                <li className={styles.item} ><span>Trend preview</span><ArrowRightBlack /></li>
+                <li className={styles.item} onClick={() => goTo("/trend-preview")}><span>Trend preview</span><ArrowRightBlack /></li>
                 <li className={styles.item} onClick={() => goTo("/profile")}><span>Profile</span><ArrowRightBlack /></li>
             </ul>
         </div>

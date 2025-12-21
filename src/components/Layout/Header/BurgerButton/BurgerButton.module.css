@@ -1,15 +1,23 @@
-.burger {
+.wrap {
+    width: 23px;
+    height: 23px;
+
     position: absolute;
     left: 31px;
     top: 50%;
     transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
 
+.burger {
     width: 17px;
     height: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    cursor: pointer;
     border: none;
     background: none;
     padding: 0;

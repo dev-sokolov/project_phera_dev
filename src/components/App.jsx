@@ -31,6 +31,7 @@ import HealthLibrary from "../pages/HealthLibrary/HealthLibrary";
 import SubscriptionPage from "../pages/SubscriptionPage/SubscriptionPage";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import TrendPreviewPage from "../pages/TrendPreviewPage/TrendPreviewPage";
 
 import "../shared/styles/style.css";
 
@@ -70,6 +71,7 @@ function App() {
         <Route path="/test-history-empty" element={<AppLayout headerVariant="auth"><TestsHistoryEmptyPage /></AppLayout>} />
         <Route path="/health-library" element={<AppLayout headerVariant="auth"><HealthLibrary /></AppLayout>} />
         <Route path="/profile" element={<AppLayout headerVariant="auth"><ProfilePage /></AppLayout>} />
+        <Route path="/trend-preview" element={<AppLayout headerVariant="auth"><TrendPreviewPage /></AppLayout>} />
         <Route path="/subscription" element={<AppLayout showBack onBack={() => navigate("/health-library")}><SubscriptionPage /></AppLayout>} />
         <Route path="/payment" element={<AppLayout headerVariant="auth"><PaymentPage /></AppLayout>} />
 
