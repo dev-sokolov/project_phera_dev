@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
@@ -11,6 +11,7 @@ import styles from "./TrendPreviewPage.module.css";
 
 const TrendPreviewPage = () => {
     const navigate = useNavigate();
+    const selectWrapperRef = useRef(null);
 
     const data = true;
     // const data = false;
@@ -29,6 +30,30 @@ const TrendPreviewPage = () => {
         setIsOpen(false);
     };
 
+    useEffect(() => {
+        // click out
+        const handleClickOutside = (event) => {
+            if (selectWrapperRef.current && !selectWrapperRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        // Escape
+        const handleEscape = (event) => {
+            if (event.key === "Escape") {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleEscape);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleEscape);
+        };
+    }, []);
+
     return (
         <>
             <div className={styles.content}>
@@ -41,29 +66,7 @@ const TrendPreviewPage = () => {
                                     <div className={styles.wrapSelect}>
                                         <div className={styles.titleSelect}>Select a past test to compare your results</div>
                                         <div className={styles.wrapDate}>
-                                            {/* <div className={styles.selectWrapper}>
-                                                <div
-                                                    className={styles.selectDate}
-                                                    onClick={() => setIsOpen(prev => !prev)}
-                                                >
-                                                    {selectedDate}
-                                                </div>
-
-                                                {isOpen && (
-                                                    <ul className={`${styles.dropdown} ${isOpen ? styles.open : ''}`}>
-                                                        {dates.map(date => (
-                                                            <li
-                                                                key={date}
-                                                                className={styles.dropdownItem}
-                                                                onClick={() => handleSelect(date)}
-                                                            >
-                                                                {date}
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                )}
-                                            </div> */}
-                                            <div className={styles.selectWrapper}>
+                                            <div className={styles.selectWrapper} ref={selectWrapperRef}>
                                                 <div
                                                     className={styles.selectDate}
                                                     onClick={() => setIsOpen(prev => !prev)}
