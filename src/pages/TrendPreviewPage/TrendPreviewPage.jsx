@@ -20,6 +20,8 @@ const TrendPreviewPage = () => {
         "Aug 12, 2025",
         "Sep 05, 2025",
         "Oct 21, 2025",
+        "Nov 18, 2025",
+        "Dec 02, 2025",
     ];
 
     const [isOpen, setIsOpen] = useState(false);

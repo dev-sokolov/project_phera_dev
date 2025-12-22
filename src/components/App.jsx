@@ -21,6 +21,7 @@ import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import StartPage from "../pages/StartPage/StartPage";
 import RegistrationStepPassword from "../pages/RegistrationStepPassword/RegistrationStepPassword";
 import RegistrationStepName from "../pages/RegistrationStepName/RegistrationStepName";
+import RegistrationStepEmail from "../pages/RegistrationStepEmail/RegistrationStepEmail";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import HomeCompletePage from "../pages/HomeCompletePage/HomeCompletePage";
 import HomeTestedPage from "../pages/HomeTestedPage/HomeTestedPage";
@@ -62,6 +63,7 @@ function App() {
         <Route path="/signup" element={<AppLayout showBack onBack={() => navigate("/result-with-details-normal")}><SignUpPage /></AppLayout>} />
         <Route path="/start" element={<AppLayout showBack onBack={() => navigate("https://phera.digital/")}><StartPage /></AppLayout>} />
         <Route path="/registration/username" element={<AppLayout><RegistrationStepName /></AppLayout>} />
+        <Route path="/registration/email" element={<AppLayout><RegistrationStepEmail /></AppLayout>} />
         <Route path="/registration/password" element={<AppLayout><RegistrationStepPassword /></AppLayout>} />
         <Route path="/login" element={<AppLayout><LoginPage /></AppLayout>} />
         <Route path="/home/complete" element={<AppLayout headerVariant="auth"><HomeCompletePage /></AppLayout>} />
