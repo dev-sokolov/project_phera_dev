@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
@@ -14,6 +15,20 @@ const TrendPreviewPage = () => {
     const data = true;
     // const data = false;
 
+    const dates = [
+        "Aug 12, 2025",
+        "Sep 05, 2025",
+        "Oct 21, 2025",
+    ];
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(dates[0]);
+
+    const handleSelect = (date) => {
+        setSelectedDate(date);
+        setIsOpen(false);
+    };
+
     return (
         <>
             <div className={styles.content}>
@@ -21,13 +36,55 @@ const TrendPreviewPage = () => {
                     <div className={styles.containerInner}>
                         {data ? (
                             <div className={styles.wrapper}>
-                                <h1 className={styles.title}>Short trends preview</h1>
+                                <h1 className={styles.titleMain}>Short trends preview</h1>
                                 <div className={styles.dataBlock}>
                                     <div className={styles.wrapSelect}>
-                                        <div className={styles.titleInfo}>Select a past test to compare your results</div>
+                                        <div className={styles.titleSelect}>Select a past test to compare your results</div>
                                         <div className={styles.wrapDate}>
-                                            <div className={styles.selectDate}></div>
-                                            <div className={styles.date}></div>
+                                            {/* <div className={styles.selectWrapper}>
+                                                <div
+                                                    className={styles.selectDate}
+                                                    onClick={() => setIsOpen(prev => !prev)}
+                                                >
+                                                    {selectedDate}
+                                                </div>
+
+                                                {isOpen && (
+                                                    <ul className={`${styles.dropdown} ${isOpen ? styles.open : ''}`}>
+                                                        {dates.map(date => (
+                                                            <li
+                                                                key={date}
+                                                                className={styles.dropdownItem}
+                                                                onClick={() => handleSelect(date)}
+                                                            >
+                                                                {date}
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                )}
+                                            </div> */}
+                                            <div className={styles.selectWrapper}>
+                                                <div
+                                                    className={styles.selectDate}
+                                                    onClick={() => setIsOpen(prev => !prev)}
+                                                >
+                                                    {selectedDate}
+                                                </div>
+
+                                                <ul className={`${styles.dropdown} ${isOpen ? styles.open : ''}`}>
+                                                    {dates.map(date => (
+                                                        <li
+                                                            key={date}
+                                                            className={styles.dropdownItem}
+                                                            onClick={() => handleSelect(date)}
+                                                        >
+                                                            {date}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+
+                                            <div className={styles.fixedDate}>Oct 12, 2025</div>
                                         </div>
                                     </div>
                                     <div className={styles.wrapScale}>
