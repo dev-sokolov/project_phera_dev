@@ -14,7 +14,6 @@ const RegistrationStepName = () => {
     const navigate = useNavigate();
     const [serverError, setServerError] = useState("");
 
-    // Берём значение из localStorage при инициализации формы
     const savedUsername = localStorage.getItem("reg_username") || "";
 
     const { register, handleSubmit, watch, formState: { errors }, clearErrors } = useForm({
@@ -58,54 +57,31 @@ const RegistrationStepName = () => {
     //     }
     // };
 
-    const onSubmit = async ({ username }) => {      // временный потом Удалить!!!!!!!!!!!!
+    const onSubmit = async ({ username }) => {      // temporary Удалить!!!!!!!!!!!!
         try {
             setServerError("");
 
-            // 🔹 сохраняем username в localStorage
             localStorage.setItem("reg_username", username);
 
-            // 🔹 симуляция backend
-            await new Promise(res => setTimeout(res, 500)); // имитация запроса
+            await new Promise(res => setTimeout(res, 500)); // imitation of request
             const token = "fake-token";
 
-            // 🔹 сохраняем токен
             localStorage.setItem("reg_token", token);
-
-            // 🔹 переходим на следующий шаг
-            navigate("/registration/password", { replace: true });
+            navigate("/registration/email", { state: { from: location.state?.from || location.pathname } })
         } catch (e) {
             setServerError("Server error");
         }
     };
 
-    // const goBack = () => {
-    //     if (window.history.length > 2) {
-    //         navigate(-1);
-    //     } else {
-    //         navigate("/");
-    //     }
-    // };
-
     const goBack = () => {
-        const from = sessionStorage.getItem("registration_from");
-
-        if (from) {
-            navigate(from, { replace: true });
-        } else {
-            navigate("/", { replace: true });
-        }
+        navigate("/signup", { replace: true });
     };
 
-    // если from уже есть — не перезаписываем
     useEffect(() => {
         if (!location.state?.from) return;
 
-        sessionStorage.setItem(
-            "registration_from",
-            location.state.from
-        );
-    }, []);
+        sessionStorage.setItem("registration_from", location.state.from);
+    }, [location.state?.from]);
 
     return (
         <div className={styles.content}>
@@ -114,6 +90,7 @@ const RegistrationStepName = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className={styles.crumbs}>
                             <div className={styles.itemColored}></div>
+                            <div className={styles.item}></div>
                             <div className={styles.item}></div>
                         </div>
 

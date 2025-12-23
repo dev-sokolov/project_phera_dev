@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
@@ -12,18 +13,24 @@ import styles from "./SignUpPage.module.css";
 
 const SignUpPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         localStorage.removeItem("reg_username");
     }, []);
 
-    const goBack = () => {
-        if (window.history.length > 2) {
-            navigate(-1);
-        } else {
-            navigate("/");
-        }
-    };
+    // const goBack = () => {
+    //     if (window.history.length > 2) {
+    //         navigate(-1);
+    //     } else {
+    //         navigate("/");
+    //     }
+    // };
+
+    useEffect(() => {
+        localStorage.removeItem("reg_email");
+        localStorage.removeItem("reg_token"); 
+    }, []);
 
     return (
         <>

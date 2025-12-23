@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import { registrNameApi } from "../../shared/api/auth-api";
 
 import styles from "./RegistrationStepEmail.module.css";
 
@@ -14,98 +13,49 @@ const RegistrationStepEmail = () => {
     const navigate = useNavigate();
     const [serverError, setServerError] = useState("");
 
-    // Берём значение из localStorage при инициализации формы
-    const savedUsername = localStorage.getItem("reg_username") || "";
+    // Email from localStorage
+    const savedEmail = localStorage.getItem("reg_email") || "";
 
     const { register, handleSubmit, watch, formState: { errors }, clearErrors } = useForm({
         defaultValues: {
-            username: savedUsername
+            email: savedEmail
         },
         mode: "onBlur"
     });
 
-    const username = watch("username");
-    const showUsernameError = errors.username && username.length < 2;
+    const email = watch("email");
 
-    const isFormValid =
-        username.length >= 2;
+    // validation email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // const onSubmit = async ({ username }) => {  // !!!!! реальный запрос на бэкенд  !!!!!!!!!!
-    //     try {
-    //         setServerError("");
+    const showEmailError = errors.email && !emailRegex.test(email);
 
-    // 🔹 сохраняем username в localStorage
-    // localStorage.setItem("reg_username", username);
+    const isFormValid = emailRegex.test(email);
 
-    //         // 1️⃣ запрос на backend
-    //         const res = await registrNameApi(username);
-
-    //         // 2️⃣ получаем token
-    //         const token = res?.token;
-    //         if (!token) {
-    //             setServerError("Unexpected server response");
-    //             return;
-    //         }
-
-    //         // 3️⃣ сохраняем токен для следующего шага
-    //         localStorage.setItem("reg_token", token);
-
-    //         // 4️⃣ переход на следующий шаг
-    //         navigate("/signup/password");
-
-    //     } catch (e) {
-    //         setServerError(e?.response?.data?.message || "Server error");
-    //     }
-    // };
-
-    const onSubmit = async ({ username }) => {      // временный потом Удалить!!!!!!!!!!!!
+    const onSubmit = async ({ email }) => {
         try {
             setServerError("");
 
-            // 🔹 сохраняем username в localStorage
-            localStorage.setItem("reg_username", username);
+            localStorage.setItem("reg_email", email);
 
-            // 🔹 симуляция backend
-            await new Promise(res => setTimeout(res, 500)); // имитация запроса
-            const token = "fake-token";
+            // imitation of request
+            await new Promise(res => setTimeout(res, 500));
+            navigate("/registration/password", { state: { from: location.state?.from || location.pathname } })
 
-            // 🔹 сохраняем токен
-            localStorage.setItem("reg_token", token);
-
-            // 🔹 переходим на следующий шаг
-            navigate("/registration/password", { replace: true });
         } catch (e) {
             setServerError("Server error");
         }
     };
 
-    // const goBack = () => {
-    //     if (window.history.length > 2) {
-    //         navigate(-1);
-    //     } else {
-    //         navigate("/");
-    //     }
-    // };
-
-    const goBack = () => {
-        const from = sessionStorage.getItem("registration_from");
-
-        if (from) {
-            navigate(from, { replace: true });
-        } else {
-            navigate("/", { replace: true });
-        }
-    };
-
-    // если from уже есть — не перезаписываем
     useEffect(() => {
         if (!location.state?.from) return;
 
-        sessionStorage.setItem(
-            "registration_from",
-            location.state.from
-        );
-    }, []);
+        sessionStorage.setItem("registration_from", location.state.from);
+    }, [location.state?.from]);
+
+    const goBack = () => {
+        navigate("/registration/username", { replace: true });
+    };
 
     return (
         <div className={styles.content}>
@@ -113,6 +63,7 @@ const RegistrationStepEmail = () => {
                 <div className={styles.containerInner}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className={styles.crumbs}>
+                            <div className={styles.itemColored}></div>
                             <div className={styles.itemColored}></div>
                             <div className={styles.item}></div>
                         </div>
@@ -126,26 +77,29 @@ const RegistrationStepEmail = () => {
 
                         <div className={styles.dataSent}>
                             <div className={styles.itemInput}>
-                                <label htmlFor="username" className={styles.label}>Email</label>
+                                <label htmlFor="email" className={styles.label}>Email</label>
 
                                 <div className={styles.inputWrapper}>
                                     <input
-                                        {...register("username", {
-                                            required: "Create your username",
-                                            minLength: { value: 2, message: "Min 2 characters" },
-                                            onChange: (e) => {
-                                                if (e.target.value.length >= 2) clearErrors("username");
+                                        {...register("email", {
+                                            required: "Enter your email",
+                                            validate: value =>
+                                                emailRegex.test(value) || "Invalid email format",
+                                            onChange: () => {
+                                                if (emailRegex.test(email)) clearErrors("email");
                                             }
                                         })}
                                         placeholder="Enter your email"
-                                        id="username"
-                                        type="text"
+                                        id="email"
+                                        type="email"
                                         className={styles.input}
-                                        value={username}
-                                        aria-invalid={!!showUsernameError}
+                                        aria-invalid={!!showEmailError}
                                     />
                                 </div>
-                                {showUsernameError && <p className={styles.error}>{errors.username.message}</p>}
+
+                                {showEmailError && (
+                                    <p className={styles.error}>{errors.email.message}</p>
+                                )}
                             </div>
                         </div>
 
@@ -159,11 +113,15 @@ const RegistrationStepEmail = () => {
                             >
                                 Confirm
                             </Button>
-                            <ButtonReverse onClick={navigate("/registration/username")}>Go back</ButtonReverse>
+                            <ButtonReverse onClick={goBack}>Go back</ButtonReverse>
                         </div>
                     </form>
+
                     <div className={styles.wrapinfo}>
-                        <p className={styles.info}>Already have an account?<Link to="/login" className={styles.login}>LOG IN</Link></p>
+                        <p className={styles.info}>
+                            Already have an account?
+                            <Link to="/login" className={styles.login}>LOG IN</Link>
+                        </p>
                     </div>
                 </div>
             </Container>
