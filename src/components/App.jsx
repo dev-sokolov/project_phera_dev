@@ -11,7 +11,7 @@ import Steps2 from "../pages/Steps/Steps2/Steps2";
 import Steps3 from "../pages/Steps/Steps3/Steps3";
 import Steps4 from "../pages/Steps/Steps4/Steps4";
 import Steps5 from "../pages/Steps/Steps5/Steps5";
-import Countdown from "../pages/Countdown/Countdown";
+import CountdownPage from "../pages/CountdownPage/CountdownPage";
 import CameraAccess from "../pages/CameraAccess/CameraAccess";
 import CameraCapture from "../pages/CameraCapture/CameraCapture";
 import CameraProcessingPage from "../pages/CameraProcessingPage/CameraProcessingPage";
@@ -53,7 +53,7 @@ function App() {
         <Route path="/steps/3" element={<AppLayout><Steps3 /></AppLayout>} />
         <Route path="/steps/4" element={<AppLayout><Steps4 /></AppLayout>} />
         <Route path="/steps/5" element={<AppLayout><Steps5 /></AppLayout>} />
-        <Route path="/countdown" element={<AppLayout><Countdown /></AppLayout>} />
+        <Route path="/countdown" element={<AppLayout><CountdownPage /></AppLayout>} />
         <Route path="/camera-access" element={<AppLayout><CameraAccess /></AppLayout>} />
         <Route path="/camera-capture" element={
           <AppLayout showBack onBack={() => navigate("/camera-access", { replace: true })}>
