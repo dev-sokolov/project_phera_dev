@@ -40,7 +40,7 @@ const RegistrationStepEmail = () => {
 
             // imitation of request
             await new Promise(res => setTimeout(res, 500));
-            navigate("/registration/password", { state: { from: location.state?.from || location.pathname } })
+            navigate("/confirm-email", { state: { from: location.state?.from || location.pathname } })
 
         } catch (e) {
             setServerError("Server error");

@@ -370,7 +370,7 @@ const RegistrationStepPassword = () => {
     };
 
     const goBack = () => {
-        navigate("/registration/email", { replace: true });
+        navigate("/confirm-email", { replace: true });
     };
 
     return (
