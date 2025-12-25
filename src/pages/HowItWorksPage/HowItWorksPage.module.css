@@ -36,6 +36,19 @@
 
 .img {
     border-radius: 10px;
+    position: relative;
+}
+
+.stepCount {
+    background-color: #567A72;
+    border-radius: 100px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 10px;
+    position: absolute;
+    top: -13px;
+    left: 10px;
 }
 
 .img img {
@@ -62,4 +75,3 @@
     line-height: 1.4;
     max-width: 295px;
 }
-

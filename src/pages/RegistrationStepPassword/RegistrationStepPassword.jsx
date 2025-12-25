@@ -122,13 +122,14 @@ const RegistrationStepPassword = () => {
                                         className={styles.input}
                                         aria-invalid={!!errors.password}
                                     />
-                                    <Eye
-                                        className={styles.icon}
+                                    <div className={styles.iconWrapper}
                                         onMouseDown={(e) => {
                                             e.preventDefault();
                                             setShowPassword(prev => !prev);
                                         }}
-                                    />
+                                    >
+                                        <Eye className={styles.icon} />
+                                    </div>
                                 </div>
 
                                 <div className={styles.infoBlock}>
@@ -157,13 +158,14 @@ const RegistrationStepPassword = () => {
                                         className={styles.input}
                                         aria-invalid={!!errors.confirmPassword}
                                     />
-                                    <Eye
-                                        className={styles.icon}
+                                    <div className={styles.iconWrapper}
                                         onMouseDown={(e) => {
                                             e.preventDefault();
                                             setShowConfirmPassword(prev => !prev);
                                         }}
-                                    />
+                                    >
+                                        <Eye className={styles.icon} />
+                                    </div>
                                 </div>
                                 {touched.confirmPassword && confirmPassword.length > 0 && !checks.passwordsMatch && (
                                     <div className={`${styles.infoText} ${styles.error}`}>

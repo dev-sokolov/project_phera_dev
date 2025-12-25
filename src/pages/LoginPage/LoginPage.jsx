@@ -128,7 +128,15 @@ const LoginPage = () => {
                                         type={showPassword ? "text" : "password"}
                                         className={styles.input}
                                     />
-                                    <Eye className={styles.icon} onClick={() => setShowPassword(s => !s)} />
+                                    <div
+                                        className={styles.iconWrapper}
+                                        onMouseDown={(e) => {
+                                            e.preventDefault();  
+                                            setShowPassword(s => !s);
+                                        }}
+                                    >
+                                        <Eye className={styles.icon} />
+                                    </div>
                                 </div>
                                 {errors.password && (
                                     <p className={styles.error}>{errors.password.message}</p>

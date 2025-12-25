@@ -24,6 +24,7 @@ const HowItWorksPage = () => {
                             <div className={styles.step}>
                                 <div className={styles.img}>
                                     <ImageWrapper src={onboardingStep1} alt="step 1" width={345} height={200} />
+                                    <div className={styles.stepCount}>Step 1</div>
                                 </div>
                                 <h2 className={styles.heading}>Scan your kit</h2>
                                 <p className={styles.text}>
@@ -33,6 +34,7 @@ const HowItWorksPage = () => {
                             <div className={styles.step}>
                                 <div className={styles.img}>
                                     <ImageWrapper src={onboardingStep2} alt="step 2" width={345} height={200} />
+                                    <div className={styles.stepCount}>Step 2</div>
                                 </div>
                                 <h2 className={styles.heading}>Allow camera access</h2>
                                 <p className={styles.text}>
@@ -42,6 +44,7 @@ const HowItWorksPage = () => {
                             <div className={styles.step}>
                                 <div className={styles.img}>
                                     <ImageWrapper src={onboardingStep3} alt="step 3" width={345} height={200} />
+                                    <div className={styles.stepCount}>Step 3</div>
                                 </div>
                                 <h2 className={styles.heading}>Get your result</h2>
                                 <p className={styles.text}>

@@ -18,7 +18,6 @@
     gap: 12px;
     margin-bottom: 26px;
     margin-top: 29px;
-    max-width: 312px;
 }
 
 .heading {
@@ -27,10 +26,12 @@
     font-weight: 700;
     line-height: 1.3;
     color: var(--main-color);
+        max-width: 312px;
 }
 
 .text {
     line-height: 1.3;
+    color: var(--main-color-secondary);
 }
 
 .skip {

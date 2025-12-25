@@ -117,7 +117,7 @@ const AddDetailsPage = () => {
                             }
                         })}
                     >
-                        Save
+                        Save details
                     </Button>
                     <ButtonReverse onClick={() => navigate("/result-without-details")}>Go back</ButtonReverse>
                 </BottomBlock>
