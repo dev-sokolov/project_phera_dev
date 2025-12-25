@@ -79,15 +79,14 @@ const ProfilePage = () => {
                                 <div className={styles.value}>{"•".repeat(password.length)}</div>
                             )}
                         </div>
-
                         {isEditingPassword && (
-                            <button
-                                className={`${styles.btn} ${styles.eyeBtn}`}
+                            <div
+                                className={styles.eyeWrapper}
                                 onMouseDown={(e) => e.preventDefault()}
                                 onClick={() => setShowPassword(v => !v)}
                             >
-                                <Eye />
-                            </button>
+                                <Eye className={styles.eyeIcon} />
+                            </div>
                         )}
 
                         <button

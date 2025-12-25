@@ -22,7 +22,7 @@ const librarySections = [
     },
     {
         id: 2,
-        title: "About care",
+        title: "Sexual health",
         articles: [
             { id: 1, caption: "Health article name here", image: healthLibrary, link: "#" },
             { id: 2, caption: "Health article name here", image: healthLibrary, link: "#" },

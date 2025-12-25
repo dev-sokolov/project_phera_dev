@@ -36,6 +36,7 @@ import SubscriptionPage from "../pages/SubscriptionPage/SubscriptionPage";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import TrendPreviewPage from "../pages/TrendPreviewPage/TrendPreviewPage";
+import TrendPreviewNoResultsPage from "../pages/TrendPreviewNoResultsPage/TrendPreviewNoResultsPage";
 
 import "../shared/styles/style.css";
 
@@ -80,6 +81,7 @@ function App() {
         <Route path="/articles" element={<AppLayout headerVariant="auth"><ArticlesPage /></AppLayout>} />
         <Route path="/profile" element={<AppLayout headerVariant="auth"><ProfilePage /></AppLayout>} />
         <Route path="/trend-preview" element={<AppLayout headerVariant="auth"><TrendPreviewPage /></AppLayout>} />
+        <Route path="/trend-preview/no-tests" element={<AppLayout headerVariant="auth"><TrendPreviewNoResultsPage /></AppLayout>} />
         <Route path="/subscription" element={<AppLayout showBack onBack={() => navigate("/health-library")}><SubscriptionPage /></AppLayout>} />
         <Route path="/payment" element={<AppLayout headerVariant="auth"><PaymentPage /></AppLayout>} />
 

@@ -36,10 +36,11 @@
     padding: 26px 19px;
     display: flex;
     justify-content: space-between;
+    position: relative;
 }
 
 .item:last-child {
-     border-bottom: none;
+    border-bottom: none;
 }
 
 .data {
@@ -94,4 +95,24 @@
     margin-top: auto;
     display: flex;
     align-items: center;
+}
+
+.eyeWrapper {
+    position: absolute;
+    right: 85px;
+    top: 48%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.eyeIcon {
+    pointer-events: none;
+    width: 22px;
+    height: 22px;
 }

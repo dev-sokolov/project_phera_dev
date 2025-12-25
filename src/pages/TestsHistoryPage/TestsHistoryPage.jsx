@@ -4,6 +4,7 @@ import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
 import ArrowRightBlackSmall from "../../assets/icons/ArrowRightBlackSmall";
+import CheckIcon from "../../assets/icons/CheckIcon";
 
 import styles from "./TestsHistoryPage.module.css";
 
@@ -26,7 +27,10 @@ const TestsHistoryPage = () => {
                             </div>
                             <div className={styles.wrapNum}>
                                 <div className={styles.num}>7.35</div>
-                                <div className={styles.phLevel}>Normal pH</div>
+                                <div className={styles.levelPh}>
+                                    <CheckIcon />
+                                    <p className={styles.levelPhText}>Normal pH</p>
+                                </div>
                             </div>
                         </div>
                     </div>
