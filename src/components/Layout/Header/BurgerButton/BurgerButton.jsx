@@ -3,7 +3,13 @@ import styles from "./BurgerButton.module.css";
 const BurgerButton = ({ isOpen, onClick }) => {
   return (
     <>
-      <div className={styles.wrap} onClick={onClick}>
+      <div
+        className={styles.wrap}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          onClick();
+        }}
+      >
         <button
           className={`${styles.burger} ${isOpen ? styles.open : ""}`}
           aria-label="Open menu"
@@ -13,10 +19,7 @@ const BurgerButton = ({ isOpen, onClick }) => {
           <span />
         </button>
       </div>
-
     </>
-
-
   );
 };
 
