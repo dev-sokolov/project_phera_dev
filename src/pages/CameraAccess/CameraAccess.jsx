@@ -22,18 +22,14 @@ const CameraAccess = () => {
     return (
         <>
             <div className={styles.content}>
-                <Container fullWidth>
+                <Container>
                     <div className={styles.containerInner}>
-                        <div className={styles.wrapImg}>
-                            <div className={styles.innerImg}>
-                                <div className={styles.img}>
-                                    <CameraAccessImg />
-                                </div>
+                        <div className={styles.mainBlock}>
+                            <div className={styles.icon}><CameraAccessImg /></div>
+                            <div className={styles.textBlock}>
+                                <h1 className={styles.title}>Allow Camera <br /> to scan your strip</h1>
+                                <div className={styles.text}>We’ll use your camera for a moment to read the color on your test strip. The scan is done automatically and stays private.</div>
                             </div>
-                        </div>
-                        <div className={styles.textBlock}>
-                            <h2 className={styles.heading}>Allow Camera <br /> To Scan Your Strip</h2>
-                            <p className={styles.text}>We’ll use your camera for a moment to read the color on your test strip. The scan is done automatically and stays private.</p>
                         </div>
                     </div>
                 </Container>
