@@ -10,6 +10,7 @@ import VulvaCondition from "./VulvaCondition/VulvaCondition";
 import Smell from "./Smell/Smell";
 import Urination from "./Urination/Urination";
 import Notes from "./Notes/Notes";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 import styles from "./PersonalData.module.css";
 
@@ -103,13 +104,21 @@ const PersonalData = ({
                     <AgeInput age={age} onChange={setAge} />
                     <EthnicBackground ethnicBackground={ethnicBackground} onChange={handleEthnicBackgroundChange} />
 
-                    <div className={styles.heading}>Hormone status</div>
+                    <div className={styles.wrapHeading}>
+                        <div className={styles.heading}>Hormone status</div>
+                        <div className={styles.icon}>
+                            <InfoTooltip iconOnly>
+                                Knowing your hormone status helps us understand the main factors that influence your pH level.
+                            </InfoTooltip>
+                        </div>
+                    </div>
+
                     <MenstrualCycle menstrualCycle={menstrualCycle} onChange={handleMenstrualCycleChange} />
                     <HormoneDiagnoses hormoneDiagnoses={hormoneDiagnoses} onChange={handleHormoneDiagnosesChange} />
                     <BirthControl birthControl={birthControl} setBirthControl={setBirthControl} />
                     <HormoneTherapy hormoneTherapy={hormoneTherapy} setHormoneTherapy={setHormoneTherapy} />
                     <FertilityJourney fertilityJourney={fertilityJourney} setFertilityJourney={setFertilityJourney} />
-                    
+
                     <div className={styles.heading}>Symptoms</div>
                     <Discharge discharge={discharge} onChange={handleDischargeChange} />
                     <VulvaCondition vulvaCondition={vulvaCondition} onChange={handleVulvaConditionChange} />
