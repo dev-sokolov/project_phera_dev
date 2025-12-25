@@ -33,6 +33,52 @@
     border-top-left-radius: 10px;
 }
 
+.visualBlockTop {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.levelPh {
+    background-color: #F1F6F4;
+    border: 0.5px solid #263E3A;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px 4px;
+    margin-top: 11px;
+    margin-bottom: 11px;
+}
+
+.levelPhText {
+    font-size: 12px;
+    color: #263E3A;
+}
+
+.actions {
+    display: flex;
+    cursor: pointer;
+}
+
+.actionsInner {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: content-box;
+    padding: 11px;
+}
+
+
+.scaleMarker {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .num {
     font-family: 'Cooper Hewitt', sans-serif;
     font-size: 52px;
@@ -53,6 +99,7 @@
     display: flex;
     margin-top: 14px;
     margin-bottom: 10px;
+    position: relative;
 }
 
 .scalePart1,
@@ -277,9 +324,9 @@
 
 @media (max-width: 393px) {
     .img {
-        width: 80%;      
+        width: 80%;
         height: auto;
-        flex-shrink: 1;   
+        flex-shrink: 1;
     }
 
     .img img {

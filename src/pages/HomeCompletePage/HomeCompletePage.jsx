@@ -5,6 +5,7 @@ import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
 
+import CheckIcon from "../../assets/icons/CheckIcon";
 import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import learnMore from "../../assets/images/learnMore.jpg"
 import EditNotesGrey from "../../assets/icons/EditNotesGrey";
@@ -50,7 +51,10 @@ const HomeCompletePage = () => {
                                 </div>
                                 <div className={styles.wrapNum}>
                                     <div className={styles.num}>7.35</div>
-                                    <div className={styles.phLevel}>Normal pH</div>
+                                    <div className={styles.levelPh}>
+                                        <CheckIcon />
+                                        <p className={styles.levelPhText}>Normal pH</p>
+                                    </div>
                                 </div>
                             </div>
 

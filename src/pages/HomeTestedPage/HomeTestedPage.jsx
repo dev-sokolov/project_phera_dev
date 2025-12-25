@@ -8,6 +8,7 @@ import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import learnMore from "../../assets/images/learnMore.jpg"
 import EditNotesGrey from "../../assets/icons/EditNotesGrey";
 import ArrowRightGrey from "../../assets/icons/ArrowRightGrey";
+import CheckIcon from "../../assets/icons/CheckIcon";
 import styles from "./HomeTestedPage.module.css";
 
 const HomeTestedPage = () => {
@@ -52,7 +53,11 @@ const HomeTestedPage = () => {
                                 </div>
                                 <div className={styles.wrapNum}>
                                     <div className={styles.num}>7.35</div>
-                                    <div className={styles.phLevel}>Normal pH</div>
+                                    {/* <div className={styles.phLevel}>Normal pH</div> */}
+                                    <div className={styles.levelPh}>
+                                        <CheckIcon />
+                                        <p className={styles.levelPhText}>Normal pH</p>
+                                    </div>
                                 </div>
                             </div>
 

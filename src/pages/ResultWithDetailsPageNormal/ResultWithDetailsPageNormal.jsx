@@ -8,6 +8,10 @@ import Container from "../../components/Container/Container";
 import ArrowDownGrey from "../../assets/icons/ArrowDownGrey";
 import learnMore from "../../assets/images/learnMore.jpg"
 import EditNotesGrey from "../../assets/icons/EditNotesGrey";
+import CheckIcon from "../../assets/icons/CheckIcon";
+import DownloadIcon from "../../assets/icons/DownloadIcon";
+import ShareIcon from "../../assets/icons/ShareIcon";
+import ScaleMarker from "../../assets/icons/ScaleMarker";
 import styles from "./ResultWithDetailsPageNormal.module.css";
 
 const ResultWithDetailsPageNormal = () => {
@@ -58,11 +62,20 @@ const ResultWithDetailsPageNormal = () => {
                     <div className={styles.containerInner}>
                         <h1 className={styles.title}>Your pH result</h1>
                         <div className={styles.visualBlock}>
-                            <div className={styles.actions}></div>
+                            <div className={styles.visualBlockTop}>
+                                <div className={styles.levelPh}>
+                                    <CheckIcon />
+                                    <p className={styles.levelPhText}>Normal pH</p>
+                                </div>
+                                <div className={styles.actions}>
+                                    <div className={styles.actionsInner}><DownloadIcon /></div>
+                                    <div className={styles.actionsInner}><ShareIcon /></div>
+                                </div>
+                            </div>
                             <div className={styles.num}>7.35</div>
                             <div className={styles.date}>12.06.25 | 8:23 PM</div>
                             <div className={styles.scale}>
-                                <div className={styles.scalePart1}></div>
+                                <div className={styles.scalePart1}><ScaleMarker className={styles.scaleMarker}/></div>
                                 <div className={styles.scalePart2}></div>
                                 <div className={styles.scalePart3}></div>
                                 <div className={styles.scalePart4}></div>
