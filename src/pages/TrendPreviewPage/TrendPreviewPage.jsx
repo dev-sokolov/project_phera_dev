@@ -6,6 +6,7 @@ import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
 import ImageWrapper from "../../components/ImageWrapper/ImageWrapper";
 import trendPreview from "../../assets/images/trendPreview.jpg";
+import ScaleMarkerSmall from "../../assets/icons/ScaleMarkerSmall";
 
 import styles from "./TrendPreviewPage.module.css";
 
@@ -100,7 +101,7 @@ const TrendPreviewPage = () => {
                                         <div className={styles.scaleBlock}>
                                             <div className={styles.scaleItem}>
                                                 <div className={styles.scale}>
-                                                    <div className={styles.scalePart1}></div>
+                                                    <div className={styles.scalePart1}><ScaleMarkerSmall className={styles.scaleMarkerSmall} /></div>
                                                     <div className={styles.scalePart2}></div>
                                                     <div className={styles.scalePart3}></div>
                                                     <div className={styles.scalePart4}></div>
@@ -110,7 +111,7 @@ const TrendPreviewPage = () => {
                                             </div>
                                             <div className={styles.scaleItem}>
                                                 <div className={styles.scale}>
-                                                    <div className={styles.scalePart1}></div>
+                                                    <div className={styles.scalePart1}><ScaleMarkerSmall className={styles.scaleMarkerSmall} /></div>
                                                     <div className={styles.scalePart2}></div>
                                                     <div className={styles.scalePart3}></div>
                                                     <div className={styles.scalePart4}></div>
