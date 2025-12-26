@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useState, useRef, useEffect } from "react";
 import Radio from "../../Radio/Radio";
 import InfoTooltip from "../../InfoTooltip/InfoTooltip";
 import styles from "./HormoneTherapy.module.css";
@@ -8,6 +8,7 @@ const listOptions = ["Testosterone", "Estrogen blocker", "Puberty blocker"];
 
 const HormoneTherapy = ({ hormoneTherapy, setHormoneTherapy }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const wrapRef = useRef(null);
 
     const handleRadioChange = (value) => {
         setHormoneTherapy(prev => ({
@@ -25,15 +26,45 @@ const HormoneTherapy = ({ hormoneTherapy, setHormoneTherapy }) => {
         }));
     };
 
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (wrapRef.current && !wrapRef.current.contains(e.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
+    }, []);
+
+    useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === "Escape") {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener("keydown", handleEsc);
+        return () => document.removeEventListener("keydown", handleEsc);
+    }, []);
+
     return (
-        <div className={styles.wrap}>
+        <div ref={wrapRef} className={styles.wrap} onClick={() => setIsOpen(v => !v)}>
             <InfoTooltip
                 title="Hormone therapy"
-                onToggle={() => setIsOpen(v => !v)}
+                onToggle={(e) => {
+                    e.stopPropagation();
+                    setIsOpen(v => !v);
+                }}
                 onToggleArrow={isOpen}
             />
 
-            <div className={`${styles.wrapList} ${!isOpen ? styles.collapsed : ""}`}>
+            <div className={`${styles.wrapList} ${!isOpen ? styles.collapsed : ""}`} onClick={(e) => e.stopPropagation()}>
 
                 {/* RADIO */}
                 <div className={styles.section}>
