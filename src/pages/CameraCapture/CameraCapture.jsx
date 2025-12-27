@@ -234,93 +234,187 @@
 
 
 
+// import { useRef, useEffect } from "react";
+// import Webcam from "react-webcam";
+
+// const CameraCapture = () => {
+//     const webcamRef = useRef(null);
+//     const canvasRef = useRef(null);
+//     const detectorRef = useRef(null);
+
+//     useEffect(() => {
+
+
+//         function processFrame() {
+//             const video = webcamRef.current?.video;
+//             if (!video || video.readyState < 2 || !detectorRef.current) {
+//                 requestAnimationFrame(processFrame);
+//                 return;
+//             }
+
+//             const canvas = canvasRef.current;
+//             // const ctx = canvas.getContext("2d");
+//             const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+//             canvas.width = video.videoWidth;
+//             canvas.height = video.videoHeight;
+
+//             // Рисуем видео на canvas
+//             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+//             // Получаем данные изображения
+//             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+//             // Детектируем маркеры
+//             const markers = detectorRef.current.detect(imageData);
+
+//             // Рисуем маркеры на canvas
+//             ctx.strokeStyle = "red";
+//             ctx.lineWidth = 3;
+
+//             markers.forEach((marker) => {
+//                 const corners = marker.corners;
+//                 ctx.beginPath();
+//                 ctx.moveTo(corners[0].x, corners[0].y);
+//                 for (let i = 1; i < corners.length; i++) {
+//                     ctx.lineTo(corners[i].x, corners[i].y);
+//                 }
+//                 ctx.closePath();
+//                 ctx.stroke();
+
+//                 // Выводим id
+//                 ctx.fillStyle = "yellow";
+//                 ctx.font = "20px Arial";
+//                 ctx.fillText(`ID: ${marker.id}`, corners[0].x, corners[0].y - 10);
+
+//                 console.log("Marker ID:", marker.id, "Corners:", corners);
+//             });
+
+//             requestAnimationFrame(processFrame);
+//         }
+
+//         // Ждём, пока js-aruco загрузится
+//         const waitForAR = () => {
+//             if (window.AR) {
+//                 detectorRef.current = new window.AR.Detector();
+//                 requestAnimationFrame(processFrame);
+//             } else {
+//                 setTimeout(waitForAR, 100);
+//             }
+//         };
+
+//         waitForAR();
+//     }, []);
+
+//     return (
+//         <div style={{ position: "relative", width: "640px", height: "480px" }}>
+//             <Webcam
+//                 ref={webcamRef}
+//                 audio={false}
+//                 style={{ position: "absolute", top: 0, left: 0, width: "640px", height: "480px" }}
+//                 videoConstraints={{ facingMode: "environment", width: 640, height: 480 }}
+//                 playsInline
+//             />
+//             <canvas
+//                 ref={canvasRef}
+//                 style={{ position: "absolute", top: 0, left: 0, width: "640px", height: "480px" }}
+//             />
+//         </div>
+//     );
+// };
+
+// export default CameraCapture;
+
+
+
+
+
+
 import { useRef, useEffect } from "react";
 import Webcam from "react-webcam";
 
 const CameraCapture = () => {
-    const webcamRef = useRef(null);
-    const canvasRef = useRef(null);
-    const detectorRef = useRef(null);
+  const webcamRef = useRef(null);
+  const canvasRef = useRef(null);
+  const detectorRef = useRef(null);
 
-    useEffect(() => {
+  useEffect(() => {
+    // Функция обработки каждого кадра
+    function processFrame() {
+      const video = webcamRef.current?.video;
+      if (!video || video.readyState < 2 || !detectorRef.current) {
+        requestAnimationFrame(processFrame);
+        return;
+      }
 
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
-        function processFrame() {
-            const video = webcamRef.current?.video;
-            if (!video || video.readyState < 2 || !detectorRef.current) {
-                requestAnimationFrame(processFrame);
-                return;
-            }
+      // Устанавливаем размер canvas равным видео
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
 
-            const canvas = canvasRef.current;
-            // const ctx = canvas.getContext("2d");
-            const ctx = canvas.getContext("2d", { willReadFrequently: true });
+      // Рисуем текущий кадр видео
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
+      // Получаем ImageData и детектируем маркеры
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const markers = detectorRef.current.detect(imageData);
 
-            // Рисуем видео на canvas
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      // Если маркеры найдены — рисуем их
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 3;
+      ctx.fillStyle = "yellow";
+      ctx.font = "20px Arial";
 
-            // Получаем данные изображения
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-            // Детектируем маркеры
-            const markers = detectorRef.current.detect(imageData);
-
-            // Рисуем маркеры на canvas
-            ctx.strokeStyle = "red";
-            ctx.lineWidth = 3;
-
-            markers.forEach((marker) => {
-                const corners = marker.corners;
-                ctx.beginPath();
-                ctx.moveTo(corners[0].x, corners[0].y);
-                for (let i = 1; i < corners.length; i++) {
-                    ctx.lineTo(corners[i].x, corners[i].y);
-                }
-                ctx.closePath();
-                ctx.stroke();
-
-                // Выводим id
-                ctx.fillStyle = "yellow";
-                ctx.font = "20px Arial";
-                ctx.fillText(`ID: ${marker.id}`, corners[0].x, corners[0].y - 10);
-
-                console.log("Marker ID:", marker.id, "Corners:", corners);
-            });
-
-            requestAnimationFrame(processFrame);
+      markers.forEach((marker) => {
+        const corners = marker.corners;
+        ctx.beginPath();
+        ctx.moveTo(corners[0].x, corners[0].y);
+        for (let i = 1; i < corners.length; i++) {
+          ctx.lineTo(corners[i].x, corners[i].y);
         }
+        ctx.closePath();
+        ctx.stroke();
 
-        // Ждём, пока js-aruco загрузится
-        const waitForAR = () => {
-            if (window.AR) {
-                detectorRef.current = new window.AR.Detector();
-                requestAnimationFrame(processFrame);
-            } else {
-                setTimeout(waitForAR, 100);
-            }
-        };
+        // Пишем ID маркера над верхним левым углом
+        ctx.fillText(`ID: ${marker.id}`, corners[0].x, corners[0].y - 10);
 
-        waitForAR();
-    }, []);
+        // Для отладки
+        console.log("Marker detected:", marker.id, corners);
+      });
 
-    return (
-        <div style={{ position: "relative", width: "640px", height: "480px" }}>
-            <Webcam
-                ref={webcamRef}
-                audio={false}
-                style={{ position: "absolute", top: 0, left: 0, width: "640px", height: "480px" }}
-                videoConstraints={{ facingMode: "environment", width: 640, height: 480 }}
-                playsInline
-            />
-            <canvas
-                ref={canvasRef}
-                style={{ position: "absolute", top: 0, left: 0, width: "640px", height: "480px" }}
-            />
-        </div>
-    );
+      requestAnimationFrame(processFrame);
+    }
+
+    // Ждём, пока js-aruco загрузится
+    function waitForAR() {
+      if (window.AR) {
+        detectorRef.current = new window.AR.Detector();
+        requestAnimationFrame(processFrame);
+      } else {
+        setTimeout(waitForAR, 100);
+      }
+    }
+
+    waitForAR();
+  }, []);
+
+  return (
+    <div style={{ position: "relative", width: "640px", height: "480px" }}>
+      <Webcam
+        ref={webcamRef}
+        audio={false}
+        style={{ position: "absolute", top: 0, left: 0, width: "640px", height: "480px" }}
+        videoConstraints={{ facingMode: "environment", width: 640, height: 480 }}
+        playsInline
+      />
+      <canvas
+        ref={canvasRef}
+        style={{ position: "absolute", top: 0, left: 0, width: "640px", height: "480px" }}
+      />
+    </div>
+  );
 };
 
 export default CameraCapture;
