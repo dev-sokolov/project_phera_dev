@@ -1,209 +1,147 @@
-// import { useEffect, useRef } from "react";
-
-// export default function ArucoCamera({ onCapture }) {
-//   const videoRef = useRef(null);
-//   const canvasRef = useRef(null);
-//   const intervalRef = useRef(null);
-
-//   // 1️⃣ Старт камеры
-//   useEffect(() => {
-//     let stream = null;
-
-//     const startCamera = async () => {
-//       try {
-//         stream = await navigator.mediaDevices.getUserMedia({
-//           video: { facingMode: "environment" },
-//           audio: false,
-//         });
-//         if (videoRef.current) {
-//           videoRef.current.srcObject = stream;
-//           await videoRef.current.play();
-//         }
-//       } catch (err) {
-//         console.error("Ошибка запуска камеры:", err);
-//       }
-//     };
-
-//     startCamera();
-
-//     return () => {
-//       stream?.getTracks().forEach((track) => track.stop());
-//     };
-//   }, []);
-
-//   // 2️⃣ Инициализация OpenCV + ArUco
-//   useEffect(() => {
-//     let isMounted = true;
-
-//     cv['onRuntimeInitialized'] = () => {
-//       if (!isMounted) return;
-//       console.log("✅ OpenCV и ArUco загружены");
-
-//       const dictionary = new cv.aruco_Dictionary(cv.DICT_4X4_50);
-//       const detectorParams = new cv.aruco_DetectorParameters();
-//       const detector = new cv.aruco_ArucoDetector(dictionary, detectorParams);
-
-//       intervalRef.current = setInterval(() => {
-//         if (!videoRef.current || !canvasRef.current) return;
-
-//         const video = videoRef.current;
-//         const canvas = canvasRef.current;
-//         canvas.width = video.videoWidth;
-//         canvas.height = video.videoHeight;
-//         const ctx = canvas.getContext("2d");
-//         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-//         const src = cv.imread(canvas);
-//         const corners = new cv.MatVector();
-//         const ids = new cv.Mat();
-
-//         detector.detectMarkers(src, corners, ids);
-
-//         if (!ids.empty()) {
-//           const detectedIds = Array.from(ids.data32S);
-//           console.log("Обнаружены маркеры:", detectedIds);
-
-//           const required = [0, 1, 2, 3];
-//           if (required.every(id => detectedIds.includes(id))) {
-//             console.log("✔️ ВСЕ 4 маркера найдены!");
-//             if (onCapture) onCapture({ ids: detectedIds });
-//           }
-//         }
-
-//         src.delete();
-//         corners.delete();
-//         ids.delete();
-//       }, 200);
-//     };
-
-//     return () => {
-//       isMounted = false;
-//       if (intervalRef.current) clearInterval(intervalRef.current);
-//     };
-//   }, [onCapture]);
-
-//   return (
-//     <div>
-//       <video
-//         ref={videoRef}
-//         style={{ width: "100%", height: "auto" }}
-//         playsInline
-//         muted
-//       />
-//       <canvas ref={canvasRef} style={{ display: "none" }} />
-//     </div>
-//   );
-// }
-
-
-
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ArucoCamera({ onCapture }) {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
-  const intervalRef = useRef(null);
-  const streamRef = useRef(null);
+  const detectLoop = useRef(null);
 
-  // 1️⃣ Старт камеры
+  const [markersFound, setMarkersFound] = useState(false);
+
+  // запуск камеры
   useEffect(() => {
-    let isMounted = true;
-
     const startCamera = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" },
+          video: {
+            facingMode: { ideal: "environment" }
+          },
           audio: false,
         });
-        if (!isMounted || !videoRef.current) return;
 
-        streamRef.current = stream;
         videoRef.current.srcObject = stream;
-
-        // Ждём загрузки метаданных видео вместо await play()
-        videoRef.current.onloadedmetadata = () => {
-          videoRef.current.play().catch(err => {
-            console.warn("video.play() прерван:", err);
-          });
-        };
-      } catch (err) {
-        console.error("Ошибка запуска камеры:", err);
+        await videoRef.current.play();
+      } catch (e) {
+        console.error("Ошибка доступа к камере:", e);
       }
     };
 
     startCamera();
-
-    return () => {
-      isMounted = false;
-      streamRef.current?.getTracks().forEach(track => track.stop());
-    };
   }, []);
 
-  // 2️⃣ Инициализация OpenCV + ArUco
+  // детекция
   useEffect(() => {
-    let isMounted = true;
+    if (!window.cv) return;
 
-    cv['onRuntimeInitialized'] = () => {
-      if (!isMounted) return;
-      console.log("✅ OpenCV и ArUco загружены");
+    let detector = null;
 
-      const dictionary = new cv.aruco_Dictionary(cv.DICT_4X4_50);
-      const detectorParams = new cv.aruco_DetectorParameters();
-      const detector = new cv.aruco_ArucoDetector(dictionary, detectorParams);
+    const initAruco = () => {
+      console.log("🎯 Инициализация ArUco…");
 
-      intervalRef.current = setInterval(() => {
+      const dict = new cv.aruco.Dictionary(cv.aruco.DICT_4X4_50);
+      const params = new cv.aruco.DetectorParameters();
+
+      detector = new cv.aruco.ArucoDetector(dict, params);
+
+      startDetection();
+    };
+
+    const startDetection = () => {
+      detectLoop.current = setInterval(() => {
         if (!videoRef.current || !canvasRef.current) return;
 
         const video = videoRef.current;
+        if (video.videoWidth === 0) return; // камера ещё не готова
+
         const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        // Конвертируем в grayscale для лучшей детекции
-        const src = cv.imread(canvas);
-        const gray = new cv.Mat();
-        cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+        ctx.drawImage(video, 0, 0);
+
+        const frame = cv.imread(canvas);
 
         const corners = new cv.MatVector();
         const ids = new cv.Mat();
 
-        detector.detectMarkers(gray, corners, ids);
+        detector.detectMarkers(frame, corners, ids);
+
+        ctx.strokeStyle = "lime";
+        ctx.lineWidth = 3;
+
+        let found = false;
 
         if (!ids.empty()) {
-          const detectedIds = Array.from(ids.data32S);
-          console.log("Обнаружены маркеры:", detectedIds);
+          const foundIds = Array.from(ids.data32S);
 
-          const required = [0, 1, 2, 3];
-          if (required.every(id => detectedIds.includes(id))) {
-            console.log("✔️ ВСЕ 4 маркера найдены!");
-            if (onCapture) onCapture({ ids: detectedIds });
+          for (let i = 0; i < corners.size(); i++) {
+            const c = corners.get(i);
+            ctx.beginPath();
+            ctx.moveTo(c.data32F[0], c.data32F[1]);
+            for (let j = 1; j < 4; j++) {
+              ctx.lineTo(c.data32F[j * 2], c.data32F[j * 2 + 1]);
+            }
+            ctx.closePath();
+            ctx.stroke();
+          }
+
+          if ([0, 1, 2, 3].every(id => foundIds.includes(id))) {
+            found = true;
+            if (onCapture) onCapture(foundIds);
           }
         }
 
-        src.delete();
-        gray.delete();
+        setMarkersFound(found);
+
+        frame.delete();
         corners.delete();
         ids.delete();
-      }, 200);
+      }, 150);
     };
+
+    initAruco();
 
     return () => {
-      isMounted = false;
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      clearInterval(detectLoop.current);
     };
-  }, [onCapture]);
+  }, []);
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <video
         ref={videoRef}
-        style={{ width: "100%", height: "auto" }}
         playsInline
         muted
+        style={{ width: "100%", height: "auto" }}
       />
-      <canvas ref={canvasRef} style={{ display: "none" }} />
+
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+        }}
+      />
+
+      {markersFound && (
+        <div style={{
+          position: "absolute",
+          top: 20,
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "rgba(0,255,0,0.7)",
+          padding: "10px 20px",
+          borderRadius: "10px",
+          fontWeight: "bold",
+          zIndex: 10
+        }}>
+          ✔ Маркеры 0–3 найдены!
+        </div>
+      )}
     </div>
   );
 }
