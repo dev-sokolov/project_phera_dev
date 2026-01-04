@@ -29,33 +29,27 @@ const ResultWithoutDetailsPage = () => {
     }, [location, navigate]);
 
     // back to CameraAccess
-    // useEffect(() => {
-    //     const handlePopState = () => {
-    //         navigate("/camera-access", { replace: true });
-    //     };
-    //     window.history.pushState(null, '', window.location.pathname);
-    //     window.addEventListener('popstate', handlePopState);
-
-    //     return () => {
-    //         window.removeEventListener('popstate', handlePopState);
-    //     };
-    // }, [navigate]);
-
     useEffect(() => {
-        // Добавляем фиктивную запись в историю
-        window.history.pushState(null, '', window.location.pathname);
+        let isNavigating = false;
 
-        const handlePopState = (e) => {
-            // Предотвращаем дефолтное поведение
-            e.preventDefault();
-
-            // Снова добавляем запись, чтобы остаться на текущей странице
-            window.history.pushState(null, '', window.location.pathname);
-
-            // Перенаправляем на нужную страницу
-            navigate("/camera-access", { replace: true });
+        const handlePopState = () => {
+            if (!isNavigating) {
+                isNavigating = true;
+                
+                // Добавляем новую запись в историю, чтобы "отменить" переход назад
+                window.history.pushState(null, '', window.location.pathname);
+                
+                // Перенаправляем на camera-access
+                setTimeout(() => {
+                    navigate("/camera-access", { replace: true });
+                }, 0);
+            }
         };
 
+        // Добавляем начальную запись
+        window.history.pushState(null, '', window.location.pathname);
+        
+        // Слушаем событие popstate
         window.addEventListener('popstate', handlePopState);
 
         return () => {
