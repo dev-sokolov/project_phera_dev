@@ -13,7 +13,7 @@ const CameraCapture = () => {
     const detectionIntervalRef = useRef(null);
     const isDetectingRef = useRef(false);
     const rafIdRef = useRef(null);
-    const hasAutoCapturedRef = useRef(false); 
+    const hasAutoCapturedRef = useRef(false);
 
     const isReady = useCameraReady(webcamRef);
 
@@ -27,20 +27,21 @@ const CameraCapture = () => {
     const handleCapture = useCallback(async (blob) => {
         try {
             console.log("📤 Отправка изображения на бэкенд...");
-            
+
             // Go to the processing page IMMEDIATELY
-            navigate("/camera-processing", { 
-                state: { 
+            navigate("/camera-processing", {
+                state: {
                     imageBlob: blob
-                } 
+                },
+                replace: true
             });
-            
+
         } catch (error) {
             console.error("❌ Ошибка отправки на бэкенд:", error);
             alert("Ошибка при отправке изображения на сервер. Попробуйте снова.");
             setIsProcessing(false);
             hasAutoCapturedRef.current = false; // Сбрасываем флаг при ошибке
-            
+
             // Возобновляем детекцию при ошибке
             if (isReady && window.cv) {
                 detectionIntervalRef.current = setInterval(detectMarkers, 400);
@@ -103,7 +104,7 @@ const CameraCapture = () => {
                 if (allFound && !hasAutoCapturedRef.current && !isProcessing) {
                     console.log("🎯 Все 4 маркера найдены! Автоматический захват...");
                     hasAutoCapturedRef.current = true; // Устанавливаем флаг
-                    
+
                     // Добавляем небольшую задержку для стабилизации
                     setTimeout(() => {
                         captureAndCrop();
