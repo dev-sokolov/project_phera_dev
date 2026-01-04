@@ -35,16 +35,6 @@ const CameraCapture = () => {
                 } 
             });
             
-            // Отправляем на бэкенд в фоне
-            const formData = new FormData();
-            formData.append('image', blob, 'cropped-image.jpg');
-            
-            const result = await addImage(formData);
-            
-            console.log("✅ Ответ от бэкенда:", result);
-            
-            // Результат будет обработан на странице CameraProcessingPage
-            
         } catch (error) {
             console.error("❌ Ошибка отправки на бэкенд:", error);
             alert("Ошибка при отправке изображения на сервер. Попробуйте снова.");
