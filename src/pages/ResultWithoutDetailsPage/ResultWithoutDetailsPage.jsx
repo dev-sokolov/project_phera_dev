@@ -16,7 +16,7 @@ const ResultWithoutDetailsPage = () => {
     const [resultData, setResultData] = useState(null);
 
     useEffect(() => {
-        // get data from navigate state
+        // get data from navigate state //
         const stateData = location.state?.result;
 
         if (stateData) {
