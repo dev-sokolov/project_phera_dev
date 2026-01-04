@@ -29,17 +29,40 @@ const ResultWithoutDetailsPage = () => {
     }, [location, navigate]);
 
     // back to CameraAccess
+    // useEffect(() => {
+    //     const handlePopState = () => {
+    //         navigate("/camera-access", { replace: true });
+    //     };
+    //     window.history.pushState(null, '', window.location.pathname);
+    //     window.addEventListener('popstate', handlePopState);
+
+    //     return () => {
+    //         window.removeEventListener('popstate', handlePopState);
+    //     };
+    // }, [navigate]);
+
     useEffect(() => {
-        const handlePopState = () => {
+        // Добавляем фиктивную запись в историю
+        window.history.pushState(null, '', window.location.pathname);
+
+        const handlePopState = (e) => {
+            // Предотвращаем дефолтное поведение
+            e.preventDefault();
+
+            // Снова добавляем запись, чтобы остаться на текущей странице
+            window.history.pushState(null, '', window.location.pathname);
+
+            // Перенаправляем на нужную страницу
             navigate("/camera-access", { replace: true });
         };
-        window.history.pushState(null, '', window.location.pathname);
+
         window.addEventListener('popstate', handlePopState);
 
         return () => {
             window.removeEventListener('popstate', handlePopState);
         };
     }, [navigate]);
+
 
     if (!resultData) {
         return <div>Loading...</div>;
