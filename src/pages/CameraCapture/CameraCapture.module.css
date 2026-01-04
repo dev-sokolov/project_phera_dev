@@ -34,7 +34,7 @@
 /* ------------------ focus frame ------------------ */
 .viewfinder {
   position: absolute;
-  top: 46%;
+  top: 50%;
   left: 50%;
   width: 80vw;
   height: 60vh;
