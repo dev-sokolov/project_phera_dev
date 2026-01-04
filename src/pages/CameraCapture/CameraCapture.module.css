@@ -1,99 +1,130 @@
-.content {
-    height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--main-background-color);
-    overflow: hidden;
-
-    padding-top: 56px;
-}
-
-.containerInner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 1;
-    overflow: hidden;
-}
-
-.cameraBlock {
-    width: 100%;
-    flex-grow: 1;
-    display: flex;
-    overflow: hidden;
-}
-
 .cameraContainer {
-    position: relative;
-    width: 100%;
-    background-color: black;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: black;
 }
+
+/* .overlayBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+} */
 
 .webcamVideo {
-    position: absolute;
-    inset: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 1s ease-in-out;
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
-.wrapMoveCloser {
-    position: absolute;
-    top: 25px;
-    right: 20px;
-    z-index: 10;
+.webcamVideo.show {
+  opacity: 1;
 }
 
-/* ------------------ frame focus ------------------ */
-.overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 19px;
-    pointer-events: none;
-    z-index: 5;
-    margin-top: 19px;
+/* ------------------ focus frame ------------------ */
+.viewfinder {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  width: 80vw;
+  height: 60vh;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+  transform-origin: center;
 }
 
-.btn {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--main-color);
-    padding: 5px 11px;
-    background: #ffffffcd;
-    border: none;
-    border-radius: 100px;
-    transition: background-color 0.35s ease, color 0.35s ease;
+.viewfinder::before,
+.viewfinder::after,
+.viewfinder .bottom-left,
+.viewfinder .bottom-right {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ffffffb2;
+  box-sizing: border-box;
 }
 
-.btnSuccess {
-    color: #00B274 !important;
-    background: #ffffffcd !important;
+.viewfinder::before {
+  top: 0;
+  left: 0;
+  border-bottom: none;
+  border-right: none;
+  border-top-left-radius: 15px;
 }
 
-.bottomBlock {
-    display: flex;
-    flex-direction: column;
-    padding: 15px 0;
+.viewfinder::after {
+  top: 0;
+  right: 0;
+  border-bottom: none;
+  border-left: none;
+  border-top-right-radius: 15px;
 }
 
-.text {
-    font-size: 20px;
-    color: var(--main-color);
-    line-height: 1.2;
-    max-width: 299px;
-    text-align: center;
+.viewfinder .bottom-left {
+  bottom: 0;
+  left: 0;
+  border-top: none;
+  border-right: none;
+  border-bottom-left-radius: 15px;
 }
 
-.frameImage {
-    width: 188px;
-    height: 460px;
-    pointer-events: none;
-    user-select: none;
+.viewfinder .bottom-right {
+  bottom: 0;
+  right: 0;
+  border-top: none;
+  border-left: none;
+  border-bottom-right-radius: 15px;
+}
+
+.viewfinder.detected::before,
+.viewfinder.detected::after,
+.viewfinder.detected .bottom-left,
+.viewfinder.detected .bottom-right {
+  border-color: #ffd9009c;
+}
+
+.viewfinder.detected {
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);
+  transform: translate(-50%, -50%) scale(0.97);
+}
+
+/* ------------------ Подсказка ------------------ */
+.hintMessage {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.93);
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.hintMessageText {
+  font-size: 14px;
+  color: #1D2530;
+  font-weight: 500;
 }

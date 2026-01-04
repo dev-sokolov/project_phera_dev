@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
@@ -11,6 +12,49 @@ import styles from "./ResultWithoutDetailsPage.module.css";
 
 const ResultWithoutDetailsPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [resultData, setResultData] = useState(null);
+
+    useEffect(() => {
+        // get data from navigate state
+        const stateData = location.state?.result;
+
+        if (stateData) {
+            setResultData(stateData);
+            console.log("📊 Данные результата:", stateData);
+        } else {
+            console.warn("⚠️ Нет данных результата, перенаправление...");
+            navigate("/camera-access");
+        }
+    }, [location, navigate]);
+
+    // back to CameraAccess
+    useEffect(() => {
+        const handlePopState = () => {
+            navigate("/camera-access", { replace: true });
+        };
+        window.history.pushState(null, '', window.location.pathname);
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
+
+    if (!resultData) {
+        return <div>Loading...</div>;
+    }
+
+    // level pH
+    const getPhLevel = (ph) => {
+        if (ph < 5) return "Low";
+        if (ph >= 5 && ph <= 6) return "Normal";
+        return "Elevated";
+    };
+
+    const phValue = resultData.phValue || 0.00;
+    const phLevel = getPhLevel(phValue);
+    const timestamp = resultData.date || new Date().toISOString();
 
     return (
         <>
@@ -22,17 +66,17 @@ const ResultWithoutDetailsPage = () => {
                             <div className={styles.visualBlockTop}>
                                 <div className={styles.levelPh}>
                                     <CheckIcon />
-                                    <p className={styles.levelPhText}>Normal pH</p>
+                                    <p className={styles.levelPhText}>{phLevel} pH</p>
                                 </div>
                                 <div className={styles.actions}>
                                     <div className={styles.actionsInner}><DownloadIcon /></div>
                                     <div className={styles.actionsInner}><ShareIcon /></div>
                                 </div>
                             </div>
-                            <div className={styles.num}>7.35</div>
-                            <div className={styles.date}>12.06.25 | 8:23 PM</div>
+                            <div className={styles.num}>{phValue.toFixed(2)}</div>
+                            <div className={styles.date}>{timestamp}</div>
                             <div className={styles.scale}>
-                                <div className={styles.scalePart1}><ScaleMarker className={styles.scaleMarker}/></div>
+                                <div className={styles.scalePart1}><ScaleMarker className={styles.scaleMarker} /></div>
                                 <div className={styles.scalePart2}></div>
                                 <div className={styles.scalePart3}></div>
                                 <div className={styles.scalePart4}></div>
