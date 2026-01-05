@@ -468,7 +468,7 @@ const CameraCapture = () => {
 
                 // ✅ ПРОВЕРКА КАЧЕСТВА ИЗОБРАЖЕНИЯ
                 const qualityCheck = checkImageQuality(tempCanvas);
-                
+
                 if (!qualityCheck.isGoodQuality) {
                     setQualityWarning(qualityCheck.issues.join(', '));
                 } else {
@@ -503,7 +503,7 @@ const CameraCapture = () => {
                 if (allFound && !hasAutoCapturedRef.current && !isProcessing && qualityCheck.isGoodQuality) {
                     console.log("🎯 Все 4 маркера найдены И качество хорошее! Автоматический захват...");
                     hasAutoCapturedRef.current = true;
-                    
+
                     setTimeout(() => {
                         captureAndCrop();
                     }, 500);
@@ -526,9 +526,7 @@ const CameraCapture = () => {
         });
     }, [isProcessing]);
 
-    // ... (остальной код без изменений)
-
-        // Обрезка и отправка изображения
+    // Обрезка и отправка изображения
     const captureAndCrop = useCallback(async () => {
         if (!webcamRef.current || !window.cv || isProcessing) return;
 
@@ -786,8 +784,8 @@ const CameraCapture = () => {
                 </p>
                 {/* ✅ Показываем предупреждения о качестве */}
                 {qualityWarning && (
-                    <p className={styles.warningText} style={{color: '#ff6b6b', marginTop: '8px'}}>
-                        ⚠️ {qualityWarning}
+                    <p className={styles.warningText}>
+                        {qualityWarning}
                     </p>
                 )}
             </div>
