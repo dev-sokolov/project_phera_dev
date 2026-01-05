@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Lottie from "lottie-react";
 import Container from "../../components/Container/Container";
@@ -12,6 +12,7 @@ const CameraProcessingPage = () => {
     const location = useLocation();
     const [step, setStep] = useState(0);
     const [result, setResult] = useState(null);
+    const hasSentRef = useRef(false);
 
     const messages = [
         "Studies suggest that most vaginal pH changes are linked to everyday factors — not infections.",
@@ -25,16 +26,20 @@ const CameraProcessingPage = () => {
     // send to backend
     useEffect(() => {
         const sendImage = async () => {
+            if (hasSentRef.current) {
+                return;
+            }
+
             try {
                 const imageBlob = location.state?.imageBlob;
 
                 if (!imageBlob) {
-                    console.error("❌ Нет изображения для отправки");
+                    console.error("There is no image to send.");
                     navigate("/camera-capture");
                     return;
                 }
 
-                console.log("📤 Отправка изображения на бэкенд...");
+                hasSentRef.current = true;
 
                 const formData = new FormData();
                 formData.append('image', imageBlob, 'cropped-image.jpg');
@@ -45,14 +50,18 @@ const CameraProcessingPage = () => {
                 setResult(data);
 
             } catch (error) {
-                console.error("❌ Ошибка отправки на бэкенд:", error);
-                alert("Ошибка при отправке изображения на сервер.");
+                console.error("❌ Error sending to backend:", error);
+                alert("Error sending to server.");
+
+                hasSentRef.current = false;
+
                 navigate("/camera-capture");
             }
         };
 
         sendImage();
-    }, [location, navigate]);
+    }, []);
+
 
     useEffect(() => {
         if (!result) return;
