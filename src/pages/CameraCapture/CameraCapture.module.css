@@ -5,6 +5,7 @@
   height: 100dvh;
   overflow: hidden;
   background-color: black;
+  margin-top: 56px;
 }
 
 /* .overlayBackground {
