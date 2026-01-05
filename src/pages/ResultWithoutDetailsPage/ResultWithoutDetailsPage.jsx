@@ -36,20 +36,16 @@ const ResultWithoutDetailsPage = () => {
             if (!isNavigating) {
                 isNavigating = true;
                 
-                // Добавляем новую запись в историю, чтобы "отменить" переход назад
                 window.history.pushState(null, '', window.location.pathname);
                 
-                // Перенаправляем на camera-access
                 setTimeout(() => {
                     navigate("/camera-access", { replace: true });
                 }, 0);
             }
         };
 
-        // Добавляем начальную запись
         window.history.pushState(null, '', window.location.pathname);
         
-        // Слушаем событие popstate
         window.addEventListener('popstate', handlePopState);
 
         return () => {
