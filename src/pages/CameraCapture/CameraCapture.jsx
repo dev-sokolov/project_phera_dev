@@ -42,7 +42,7 @@ const CameraCapture = () => {
             });
 
         } catch (error) {
-            console.error("Ошибка отправки на бэкенд:", error);
+            console.error("Error sending to backend:", error);
             alert("There was an error sending the image to the server. Please try again.");
             setIsProcessing(false);
             hasAutoCapturedRef.current = false;
@@ -78,7 +78,7 @@ const CameraCapture = () => {
                 const ctx = tempCanvas.getContext('2d');
                 ctx.drawImage(video, 0, 0, tempCanvas.width, tempCanvas.height);
 
-                // ✅ ПРОВЕРКА КАЧЕСТВА ИЗОБРАЖЕНИЯ
+                // IMAGE QUALITY CHECK
                 const qualityCheck = checkImageQuality(tempCanvas);
 
                 if (!qualityCheck.isGoodQuality) {
@@ -111,16 +111,15 @@ const CameraCapture = () => {
                 const allFound = foundCount === 4;
                 setHasFourMarkers(allFound);
 
-                // ✅ АВТОЗАХВАТ ТОЛЬКО ЕСЛИ КАЧЕСТВО ХОРОШЕЕ
+                // AUTOCAPTURE ONLY IF THE QUALITY IS GOOD
                 if (allFound && !hasAutoCapturedRef.current && !isProcessing && qualityCheck.isGoodQuality) {
-                    console.log("🎯 Все 4 маркера найдены И качество хорошее! Автоматический захват...");
                     hasAutoCapturedRef.current = true;
 
                     setTimeout(() => {
                         captureAndCrop();
                     }, 500);
                 } else if (allFound && !qualityCheck.isGoodQuality) {
-                    console.warn("⚠️ Маркеры найдены, но качество плохое:", qualityCheck.issues);
+                    console.warn(" Markers were found, but the quality is poor:", qualityCheck.issues);
                 }
 
                 img.delete();
@@ -131,14 +130,14 @@ const CameraCapture = () => {
                 refineParams.delete();
                 dictionary.delete();
             } catch (error) {
-                console.error('❌ Ошибка детекции маркеров:', error);
+                console.error('Marker detection error:', error);
             } finally {
                 isDetectingRef.current = false;
             }
         });
     }, [isProcessing]);
 
-    // Обрезка и отправка изображения
+    // Cropping and sending an image
     const captureAndCrop = useCallback(async () => {
         if (!webcamRef.current || !window.cv || isProcessing) return;
 
@@ -171,7 +170,7 @@ const CameraCapture = () => {
                 detector.detectMarkers(img, corners, ids);
 
                 if (corners.size() < 4) {
-                    alert('Не найдено 4 маркера!');
+                    alert('4 markers not found!');
                     img.delete();
                     corners.delete();
                     ids.delete();
@@ -206,7 +205,7 @@ const CameraCapture = () => {
                 }
 
                 if (Object.keys(markerCorners).length < 4) {
-                    alert('Найдено меньше 4 угловых маркеров!');
+                    alert('Less than 4 corner markers found!');
                     img.delete();
                     corners.delete();
                     ids.delete();
@@ -326,8 +325,8 @@ const CameraCapture = () => {
                 warped.delete();
 
             } catch (error) {
-                console.error('Ошибка обработки изображения:', error);
-                alert('Ошибка при обработке изображения');
+                console.error('Image processing error:', error);
+                alert('Error while processing image');
                 setIsProcessing(false);
                 hasAutoCapturedRef.current = false;
                 if (isReady && window.cv) {
@@ -390,19 +389,7 @@ const CameraCapture = () => {
                 <div className={styles["bottom-right"]}></div>
             </div>
 
-            {/* <div className={styles.hintMessage}>
-                <p className={styles.hintMessageText}>
-                    {qualityWarning || "Align the test card in the frame"}
-                </p>
-                {qualityWarning && (
-                    <p className={styles.warningText}>
-                        {qualityWarning}
-                    </p>
-                )}
-            </div> */}
-
             <div className={styles.hintMessage}>
-                {/* ✅ Показываем либо предупреждение, либо обычный текст */}
                 {qualityWarning ? (
                     <p className={styles.warningText}>
                         {qualityWarning}
