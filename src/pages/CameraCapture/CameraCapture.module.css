@@ -83,14 +83,6 @@
   border-bottom-right-radius: 15px;
 }
 
-.viewfinder.detected::before,
-.viewfinder.detected::after,
-.viewfinder.detected .bottom-left,
-.viewfinder.detected .bottom-right {
-  /* border-color: #ffd9009c; */
-  border-color: var(--main-color);
-}
-
 .viewfinder.detected {
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);
   transform: translate(-50%, -50%) scale(0.97);
