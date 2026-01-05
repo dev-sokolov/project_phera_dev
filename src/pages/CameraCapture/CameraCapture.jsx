@@ -11,49 +11,25 @@ const CameraCapture = () => {
     const [hasFourMarkers, setHasFourMarkers] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [qualityWarning, setQualityWarning] = useState(null);
-    const [useHighRes, setUseHighRes] = useState(false);
     const detectionIntervalRef = useRef(null);
     const isDetectingRef = useRef(false);
     const rafIdRef = useRef(null);
     const hasAutoCapturedRef = useRef(false);
-    const qualityCheckCounterRef = useRef(0);
-    const isSwitchingResolutionRef = useRef(false); // ✅ Флаг переключения
+    const qualityCheckCounterRef = useRef(0); 
 
     const isReady = useCameraReady(webcamRef);
 
     const videoConstraints = useMemo(() => ({
         facingMode: "environment",
-        width: { ideal: useHighRes ? 1920 : 1280 },
-        height: { ideal: useHighRes ? 1080 : 720 },
+        width: { ideal: 1920 },
+        height: { ideal: 1080 },
         advanced: [
             { whiteBalanceMode: "manual" },
             { colorTemperature: 5000 },
             { exposureMode: "manual" },
             { exposureCompensation: 0 }
         ]
-    }), [useHighRes]);
-
-    useEffect(() => {
-        if (isReady && webcamRef.current) {
-            const video = webcamRef.current.video;
-            const track = video.srcObject?.getVideoTracks()[0];
-            
-            if (track) {
-                const capabilities = track.getCapabilities?.();
-                const settings = track.getSettings?.();
-                
-                console.log("📷 Camera capabilities:", capabilities);
-                console.log("⚙️ Current settings:", settings);
-                
-                if (!capabilities?.whiteBalanceMode?.includes('manual')) {
-                    console.warn("⚠️ Manual white balance NOT supported");
-                }
-                if (!capabilities?.exposureMode?.includes('manual')) {
-                    console.warn("⚠️ Manual exposure NOT supported");
-                }
-            }
-        }
-    }, [isReady]);
+    }), []);
 
     const handleCapture = useCallback(async (blob) => {
         try {
@@ -69,7 +45,6 @@ const CameraCapture = () => {
             alert("There was an error sending the image to the server. Please try again.");
             setIsProcessing(false);
             hasAutoCapturedRef.current = false;
-            isSwitchingResolutionRef.current = false;
 
             if (isReady && window.cv) {
                 detectionIntervalRef.current = setInterval(detectMarkers, 500);
@@ -84,17 +59,10 @@ const CameraCapture = () => {
     }, [navigate]);
 
     const detectMarkers = useCallback(() => {
-        // ✅ Пропускаем детекцию во время переключения разрешения
-        if (isDetectingRef.current || !webcamRef.current || !window.cv || isSwitchingResolutionRef.current) return;
+        if (isDetectingRef.current || !webcamRef.current || !window.cv) return;
 
         const video = webcamRef.current.video;
         if (!video || video.readyState !== video.HAVE_ENOUGH_DATA) return;
-
-        // ✅ Проверяем что видео имеет валидные размеры
-        if (video.videoWidth === 0 || video.videoHeight === 0) {
-            console.warn("⚠️ Video dimensions are 0, skipping detection");
-            return;
-        }
 
         isDetectingRef.current = true;
 
@@ -103,12 +71,13 @@ const CameraCapture = () => {
                 const cv = window.cv;
 
                 const tempCanvas = document.createElement('canvas');
-                const scale = 0.2;
+                const scale = 0.2; 
                 tempCanvas.width = video.videoWidth * scale;
                 tempCanvas.height = video.videoHeight * scale;
                 const ctx = tempCanvas.getContext('2d', { willReadFrequently: true });
                 ctx.drawImage(video, 0, 0, tempCanvas.width, tempCanvas.height);
 
+                // ✅ IMAGE QUALITY CHECK - only every 3rd frame
                 qualityCheckCounterRef.current++;
                 let currentQualityCheck = null;
                 
@@ -146,26 +115,16 @@ const CameraCapture = () => {
                 const allFound = foundCount === 4;
                 setHasFourMarkers(allFound);
 
-                // ✅ АВТОЗАХВАТ С ПЕРЕКЛЮЧЕНИЕМ НА HIGH-RES
+                // ✅ AUTOCAPTURE - final quality check
                 if (allFound && !hasAutoCapturedRef.current && !isProcessing) {
                     const finalQualityCheck = checkImageQuality(tempCanvas);
                     
                     if (finalQualityCheck.isGoodQuality) {
                         hasAutoCapturedRef.current = true;
-                        isSwitchingResolutionRef.current = true; // ✅ Блокируем детекцию
-                        
-                        // ✅ Останавливаем детекцию перед переключением
-                        if (detectionIntervalRef.current) {
-                            clearInterval(detectionIntervalRef.current);
-                        }
-                        
-                        console.log("🎯 Switching to high-res for capture...");
-                        setUseHighRes(true);
-                        
-                        // Даем время камере переключиться
+
                         setTimeout(() => {
                             captureAndCrop();
-                        }, 1000); // ✅ Увеличили до 1 секунды
+                        }, 500);
                     } else {
                         console.warn("⚠️ Markers found but quality is poor:", finalQualityCheck.issues);
                         setQualityWarning(finalQualityCheck.issues.join(', '));
@@ -192,19 +151,14 @@ const CameraCapture = () => {
 
         setIsProcessing(true);
 
+        if (detectionIntervalRef.current) {
+            clearInterval(detectionIntervalRef.current);
+        }
+
         setTimeout(async () => {
             try {
                 const video = webcamRef.current.video;
                 const cv = window.cv;
-
-                // ✅ Ждем пока видео получит валидные размеры
-                if (video.videoWidth === 0 || video.videoHeight === 0) {
-                    console.warn("⚠️ Video not ready, retrying...");
-                    setTimeout(() => captureAndCrop(), 200);
-                    return;
-                }
-
-                console.log(`📸 Capturing at resolution: ${video.videoWidth}x${video.videoHeight}`);
 
                 const tempCanvas = document.createElement('canvas');
                 tempCanvas.width = video.videoWidth;
@@ -234,8 +188,6 @@ const CameraCapture = () => {
                     dictionary.delete();
                     setIsProcessing(false);
                     hasAutoCapturedRef.current = false;
-                    isSwitchingResolutionRef.current = false;
-                    setUseHighRes(false);
                     if (isReady && window.cv) {
                         detectionIntervalRef.current = setInterval(detectMarkers, 500);
                     }
@@ -271,8 +223,6 @@ const CameraCapture = () => {
                     dictionary.delete();
                     setIsProcessing(false);
                     hasAutoCapturedRef.current = false;
-                    isSwitchingResolutionRef.current = false;
-                    setUseHighRes(false);
                     if (isReady && window.cv) {
                         detectionIntervalRef.current = setInterval(detectMarkers, 500);
                     }
@@ -387,8 +337,6 @@ const CameraCapture = () => {
                 alert('Error while processing image');
                 setIsProcessing(false);
                 hasAutoCapturedRef.current = false;
-                isSwitchingResolutionRef.current = false;
-                setUseHighRes(false);
                 if (isReady && window.cv) {
                     detectionIntervalRef.current = setInterval(detectMarkers, 500);
                 }
@@ -397,7 +345,7 @@ const CameraCapture = () => {
     }, [isProcessing, handleCapture, isReady, detectMarkers]);
 
     useEffect(() => {
-        if (isReady && window.cv && !isSwitchingResolutionRef.current) {
+        if (isReady && window.cv) {
             detectionIntervalRef.current = setInterval(detectMarkers, 500);
         }
 
