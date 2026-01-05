@@ -318,7 +318,7 @@ const CameraCapture = () => {
                     if (blob) {
                         await handleCapture(blob);
                     }
-                }, 'image/jpeg', 0.95);
+                }, 'image/png');
 
                 img.delete();
                 corners.delete();

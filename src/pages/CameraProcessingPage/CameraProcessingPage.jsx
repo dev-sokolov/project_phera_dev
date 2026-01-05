@@ -42,11 +42,11 @@ const CameraProcessingPage = () => {
                 hasSentRef.current = true;
 
                 const formData = new FormData();
-                formData.append('image', imageBlob, 'cropped-image.jpg');
+                formData.append('image', imageBlob, 'cropped-image.png');
 
                 const data = await addImage(formData);
 
-                console.log("✅ Ответ от бэкенда:", data);
+                console.log("✅ Response from the backend:", data);
                 setResult(data);
 
             } catch (error) {
