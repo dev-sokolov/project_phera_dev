@@ -359,8 +359,6 @@ const CameraCapture = () => {
 
     return (
         <div className={styles.cameraContainer}>
-            {/* <div className={`${styles.overlayBackground} ${hasFourMarkers ? styles.focused : ""}`}></div> */}
-
             <Webcam
                 ref={webcamRef}
                 audio={false}
