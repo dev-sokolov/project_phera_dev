@@ -17,14 +17,7 @@ const HomeCompletePage = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { state } = useLocation();
 
-    // const detailOptions = [   // временно, потом вернуть  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //     state?.age,
-    //     state?.hormone,
-    //     ...(state?.ancestral?.length ? state.ancestral : []),
-    //     ...(state?.symptoms?.length ? state.symptoms : []),
-    // ].filter(Boolean);
-
-    const detailOptions = [     // временно, потом удалить  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     const detailOptions = [    
         "18-24", "Mid-cycle", "Asian", "No symptoms"
     ];
 

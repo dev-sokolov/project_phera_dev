@@ -14,6 +14,7 @@ const CameraProcessingPage = () => {
     const [result, setResult] = useState(null);
     const hasSentRef = useRef(false);
 
+    // Informational messages shown to the user while the test is being processed
     const messages = [
         "Studies suggest that most vaginal pH changes are linked to everyday factors — not infections.",
         "Up to 80% of women experience temporary changes in vaginal pH at some point — often without any symptoms.",
@@ -23,9 +24,12 @@ const CameraProcessingPage = () => {
         "Tracking vaginal pH over time helps many women notice patterns before symptoms appear.",
     ];
 
-    // send to backend
+    // Sends the captured image to the backend only once.
+    // If the image is missing (e.g., direct navigation), the user is redirected back.
+    // Response is saved in `result`.
     useEffect(() => {
         const sendImage = async () => {
+            // Prevent double sending on strict mode or re-renders
             if (hasSentRef.current) {
                 return;
             }
@@ -50,6 +54,7 @@ const CameraProcessingPage = () => {
                 setResult(data);
 
             } catch (error) {
+                // On failure, allow retry by resetting the flag and redirect user back
                 console.error("❌ Error sending to backend:", error);
                 alert("Error sending to server.");
 
@@ -66,7 +71,7 @@ const CameraProcessingPage = () => {
     useEffect(() => {
         if (!result) return;
 
-        // time to show: 9 sec
+        // After showing the animation for 9 seconds, navigate to the result page
         const timer = setTimeout(() => {
             navigate("/result-without-details", {
                 state: { result },
@@ -77,7 +82,7 @@ const CameraProcessingPage = () => {
         return () => clearTimeout(timer);
     }, [result, navigate]);
 
-    // change message every 3 sec
+    // Rotate informational messages every 3 seconds
     useEffect(() => {
         const interval = setInterval(() => {
             setStep((prev) => (prev + 1) % messages.length);

@@ -11,24 +11,26 @@ import styles from "./CountdownPage.module.css";
 const CountdownPage = () => {
     const navigate = useNavigate();
 
-    const TOTAL_TIME = 10;
-    const [seconds, setSeconds] = useState(TOTAL_TIME);
-    const [active, setActive] = useState(false); 
-    const [finished, setFinished] = useState(false); 
+    const TOTAL_TIME = 10;      // Total countdown time in seconds
+    const [seconds, setSeconds] = useState(TOTAL_TIME);      // Remaining seconds
+    const [active, setActive] = useState(false);             // Is timer running
+    const [finished, setFinished] = useState(false);         // Has timer finished
 
-    // spinner
+    // Progress circle calculations
     const radius = 110;
     const circumference = 2 * Math.PI * radius;
     const progress = ((TOTAL_TIME - seconds) / TOTAL_TIME) * circumference;
 
+    // Convert seconds into MM:SS format
     const formatTime = (sec) => {
         const minutes = Math.floor(sec / 60);
         const seconds = sec % 60;
         return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
     };
 
+    // Countdown logic: decrease seconds every second when active
     useEffect(() => {
-        if (!active) return; 
+        if (!active) return;
         if (seconds <= 0) return;
 
         const timer = setInterval(() => {
@@ -38,18 +40,21 @@ const CountdownPage = () => {
         return () => clearInterval(timer);
     }, [active, seconds]);
 
+    // Set finished flag when timer reaches 0
     useEffect(() => {
         if (active && seconds === 0) {
             setFinished(true);
         }
     }, [active, seconds]);
 
+    // Start the countdown timer
     const startTimer = () => {
         setActive(true);
         setFinished(false);
         setSeconds(TOTAL_TIME);
     };
 
+    // Navigate to camera page when timer is finished
     const onNext = () => {
         if (finished) {
             navigate("/camera-access");

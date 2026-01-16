@@ -28,7 +28,7 @@ const LoginPage = () => {
 
     const isFormValid = username.length >= 2 && password.length >= 6;
 
-    // const onSubmit = async ({ username, password }) => {  //!!!!!!!! реальный  !!!!!!!!!!
+    // const onSubmit = async ({ username, password }) => {  //!!!!!!!! real  !!!!!!!!!!
     //     try {
     //         setServerError("");
 
@@ -53,15 +53,15 @@ const LoginPage = () => {
     //     }
     // };
 
-    const onSubmit = async ({ password }) => {      // временный потом Удалить!!!!!!!!!!!!
+    const onSubmit = async ({ password }) => {      // Temporary, then delete!!!!!!!!!!!!
         try {
             setServerError("");
 
-            // 🔹 симуляция backend
-            await new Promise(res => setTimeout(res, 500)); // имитация запроса
+            // 🔹 simulation backend
+            await new Promise(res => setTimeout(res, 500)); // simulated request
             const token = "fake-token";
 
-            // 🔹 сохраняем токен
+            // 🔹 save the token
             localStorage.setItem("token", token);
 
             navigate("/home/complete", { replace: true });

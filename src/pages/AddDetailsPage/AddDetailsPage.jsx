@@ -1,4 +1,4 @@
-import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 import PersonalData from "../../components/PersonalData/PersonalData";
@@ -6,26 +6,15 @@ import BottomBlock from "../../components/BottomBlock/BottomBlock";
 import Button from "../../components/Button/Button";
 import ButtonReverse from "../../components/ButtonReverse/ButtonReverse";
 import Container from "../../components/Container/Container";
-import CameraCapture from "../CameraCapture/CameraCapture";
 
-import CameraAccessImg from "../../assets/CameraAccessImg";
 import styles from "./AddDetailsPage.module.css";
 
 const AddDetailsPage = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
 
-    // if (!state || !state.phValue || !state.date) {
-    //     return <Navigate to="/" replace />;
-    // }
-    // console.log("Данные с камеры:", state);
-    // const { phValue, date } = state;
-    // const value = Number(phValue);
-    // const safePh = isNaN(value) ? "N/A" : value;
-    // console.log(`phValue: ${safePh}, date: ${date}`);
-
-    // const [isDataSharingActive, setIsDataSharingActive] = useState(false);
-
+    // Pre-fill user details if they were passed from the previous screen
+    // Otherwise initialize with empty/default values
     const [age, setAge] = useState(state?.age || "");
     const [ethnicBackground, setEthnicBackground] = useState(state?.ethnicBackground || []);
     const [menstrualCycle, setMenstrualCycle] = useState(state?.menstrualCycle || []);
@@ -69,6 +58,7 @@ const AddDetailsPage = () => {
                             </p>
                         </div>
                         <div className={styles.personalData}>
+                            {/* Main form component where user selects personal details */}
                             <PersonalData
                                 age={age}
                                 setAge={setAge}
@@ -99,6 +89,7 @@ const AddDetailsPage = () => {
                     </div>
                 </Container>
                 <BottomBlock>
+                    {/* On submit: navigate to detailed results page and pass all user inputs */}
                     <Button
                         onClick={() => navigate("/result-with-details-normal", {
                             state: {

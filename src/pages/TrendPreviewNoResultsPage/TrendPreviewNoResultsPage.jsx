@@ -14,9 +14,13 @@ const TrendPreviewNoResultsPage = () => {
     const navigate = useNavigate();
     const selectWrapperRef = useRef(null);
 
+    // Flag to simulate whether trend data is available
+    // Set to `true` to show trend preview, `false` to show empty state
+
     // const data = true;
     const data = false;
 
+    // Dates available for comparison in the trend preview dropdown
     const dates = [
         "Aug 12, 2025",
         "Sep 05, 2025",
@@ -28,6 +32,7 @@ const TrendPreviewNoResultsPage = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(dates[0]);
 
+    // Handle selection of a date from the dropdown
     const handleSelect = (date) => {
         setSelectedDate(date);
         setIsOpen(false);

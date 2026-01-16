@@ -14,13 +14,13 @@ const ProfilePage = () => {
 
 
     const handleLogout = () => {
-        // 1. очистить токен
+        // 1. clear token
         localStorage.removeItem("token");
 
-        // 2. очистить состояние (если есть)
+        // 2. clear state (if it exists)
         // dispatch(logout())
 
-        // 3. перейти на страницу логина
+        // 3. go to the login page
         navigate("/start", { replace: true });
     };
 
@@ -40,7 +40,7 @@ const ProfilePage = () => {
                                     className={styles.input}
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                    onBlur={() => setIsEditingUsername(false)}
+                                    onBlur={() => setIsEditingUsername(false)}      // finish editing on blur
                                     autoFocus
                                 />
                             ) : (
@@ -50,7 +50,7 @@ const ProfilePage = () => {
 
                         <button
                             className={styles.btn}
-                            onClick={() => setIsEditingUsername(true)}
+                            onClick={() => setIsEditingUsername(true)}      // start editing
                         >
                             EDIT
                         </button>

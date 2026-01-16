@@ -14,7 +14,7 @@ const InfoTooltip = ({
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
 
-    // click-outside handler
+    // Close tooltip when clicking outside the component
     useEffect(() => {
         const close = (e) => {
             if (ref.current && !ref.current.contains(e.target)) {
@@ -30,7 +30,7 @@ const InfoTooltip = ({
     }, []);
 
 
-    //  ICON ONLY 
+    // Render minimal tooltip version: only icon that opens a popover 
     if (iconOnly) {
         return (
             <div className={styles.wrap} ref={ref}>
@@ -51,7 +51,7 @@ const InfoTooltip = ({
         );
     }
 
-    // DEFAULT MODE WITH TITLE + ARROW
+    // Default tooltip mode: title + optional info icon + arrow indicator
     return (
         <div className={styles.wrap} ref={ref}>
             <div className={styles.wrapTitle} onClick={onToggle}>
@@ -71,9 +71,8 @@ const InfoTooltip = ({
 
                 {showArrow && (
                     <div
-                        className={`${styles.arrow} ${
-                            onToggleArrow ? styles.arrowOpen : ""
-                        }`}
+                        className={`${styles.arrow} ${onToggleArrow ? styles.arrowOpen : ""
+                            }`}
                     >
                         <ArrowDown />
                     </div>

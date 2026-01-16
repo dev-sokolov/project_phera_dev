@@ -14,21 +14,9 @@ import styles from "./HomeTestedPage.module.css";
 const HomeTestedPage = () => {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
-    const [isOpenMenu, setIsOpenMenu] = useState(false);
     const { state } = useLocation();
 
-    const toggleMenu = () => setIsOpenMenu(prev => !prev);
-
-    // const detailOptions = [   // временно, потом вернуть  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //     state?.age,
-    //     state?.hormone,
-    //     ...(state?.ancestral?.length ? state.ancestral : []),
-    //     ...(state?.symptoms?.length ? state.symptoms : []),
-    // ].filter(Boolean);
-
-    const detailOptions = [     // временно, потом удалить  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // "18-24", "Mid-cycle", "Asian", "No symptoms"
-    ];
+    const detailOptions = [];
 
     const hasDetails = detailOptions.length > 0;
 
@@ -53,7 +41,6 @@ const HomeTestedPage = () => {
                                 </div>
                                 <div className={styles.wrapNum}>
                                     <div className={styles.num}>7.35</div>
-                                    {/* <div className={styles.phLevel}>Normal pH</div> */}
                                     <div className={styles.levelPh}>
                                         <CheckIcon />
                                         <p className={styles.levelPhText}>Normal pH</p>

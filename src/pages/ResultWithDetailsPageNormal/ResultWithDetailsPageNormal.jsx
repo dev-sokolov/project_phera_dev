@@ -37,6 +37,8 @@ const ResultWithDetailsPageNormal = () => {
         ].filter(Boolean)
         : [];
 
+    // Collect all user details from state and filter out empty or falsy values
+    // Combines multiple categories like age, menstrual cycle, hormones, and symptoms
     const detailOptions = [
         state?.age,
         ...(state?.ethnicBackground?.length ? state.ethnicBackground : []),
@@ -75,7 +77,7 @@ const ResultWithDetailsPageNormal = () => {
                             <div className={styles.num}>7.35</div>
                             <div className={styles.date}>12.06.25 | 8:23 PM</div>
                             <div className={styles.scale}>
-                                <div className={styles.scalePart1}><ScaleMarker className={styles.scaleMarker}/></div>
+                                <div className={styles.scalePart1}><ScaleMarker className={styles.scaleMarker} /></div>
                                 <div className={styles.scalePart2}></div>
                                 <div className={styles.scalePart3}></div>
                                 <div className={styles.scalePart4}></div>

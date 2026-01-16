@@ -15,8 +15,9 @@ const ResultWithoutDetailsPage = () => {
     const location = useLocation();
     const [resultData, setResultData] = useState(null);
 
+    // Retrieve pH result passed from previous page.
+    // If no result found (e.g. user reloaded page), redirect back to camera flow.
     useEffect(() => {
-        // get data from navigate state //
         const stateData = location.state?.result;
 
         if (stateData) {
@@ -28,16 +29,17 @@ const ResultWithoutDetailsPage = () => {
         }
     }, [location, navigate]);
 
-    // back to CameraAccess
+    // Prevent navigating back to processing/result pages.
+    // When user presses browser Back, always return to /camera-access.
     useEffect(() => {
         let isNavigating = false;
 
         const handlePopState = () => {
             if (!isNavigating) {
                 isNavigating = true;
-                
+
                 window.history.pushState(null, '', window.location.pathname);
-                
+
                 setTimeout(() => {
                     navigate("/camera-access", { replace: true });
                 }, 0);
@@ -45,7 +47,7 @@ const ResultWithoutDetailsPage = () => {
         };
 
         window.history.pushState(null, '', window.location.pathname);
-        
+
         window.addEventListener('popstate', handlePopState);
 
         return () => {
@@ -58,13 +60,14 @@ const ResultWithoutDetailsPage = () => {
         return <div>Loading...</div>;
     }
 
-    // level pH
+    // Map numerical pH value to descriptive category
     const getPhLevel = (ph) => {
         if (ph < 5) return "Low";
         if (ph >= 5 && ph <= 6) return "Normal";
         return "Elevated";
     };
 
+    // Extract pH, category and timestamp from backend response
     const phValue = resultData.phValue || 0.00;
     const phLevel = getPhLevel(phValue);
     const timestamp = resultData.date || new Date().toISOString();

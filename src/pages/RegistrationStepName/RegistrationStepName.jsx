@@ -29,7 +29,7 @@ const RegistrationStepName = () => {
     const isFormValid =
         username.length >= 2;
 
-    // const onSubmit = async ({ username }) => {  // !!!!! реальный запрос на бэкенд  !!!!!!!!!!
+    // const onSubmit = async ({ username }) => {  // !!!!! real request to the backend  !!!!!!!!!!
     //     try {
     //         setServerError("");
 
@@ -57,7 +57,7 @@ const RegistrationStepName = () => {
     //     }
     // };
 
-    const onSubmit = async ({ username }) => {      // temporary Удалить!!!!!!!!!!!!
+    const onSubmit = async ({ username }) => {      // Temporary, then Delete !!!!!!!!!!!!
         try {
             setServerError("");
 

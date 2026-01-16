@@ -19,14 +19,6 @@ const SignUpPage = () => {
         localStorage.removeItem("reg_username");
     }, []);
 
-    // const goBack = () => {
-    //     if (window.history.length > 2) {
-    //         navigate(-1);
-    //     } else {
-    //         navigate("/");
-    //     }
-    // };
-
     useEffect(() => {
         localStorage.removeItem("reg_email");
         localStorage.removeItem("reg_token"); 

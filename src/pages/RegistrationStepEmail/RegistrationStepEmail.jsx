@@ -36,10 +36,12 @@ const RegistrationStepEmail = () => {
         try {
             setServerError("");
 
+            // save email to localStorage for later steps
             localStorage.setItem("reg_email", email);
 
-            // imitation of request
+            // imitation of backend request
             await new Promise(res => setTimeout(res, 500));
+            // navigate to confirm email page, passing the previous route
             navigate("/confirm-email", { state: { from: location.state?.from || location.pathname } })
 
         } catch (e) {
@@ -50,10 +52,12 @@ const RegistrationStepEmail = () => {
     useEffect(() => {
         if (!location.state?.from) return;
 
+        // save previous page in sessionStorage for potential navigation tracking
         sessionStorage.setItem("registration_from", location.state.from);
     }, [location.state?.from]);
 
     const goBack = () => {
+        // navigate to the previous step (username)
         navigate("/registration/username", { replace: true });
     };
 
@@ -86,7 +90,7 @@ const RegistrationStepEmail = () => {
                                             validate: value =>
                                                 emailRegex.test(value) || "Invalid email format",
                                             onChange: () => {
-                                                if (emailRegex.test(email)) clearErrors("email");
+                                                if (emailRegex.test(email)) clearErrors("email");   // clear error if valid
                                             }
                                         })}
                                         placeholder="Enter your email"

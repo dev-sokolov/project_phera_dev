@@ -1,10 +1,5 @@
 import backendInstance from "./instance";
 
-// export const registrUserApi = async payload => {
-//     const {data} = await backendInstance.post("/auth/registr", payload);
-//     return data;
-// }
-
 export const registrPasswordApi = async (password) => {
     const { data } = await backendInstance.post("/auth/register/password", {
         password

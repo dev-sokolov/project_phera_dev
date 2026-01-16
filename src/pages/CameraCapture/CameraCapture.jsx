@@ -5,26 +5,37 @@ import styles from "./CameraCapture.module.css"
 import useCameraReady from "../../hooks/useCameraReady";
 import { checkImageQuality } from "../../hooks/imageQuality";
 
+/**
+ * CameraCapture component
+ *
+ * Handles:
+ *  - Displaying a webcam preview
+ *  - Detecting ArUco markers
+ *  - Checking image quality
+ *  - Capturing and cropping image
+ *  - Sending image to CameraProcessingPage
+ */
+
 const CameraCapture = () => {
     const navigate = useNavigate();
-    const webcamRef = useRef(null);
-    const [hasFourMarkers, setHasFourMarkers] = useState(false);
-    const [isProcessing, setIsProcessing] = useState(false);
-    const [qualityWarning, setQualityWarning] = useState(null);
-    const detectionIntervalRef = useRef(null);
-    const isDetectingRef = useRef(false);
-    const rafIdRef = useRef(null);
-    const hasAutoCapturedRef = useRef(false);
-    const qualityCheckCounterRef = useRef(0); 
+    const webcamRef = useRef(null);     /* ref to access webcam DOM element */
+    const [hasFourMarkers, setHasFourMarkers] = useState(false);    /* state to track if 4 ArUco markers are detected */
+    const [isProcessing, setIsProcessing] = useState(false);        /* true when image capture is in progress */
+    const [qualityWarning, setQualityWarning] = useState(null);     /* warning text if image quality is low */
+    const detectionIntervalRef = useRef(null);      /* interval ID for periodic marker detection */
+    const isDetectingRef = useRef(false);           /* flag to prevent overlapping marker detection calls */
+    const rafIdRef = useRef(null);                  /* requestAnimationFrame ID for cleanup */
+    const hasAutoCapturedRef = useRef(false);       /* flag to ensure auto-capture occurs only once */
+    const qualityCheckCounterRef = useRef(0);       /* counter to check image quality every 3 frames */
 
     const isReady = useCameraReady(webcamRef);
 
     const videoConstraints = useMemo(() => ({
-        facingMode: "environment",
+        facingMode: "environment",      /* back camera */
         width: { ideal: 1920 },
         height: { ideal: 1080 },
         advanced: [
-            { whiteBalanceMode: "manual" },
+            { whiteBalanceMode: "manual" },     /* force consistent white balance */
             { colorTemperature: 5000 },
             { exposureMode: "manual" },
             { exposureCompensation: 0 }
@@ -32,6 +43,8 @@ const CameraCapture = () => {
     }), []);
 
     const handleCapture = useCallback(async (blob) => {
+        // Send captured image blob to CameraProcessingPage via navigate state
+        // If error occurs, reset flags and restart detection
         try {
             navigate("/camera-processing", {
                 state: {
@@ -59,6 +72,13 @@ const CameraCapture = () => {
     }, [navigate]);
 
     const detectMarkers = useCallback(() => {
+        /* 
+            * Runs periodically to detect ArUco markers in webcam feed
+            * - Skips detection if already processing
+            * - Checks image quality every 3 frames
+            * - Sets hasFourMarkers state
+            * - Triggers auto-capture if all markers are detected and quality is good
+        */
         if (isDetectingRef.current || !webcamRef.current || !window.cv) return;
 
         const video = webcamRef.current.video;
@@ -71,7 +91,7 @@ const CameraCapture = () => {
                 const cv = window.cv;
 
                 const tempCanvas = document.createElement('canvas');
-                const scale = 0.2; 
+                const scale = 0.2;
                 tempCanvas.width = video.videoWidth * scale;
                 tempCanvas.height = video.videoHeight * scale;
                 const ctx = tempCanvas.getContext('2d', { willReadFrequently: true });
@@ -80,7 +100,7 @@ const CameraCapture = () => {
                 // ✅ IMAGE QUALITY CHECK - only every 3rd frame
                 qualityCheckCounterRef.current++;
                 let currentQualityCheck = null;
-                
+
                 if (qualityCheckCounterRef.current % 3 === 0) {
                     currentQualityCheck = checkImageQuality(tempCanvas);
 
@@ -118,7 +138,7 @@ const CameraCapture = () => {
                 // ✅ AUTOCAPTURE - final quality check
                 if (allFound && !hasAutoCapturedRef.current && !isProcessing) {
                     const finalQualityCheck = checkImageQuality(tempCanvas);
-                    
+
                     if (finalQualityCheck.isGoodQuality) {
                         hasAutoCapturedRef.current = true;
 
@@ -147,6 +167,13 @@ const CameraCapture = () => {
     }, [isProcessing]);
 
     const captureAndCrop = useCallback(async () => {
+        /*
+            * Captures final image when all 4 markers detected
+            * Applies perspective transform using OpenCV
+            * Crops image to marker boundaries
+            * Sends final blob to handleCapture
+            * Handles cleanup of OpenCV Mats
+        */
         if (!webcamRef.current || !window.cv || isProcessing) return;
 
         setIsProcessing(true);
@@ -345,6 +372,8 @@ const CameraCapture = () => {
     }, [isProcessing, handleCapture, isReady, detectMarkers]);
 
     useEffect(() => {
+        // Start marker detection interval once camera and OpenCV are ready
+        // Cleanup on unmount
         if (isReady && window.cv) {
             detectionIntervalRef.current = setInterval(detectMarkers, 500);
         }
@@ -360,12 +389,14 @@ const CameraCapture = () => {
     }, [isReady, detectMarkers]);
 
     useEffect(() => {
+        // Vibrate device when all 4 markers detected
         if (hasFourMarkers && navigator.vibrate) {
             navigator.vibrate(80);
         }
     }, [hasFourMarkers]);
 
     useEffect(() => {
+        // Stop camera tracks on component unmount
         return () => {
             const video = webcamRef.current?.video;
             video?.srcObject?.getTracks().forEach(track => track.stop());
@@ -393,11 +424,13 @@ const CameraCapture = () => {
             />
 
             <div className={`${styles.viewfinder} ${hasFourMarkers ? styles.detected : ""}`}>
+                {/* Visual marker frame */}
                 <div className={styles["bottom-left"]}></div>
                 <div className={styles["bottom-right"]}></div>
             </div>
 
             <div className={styles.hintMessage}>
+                {/* Show quality warning or hint text */}
                 {qualityWarning ? (
                     <p className={styles.warningText}>
                         {qualityWarning}
