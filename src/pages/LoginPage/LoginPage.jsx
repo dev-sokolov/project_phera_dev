@@ -131,7 +131,7 @@ const LoginPage = () => {
                                     <div
                                         className={styles.iconWrapper}
                                         onMouseDown={(e) => {
-                                            e.preventDefault();  
+                                            e.preventDefault();
                                             setShowPassword(s => !s);
                                         }}
                                     >

@@ -38,6 +38,9 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import TrendPreviewPage from "../pages/TrendPreviewPage/TrendPreviewPage";
 import TrendPreviewNoResultsPage from "../pages/TrendPreviewNoResultsPage/TrendPreviewNoResultsPage";
 
+import { AuthProvider } from "react-oidc-context";
+import { oidcConfig } from "../../authConfig";
+
 import "../shared/styles/style.css";
 
 function App() {
@@ -45,48 +48,50 @@ function App() {
 
   return (
     <>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<AppLayout><HomePageQr /></AppLayout>} />
-        <Route path="/how-it-works" element={<AppLayout><HowItWorksPage /></AppLayout>} />
-        <Route path="/steps" element={<AppLayout><Steps /></AppLayout>} />
-        <Route path="/steps/1" element={<AppLayout><Steps1 /></AppLayout>} />
-        <Route path="/steps/2" element={<AppLayout><Steps2 /></AppLayout>} />
-        <Route path="/steps/3" element={<AppLayout><Steps3 /></AppLayout>} />
-        <Route path="/steps/4" element={<AppLayout><Steps4 /></AppLayout>} />
-        <Route path="/steps/5" element={<AppLayout><Steps5 /></AppLayout>} />
-        <Route path="/countdown" element={<AppLayout><CountdownPage /></AppLayout>} />
-        <Route path="/camera-access" element={<AppLayout><CameraAccess /></AppLayout>} />
-        <Route path="/camera-capture" element={
-          <AppLayout showBack onBack={() => navigate("/camera-access", { replace: true })}>
-            <CameraCapture onExit={() => navigate("/camera-access", { replace: true })} onCapture={(result) => navigate("/camera-processing", { state: result, replace: true })} />
-          </AppLayout>} />
-        <Route path="/camera-processing" element={<AppLayout><CameraProcessingPage /></AppLayout>} />
-        <Route path="/result-without-details" element={<AppLayout><ResultWithoutDetailsPage /></AppLayout>} />
-        <Route path="/add-details" element={<AppLayout><AddDetailsPage /></AppLayout>} />
-        <Route path="/result-with-details-normal" element={<AppLayout><ResultWithDetailsPageNormal /></AppLayout>} />
-        <Route path="/signup" element={<AppLayout showBack onBack={() => navigate("/result-with-details-normal")}><SignUpPage /></AppLayout>} />
-        <Route path="/start" element={<AppLayout showBack onBack={() => navigate("https://phera.digital/")}><StartPage /></AppLayout>} />
-        <Route path="/registration/username" element={<AppLayout><RegistrationStepName /></AppLayout>} />
-        <Route path="/registration/email" element={<AppLayout><RegistrationStepEmail /></AppLayout>} />
-        <Route path="/registration/password" element={<AppLayout><RegistrationStepPassword /></AppLayout>} />
-        <Route path="/confirm-email" element={<AppLayout><EmailConfirmationPage /></AppLayout>} />
-        <Route path="/login" element={<AppLayout><LoginPage /></AppLayout>} />
-        <Route path="/home/complete" element={<AppLayout headerVariant="auth"><HomeCompletePage /></AppLayout>} />
-        <Route path="/home/tested" element={<AppLayout headerVariant="auth"><HomeTestedPage /></AppLayout>} />
-        <Route path="/home/start" element={<AppLayout headerVariant="auth"><HomeStartPage /></AppLayout>} />
-        <Route path="/test-history" element={<AppLayout headerVariant="auth"><TestsHistoryPage /></AppLayout>} />
-        <Route path="/test-history-empty" element={<AppLayout headerVariant="auth"><TestsHistoryEmptyPage /></AppLayout>} />
-        <Route path="/health-library" element={<AppLayout headerVariant="auth"><HealthLibrary /></AppLayout>} />
-        <Route path="/articles" element={<AppLayout headerVariant="auth"><ArticlesPage /></AppLayout>} />
-        <Route path="/profile" element={<AppLayout headerVariant="auth"><ProfilePage /></AppLayout>} />
-        <Route path="/trend-preview" element={<AppLayout headerVariant="auth"><TrendPreviewPage /></AppLayout>} />
-        <Route path="/trend-preview/no-tests" element={<AppLayout headerVariant="auth"><TrendPreviewNoResultsPage /></AppLayout>} />
-        <Route path="/subscription" element={<AppLayout showBack onBack={() => navigate("/health-library")}><SubscriptionPage /></AppLayout>} />
-        <Route path="/payment" element={<AppLayout headerVariant="auth"><PaymentPage /></AppLayout>} />
+      <AuthProvider {...oidcConfig}>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<AppLayout><HomePageQr /></AppLayout>} />
+          <Route path="/how-it-works" element={<AppLayout><HowItWorksPage /></AppLayout>} />
+          <Route path="/steps" element={<AppLayout><Steps /></AppLayout>} />
+          <Route path="/steps/1" element={<AppLayout><Steps1 /></AppLayout>} />
+          <Route path="/steps/2" element={<AppLayout><Steps2 /></AppLayout>} />
+          <Route path="/steps/3" element={<AppLayout><Steps3 /></AppLayout>} />
+          <Route path="/steps/4" element={<AppLayout><Steps4 /></AppLayout>} />
+          <Route path="/steps/5" element={<AppLayout><Steps5 /></AppLayout>} />
+          <Route path="/countdown" element={<AppLayout><CountdownPage /></AppLayout>} />
+          <Route path="/camera-access" element={<AppLayout><CameraAccess /></AppLayout>} />
+          <Route path="/camera-capture" element={
+            <AppLayout showBack onBack={() => navigate("/camera-access", { replace: true })}>
+              <CameraCapture onExit={() => navigate("/camera-access", { replace: true })} onCapture={(result) => navigate("/camera-processing", { state: result, replace: true })} />
+            </AppLayout>} />
+          <Route path="/camera-processing" element={<AppLayout><CameraProcessingPage /></AppLayout>} />
+          <Route path="/result-without-details" element={<AppLayout><ResultWithoutDetailsPage /></AppLayout>} />
+          <Route path="/add-details" element={<AppLayout><AddDetailsPage /></AppLayout>} />
+          <Route path="/result-with-details-normal" element={<AppLayout><ResultWithDetailsPageNormal /></AppLayout>} />
+          <Route path="/signup" element={<AppLayout showBack onBack={() => navigate("/result-with-details-normal")}><SignUpPage /></AppLayout>} />
+          <Route path="/start" element={<AppLayout showBack onBack={() => navigate("https://phera.digital/")}><StartPage /></AppLayout>} />
+          <Route path="/registration/username" element={<AppLayout><RegistrationStepName /></AppLayout>} />
+          <Route path="/registration/email" element={<AppLayout><RegistrationStepEmail /></AppLayout>} />
+          <Route path="/registration/password" element={<AppLayout><RegistrationStepPassword /></AppLayout>} />
+          <Route path="/confirm-email" element={<AppLayout><EmailConfirmationPage /></AppLayout>} />
+          <Route path="/login" element={<AppLayout><LoginPage /></AppLayout>} />
+          <Route path="/home/complete" element={<AppLayout headerVariant="auth"><HomeCompletePage /></AppLayout>} />
+          <Route path="/home/tested" element={<AppLayout headerVariant="auth"><HomeTestedPage /></AppLayout>} />
+          <Route path="/home/start" element={<AppLayout headerVariant="auth"><HomeStartPage /></AppLayout>} />
+          <Route path="/test-history" element={<AppLayout headerVariant="auth"><TestsHistoryPage /></AppLayout>} />
+          <Route path="/test-history-empty" element={<AppLayout headerVariant="auth"><TestsHistoryEmptyPage /></AppLayout>} />
+          <Route path="/health-library" element={<AppLayout headerVariant="auth"><HealthLibrary /></AppLayout>} />
+          <Route path="/articles" element={<AppLayout headerVariant="auth"><ArticlesPage /></AppLayout>} />
+          <Route path="/profile" element={<AppLayout headerVariant="auth"><ProfilePage /></AppLayout>} />
+          <Route path="/trend-preview" element={<AppLayout headerVariant="auth"><TrendPreviewPage /></AppLayout>} />
+          <Route path="/trend-preview/no-tests" element={<AppLayout headerVariant="auth"><TrendPreviewNoResultsPage /></AppLayout>} />
+          <Route path="/subscription" element={<AppLayout showBack onBack={() => navigate("/health-library")}><SubscriptionPage /></AppLayout>} />
+          <Route path="/payment" element={<AppLayout headerVariant="auth"><PaymentPage /></AppLayout>} />
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </AuthProvider>
     </>
   )
 }

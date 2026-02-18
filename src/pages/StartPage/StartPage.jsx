@@ -7,6 +7,8 @@ import Container from "../../components/Container/Container";
 import ImageWrapper from "../../components/ImageWrapper/ImageWrapper";
 import welcomeImage from "../../assets/images/welcomeImage.jpg";
 
+import { useAuth } from "react-oidc-context";
+
 import styles from "./StartPage.module.css";
 
 const StartPage = () => {
@@ -15,6 +17,13 @@ const StartPage = () => {
     useEffect(() => {
         localStorage.removeItem("reg_username");
     }, []);
+
+    const auth = useAuth();
+    console.log(auth.user?.access_token);
+
+    const handleLogin = () => {
+        auth.signinRedirect(); // редирект на Zitadel
+    };
 
     return (
         <>
@@ -29,7 +38,8 @@ const StartPage = () => {
                     </div>
                     <div className={styles.btnsBlock}>
                         <Button onClick={() => navigate("/registration/username")}>Create account</Button>
-                        <ButtonReverse onClick={() => navigate("/login")}>Log In</ButtonReverse>
+                        {/* <ButtonReverse onClick={() => navigate("/login")}>Log In</ButtonReverse> */}
+                        <ButtonReverse onClick={handleLogin}>Log In</ButtonReverse>
                     </div>
                 </Container>
             </div>
