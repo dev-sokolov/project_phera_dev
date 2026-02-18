@@ -22,7 +22,7 @@ const StartPage = () => {
     console.log(auth.user?.access_token);
 
     const handleLogin = () => {
-        auth.signinRedirect(); // редирект на Zitadel
+        auth.signinRedirect(); // redirect to Zitadel
     };
 
     return (
@@ -38,7 +38,6 @@ const StartPage = () => {
                     </div>
                     <div className={styles.btnsBlock}>
                         <Button onClick={() => navigate("/registration/username")}>Create account</Button>
-                        {/* <ButtonReverse onClick={() => navigate("/login")}>Log In</ButtonReverse> */}
                         <ButtonReverse onClick={handleLogin}>Log In</ButtonReverse>
                     </div>
                 </Container>
