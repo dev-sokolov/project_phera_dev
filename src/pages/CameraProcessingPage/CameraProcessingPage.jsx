@@ -77,7 +77,7 @@ const CameraProcessingPage = () => {
                 state: { result },
                 replace: true
             });
-        }, 9000);
+        }, 5000);
 
         return () => clearTimeout(timer);
     }, [result, navigate]);
